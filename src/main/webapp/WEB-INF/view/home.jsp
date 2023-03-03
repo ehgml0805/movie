@@ -7,6 +7,6 @@
 		<title></title>
 	</head>
 	<body>
-		커밋테스트
+		커밋테스트 성민
 	</body>
 </html>
