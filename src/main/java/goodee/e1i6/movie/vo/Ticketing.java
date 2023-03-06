@@ -8,6 +8,7 @@ public class Ticketing {
 	private String seatNumber;
 	private int scheduleKey;
 	private String customerId;
+	private int mycouponKey;
 	private String ticketingStatus;
 	private String createdate;
 }
