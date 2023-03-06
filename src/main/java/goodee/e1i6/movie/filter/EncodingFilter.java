@@ -1,4 +1,4 @@
-package goodee.e1i6.filter;
+package goodee.e1i6.movie.filter;
 
 public class EncodingFilter {
 
