@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.EventMapper">
+	<insert id="insertEvent" parameterType="goodee.e1i6.movie.vo.Event">
+		INSERT INTO event (
+			event_title
+			, event_content
+			, event_start_date
+			, event_end_date
+			, movie_key
+		) VALUES (
+			#{eventTitle}
+			,#{eventContent}
+			,#{eventStartDate}
+			,#{eventEndDate}
+			,#{movieKey}
+		)
+	</insert>
+</mapper>
