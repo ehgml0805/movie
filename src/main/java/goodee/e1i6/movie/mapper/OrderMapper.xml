@@ -1,3 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="goodee.e1i6.movie.mapper.OrderMapper"></mapper>
+<mapper namespace="goodee.e1i6.movie.mapper.OrderMapper">
+	<insert id="insertCart" parameterType="goodee.e1i6.movie.vo.Cart">
+		INSERT INTO cart(customer_id,, snack_key, cart_quantity)VAULES(#{customerId}, #{snackKey}, #{cartQuantity})
+	</insert>
+	<select id="selectCartListById" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String">
+		SELECT 
+			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
+		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
+		WHERE c.customer_id= #{customerId}
+		ORDER BY createdate ASC
+	</select>
+	<select id="selectCartListBySelect" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String" >
+		SELECT 
+			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
+		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
+		WHERE c.customer_id= #{customerId} AND select = 1
+		ORDER BY createdate ASC
+	</select>
+	<insert id="insertOrdersByCart" parameterType="goodee.e1i6.movie.vo.Cart">
+		<selectKey resultType="int" 
+			keyProperty="orderKey" keyColumn="order_key" order="AFTER">
+			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		INSERT INTO order(snack_key, customer_id, order_price) VALUES (#{snackKey}, #{customerId}, #{cartQuantity*snackPrice}, #{cartQuantity})
+	</insert>
+	<insert id="insertTotalOrder" parameterType="goodee.e1i6.movie.vo.TotalOrder">
+		INSERT INTO totalOrder(createdate, total_price, customer_id, mycoupon_key) VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
+	</insert>
+	<delete id="deleteCartById" parameterType="java.lang.String">
+		DELETE FROM cart WHERE customer_id = #{customerId} AND select= 1
+	</delete>
+	<delete id="deleteCartOne" parameterType="goodee.e1i6.movie.vo.Cart">
+		DELETE FROM cart WHERE customer_id = #{customerId} AND snack_key= #{snackKey}
+	</delete>
+	
+	<select id="selectSumGoodsPrice" resultType="int" parameterType="java.lang.String">
+		SELECT sum(s.snack_price*c.cart_quantity) sum FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key WHERE c.customer_id= #{customerId} AND select= 1
+	</select>
+	<select id="selectOrderListById" resultType="map" parameterType="java.lang.String">
+		SELECT
+			o.order_price orderPrice, o.order_state orderState, o.order_quantity orderQuantity, 
+			s.snack_name snackName, i.file_name snackFileName, i.file_type snackFileType, 
+			c.order_key orderKey, c.data_key dataKey, c.file_name fileName, c.file_type fileType, c.active active
+		FROM order o INNER JOIN snack s ON o.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snackconfirm_code c ON c.order_key = o.order_key
+		WHERE o.customer_id= #{customerId} 
+		ORDER BY o.createdate DESC
+	</select>
+	<insert id="insertOrderByDir" parameterType="goodee.e1i6.movie.vo.Order">
+		<selectKey resultType="int" 
+			keyProperty="orderKey" keyColumn="order_key" order="AFTER">
+			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		INSERT INTO order(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{orderPrice}, #{orderQuantity})
+	</insert>
+	<update id="updateSelectAll" parameterType="java.lang.String">
+		UPDATE cart SET select = 1 where customer_id = #{customerId}
+	</update>
+	<update id="updateSelectOne" parameterType="goodee.e1i6.movie.vo.Cart">
+		UPDATE cart SET select = #{select} WHERE customer_id = #{customerId} AND snack_key = #{snackKey}
+	</update>	
+	<select id="selectCartCount" resultType="int" parameterType="java.lang.String">
+		SELECT count(*) FROM cart WHERE customer_id=#{customerId}
+	</select>
+	<insert id="insertSnackConfirm" parameterType="goodee.e1i6.movie.vo.SnackconfirmCode">
+		INSERT INTO snackconfirm_code(data_key, file_name, file_type, file_size, order_key) VALUES (#{dataKey}, #{fileName}, #{fileType}, #{fileSize}, #{orderKey})
+	</insert>
+	<update id="updateSnackConfirm" parameterType="goodee.e1i6.movie.vo.SnackconfirmCode">
+		UPDATE snackconfirm_code SET active=#{active} WHERE data_key = #{dataKey}
+	</update>
+	<select id="selectTotalOrderById" resultType="goodee.e1i6.movie.vo.TotalOrder" parameterType="java.lang.String">
+		SELECT t.total_price totalPrice, t.createdate createdate, c.coupon_name couponName, c.coupon_sale_price couponSalePrice 
+		FROM total_order t INNER JOIN mycoupon m ON t.mycoupon_key= m.mycoupon_key INNER JOIN coupon c ON c.coupon_key = m.coupon_key
+		WHERE t.customerId=#{customerId}
+	</select>
+	
+	
+</mapper>

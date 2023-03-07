@@ -9,4 +9,10 @@ public class Cart {
 	private int snackKey;
 	private int cartQuantity;
 	private String createdate;
+	private String snackName;
+	private String fileName;
+	private String fileType;
+	private int snackPrice;
+	private String soldOut;
+	private int select;
 }

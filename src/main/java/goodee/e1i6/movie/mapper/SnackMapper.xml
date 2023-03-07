@@ -42,6 +42,11 @@
  		INSERT INTO snack_img(snack_key, file_name, file_type, file_size, origin_name)VALUES(#{snackKey}, #{fileName}, #{fileType}, #{fileSize}, #{originName})
  	</insert>
  	<insert id="insertSnack" parameterType="goodee.e1i6.movie.vo.Snack">
+ 		<selectKey resultType="int" 
+			keyProperty="snackKey" keyColumn="snack_key" order="AFTER">
+			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
  		INSERT INTO snack(snack_name, snack_price, snack_category_key, snack_content)VALUES(#{snackName}, #{snackPrice}, #{snackCategoryKey}, #{snackContent})
  	</insert>
  	<select id="selectCategory" resultType="goodee.e1i6.movie.vo.SnackCategory">

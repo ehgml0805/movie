@@ -8,4 +8,6 @@ public class TotalOrder {
 	private int totalPrice;
 	private String customerId;
 	private int mycouponKey;
+	private String couponName;
+	private int couponSalePrice;
 }
