@@ -63,7 +63,7 @@ public class LoginController {
 			return "customer/addCustoemr";
 			
 		}
-		return "redirect:/login/addCustomer";
+		return "redirect:/login/loginCustomer";
 		
 		
 	}

@@ -10,7 +10,7 @@ public class Customer {
 	private String customerAddress;
 	private String customerBirthday;
 	private String customerGender;
-	private int customerPhone;
+	private String customerPhone;
 	private int customerPoint;
 	private String customerEmail;
 	private String blacklist;

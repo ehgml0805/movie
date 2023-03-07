@@ -33,7 +33,7 @@
 			<tr>	
 				<th>customerPw</th>
 				<td>
-					<input type ="text" id ="customerPw" name="customerPw">
+					<input type ="password" id ="customerPw" name="customerPw">
 				</td>
 			</tr>
 			<tr>	
@@ -51,8 +51,8 @@
 			<tr>	
 				<th>customerGender</th>
 				<td>
-					<input type ="radio" id ="customerGender" name="customerGender" value="M" checked>
-					<input type ="radio" id ="customerGender" name="customerGender" value="W" >
+					<input type ="radio" id ="customerGender" name="customerGender" value="M" checked>남자
+					<input type ="radio" id ="customerGender" name="customerGender" value="F" >여자
 				</td>
 			</tr>
 			<tr>	
@@ -69,7 +69,7 @@
 				<th>customerEmail</th>
 				<td>
 					<input type ="email" id ="customerEmail" name="customerEmail" 
-						 pattern=".+@globex\.com" size="30" required>
+						 size="30" required>
 				</td>
 			</tr>
 			

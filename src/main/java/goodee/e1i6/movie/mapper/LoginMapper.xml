@@ -24,11 +24,11 @@
 	<insert id="insertCustomer"
 		parameterType ="goodee.e1i6.movie.vo.Customer">
 		INSERT INTO customer 
-			(customer_id, customer_name, customer_pw, customer_address
-			, customer_birthday, customer_gender, customer_phone, customer_email)
+			(customer_id, customer_pw, customer_name, customer_address
+			, customer_birthday, customer_gender, customer_phone, customer_email, last_login, createdate)
 			
-		VALUES (#{customerId}, #{customerName}, PASSWORD(#{customerPw}), #{customerAddress}
-			, #{customerBirthday}, #{customerGender}, #{customerPhone}, #{customerEmail} )
+		VALUES (#{customerId}, PASSWORD(#{customerPw}), #{customerName},  #{customerAddress}
+			, #{customerBirthday}, #{customerGender}, #{customerPhone}, #{customerEmail}, NOW(), NOW())
 					
 	</insert>
 	
