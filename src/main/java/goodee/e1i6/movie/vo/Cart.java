@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Cart {
-	private int cartKey;
+	
 	private String customerId;
 	private int snackKey;
-	private int count;
+	private int cartQuantity;
 	private String createdate;
 }

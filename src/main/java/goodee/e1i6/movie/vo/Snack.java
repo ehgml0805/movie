@@ -12,4 +12,7 @@ public class Snack {
 	private int snackSales;
 	private String soldOut;
 	private String createdate;
+	private String fileName;
+	private String fileType;
+	private String categoryContent;
 }

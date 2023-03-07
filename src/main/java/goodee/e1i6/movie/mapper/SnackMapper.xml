@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.SnackMapper">
+	<select id="selectSnackListByCategory" resultType="goodee.e1i6.movie.vo.Snack" parameterType="int">
+		SELECT 
+			s.snack_name snackName, i.file_name fileName, i.file_type fileType, c.category_content categoryContent, s.snack_price snackPrice, s.snack_key snackKey, s.sold_out soldOut
+		FROM snack s INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
+		WHERE s.snack_category_key = #{categoryNo}
+ 	</select>
+ 	<select id="selectSnackByHit" resultType="goodee.e1i6.movie.vo.Snack">
+		SELECT 
+			s.snack_name snackName, i.file_name fileName, i.file_type fileType, c.category_content categoryContent, s.snack_price snackPrice, s.snack_key snackKey, s.sold_out soldOut
+		FROM snack s INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
+		ORDER BY s.snack_sales DESC LIMIT 0,4}
+ 	</select>
+ 	<select id="selectSnackBySearch" resultType="goodee.e1i6.movie.vo.Snack" parameterType="java.lang.String">
+		SELECT 
+			s.snack_name snackName, i.file_name fileName, i.file_type fileType, c.category_content categoryContent, s.snack_price snackPrice, s.snack_key snackKey, s.sold_out soldOut
+		FROM snack s INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
+		WHERE s.snack_name LIKE %#{word}% ORDER BY s.snack_sales}
+ 	</select>
+ 	
+ 	<select  id="selectSnackOne" resultType="goodee.e1i6.movie.vo.Snack" parameterType="int">
+ 		SELECT
+ 			s.snack_name snackName, i.file_name fileName, i.file_type fileType, c.category_content categoryContent, s.snack_price snackPrice, s.snack_key snackKey, s.sold_out soldOut,
+ 			s.snack_content snackContent
+ 		FROM snack s INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
+ 		WHERE s.snack_key = #{snackKey}
+ 	</select>
+ 	<update id="updateSnack" parameterType="goodee.e1i6.movie.vo.Snack">
+ 		UPDATE snack SET
+ 			 snack_name=#{snackName}, snack_price=#{snackPrice}, snack_category_key=#{snackCategoryKey}, snack_content=#{snackContent}, sold_out=#{soldOut}
+ 		WHERE snack_key = #{snackKey}	 
+ 	</update>
+ 	<delete id="deleteSnack" parameterType="int">
+ 		DELETE FROM snack WHERE snack_key = #{snackKey}
+ 	</delete>
+ 	<delete id="deleteSnackImg" parameterType="int">
+ 		DELETE FROM snack_img WHERE snack_key = #{snackKey} 
+ 	</delete>
+ 	<insert id="insertSnackImg" parameterType="goodee.e1i6.movie.vo.SnackImg">
+ 		INSERT INTO snack_img(snack_key, file_name, file_type, file_size, origin_name)VALUES(#{snackKey}, #{fileName}, #{fileType}, #{fileSize}, #{originName})
+ 	</insert>
+ 	<insert id="insertSnack" parameterType="goodee.e1i6.movie.vo.Snack">
+ 		INSERT INTO snack(snack_name, snack_price, snack_category_key, snack_content)VALUES(#{snackName}, #{snackPrice}, #{snackCategoryKey}, #{snackContent})
+ 	</insert>
+ 	<select id="selectCategory" resultType="goodee.e1i6.movie.vo.SnackCategory">
+ 		SELECT snack_category_key snackCategoryKey, category_content categoryContent
+ 		FROM snack_category
+ 	</select>
+
+
+</mapper>
