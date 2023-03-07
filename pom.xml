@@ -88,6 +88,11 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>goodee.gdj58</groupId>
+			<artifactId>online</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

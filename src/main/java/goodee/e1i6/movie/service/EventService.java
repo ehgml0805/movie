@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import goodee.e1i6.movie.mapper.EventCommentMapper;
 import goodee.e1i6.movie.mapper.EventImgMapper;
 import goodee.e1i6.movie.mapper.EventMapper;
 import goodee.e1i6.movie.vo.Event;
+import goodee.e1i6.movie.vo.EventComment;
 import goodee.e1i6.movie.vo.EventForm;
 import goodee.e1i6.movie.vo.EventImg;
 
@@ -23,6 +25,29 @@ import goodee.e1i6.movie.vo.EventImg;
 public class EventService {
 	@Autowired private EventMapper eventMapper;
 	@Autowired private EventImgMapper eventImgMapper;
+	@Autowired private EventCommentMapper eventCommentMapper;
+	
+	// addEventComment
+	public int addEventComment(EventComment eventComment) {
+		return eventCommentMapper.insertEventComment(eventComment);
+	}
+	
+	// EventCommentList
+	public List<EventComment> getEventCommentList(int currentPage, int rowPerPage){
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		
+		return eventCommentMapper.selectEventCommentList(paramMap);
+	}
+	
+	// EventOne
+	public HashMap<String, Object> eventOne (Event event){
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("eventKey", event.getEventKey());
+		return eventMapper.eventOne(paramMap);
+	}
 	
 	// EventCount
 	public int eventCount(String searchWord, int currentPage, int rowPerPage) {

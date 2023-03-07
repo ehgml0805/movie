@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.NoticeMapper">
+	
+	<!-- 공지사항 이미지 등록 -->
+	<insert id="insertNoticeImg" parameterType="goodee.e1i6.movie.vo.NoticeImg">
+		INSERT INTO notice_img (
+			notice_key
+			, origin_name
+			, file_type
+			, file_size
+			, file_name
+		) VALUES (
+			#{noticeKey}
+			#{originName}
+			#{fileType}
+			#{fileSize}
+			#{fileName}
+		)
+	</insert>
+	
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="goodee.e1i6.movie.vo.Notice">
+		<selectKey keyProperty="noticeKey" keyColumn="notice_key" order="AFTER" resultType="int">
+			<!-- 마지막에 입력된 auto_increment값을 반환 -->
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO notice (
+			notice_title
+			, notice_content
+		) VALUES (
+			#{noticeTitle}
+			#{noticeContent}
+		)
+	</insert>
+	
+</mapper>

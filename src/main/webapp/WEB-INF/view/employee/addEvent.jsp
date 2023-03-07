@@ -9,6 +9,7 @@
 <body>
 	<h1>이벤트 추가</h1>
 	<form method="post" action="${pageContext.request.contextPath}/employee/event/addEvent" enctype="multipart/form-data">
+		<input type="hidden" name="movieKey" value="">
 		<div>
 			이벤트 제목 : <input type="text" name="eventTitle">
 		</div>
