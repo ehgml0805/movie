@@ -17,6 +17,7 @@
 			, file_name fileName
 		FROM movie m
 		JOIN still_cut s ON m.movie_key = s.movie_key
+		ORDER BY reservation_rate DESC
 	</select>
 	
 	<!-- 영화 등록 -->

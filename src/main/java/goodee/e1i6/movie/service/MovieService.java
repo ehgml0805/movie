@@ -26,7 +26,6 @@ public class MovieService {
 	
 	// 영화 목록 출력
 	public ArrayList<Map<String, Object>> getMovieList() {
-		addMovie();
 		return movieMapper.selectMovieList();
 	}
 	
@@ -49,7 +48,7 @@ public class MovieService {
         for(Element element: elements.select(".box-image a:not(span.screentype a)")) {
         	movieDetailLink.add("http://www.cgv.co.kr" + element.attr("href"));
         }
-        log.debug(TeamColor.CHOI + "영화상세링크 : " + movieDetailLink);
+        // log.debug(TeamColor.CHOI + "영화상세링크 : " + movieDetailLink);
         
         // DB에 저장할 영화 상세 정보
         int row = 0;
@@ -63,10 +62,10 @@ public class MovieService {
         	}
         	
         	String[] reservationRate_ = doc.select(".percent span").text().split("%"); 
-        	log.debug(TeamColor.CHOI + reservationRate_[0]);
+        	// log.debug(TeamColor.CHOI + reservationRate_[0]);
         	
         	String[] movieInfo_ = doc.select(".spec").first().text().split("개봉 : "); 
-        	log.debug(TeamColor.CHOI + movieInfo_[1].trim()); // 기본 : 12, 122분, 일본 개봉 : 2023.03.08 
+        	// log.debug(TeamColor.CHOI + movieInfo_[1].trim()); // 기본 : 12, 122분, 일본 개봉 : 2023.03.08 
         	String[] movieKey_ = url.split("=");
         	
         	int movieKey = Integer.parseInt(movieKey_[1]);
@@ -77,6 +76,7 @@ public class MovieService {
         	String reservationRate = reservationRate_[0]; // 00.0
         	String openingdate = movieInfo_[1].trim(); // yyyy.mm.dd
         	String movieImageLink = doc.select(".thumb-image img").attr("src"); // 이미지 링크
+        	Elements movieStillCutLink_ = doc.select(".slider img");
         	// log.debug(TeamColor.CHOI + movieTitle + movieImage + movieInfo + movieSummary + grade + reservationRate + openingdate);
         	
         	// Movie VO
@@ -94,15 +94,32 @@ public class MovieService {
         	stillCut.setMovieKey(movieKey);
         	stillCut.setOriginName(movieImageLink);
         	stillCut.setFileName(movieImageLink);
+        	stillCut.setPoster("Y");
         	stillCut.setFileType("");
         	stillCut.setFileSize("");
+        	
+        	ArrayList<StillCut> stillCutList = new ArrayList<>();
+        	for(Element element : movieStillCutLink_) {
+        		log.debug(TeamColor.CHOI + "스틸컷링크 : " + element.attr("data-src"));
+        		StillCut stillCuts = new StillCut();
+            	stillCuts.setMovieKey(movieKey);
+            	stillCuts.setOriginName(element.attr("data-src"));
+            	stillCuts.setFileName(element.attr("data-src"));
+            	stillCut.setPoster("N");
+            	stillCuts.setFileType("");
+            	stillCuts.setFileSize("");
+            	stillCutList.add(stillCuts);
+        	}
         	
         	// 크롤링 영화 데이터와 DB데이터 중복 검사
         	row = movieMapper.selectMovieCk(movieKey); // 1 중복 OR 0 중복아님
         	if(row != 1) { // 중복이 아니면 영화 등록
         		row = movieMapper.insertMovie(movie); // 1 성공 OR 0 실패
         		if(row != 0) {
-        			movieMapper.insertStillCut(stillCut); // 1 성공 OR 0 실패        			
+        			movieMapper.insertStillCut(stillCut); // 포스터 1장, 1 성공 OR 0 실패      
+        			for(StillCut s : stillCutList) {
+        				movieMapper.insertStillCut(s); // 스틸컷 여러장, 1 성공 OR 0 실패      
+        			}
         		}
         	}        	
         }
