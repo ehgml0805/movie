@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.EventImgMapper">
+	<insert id="insertEventImg" parameterType="goodee.e1i6.movie.vo.EventImg">
+		INSERT INTO eventImg (
+			event_key
+			, file_name
+			, file_type
+			, file_size
+			, origin_name
+			, createdate
+		) VALUES (
+			#{eventKey}
+			, #{fileName}
+			, #{fileType}
+			, #{fileSize}
+			, #{originName}
+			, now()
+		)
+	</insert>	
+</mapper>

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.EventMapper">
+	<select id="eventCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM event
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				event_title like CONCAT('%',#{searchWord},'%') 
+			</if>
+		</where>
+	</select>
+	
 	<insert id="insertEvent" parameterType="goodee.e1i6.movie.vo.Event">
 		INSERT INTO event (
 			event_title
@@ -16,4 +25,27 @@
 			,#{movieKey}
 		)
 	</insert>
+	
+	<select id="selectEventList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+			e.event_key eventKey
+			, e.event_title eventTitle
+			, e.event_content eventContent
+			, e.event_start_date eventStartDate
+			, e.event_end_date eventEndDate
+			, e.movie_key movieKey
+			, ei.file_name fileName
+			, ei.file_type fileType
+			, ei.file_size fileSize
+			, ei.origin_name originName
+		FROM event e INNER JOIN event_img ei
+		ON e.event_key = ei.event_key
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				event_title like CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
+		ORDER BY e.event_key DESC
+		LIMIT #{beginRow}, #{rowPerPage}	
+	</select>
 </mapper>
