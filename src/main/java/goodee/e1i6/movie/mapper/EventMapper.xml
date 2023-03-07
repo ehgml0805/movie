@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.EventMapper">
+	
+	<select id="eventOne" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT
+			e.event_key eventKey
+			, e.event_title eventTitle
+			, e.event_content eventContent
+			, e.event_start_date eventStartDate
+			, e.event_end_date eventEndDate
+			, e.movie_key movieKey
+			, ei.file_name fileName
+			, ei.file_type fileType
+			, ei.file_size fileSize
+			, ei.origin_name originName
+		FROM event e INNER JOIN event_img ei
+		ON e.event_key = ei.event_key
+		WHERE e.event_key = #{eventKey}
+	</select>
+
 	<select id="eventCount" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM event
 		<where>
@@ -11,6 +29,9 @@
 	</select>
 	
 	<insert id="insertEvent" parameterType="goodee.e1i6.movie.vo.Event">
+		<selectKey resultType="int" keyProperty="eventKey" order="AFTER">
+			select last_insert_id()
+		</selectKey>
 		INSERT INTO event (
 			event_title
 			, event_content
