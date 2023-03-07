@@ -16,6 +16,8 @@ public interface CouponMapper {
 		int insertCoupon(Coupon coupon);
 		//쿠폰 상세보기
 		Coupon selectCouponOne(int couponKey);
+		//쿠폰 마지막 페이징
+		int selectCount(int couponKey);
 		//모든 쿠폰 리스트 출력
 		List<Coupon> selectAllCouponList(Map<String, Object> paramMap);
 }
