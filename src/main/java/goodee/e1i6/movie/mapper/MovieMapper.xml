@@ -1,3 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="goodee.e1i6.movie.mapper.MovieMapper"></mapper>
+
+<mapper namespace="goodee.e1i6.movie.mapper.MovieMapper">
+	<!-- 영화 목록 -->
+	<select id="selectMovieList" resultType="java.util.Map">
+		SELECT 
+			m.movie_key movieKey
+			, movie_title movieTitle
+			, movie_info movieInfo
+			, movie_summary movieSummary
+			, grade
+			, reservation_rate reservationRate
+			, openingdate
+			, active
+			, poster
+			, file_name fileName
+		FROM movie m
+		JOIN still_cut s ON m.movie_key = s.movie_key
+	</select>
+	
+	<!-- 영화 등록 -->
+	<insert id="insertMovie" parameterType="goodee.e1i6.movie.vo.Movie">
+		INSERT INTO movie (
+			movie_key			
+			, movie_title
+			, movie_info
+			, movie_summary
+			, grade
+			, reservation_rate
+			, openingdate 
+		) VALUES (
+			#{movieKey}
+			, #{movieTitle}
+			, #{movieInfo}
+			, #{movieSummary}
+			, #{grade}
+			, #{reservationRate}
+			, #{openingdate}
+		)
+	</insert>
+	
+	<!-- 영화 중복 검사 -->
+	<select id="selectMovieCk" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM movie WHERE movie_key = #{movieKey}
+	</select>
+	
+	<!-- 영화 이미지 등록 -->
+	<insert id="insertStillCut" parameterType="java.util.Map">
+		INSERT INTO still_cut (
+			movie_key
+			, origin_name
+			, file_name
+			, file_type
+			, file_size
+		) VALUES (
+			#{movieKey}
+			, #{originName}
+			, #{fileName}
+			, #{fileType}
+			, #{fileSize}
+		)
+	</insert>
+</mapper>
