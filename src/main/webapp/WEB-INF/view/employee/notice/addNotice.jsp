@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>addNotice</title>
 </head>
 <body>
 	<h1>공지사항 등록</h1>
@@ -13,7 +13,7 @@
 			제목 : <input type="text" name="noticeTitle">
 		</div>
 		<div>
-			내용 : <textarea cols="5" rows="10" name="noticeContent"></textarea>
+			내용 : <textarea rows="5" cols="20" name="noticeContent"></textarea>
 		</div>
 		<div>
 			이미지 : <input type="file" name="img">

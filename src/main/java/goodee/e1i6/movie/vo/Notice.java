@@ -8,4 +8,5 @@ public class Notice {
 	private String noticeTitle;
 	private String noticeContent;
 	private String createdate;
+	private int num;
 }
