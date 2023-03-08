@@ -3,7 +3,7 @@
 <mapper namespace="goodee.e1i6.movie.mapper.EventCommentMapper">
 	
 	<select id="eventCommentCount" resultType="int">
-		SELECT COUNT(*) FROM eventComment
+		SELECT COUNT(*) FROM event_comment
 	</select>
 	
 	<insert id="insertEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">

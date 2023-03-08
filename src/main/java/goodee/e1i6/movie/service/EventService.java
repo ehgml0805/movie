@@ -15,17 +15,39 @@ import org.springframework.web.multipart.MultipartFile;
 import goodee.e1i6.movie.mapper.EventCommentMapper;
 import goodee.e1i6.movie.mapper.EventImgMapper;
 import goodee.e1i6.movie.mapper.EventMapper;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Event;
 import goodee.e1i6.movie.vo.EventComment;
 import goodee.e1i6.movie.vo.EventForm;
 import goodee.e1i6.movie.vo.EventImg;
+import goodee.e1i6.movie.vo.Movie;
+import goodee.e1i6.movie.vo.ScreeningSchedule;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class EventService {
 	@Autowired private EventMapper eventMapper;
 	@Autowired private EventImgMapper eventImgMapper;
 	@Autowired private EventCommentMapper eventCommentMapper;
+	
+	// eventSchedule
+	public List<ScreeningSchedule> getEventScheduleList() {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		return eventMapper.selectEventScheduleList(paramMap);
+	}
+	
+	// eventMovie
+	public List<Movie> getEventMovieList() {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		return eventMapper.selectEventMovieList(paramMap);
+	}
+	
+	// EventCommentCount
+	public int eventCommentCount() {
+		return eventCommentMapper.eventCommentCount();
+	}
 	
 	// addEventComment
 	public int addEventComment(EventComment eventComment) {
@@ -43,8 +65,8 @@ public class EventService {
 	}
 	
 	// EventOne
-	public HashMap<String, Object> eventOne (Event event){
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	public List<Event> getEventOne (Event event){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("eventKey", event.getEventKey());
 		return eventMapper.eventOne(paramMap);
 	}
@@ -65,9 +87,11 @@ public class EventService {
 		event.setEventContent(eventForm.getEventContent());
 		event.setEventStartDate(eventForm.getEventStartDate());;
 		event.setEventEndDate(eventForm.getEventEndDate());
+		event.setMovieKey(eventForm.getMovieKey());
 		
 		int row = eventMapper.insertEvent(event);
-	
+		log.debug(TeamColor.JSM + row + " <- eventMapper.insertEvent 실행결과 :");
+		
 		if(eventForm.getEventImgList().get(0).getSize() > 0 && row == 1) {
 			for(MultipartFile mf : eventForm.getEventImgList()) {
 				EventImg eventImg = new EventImg();
@@ -85,6 +109,7 @@ public class EventService {
 				eventImg.setFileName(fileName);
 				eventImg.setFileType(mf.getContentType());
 				eventImg.setFileSize(mf.getSize());
+				eventImg.setOriginName(originName);
 				eventImgMapper.insertEventImg(eventImg);		
 				try {
 					mf.transferTo(new File(path+fileName));

@@ -1,8 +1,5 @@
 package goodee.e1i6.movie.controller;
 
-import java.util.HashMap;
-
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,31 +12,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.service.EventService;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Event;
 import goodee.e1i6.movie.vo.EventForm;
+import goodee.e1i6.movie.vo.Movie;
+import goodee.e1i6.movie.vo.ScreeningSchedule;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class EventController {
 	@Autowired EventService eventService;
+	
 	// 이벤트 상세보기 + 이벤트 댓글
 	@GetMapping("/customer/event/eventOne")
 	public String eventOne(Model model, Event event) {
-		HashMap<String, Object> eventOne = eventService.eventOne(event);
-		log.debug(TeamColor.JSM + eventOne +" <- eventOne");
+		List<Event> eventOnelist = eventService.getEventOne(event);
+		log.debug(TeamColor.JSM + eventOnelist +" <- eventOnelist");
 		
-		model.addAttribute("eventOne", eventOne);
-		return "customer/eventOne";
+		int eventCommentCount = eventService.eventCommentCount();
+		log.debug(TeamColor.JSM + "eventCommentCount :" + eventCommentCount);
+		
+		List<ScreeningSchedule> eventScheduleList = eventService.getEventScheduleList();
+		log.debug(TeamColor.JSM + eventScheduleList + " <- eventScheduleList");
+		
+		model.addAttribute("eventOnelist", eventOnelist);
+		model.addAttribute("count", eventCommentCount);
+		model.addAttribute("eventScheduleList", eventScheduleList);
+		return "customer/event/eventOne";
 	}
 	
 	
 	// 이벤트 추가
 	@GetMapping("/employee/event/addEvent")
-	public String addEvent() {
-		return "employee/addEvent";
+	public String addEvent(Model model) {
+		List<Movie> list = eventService.getEventMovieList();
+		log.debug(TeamColor.JSM + list + " <- movieList");
+		
+		model.addAttribute("list", list);
+		return "employee/event/addEvent";
 	}
 	
 	@PostMapping("/employee/event/addEvent")
@@ -56,7 +68,7 @@ public class EventController {
 		}
 		
 		eventService.addEvent(eventForm, path);
-		return "redirect:/employee/event/eventList";
+		return "redirect:/customer/event/eventList";
 	}
 	
 	// 이벤트 리스트
@@ -84,6 +96,6 @@ public class EventController {
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("endPage", endPage);
 		
-		return "customer/eventList";
+		return "customer/event/eventList";
 	}
 }

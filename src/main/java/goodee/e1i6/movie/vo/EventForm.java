@@ -12,5 +12,6 @@ public class EventForm {
 	private String eventContent;
 	private String eventStartDate;
 	private String eventEndDate;
+	private int movieKey;
 	private List<MultipartFile> eventImgList;
 }
