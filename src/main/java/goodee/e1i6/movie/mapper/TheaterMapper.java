@@ -9,9 +9,10 @@ import goodee.e1i6.movie.vo.Theater;
 
 @Mapper
 public interface TheaterMapper {
+	int selectCheckedTheaterForDelete(int theaterKey);
 	int deleteTheater(int theaterKey);
 	int updateTheater(Theater theater);
-	int insertTheater(String theaterName);
+	int insertTheater(Theater theater);
 	Theater selectTheaterOne(int theaterKey);
-	List<Theater> selectTheaterList(Map<String, Object> paramMap);
+	List<Theater> selectTheaterList();
 }

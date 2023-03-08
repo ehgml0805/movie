@@ -1,3 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="goodee.e1i6.movie.mapper.TheaterMapper"></mapper>
+<mapper namespace="goodee.e1i6.movie.mapper.TheaterMapper">
+	<!-- 극장 출력(이름순) -->
+	<select id="selectTheaterList" resultType="goodee.e1i6.movie.vo.Theater">
+		SELECT 
+			theater_key theaterKey
+			, theater_name theaterName
+			, theater_info theaterInfo
+			, theater_address theaterAddress
+			, theater_ticketing_info theaterTicketingInfo
+			, createdate
+		FROM 
+			theater
+		ORDER BY theater_name
+	</select>
+	
+	<!-- 극장 상세 정보 -->
+	<select id="selectTheaterOne" parameterType="int" resultType="goodee.e1i6.movie.vo.Theater">
+		SELECT 
+			theater_key theaterKey
+			, theater_name theaterName
+			, theater_info theaterInfo
+			, theater_address theaterAddress
+			, theater_ticketing_info theaterTicketingInfo
+			, createdate
+		FROM 
+			theater
+		WHERE 
+			theater_key = #{theaterKey}
+	</select>
+	
+	<!-- 극장 등록 -->
+	<insert id="insertTheater" parameterType="goodee.e1i6.movie.vo.Theater">
+		INSERT INTO theater (
+			theater_name
+			, theater_info
+			, theater_address
+			, theater_ticketing_info
+		) VALUES (
+			#{theaterName}
+			, #{theaterInfo}
+			, #{theaterAddress}
+			, #{theaterTicketingInfo}
+		)		
+	</insert>
+	
+	<!-- 극장 수정 -->
+	<update id="updateTheater" parameterType="goodee.e1i6.movie.vo.Theater">
+		UPDATE theater 
+		SET 
+			theater_name = #{theaterName}
+			, theater_info = #{theaterInfo}
+			, theater_address = #{theaterAddress}
+			, theater_ticketing_info = #{theaterTicketingInfo}
+		WHERE theater_key = #{theaterKey}
+	</update>
+	
+	<!-- 극장 삭제 -->
+	<delete id="deleteTheater" parameterType="int">
+		DELETE FROM theater WHERE theater_key = #{theater_key}
+	</delete>
+	
+	<!-- 극장 삭제 검사 -->
+	<select id="selectCheckedTheaterForDelete" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			theater t
+		JOIN screenroom s ON t.theater_key = s.theater_key
+		LEFT JOIN question q ON t.theater_key = q.theater_key
+		WHERE t.theater_key = #{theaterKey}
+	</select>
+</mapper>
