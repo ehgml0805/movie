@@ -2,7 +2,9 @@ package goodee.e1i6.movie.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -267,7 +269,7 @@ public class MovieService {
 	}
 	
 	// 영화 크롤링 DB 저장
-	public void addMovieByCrawling() {
+	public void addMovieByCrawling() throws Exception {
 		String url = "http://www.cgv.co.kr/movies/?lt=1&ft=0";
         Document doc = null;    
         
@@ -311,7 +313,14 @@ public class MovieService {
         	String movieSummary = doc.select(".sect-story-movie").text();
         	String grade = doc.select(".thumb-image i").first().text(); // 18, 15, 12, ALL
         	String reservationRate = reservationRate_[0]; // 00.0
-        	String openingdate = movieInfo_[1].trim(); // yyyy.mm.dd
+        	String openingdate_ = movieInfo_[1].trim(); // yyyy.mm.dd
+        	// 날짜 포맷 형식 변환해주기
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.mm.dd");
+        	Date format1 = sdf.parse(openingdate_);
+        	
+        	sdf.applyPattern("yyyy-mm-dd");
+        	String openingdate = sdf.format(format1); // -> yyyy-mm-dd
+        	
         	String movieImageLink = doc.select(".thumb-image img").attr("src"); // 이미지 링크
         	Elements movieStillCutLink_ = doc.select(".slider img");
         	// log.debug(TeamColor.CHOI + movieTitle + movieImage + movieInfo + movieSummary + grade + reservationRate + openingdate);
