@@ -10,6 +10,6 @@ public class StillCut {
 	private String originName;
 	private String fileName;
 	private String fileType;
-	private String fileSize;
+	private long fileSize;
 	private String createdate;
 }

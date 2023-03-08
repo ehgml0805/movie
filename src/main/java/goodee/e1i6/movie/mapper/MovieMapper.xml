@@ -2,10 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goodee.e1i6.movie.mapper.MovieMapper">
-	<!-- 영화 목록 -->
-	<select id="selectMovieList" resultType="java.util.Map">
+	
+	<!-- 영화 삭제 -->
+	<delete id="deleteMovie" parameterType="int">
+		DELETE FROM movie
+		WHERE movie_key = #{movieKey}
+	</delete>
+
+	<!-- 옇화 수정 -->
+	<update id="updateMovie" parameterType="goodee.e1i6.movie.vo.Movie">
+		UPDATE movie
+		SET  movie_title = #{movieTitle}
+		, movie_info = #{movieInfo}
+		, movie_summary = #{movieSummary}
+		, grade = #{grade}
+		, openingdate = #{openingdate}
+		, active = #{active}
+		WHERE movie_key = #{movieKey}
+	</update>
+	
+	<!-- 영화 상세정보 -->
+	<select id="selectMovieOne" parameterType="int" resultType="java.util.Map">
 		SELECT 
 			m.movie_key movieKey
+			, movie_code movieCode
 			, movie_title movieTitle
 			, movie_info movieInfo
 			, movie_summary movieSummary
@@ -14,16 +34,64 @@
 			, openingdate
 			, active
 			, poster
-			, file_name fileName
+			, origin_name originName
+		FROM movie m
+		JOIN still_cut s ON m.movie_key = s.movie_key
+		WHERE m.movie_key = #{movieKey}
+	</select>
+
+	<!-- 영화 목록 -->
+	<select id="selectMovieList" resultType="java.util.Map">
+		SELECT 
+			m.movie_key movieKey
+			, movie_code movieCode
+			, movie_title movieTitle
+			, movie_info movieInfo
+			, movie_summary movieSummary
+			, grade
+			, reservation_rate reservationRate
+			, openingdate
+			, active
+			, poster
+			, origin_name originName
 		FROM movie m
 		JOIN still_cut s ON m.movie_key = s.movie_key
 		ORDER BY reservation_rate DESC
 	</select>
 	
 	<!-- 영화 등록 -->
+	<!-- insert 실행 후 키값이 입력값에 참조가 발생하여야 한다 -->	
 	<insert id="insertMovie" parameterType="goodee.e1i6.movie.vo.Movie">
+		<!-- mariadb에서는 insert전/후 auto_increment값을 입력된 매개변수로 참조 가능 -->
+		<selectKey resultType="int" 
+			keyProperty="movieKey" keyColumn="movie_key" order="AFTER">
+			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		INSERT INTO movie (			
+			movie_title
+			, movie_info
+			, movie_summary
+			, grade
+			, openingdate 
+		) VALUES (
+			#{movieTitle}
+			, #{movieInfo}
+			, #{movieSummary}
+			, #{grade}
+			, #{openingdate}
+		)
+	</insert>
+	
+	<insert id="insertMovieByCrawling" parameterType="goodee.e1i6.movie.vo.Movie">
+		<!-- mariadb에서는 insert전/후 auto_increment값을 입력된 매개변수로 참조 가능 -->
+		<selectKey resultType="int" 
+			keyProperty="movieKey" keyColumn="movie_key" order="AFTER">
+			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
 		INSERT INTO movie (
-			movie_key			
+			movie_code			
 			, movie_title
 			, movie_info
 			, movie_summary
@@ -31,7 +99,7 @@
 			, reservation_rate
 			, openingdate 
 		) VALUES (
-			#{movieKey}
+			#{movieCode}
 			, #{movieTitle}
 			, #{movieInfo}
 			, #{movieSummary}
@@ -43,23 +111,6 @@
 	
 	<!-- 영화 중복 검사 -->
 	<select id="selectMovieCk" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM movie WHERE movie_key = #{movieKey}
+		SELECT COUNT(*) FROM movie WHERE movie_code = #{movieCode}
 	</select>
-	
-	<!-- 영화 이미지 등록 -->
-	<insert id="insertStillCut" parameterType="java.util.Map">
-		INSERT INTO still_cut (
-			movie_key
-			, origin_name
-			, file_name
-			, file_type
-			, file_size
-		) VALUES (
-			#{movieKey}
-			, #{originName}
-			, #{fileName}
-			, #{fileType}
-			, #{fileSize}
-		)
-	</insert>
 </mapper>

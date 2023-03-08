@@ -6,16 +6,29 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import goodee.e1i6.movie.vo.Movie;
-import goodee.e1i6.movie.vo.StillCut;
 
 @Mapper
 public interface MovieMapper {
+	
+	// 영화 삭제
+	int deleteMovie(int movieKey);
+	
+	// 영화 수정
+	int updateMovie(Movie movie);
+	
+	// 영화 상세정보
+	ArrayList<Map<String, Object>> selectMovieOne(int movieKey);
+	
 	// 영화 목록
 	ArrayList<Map<String, Object>> selectMovieList();
+	
 	// 영화 등록
 	int insertMovie(Movie movie);
+	
+	// 영화 크롤링을 통한 등록
+	int insertMovieByCrawling(Movie movie);
+	
 	// 영화 중복 검사
 	int selectMovieCk(int movieKey);
-	// 영화 이미지 등록
-	int insertStillCut(StillCut stillCut);
+	
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Movie {
 	private int movieKey;
+	private int movieCode;
 	private String movieTitle;
 	private String movieInfo; // 영화 정보(감독,배우,장르,러닝타임...)
 	private String movieSummary; // 영화 줄거리
