@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EventService {
 	@Autowired private EventMapper eventMapper;
 	@Autowired private EventImgMapper eventImgMapper;
-	@Autowired private EventCommentMapper eventCommentMapper;
+	@Autowired private EventCommentMapper eventCommentMapper; 
 	
 	// eventSchedule
 	public List<ScreeningSchedule> getEventScheduleList() {
@@ -45,8 +45,17 @@ public class EventService {
 	}
 	
 	// EventCommentCount
-	public int eventCommentCount() {
-		return eventCommentMapper.eventCommentCount();
+	public int eventCommentCount(int eventKey) {
+		return eventCommentMapper.eventCommentCount(eventKey);
+	}
+	// removeComment
+	public int removeComment(int eventCommentKey) {
+		return eventCommentMapper.deleteEventComment(eventCommentKey);
+	}
+	
+	// modifyComment
+	public int modifyEventComment(EventComment eventComment) {
+		return eventCommentMapper.updateEventComment(eventComment);
 	}
 	
 	// addEventComment
@@ -55,11 +64,12 @@ public class EventService {
 	}
 	
 	// EventCommentList
-	public List<EventComment> getEventCommentList(int currentPage, int rowPerPage){
+	public List<EventComment> getEventCommentList(int currentPage, int rowPerPage, int eventKey){
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("eventKey", eventKey);
 		
 		return eventCommentMapper.selectEventCommentList(paramMap);
 	}

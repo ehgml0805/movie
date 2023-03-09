@@ -5,20 +5,66 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+ 	const eventKey = ${eventKey};
+ 	let customerId = '${customerId}';
+	$(document).ready(function(){
+		
+		function loadAddEventComment(){
+			$.ajax({
+				url: "${pageContext.request.contextPath}/customer/event/addEventComment",
+				method: "GET",
+			  	data: {
+				    "eventKey": eventKey,
+				    "customerId": customerId
+	  			},	
+				success: function(data){
+					$("#addComment").html(data);
+				},
+				error: function(){
+					alert(" 이벤트 댓글 작성 폼 불러오기 실패");
+				}
+			});
+		}
+		
+		function loadEventCommentList(){
+			$.ajax({
+				url: "${pageContext.request.contextPath}/customer/event/eventCommentList",
+				method: "GET",				
+			  	data: {
+					    "eventKey": eventKey
+		  		},				
+				success: function(data){
+					$("#eventCommentList").html(data);
+				},			
+				error: function(){
+					alert("이벤트 댓글 리스트 불러오기 실패");
+				}
+			});
+		}	
+		
+	    loadAddEventComment();
+	    loadEventCommentList();
+	});
+</script>
 </head>
 <body>
-	<c:forEach var="e" items="${eventOnelist}" begin="0" end="0">
+	<c:forEach var="e" items="${eventOneList}" begin="0" end="0">
 		<h1>${e.eventTitle}</h1>
 		<div>
 			이벤트 기간 ${e.eventStartDate} ~ ${e.eventEndDate}
 		</div>
 	</c:forEach>
-	<c:forEach var="e" items="${eventOnelist}">
+	<c:forEach var="e" items="${eventOneList}">
 		<div>
 			<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="500" height="500">
 		</div>
 	</c:forEach>
-	<!-- 이벤트 댓글 창 -->
-	<h3>댓글 (${count})</h3>
+	<!-- 이벤트 댓글 등록 폼 -->
+	<div id="addComment"></div>
+	
+	<!-- 이빈트 댓글 리스트 -->
+	<div id="eventCommentList"></div>
 </body>
 </html>

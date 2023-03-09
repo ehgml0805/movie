@@ -2,9 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.EventCommentMapper">
 	
-	<select id="eventCommentCount" resultType="int">
-		SELECT COUNT(*) FROM event_comment
+	<select id="eventCommentCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) 
+		FROM event_comment
+		WHERE event_key = #{eventKey}
 	</select>
+	
+	<delete id="deleteEventComment">
+		DELETE FROM event_comment
+		WHERE event_comment_key = #{eventCommentKey}
+	</delete>
+	<update id="updateEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">
+		UPDATE event_comment
+		SET event_comment_content = #{eventCommentContent}
+			, createdate = now()
+		WHERE event_comment_key = #{eventCommentKey}	
+	</update>
 	
 	<insert id="insertEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">
 		INSERT INTO event_comment (
@@ -31,12 +44,14 @@
 			ec.event_comment_key eventCommentKey
 			, ec.event_comment_content eventCommentContent
 			, ec.createdate createdate
+			, ec.event_key eventKey
 			, c.customer_id customerId
 			, ci.file_name fileName
 		FROM event_comment ec INNER JOIN customer c
 		ON ec.customer_id = c.customer_id
 		INNER JOIN customer_img ci
 		ON ci.customer_id = c.customer_id
+		WHERE ec.event_key = #{eventKey}
 		ORDER BY ec.createdate DESC
 	</select>
 </mapper>

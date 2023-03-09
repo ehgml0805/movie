@@ -89,7 +89,7 @@
 				event_title like CONCAT('%',#{searchWord},'%')
 			</if>
 		</where>
-		GROUP BY e.event_title
+		GROUP BY e.event_key
 		ORDER BY e.event_key DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 			
