@@ -14,6 +14,7 @@
 			<input type="hidden" name="theaterKey" value="${theaterOne.theaterKey}">
 			<button type="button" id="removeBtn">삭제</button>
 		</form>
+		<a href="${pageContext.request.contextPath}/employee/screenroom/addScreenroom?theaterKey=${theaterOne.theaterKey}">상영관 등록 -> AJAX</a>
 		<div id="modify">
 			<table border="1">
 				<thead>
@@ -34,15 +35,49 @@
 			<div>${theaterOne.theaterInfo}</div>
 			<div>${theaterOne.theaterTicketingInfo}</div>
 		</div>
+		<br/>
+		<h1>상영관 목록</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>상영관코드</th>
+					<th>상영관명</th>
+					<th>좌석수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="s" items="${screenroomList}">
+					<tr>
+						<td>${s.screenroomKey}</td>
+						<td><a href="${pageContext.request.contextPath}/employee/screenroom/screenroomOne?screenroomKey=${s.screenroomKey}">${s.screenroomName}</a></td>
+						<td>${s.seatCount}</td>
+					</tr>
+				</c:forEach>
+			</tbody>		
+		</table>
 		<script>
 			$(function() {
 				let msg = '${msg}';
-				
 				if(msg == 'ADD_SUCCESS') {
-					alert('수정 성공')
+					alert('등록 성공')
 				}
 				if(msg == 'ADD_ERROR') {
+					alert('등록 실패')
+				}
+				if(msg == 'MODIFY_SUCCESS') {
+					alert('수정 성공')
+				}
+				if(msg == 'MODIFY_ERROR') {
 					alert('수정 실패')
+				}
+				if(msg == 'REMOVE_SUCCESS') {
+					alert('삭제 성공')
+				}
+				if(msg == 'REMOVE_ERROR') {
+					alert('삭제 실패')
+				}
+				if(msg == 'REMOVE_DUP') {
+					alert('해당 극장의 상영관과 문의사항이 존재합니다.')
 				}
 				
 				$('#modifyBtn').click(function() {

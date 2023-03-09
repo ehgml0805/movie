@@ -44,9 +44,6 @@
 				if(msg == 'REMOVE_ERROR') {
 					alert('삭제 실패')
 				}
-				if(msg == 'REMOVE_DUP') {
-					alert('해당 극장의 상영관과 문의사항을 삭제해주세요.')
-				}
 			})
 		</script>
 	</body>

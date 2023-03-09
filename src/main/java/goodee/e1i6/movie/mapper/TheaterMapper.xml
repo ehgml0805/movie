@@ -67,7 +67,7 @@
 			COUNT(*)
 		FROM 
 			theater t
-		JOIN screenroom s ON t.theater_key = s.theater_key
+		LEFT JOIN screenroom s ON t.theater_key = s.theater_key
 		LEFT JOIN question q ON t.theater_key = q.theater_key
 		WHERE t.theater_key = #{theaterKey}
 	</select>
