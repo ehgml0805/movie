@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.CouponMapper">
-
+	
+	<!-- 쿠폰 발행(등록) -->
+	<insert id="mic" parameterType="goodee.e1i6.movie.vo.Coupon">
+	
+		INSERT INTO coupon
+					 (coupon_name,coupon_sale_price,coupon_grade,use_by_date,createdate) 
+		VALUE
+			('silver', 1000, 'silver', (SELECT DATE_ADD(NOW(), INTERVAL 1 MONTH)), NOW() )
+		,  ('gold', 2000, 'gold', (SELECT DATE_ADD(NOW(), INTERVAL 1 MONTH)), NOW() )
+		,  ('vip', 3000, 'vip', (SELECT DATE_ADD(NOW(), INTERVAL 1 MONTH)), NOW() )
+	
+	</insert>
 
 	<!-- 쿠폰삭제(처음 잘못 등록시에만 삭제 가능) -->
 	<delete id="deleteCoupon" parameterType="int">

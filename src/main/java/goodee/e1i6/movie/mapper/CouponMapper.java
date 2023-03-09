@@ -9,7 +9,9 @@ import goodee.e1i6.movie.vo.Coupon;
 
 @Mapper
 public interface CouponMapper {
-	
+		
+		//월별 발행(등록) 쿠폰 
+		int mic();
 		//쿠폰삭제(처음 잘못 등록시에만 삭제 가능)
 		int deleteCoupon(int couponKey);
 		//쿠폰 발행(등록)
