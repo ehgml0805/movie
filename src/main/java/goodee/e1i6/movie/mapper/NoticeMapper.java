@@ -9,6 +9,9 @@ import goodee.e1i6.movie.vo.Notice;
 import goodee.e1i6.movie.vo.NoticeImg;
 @Mapper
 public interface NoticeMapper {
+	
+	// 공지사항 이미지 삭제
+	int deleteNoticeImg(int noticeKey);
 	// 공지사항 삭제
 	int deleteNotice(int noticeKey);
 	// 공지사항 수정

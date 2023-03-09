@@ -23,7 +23,22 @@ public class NoticeService {
 	@Autowired NoticeMapper noticeMapper;
 	
 	// 공지사항 삭제
-	public int removeNotice(int noticeKey) {
+	public int removeNotice(int noticeKey, String path, String fileName) {
+		// 이미지파일이 있으면
+		if(!fileName.equals("")) {
+			String removeImg = path + fileName;
+			try {
+				File f = new File(removeImg);
+				f.delete();
+			} catch (Exception e) {
+				e.printStackTrace();
+				// 파일업로드 실패시 RuntimeException을 발생시켜 애노테이션Transactional이 감지하여 rollback할 수 있도록
+				throw new RuntimeException();
+			}
+			log.debug(TeamColor.YIB + "이미지파일 삭제");
+			noticeMapper.deleteNoticeImg(noticeKey);
+			log.debug(TeamColor.YIB + "이미지파일 DB 삭제");
+		}
 		return noticeMapper.deleteNotice(noticeKey);
 	}
 	
