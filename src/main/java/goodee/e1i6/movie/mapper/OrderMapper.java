@@ -30,5 +30,5 @@ public interface OrderMapper {
 	Integer insertSnackConfirm(SnackconfirmCode s);
 	Integer updateSnackConfirm(SnackconfirmCode s);
 	List<TotalOrder> selectTotalOrderById(String customerId);
-
+	TotalOrder selectOrderCreatedate(String customerId);
 }

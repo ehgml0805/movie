@@ -66,7 +66,7 @@
 		SELECT count(*) FROM cart WHERE customer_id=#{customerId}
 	</select>
 	<insert id="insertSnackConfirm" parameterType="goodee.e1i6.movie.vo.SnackconfirmCode">
-		INSERT INTO snackconfirm_code(data_key, file_name, file_type, file_size, order_key) VALUES (#{dataKey}, #{fileName}, #{fileType}, #{fileSize}, #{orderKey})
+		INSERT INTO snackconfirm_code(data_key, order_key) VALUES (#{dataKey}, #{orderKey})
 	</insert>
 	<update id="updateSnackConfirm" parameterType="goodee.e1i6.movie.vo.SnackconfirmCode">
 		UPDATE snackconfirm_code SET active=#{active} WHERE data_key = #{dataKey}
@@ -76,6 +76,11 @@
 		FROM total_order t INNER JOIN mycoupon m ON t.mycoupon_key= m.mycoupon_key INNER JOIN coupon c ON c.coupon_key = m.coupon_key
 		WHERE t.customerId=#{customerId}
 	</select>
-	
+	<select id="selectOrderCreatedate" resultType="goodee.e1i6.movie.vo.TotalOrder" parameterType="java.lang.String">
+		SELCET createdate, sum(order_price) totalPrice
+		FROM order
+		WHERE customer_id= #{customerId}
+		ORDER BY createdate DESC LIMIT 0, 1
+	</select>
 	
 </mapper>
