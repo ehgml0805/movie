@@ -93,9 +93,6 @@ public class OrderService {
 			// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
 			throw new RuntimeException();
 		}
-			
-		
-		
 		return row;
 	}
 	public int selectAll(String customerId) {

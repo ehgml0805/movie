@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import goodee.e1i6.movie.mapper.SnackMapper;
 import goodee.e1i6.movie.vo.Snack;
+import goodee.e1i6.movie.vo.SnackCategory;
 import goodee.e1i6.movie.vo.SnackImg;
 
 @Transactional
@@ -71,5 +72,8 @@ public class SnackService {
 	public List<Snack> selectsnackBySearch(String word){
 		
 		return snackMapper.selectSnackBySearch(word);
+	}
+	public List<SnackCategory> selectCateogry(){
+		return snackMapper.selectCategory();
 	}
 }
