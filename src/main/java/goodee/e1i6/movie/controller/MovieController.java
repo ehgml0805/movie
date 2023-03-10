@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,14 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.MovieService;
+import goodee.e1i6.movie.service.StillCutService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.MovieForm;
+import goodee.e1i6.movie.vo.StillCut;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class MovieController {
 	@Autowired MovieService movieService;
+	@Autowired StillCutService stillCutService;
 	
 	// 삭제
 	@GetMapping("/employee/movie/removeMovie")
@@ -35,6 +39,14 @@ public class MovieController {
 							, @RequestParam(value="movieKey", required = true) int movieKey) {
 		ArrayList<Map<String, Object>> movie = movieService.getMovieOne(movieKey);
 		model.addAttribute("movie", movie);
+		log.debug(TeamColor.JYW+"movie : "+movie);
+		
+		model.addAttribute("movieKey", movieKey);
+		
+		List<StillCut> stillCuts = stillCutService.getStillCutList(movieKey);
+		model.addAttribute("stillCuts", stillCuts);
+		// log.debug(TeamColor.JYW+"stillCuts : "+stillCuts);
+		
 		return "/employee/movie/modifyMovie";
 	}
 	@PostMapping("/employee/movie/modifyMovie")

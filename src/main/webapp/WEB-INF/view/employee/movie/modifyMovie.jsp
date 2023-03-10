@@ -13,7 +13,7 @@
 			<c:forEach var="m" items="${movie}">
 				<c:if test="${m.poster eq 'Y'}">	
 					<tr>
-						<td rowspan="9">
+						<td rowspan="7">
 							<c:choose>
 								<c:when test="${m.movieCode ne '0'}">
 									<img alt="영화이미지" src="${m.originName}" width="300px" height="500px">
@@ -106,21 +106,38 @@
 							</select>
 						</td>
 					</tr>
-					<tr>
-						<td>포스터 이미지 : </td>
-						<td>
-							<input type="file" name="poster">
-						</td>
-					</tr>
-					<tr>
-						<td>스틸컷 이미지 : </td>
-						<td>
-							<input type="file" name="stillCut" multiple>
-						</td>
-					</tr>
 				</c:if>
 			</c:forEach>
+			<c:forEach var="s" items="${stillCuts}">
+				<tr>
+					<td>
+						<c:choose>
+							<c:when test="${s.fileSize eq 0}">
+								<a href="${pageContext.request.contextPath}/employee/stillCut/stillCutOne?stillCutKey=${s.stillCutKey}">
+									<img alt="영화이미지" src="${s.originName}">
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath}/employee/stillCut/stillCutOne?stillCutKey=${s.stillCutKey}">
+									<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${s.originName}">
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>스틸컷 : </td>
+					<td>
+						<a href="${pageContext.request.contextPath}/employee/stillCut/modifyStillCut?stillCutKey=${s.stillCutKey}">
+							수정
+						</a>
+						&nbsp;
+						<a href="${pageContext.request.contextPath}/employee/stillCut/removeStillCut?stillCutKey=${s.stillCutKey}&movieKey=${movieKey}">
+							삭제
+						</a>
+					</td>
+				</tr>
+			</c:forEach>
 		</table>
+		<a href="${pageContext.request.contextPath}/employee/stillCut/addStillCut?movieKey=${movieKey}">스틸컷 추가 등록</a>
 		<button type="submit">수정</button>
 	</form>	
 </body>
