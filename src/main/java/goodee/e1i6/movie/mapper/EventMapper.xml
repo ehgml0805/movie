@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.EventMapper">
+
+	<!-- eventWinner -->
+	<insert id="insertEventWinner" parameterType="goodee.e1i6.movie.vo.EventWinner">
+		INSERT INTO event_winner (
+			event_comment_key
+			, screening_schedule_key
+		) VALUES (
+			#{event_comment_key}
+			, #{screening_schedule_key}
+		)
+	</insert>
+	
+	<select id="selectEventWinnerList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			ew.event_comment_key eventCommentkey
+			, ec.customer_id customerId
+			, ec.event_comment_content eventCommentContent
+			, ec.schedule_key scheduleKey
+			, c.customer_name customerName
+			, c.customer_phone customerPhone
+			, c.customer_email customerEmail
+		FROM event_winner ew INNER JOIN event_comment ec
+		ON ew.event_comment_key = ec.event_comment_key
+		INNER JOIN customer c
+		ON c.customer_id = ec.customer_id
+	</select>
 	
 	<!-- eventSchedule-->
 	<select id="selectEventScheduleList" resultType="java.util.Map">
@@ -12,8 +38,6 @@
 			, end_date endDate
 			, preview
 		FROM screening_schedule	 
-			
-	 	
 	</select>
 	
 	<!-- eventMovieList -->

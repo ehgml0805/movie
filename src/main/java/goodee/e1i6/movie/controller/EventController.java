@@ -19,6 +19,7 @@ import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.Event;
 import goodee.e1i6.movie.vo.EventComment;
 import goodee.e1i6.movie.vo.EventForm;
+import goodee.e1i6.movie.vo.EventWinner;
 import goodee.e1i6.movie.vo.Movie;
 import goodee.e1i6.movie.vo.ScreeningSchedule;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,31 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class EventController {
 	@Autowired EventService eventService;
+	// 이벤트 당첨자 추가
+	@GetMapping("/employee/event/eventWinner")
+	public String eventWinner() {
+		return "employee/event/eventWinner";
+	}
+	
+	@PostMapping("/employee/event/eventWinner")
+	public String eventWinner(EventWinner eventWinner) {
+		eventService.addEventWinner(eventWinner);
+		return "redirect:/employee/event/eventWinnerList";
+	}
+
+	// 이벤트 당첨자 리스트
+	@GetMapping("/employee/event/eventWinnerList")
+	public String eventWinnerList(Model model 
+			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage) {
+	
+		List<EventWinner> list = eventService.getEventWinnerList(currentPage, rowPerPage);
+		log.debug(TeamColor.JSM + "EventWinnerList :" + list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
+		return "employee/event/eventWinnerList";
+	}
 	
 	// 이벤트 댓글 삭제
 	@GetMapping("/customer/event/removeEventComment")
@@ -73,7 +99,7 @@ public class EventController {
 	@GetMapping("/customer/event/eventCommentList")
 	public String eventCommentList (Model model 
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
 			, @RequestParam(value = "eventKey") int eventKey){ 
 		
 		log.debug(TeamColor.JSM + "ec.eventKey :" + eventKey);
@@ -81,8 +107,10 @@ public class EventController {
 		List<EventComment> EventCommentList = eventService.getEventCommentList(currentPage, rowPerPage, eventKey);
 		log.debug(TeamColor.JSM + EventCommentList +" <- EventCommentList");
 		
-		int lastPage = eventService.eventCommentCount(eventKey);
-		log.debug(TeamColor.JSM + "eventCommentCount :" + lastPage);
+		int eventCommentCount = eventService.eventCommentCount(eventKey);
+		log.debug(TeamColor.JSM + "eventCommentCount :" + eventCommentCount);
+
+		int lastPage = (int)Math.ceil((double)eventCommentCount / (double)rowPerPage);
 		
 		int startPage = ((currentPage - 1) / 10) * 10 + 1;
 		int endPage = startPage + 9;
@@ -95,6 +123,7 @@ public class EventController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("eventCommentCount", eventCommentCount);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("eventKey", eventKey);
 
@@ -109,8 +138,14 @@ public class EventController {
 		log.debug(TeamColor.JSM + eventOneList +" <- eventOnelist");
 		log.debug(TeamColor.JSM + event.getEventKey() +" <- eventKey");
 		
+		String customerId;
+		
 		Customer loginCustomer = (Customer) session.getAttribute("loginCustomer");
-		String customerId = loginCustomer.getCustomerId();
+		if(loginCustomer == null) {
+			 customerId = "";
+		} else {
+			 customerId = loginCustomer.getCustomerId();
+		}
 		
 		log.debug(TeamColor.JSM + customerId +" <- eventOneCustomerId");
 		
@@ -158,8 +193,8 @@ public class EventController {
 		List<Event> list = eventService.getEventList(currentPage, rowPerPage, searchWord);
 		log.debug(TeamColor.JSM + list +" <- eventList");
 
-		int lastPage = eventService.eventCount(searchWord, currentPage, rowPerPage);
-		
+		int count = eventService.eventCount(searchWord, currentPage, rowPerPage);
+		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage);
 		int startPage = ((currentPage - 1) / 10) * 10 + 1;
 		int endPage = startPage + 9;
 

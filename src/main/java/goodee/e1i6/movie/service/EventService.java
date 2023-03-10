@@ -20,6 +20,7 @@ import goodee.e1i6.movie.vo.Event;
 import goodee.e1i6.movie.vo.EventComment;
 import goodee.e1i6.movie.vo.EventForm;
 import goodee.e1i6.movie.vo.EventImg;
+import goodee.e1i6.movie.vo.EventWinner;
 import goodee.e1i6.movie.vo.Movie;
 import goodee.e1i6.movie.vo.ScreeningSchedule;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,21 @@ public class EventService {
 	@Autowired private EventMapper eventMapper;
 	@Autowired private EventImgMapper eventImgMapper;
 	@Autowired private EventCommentMapper eventCommentMapper; 
+		
+	// eventWinner
+	public int addEventWinner(EventWinner eventWinner) {
+		return eventMapper.insertEventWinner(eventWinner);
+	}
+	
+	// eventWinnerList
+	public List<EventWinner> getEventWinnerList(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		
+		return eventMapper.selectEventWinnerList(paramMap);
+	}
 	
 	// eventSchedule
 	public List<ScreeningSchedule> getEventScheduleList() {

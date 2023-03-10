@@ -7,11 +7,15 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import goodee.e1i6.movie.vo.Event;
+import goodee.e1i6.movie.vo.EventWinner;
 import goodee.e1i6.movie.vo.Movie;
 import goodee.e1i6.movie.vo.ScreeningSchedule;
 
 @Mapper
 public interface EventMapper {
+	// eventWinner
+	int insertEventWinner (EventWinner eventWinner);
+	List<EventWinner> selectEventWinnerList(Map<String, Object>paraMap);
 	// eventSchedule
 	List<ScreeningSchedule> selectEventScheduleList(Map<String, Object>paraMap);
 	// eventMovie

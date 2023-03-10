@@ -66,5 +66,8 @@
 	
 	<!-- 이빈트 댓글 리스트 -->
 	<div id="eventCommentList"></div>
+	
+	<!-- 페이징 -->
+	<div id="paging"></div>
 </body>
 </html>

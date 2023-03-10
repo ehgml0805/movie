@@ -53,5 +53,6 @@
 		ON ci.customer_id = c.customer_id
 		WHERE ec.event_key = #{eventKey}
 		ORDER BY ec.createdate DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 </mapper>
