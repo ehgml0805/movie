@@ -25,9 +25,38 @@ public class TheaterController {
 	@Autowired TheaterService theaterService;
 	@Autowired ScreenroomService screenroomService;
 	
+	// 극장 출력(이름순) - 고객
+	@GetMapping("/customer/theater/theaterList")
+	public String getTheaterListForCustomer(Model model) {
+		log.debug(TeamColor.CHOI + "GET theaterList");
+		
+		List<Theater> theaterList = theaterService.getTheaterList();
+		model.addAttribute("theaterList", theaterList);
+		
+		return "/customer/theater/theaterList";
+	}
+	
+	// 극장 상세 정보 - 고객
+	@GetMapping("/customer/theater/theaterOne")
+	public String getTheaterOneForCoustomer(Model model, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey) {
+		log.debug(TeamColor.CHOI + "GET theaterOne");
+		
+		if(theaterKey == 0) {
+			return "redirect:/employee/theater/theaterList";
+		}
+		
+		Theater theaterOne = theaterService.getTheaterOne(theaterKey);
+		List<Screenroom> screenroomList = screenroomService.getScreenroomList(); // 상영관 목록(이름순)
+		
+		model.addAttribute("screenroomList", screenroomList);
+		model.addAttribute("theaterOne", theaterOne);
+		
+		return "/customer/theater/theaterOne";
+	}
+	
 	// 극장 출력(이름순) - 관리자
 	@GetMapping("/employee/theater/theaterList")
-	public String getTheaterList(Model model) {
+	public String getTheaterListForEmployee(Model model) {
 		log.debug(TeamColor.CHOI + "GET theaterList");
 		
 		List<Theater> theaterList = theaterService.getTheaterList();
@@ -38,14 +67,14 @@ public class TheaterController {
 	
 	// 극장 상세 정보 - 관리자
 	@GetMapping("/employee/theater/theaterOne")
-	public String getTheaterOne(Model model, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey) {
+	public String getTheaterOneForEmployee(Model model, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey) {
 		log.debug(TeamColor.CHOI + "GET theaterOne");
 		
-		if(theaterKey == 0) {
+		Theater theaterOne = theaterService.getTheaterOne(theaterKey);
+		if(theaterOne == null) {
 			return "redirect:/employee/theater/theaterList";
 		}
 		
-		Theater theaterOne = theaterService.getTheaterOne(theaterKey);
 		List<Screenroom> screenroomList = screenroomService.getScreenroomList(); // 상영관 목록(이름순)
 		
 		model.addAttribute("screenroomList", screenroomList);

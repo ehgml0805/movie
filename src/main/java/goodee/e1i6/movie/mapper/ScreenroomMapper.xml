@@ -9,7 +9,9 @@
 			, screenroom_name screenroomName
 			, seat_count seatCount
 			, createdate
-		FROM screenroom ORDER BY screenroom_name DESC	
+		FROM screenroom 
+		WHERE theater_key = #{theaterKey}
+		ORDER BY screenroom_name DESC	
 	</select>
 	
 	<!-- 상영관 상세 -->

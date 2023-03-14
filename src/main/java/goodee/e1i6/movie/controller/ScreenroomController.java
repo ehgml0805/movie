@@ -19,15 +19,29 @@ import lombok.extern.slf4j.Slf4j;
 public class ScreenroomController {
 	@Autowired ScreenroomService screenroomService;
 	
-	// 상영관 상세 - 관리자
-	@GetMapping("/employee/screenroom/screenroomOne")
-	public String getScreenroomOne(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
+	// 상영관 상세 - 고객
+	@GetMapping("/customer/screenroom/screenroomOne")
+	public String getScreenroomOneForCustomer(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
 		log.debug(TeamColor.CHOI + "GET screenroomOne");
-		if(screenroomKey == 0) {
-			return "redirect:/employee/screenroom/screenroomList";
-		}
 		
 		Screenroom screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
+		if(screenroomOne == null) { 
+			return "redirect:/customer/theater/theaterList";
+		}
+		model.addAttribute("screenroomOne", screenroomOne);
+		
+		return "/customer/screenroom/screenroomOne";
+	}
+	
+	// 상영관 상세 - 관리자
+	@GetMapping("/employee/screenroom/screenroomOne")
+	public String getScreenroomOneForEmployee(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
+		log.debug(TeamColor.CHOI + "GET screenroomOne");
+		
+		Screenroom screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
+		if(screenroomOne == null) { 
+			return "redirect:/employee/theater/theaterList";
+		}
 		model.addAttribute("screenroomOne", screenroomOne);
 		
 		return "/employee/screenroom/screenroomOne";
