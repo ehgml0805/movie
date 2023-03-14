@@ -6,7 +6,7 @@
 	</insert>
 	<select id="selectCartListById" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String">
 		SELECT 
-			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
+			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType, c.select select, (c.cart_quantity * s.snack_price) cartPrice
 		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
 		WHERE c.customer_id= #{customerId}
 		ORDER BY createdate ASC
@@ -15,7 +15,7 @@
 		SELECT 
 			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
 		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
-		WHERE c.customer_id= #{customerId} AND select = 1
+		WHERE c.customer_id= #{customerId} AND c.select = 1
 		ORDER BY createdate ASC
 	</select>
 	<insert id="insertOrdersByCart" parameterType="goodee.e1i6.movie.vo.Cart">
@@ -24,7 +24,7 @@
 			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
 			SELECT LAST_INSERT_ID() 
 		</selectKey>
-		INSERT INTO order(snack_key, customer_id, order_price) VALUES (#{snackKey}, #{customerId}, #{cartQuantity*snackPrice}, #{cartQuantity})
+		INSERT INTO order(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{cartQuantity*snackPrice}, #{cartQuantity})
 	</insert>
 	<insert id="insertTotalOrder" parameterType="goodee.e1i6.movie.vo.TotalOrder">
 		INSERT INTO totalOrder(createdate, total_price, customer_id, mycoupon_key) VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
@@ -77,10 +77,14 @@
 		WHERE t.customerId=#{customerId}
 	</select>
 	<select id="selectOrderCreatedate" resultType="goodee.e1i6.movie.vo.TotalOrder" parameterType="java.lang.String">
-		SELCET createdate, sum(order_price) totalPrice
+		SELCET createdate
 		FROM order
 		WHERE customer_id= #{customerId}
 		ORDER BY createdate DESC LIMIT 0, 1
 	</select>
-	
+	<select id="selectOrderOne" resultType="goodee.e1i6.movie.vo.Order" parameterType="int">
+		SELECT order_key orderKey, snack_key snackKey, customer_id customerId, order_price orderPrice, order_state orderState, createdate, order_quantity orderQuantity
+		FROM order
+		WHERE order_key = #{orderKey}
+	</select>
 </mapper>

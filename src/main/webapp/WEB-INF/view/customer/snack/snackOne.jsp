@@ -6,6 +6,59 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/owl.carousel.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
+    	<style type="text/css">
+	html, main {
+	    height: 100%
+	}
+	
+	#wrap {
+	    min-height: 100%;
+	    position: relative;
+	    padding-bottom: 60px;
+	}
+	
+	footer {
+	    bottom: 0;
+	}* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	}
+	.wrap {
+		position: relative;
+		
+		margin: 0 auto;
+	}
+	
+	.magnifier {
+		width: 350px;
+		height: 250px;
+		position: absolute;
+		
+		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 0 3px 3px rgba(0, 0, 0, 0.25);
+		display: none;
+	}
+	
+	.target {
+		display: block;
+		width: 100%;
+	}
+	
+	<!--하단 footer 고정-->
+	</style>	
 </head>
 <body>
 	<div>
@@ -18,7 +71,7 @@
 		<div class="row">
 			<div class="col-5">
 				<div class="wrap">
-					<img src="${pageContext.request.contextPath}/snackImg/${s.fileName}.${s.fileType}">
+					<img src="${pageContext.request.contextPath}/snackImg/${s.fileName}.${s.fileType}" img width="100%" height= "auto" class="target" data-zoom="3">
 				</div>
 			</div>
 			<div class="col-7">
@@ -40,7 +93,7 @@
 								<option value="5">5</option>
 						</select>		
 						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/insertOrder'">바로구매</button>
-						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/insertCart'">장바구니에 담기</button>
+						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/snack/insertCart'">장바구니에 담기</button>
 						<br><br>
 					</form>
 				</c:if>
@@ -58,23 +111,25 @@
 			</div>
 			
 		</div>
+		<br><br><br><br>
 		<div>
-			<h3>BEST</h3>
+			<h3 style="font-weight: bold; text-align: center;"  >BestSeller</h3>
+					<br>
 			<br>
 			<table width="100%">
 				<tr>
 					<c:forEach var="b" items="${best}">
 						<td>
 							<div><a href="${pageContext.request.contextPath}/customer/snack/snackOne?snackKey=${b.snackKey}">
-								<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}">
+								<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="200" height="200">
 							</a></div>
 							<div>${b.snackName}</div>
-							<div>₩ <fmt:formatNumber value="${g.goodsPrice}" pattern="#,###"/> </div>
+							<div>₩ <fmt:formatNumber value="${b.snackPrice}" pattern="#,###"/> </div>
 						</td>
 					</c:forEach>
 				</tr>
 			</table>
 		</div>
-	</div>
+	</div> <script src="${pageContext.request.contextPath}/bootstrap/main3.js"></script>
 </body>
 </html>

@@ -42,6 +42,7 @@ public class SnackService {
 			i.setFileSize(mf.getSize());
 			i.setFileType(mf.getContentType());
 			i.setOriginName(originName);
+			snackMapper.insertSnackImg(i);
 			try {
 				mf.transferTo(new File(path+fileName));
 			}catch (Exception e) {

@@ -73,7 +73,7 @@ public class SnackController {
 	public String addSnack(Snack s,
 			HttpServletRequest request) {
 		MultipartFile mf = s.getMf();
-		String path = request.getServletContext().getRealPath("/snack-upload/");
+		String path = request.getServletContext().getRealPath("/snackImg/");
 		int row = snackService.insertSnack(s, mf, path);
 		return "redirect:/employee/snack/addSnack?row="+row;
 	}

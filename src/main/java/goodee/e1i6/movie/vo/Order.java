@@ -10,5 +10,6 @@ public class Order {
 	private int orderPrice;
 	private String orderState;
 	private String createdate;
+	private int orderQuantity;
 
 }

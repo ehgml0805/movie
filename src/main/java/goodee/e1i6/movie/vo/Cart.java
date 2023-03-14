@@ -16,4 +16,5 @@ public class Cart {
 	private String soldOut;
 	private int select;
 	private int orderKey;
+	private int cartPrice;
 }

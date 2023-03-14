@@ -57,10 +57,18 @@ public class OrderService {
 				}
 				
 			}
-		
-		orderMapper.deleteCartById(customerId);
+		int sum = orderMapper.selectSumGoodsPrice(customerId);
+		TotalOrder t= orderMapper.selectOrderCreatedate(customerId);
+		t.setTotalPrice(sum);
+		t.setCustomerId(customerId);
+		orderMapper.insertTotalOrder(t);
 		return row;
 		
+	}
+	public int deleteCartById(String customerId) {
+		
+		int row  = orderMapper.deleteCartById(customerId);
+		return row;
 	}
 	public int insertTotalOrder(TotalOrder paramt) {
 		TotalOrder t= orderMapper.selectOrderCreatedate(paramt.getCustomerId());
@@ -76,7 +84,7 @@ public class OrderService {
 		return orderMapper.selectOrderListById(customerId);
 	}
 	public int insertOrderDir(Order o, String path) {
-		int row = orderMapper.insertOrderByDir(o);
+		orderMapper.insertOrderByDir(o);
 		String dataKey = UUID.randomUUID().toString();
 		try {
 			Barcode barCode = BarcodeFactory.createCode128(dataKey);
@@ -93,7 +101,7 @@ public class OrderService {
 			// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
 			throw new RuntimeException();
 		}
-		return row;
+		return o.getOrderKey();
 	}
 	public int selectAll(String customerId) {
 		return orderMapper.updateSelectAll(customerId);
