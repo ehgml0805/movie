@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.TheaterMapper">
+	<!-- 빠른 예매 - 지역에 해당하는 극장 목록 -->
+	<select id="selectTheaterNameListByRegion" parameterType="String" resultType="java.util.Map">
+		SELECT theater_name theaterName
+		FROM theater
+		WHERE theater_region = #{theaterRegion}
+	</select>
+	
+	<!-- 빠른 예매(지역순) -->
+	<select id="selectTheaterRegionList" resultType="java.util.Map">
+		SELECT 
+			theater_key theaterKey
+			, theater_region theaterRegion
+			, COUNT(*) count
+		FROM 
+			theater
+		GROUP BY theater_region
+		ORDER BY theater_region
+	</select>
+	
 	<!-- 극장 출력(이름순) -->
 	<select id="selectTheaterList" resultType="goodee.e1i6.movie.vo.Theater">
 		SELECT 

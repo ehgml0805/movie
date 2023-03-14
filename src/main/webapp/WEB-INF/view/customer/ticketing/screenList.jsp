@@ -25,7 +25,7 @@
 			<h1>영화</h1>
 			<c:forEach var="m" items="${movieList}">
 				<div>
-					<button class="movie-button" type="button" value="${m.movieKey}">
+					<button id="movie-button" type="button" value="${m.movieKey}">
 						<span>${m.grade}</span>
 						<span class="txt">${m.movieTitle}</span>						
 					</button>
@@ -35,22 +35,25 @@
 		<!-- 극장 -->
 		<div class="container">
 			<h1>극장</h1>
-			<c:forEach var="m" items="${movieList}">
-				<button class="movie-button" type="button" value="${m.movieKey}">
-					<span>${m.grade}</span>
-					<span class="txt">${m.movieTitle}</span>						
-				</button>					
-			</c:forEach>	
+			<div id="theater">
+				<div class="row">
+					<div class="col-6">
+						<c:forEach var="r" items="${theaterRegionList}">
+							<div>
+								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
+							</div>
+						</c:forEach>
+					</div>
+					<div class="col-6" id="theaterName"></div>
+				</div>
+			</div>
 		</div>
 		<!-- 상영시간표 -->
 		<div class="container">
 			<h1>상영시간표</h1>
-			<c:forEach var="m" items="${movieList}">
-				<button class="movie-button" type="button" value="${m.movieKey}">
-					<span>${m.grade}</span>
-					<span class="txt">${m.movieTitle}</span>						
-				</button>					
-			</c:forEach>	
+			<div id="schedule">
+			
+			</div>
 		</div>
 	</div>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
@@ -64,5 +67,30 @@
 	   	<input type="hidden" name="regionNo" value="" />
 	   	<input type="hidden" name="showScheduleNo" value="" />
     </form>
+    
+    <script>
+    	$(function() {
+			
+    		$('.region').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : '${pageContext.request.contextPath}/ticketing/theaterList',
+					data : {theaterRegion : $(this).val()},
+					dataType : 'json',
+					success : function (data) {
+						var html = "";
+			            for (var i=0; i < data.length; i++) {
+			                html += "<div>" + data[i].theaterName + "</div>";
+			            }
+						$('#theaterName').html(html);
+					},
+					error : function() {
+						alert('error')						
+					}
+				})
+			})
+			
+		})
+    </script>
 </body>
 </html>

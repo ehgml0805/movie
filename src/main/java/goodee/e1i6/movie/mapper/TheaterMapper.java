@@ -1,7 +1,6 @@
 package goodee.e1i6.movie.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +14,6 @@ public interface TheaterMapper {
 	int insertTheater(Theater theater);
 	Theater selectTheaterOne(int theaterKey);
 	List<Theater> selectTheaterList();
+	List<Theater> selectTheaterRegionList();
+	List<Theater> selectTheaterNameListByRegion(String theaterRegion);
 }
