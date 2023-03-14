@@ -41,17 +41,17 @@
 		</c:forEach>
 	</table>
 	<div>
-		<a href="${pageContext.request.contextPath}/customer/event/eventCommentList?currentPage=1&eventKey=${eventKey}">처음으로</a>		
+		<a href="${pageContext.request.contextPath}/event/eventCommentList?currentPage=1&eventKey=${eventKey}">처음으로</a>		
 		<c:if test="${currentPage > 1}">
-			<a href="${pageContext.request.contextPath}/customer/event/eventCommentList?currentPage=${currentPage-1}&eventKey=${eventKey}">이전</a>
+			<a href="${pageContext.request.contextPath}/event/eventCommentList?currentPage=${currentPage-1}&eventKey=${eventKey}">이전</a>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
-			<a href="${pageContext.request.contextPath}/customer/event/eventCommentList?currentPage=${i}&eventKey=${eventKey}">${i}</a>
+			<a href="${pageContext.request.contextPath}/event/eventCommentList?currentPage=${i}&eventKey=${eventKey}">${i}</a>
 		</c:forEach>
 		<c:if test="${currentPage < lastPage}">
-			<a href="${pageContext.request.contextPath}/customer/event/eventCommentList?currentPage=${currentPage+1}&eventKey=${eventKey}">다음</a>
+			<a href="${pageContext.request.contextPath}/event/eventCommentList?currentPage=${currentPage+1}&eventKey=${eventKey}">다음</a>
 		</c:if>
-		<a href="${pageContext.request.contextPath}/customer/event/eventCommentList?currentPage=${lastPage}&eventKey=${eventKey}">끝으로</a>	
+		<a href="${pageContext.request.contextPath}/event/eventCommentList?currentPage=${lastPage}&eventKey=${eventKey}">끝으로</a>	
 	</div>	
 </body>
 </html>

@@ -58,7 +58,7 @@ public class EventController {
 	@GetMapping("/customer/event/removeEventComment")
 	public String removeEventComment(@RequestParam("eventCommentKey") int eventCommentKey) {
 		eventService.removeComment(eventCommentKey);
-		return "redirect:/customer/event/eventOne";
+		return "redirect:/event/eventOne";
 	}
 	
 	// 이벤트 댓글 수정
@@ -70,8 +70,9 @@ public class EventController {
 	@PostMapping("/customer/event/modifyEventComment")
 	public String modifyEventComment(EventComment eventComment) {
 		eventService.modifyEventComment(eventComment);
+		int eventKey = eventComment.getEventKey();
 		log.debug(TeamColor.JSM + eventComment + " <- modifyEventComment");
-		return "redirect:/customer/event/eventOne";
+		return "redirect:/event/eventOne?eventKey="+eventKey;
 	}
 	
 	// 이벤트 댓글 추가
@@ -93,10 +94,10 @@ public class EventController {
 	    int eventKey = eventComment.getEventKey();
 	    // log.debug(TeamColor.JSM + "eventKey " + eventKey);
 		eventService.addEventComment(eventComment);
-		return "redirect:/customer/event/eventOne?eventKey="+eventKey;
+		return "redirect:/event/eventOne?eventKey="+eventKey;
 	}
 	// 이벤트 댓글 리스트 
-	@GetMapping("/customer/event/eventCommentList")
+	@GetMapping("/event/eventCommentList")
 	public String eventCommentList (Model model 
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
@@ -132,7 +133,7 @@ public class EventController {
 	}
 	
 	// 이벤트 상세보기
-	@GetMapping("/customer/event/eventOne")
+	@GetMapping("/event/eventOne")
 	public String eventOne(Model model, Event event, HttpSession session) {
 		List<Event> eventOneList = eventService.getEventOne(event);
 		log.debug(TeamColor.JSM + eventOneList +" <- eventOnelist");
@@ -180,11 +181,11 @@ public class EventController {
 		}
 		
 		eventService.addEvent(eventForm, path);
-		return "redirect:/customer/event/eventList";
+		return "redirect:/event/eventList";
 	}
 	
 	// 이벤트 리스트
-	@GetMapping("/customer/event/eventList")
+	@GetMapping("/event/eventList")
 	public String eventList (Model model 
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage

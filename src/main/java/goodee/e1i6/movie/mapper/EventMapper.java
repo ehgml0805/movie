@@ -21,6 +21,7 @@ public interface EventMapper {
 	// eventMovie
 	List<Movie> selectEventMovieList(Map<String, Object>paraMap);
 	// event
+	List<Event> selectPastEvents();
 	List<Event> eventOne (Map<String, Object>paraMap);
 	int eventCount(String searchWord);
 	int insertEvent(Event event);

@@ -10,6 +10,7 @@
 	<h2>이벤트 당첨자 리스트</h2>
 	<table border="1">
 		<tr>
+			<th>당첨된이벤트</th>
 			<th>아이디</th>
 			<th>이름</th>
 			<th>댓글내용</th>
@@ -18,6 +19,7 @@
 		</tr>
 		<c:forEach var="ew" items="${list}">
 			<tr>
+				<td>${ew.eventTitle}</td>
 				<td>${ew.customerId}</td>
 				<td>${ew.customerName}</td>
 				<td>${ew.eventCommentContent}</td>

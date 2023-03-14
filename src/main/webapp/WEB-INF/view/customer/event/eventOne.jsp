@@ -30,7 +30,7 @@
 		
 		function loadEventCommentList(){
 			$.ajax({
-				url: "${pageContext.request.contextPath}/customer/event/eventCommentList",
+				url: "${pageContext.request.contextPath}/event/eventCommentList",
 				method: "GET",				
 			  	data: {
 					    "eventKey": eventKey

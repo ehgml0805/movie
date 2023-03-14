@@ -17,6 +17,8 @@ public interface EventCommentMapper {
 	int updateEventComment(EventComment eventComment);
 	// 이벤트 댓글 등록
 	int insertEventComment(EventComment eventComment);
+	// 이벤트 당첨자 댓글 리스트
+	List<EventComment> selectEventWinnerCommentList(Map<String, Object>paraMap);
 	// 이벤트 댓글 리스트
 	List<EventComment> selectEventCommentList(Map<String, Object>paraMap);
 }
