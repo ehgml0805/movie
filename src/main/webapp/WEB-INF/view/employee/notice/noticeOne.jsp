@@ -12,7 +12,7 @@
 	<div>
 		<small>등록일 ${map.createdate}</small>
 		<a href="${pageContext.request.contextPath}/employee/notice/modifyNotice?noticeKey=${map.noticeKey}&noticeTitle=${map.noticeTitle}&noticeContent=${map.noticeContent}">수정</a>
-		<a href="${pageContext.request.contextPath}/employee/notice/removeNotice?noticeKey=${map.noticeKey}">삭제</a>
+		<a href="${pageContext.request.contextPath}/employee/notice/removeNotice?noticeKey=${map.noticeKey}&fileName=${map.fileName}">삭제</a>
 	</div>
 	<hr>
 	<c:if test="${map.fileName ne null}">

@@ -16,6 +16,20 @@
 				<td><input type="text" name="theaterName"></td>
 			</tr>
 			<tr>
+				<th>극장지역</th>
+				<td>
+					<select name="theaterRegion">
+					    <option value="서울">서울</option>
+					    <option value="경기">경기</option>
+					    <option value="인천">인천</option>
+					    <option value="대전/충청/세종">대전/충청/세종</option>
+					    <option value="부산/대구/경상">부산/대구/경상</option>
+					    <option value="광주/전라">광주/전라</option>
+					    <option value="강원">강원</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<th>극장정보</th>
 				<td><textarea rows="10" cols="50" name="theaterInfo"></textarea></td>
 			</tr>

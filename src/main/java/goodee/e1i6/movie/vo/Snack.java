@@ -1,5 +1,7 @@
 package goodee.e1i6.movie.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -15,4 +17,5 @@ public class Snack {
 	private String fileName;
 	private String fileType;
 	private String categoryContent;
+	private MultipartFile mf;
 }

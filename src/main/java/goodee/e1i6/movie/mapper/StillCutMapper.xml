@@ -16,10 +16,29 @@
 		, file_name = #{fileName}
 		, file_type = #{fileType}
 		, file_size = #{fileSize}
-		WHERE movie_key = #{stillCutKey}
+		WHERE still_cut_key = #{stillCutKey}
 	</update>
 	
 	<!-- 영화 이미지 등록 -->	
+	<insert id="insertStillCut" parameterType="goodee.e1i6.movie.vo.StillCut">
+		INSERT INTO still_cut (
+			movie_key
+			, poster
+			, origin_name
+			, file_name
+			, file_type
+			, file_size
+		) VALUES (
+			#{movieKey}
+			, #{poster}
+			, #{originName}
+			, #{fileName}
+			, #{fileType}
+			, #{fileSize}
+		)
+	</insert>
+	
+	<!-- 크롤링을 통한 영화 이미지 등록 -->	
 	<insert id="insertStillCutByCrawling" parameterType="java.util.Map">
 		INSERT INTO still_cut (
 			movie_key
@@ -38,10 +57,38 @@
 		)
 	</insert>
 	
-	<!-- 영화에 맞는 영화 이미지 목록 출력 -->
+	<!-- 영화에 맞는 영화 이미지 상세정보 출력 -->
+	<select id="selectStillCutOne" parameterType="int" resultType="goodee.e1i6.movie.vo.StillCut">
+		SELECT 
+			still_cut_key stillCutKey
+			, movie_key movieKey
+			, poster
+			, origin_name originName
+			, file_name fileName
+			, file_type fileType
+			, file_size fileSize
+		FROM still_cut
+		WHERE still_cut_key = ${stillCutKey}
+	</select>
+	
+	<!-- 영화에 맞는 영화 이미지 목록 키 번호 출력 -->
 	<select id="selectStillCut" parameterType="int" resultType="int">
 		SELECT 
 			still_cut_key stillCutKey
+		FROM still_cut
+		WHERE movie_key = ${movieKey}
+	</select>
+	
+	<!-- 영화에 맞는 영화 이미지 목록 출력 -->
+	<select id="selectStillCutList" parameterType="int" resultType="goodee.e1i6.movie.vo.StillCut">
+		SELECT 
+			still_cut_key stillCutKey
+			, movie_key movieKey
+			, poster
+			, origin_name originName
+			, file_name fileName
+			, file_type fileType
+			, file_size fileSize
 		FROM still_cut
 		WHERE movie_key = ${movieKey}
 	</select>

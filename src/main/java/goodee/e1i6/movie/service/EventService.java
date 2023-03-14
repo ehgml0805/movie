@@ -2,9 +2,13 @@ package goodee.e1i6.movie.service;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import goodee.e1i6.movie.vo.Event;
 import goodee.e1i6.movie.vo.EventComment;
 import goodee.e1i6.movie.vo.EventForm;
 import goodee.e1i6.movie.vo.EventImg;
+import goodee.e1i6.movie.vo.EventWinner;
 import goodee.e1i6.movie.vo.Movie;
 import goodee.e1i6.movie.vo.ScreeningSchedule;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +36,21 @@ public class EventService {
 	@Autowired private EventMapper eventMapper;
 	@Autowired private EventImgMapper eventImgMapper;
 	@Autowired private EventCommentMapper eventCommentMapper; 
+		
+	// eventWinner
+	public int addEventWinner(EventWinner eventWinner) {
+		return eventMapper.insertEventWinner(eventWinner);
+	}
+	
+	// eventWinnerList
+	public List<EventWinner> getEventWinnerList(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		
+		return eventMapper.selectEventWinnerList(paramMap);
+	}
 	
 	// eventSchedule
 	public List<ScreeningSchedule> getEventScheduleList() {
@@ -72,7 +92,54 @@ public class EventService {
 		paramMap.put("eventKey", eventKey);
 		
 		return eventCommentMapper.selectEventCommentList(paramMap);
-	}
+	} 
+	
+	// 이벤트 종료일이 지난 이벤트 리스트 가져오기
+	public void pickRandomWinners() {
+		List<Event> pastEvents = eventMapper.selectPastEvents(); 
+        	for (Event event : pastEvents) {
+        		int eventCommentCount = eventCommentMapper.eventCommentCount(event.getEventKey());
+    			if (eventCommentCount > 0) {
+    				// 이벤트에 대한 댓글 리스트 가져오기
+    				Map<String, Object> paramMap = new HashMap<>();
+    				paramMap.put("eventKey", event.getEventKey());
+    				log.debug(TeamColor.JSM + "eventKey " + event.getEventKey());
+    				List<EventComment> commentList = eventCommentMapper.selectEventWinnerCommentList(paramMap);
+
+    	            // 중복된 아이디 제외한 리스트 만들기
+    	            Set<String> customerIdSet = new HashSet<>();
+    	            List<EventComment> uniqueCommentList = new ArrayList<>();
+    	            for (EventComment comment : commentList) {
+    	                if (!customerIdSet.contains(comment.getCustomerId())) {
+    	                    customerIdSet.add(comment.getCustomerId());
+    	                    uniqueCommentList.add(comment);
+    	                }
+    	            }
+
+    	            // uniqueCommentList에서 랜덤하게 당첨자 선정
+    	            List<EventComment> winners = new ArrayList<>();
+    	            int winnerCount = Math.min(5, uniqueCommentList.size());
+    	            for (int i = 0; i < winnerCount; i++) {
+    	                int randomIndex = new Random().nextInt(uniqueCommentList.size());
+    	                EventComment winnerComment = uniqueCommentList.remove(randomIndex);
+    	                winners.add(winnerComment);
+    	                log.debug(TeamColor.JSM + "Winner added :" + winnerComment.getEventCommentKey());    
+    	            }
+    	            log.debug(TeamColor.JSM + "Winners size: " + winners.size());  
+	              
+    	            // 이벤트위너 테이블에 추가
+		            for (EventComment winnerComment : winners) {
+		                EventWinner eventWinner = new EventWinner();
+		                eventWinner.setEventCommentKey(winnerComment.getEventCommentKey());
+		                eventWinner.setScheduleKey(winnerComment.getScheduleKey());
+		                eventMapper.insertEventWinner(eventWinner);
+		            }
+	        
+    			}
+	   
+        	}
+	}	
+
 	
 	// EventOne
 	public List<Event> getEventOne (Event event){

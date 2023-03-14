@@ -1,3 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="goodee.e1i6.movie.mapper.ScreenroomMapper"></mapper>
+<mapper namespace="goodee.e1i6.movie.mapper.ScreenroomMapper">
+	<!-- 상영관 목록 -->
+	<select id="selectScreenroomList" resultType="java.util.Map">
+		SELECT 
+			screenroom_key screenroomKey
+			, theater_key theaterKey
+			, screenroom_name screenroomName
+			, seat_count seatCount
+			, createdate
+		FROM screenroom 
+		WHERE theater_key = #{theaterKey}
+		ORDER BY screenroom_name DESC	
+	</select>
+	
+	<!-- 상영관 상세 -->
+	<select id="selectScreenroomOne" parameterType="int" resultType="goodee.e1i6.movie.vo.Screenroom">
+		SELECT 
+			screenroom_key screenroomKey
+			, theater_key theaterKey
+			, screenroom_name screenroomName
+			, seat_count seatCount
+			, createdate
+		FROM screenroom WHERE screenroom_key = #{screenroomKey}
+	</select>
+	
+	<!-- 상영관 삭제 -->
+	<delete id="deleteScreenroom" parameterType="int">
+		DELETE FROM screenroom WHERE screenroom_key = #{screenroomKey}
+	</delete>
+	
+	<!-- 상영관 삭제 검사 -->
+	<select id="selectCheckedTheaterForDelete" parameterType="int" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM 
+			screenroom sc
+		LEFT JOIN seat se ON sc.screenroom_key = se.screenroom_key
+		LEFT JOIN screening_schedule ss ON sc.screenroom_key = ss.screenroom_key
+		WHERE sc.screenroom_key = #{screenroomKey}
+	</select>
+	
+	<!-- 상영관 수정 -->
+	<update id="updateScreenroom" parameterType="goodee.e1i6.movie.vo.Screenroom">
+		UPDATE screenroom 
+		SET 
+			screenroom_name = #{screenroomName}
+		WHERE screenroom_key = #{screenroomKey}
+	</update>
+	
+	<!-- 상영관 등록 -->
+	<insert id="insertScreenroom" parameterType="goodee.e1i6.movie.vo.Screenroom">
+		INSERT INTO screenroom (
+			theater_key
+			, screenroom_name
+			, seat_count
+		) VALUES (
+			#{theaterKey}
+			, #{screenroomName}
+			, 0
+		)	
+	</insert>
+</mapper>

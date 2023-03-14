@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.EventMapper">
+
+	<!-- eventWinner -->
+	<insert id="insertEventWinner" parameterType="goodee.e1i6.movie.vo.EventWinner">
+		INSERT INTO event_winner (
+			event_comment_key
+			, schedule_key
+		) VALUES (
+			#{eventCommentKey}
+			, #{scheduleKey}
+		)
+	</insert>
+	
+	<select id="selectEventWinnerList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT 
+			ew.event_comment_key eventCommentkey
+			, ec.customer_id customerId
+			, ec.event_comment_content eventCommentContent
+			, ec.schedule_key scheduleKey
+			, c.customer_name customerName
+			, c.customer_phone customerPhone
+			, c.customer_email customerEmail
+			, e.event_title eventTitle
+		FROM event_winner ew INNER JOIN event_comment ec
+		ON ew.event_comment_key = ec.event_comment_key
+		INNER JOIN customer c
+		ON c.customer_id = ec.customer_id
+		INNER JOIN event e
+		ON e.event_key = ec.event_key
+	</select>
 	
 	<!-- eventSchedule-->
 	<select id="selectEventScheduleList" resultType="java.util.Map">
@@ -12,8 +41,6 @@
 			, end_date endDate
 			, preview
 		FROM screening_schedule	 
-			
-	 	
 	</select>
 	
 	<!-- eventMovieList -->
@@ -25,6 +52,19 @@
 	</select>
 	
 	<!-- event -->
+	<select id="selectPastEvents" resultType="goodee.e1i6.movie.vo.Event">
+  		SELECT 
+ 			event_key eventKey
+ 			, event_title eventTitle
+ 			, event_content eventContent
+ 			, event_start_date eventStartDate
+ 			, event_end_date eventEndDate
+ 			, movie_key movieKey 			
+  		FROM event
+  		WHERE event_end_date &lt; CURRENT_DATE()
+  		AND event_key NOT IN (SELECT DISTINCT event_key FROM event_winner)
+	</select>
+
 	<select id="eventOne" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT
 			e.event_key eventKey

@@ -26,9 +26,15 @@ public class NoticeController {
 	
 	// 공지사항 삭제
 	@GetMapping("/employee/notice/removeNotice")
-	public String removeNotice(@RequestParam("noticeKey") int noticeKey) {
-		noticeService.removeNotice(noticeKey);
-		log.debug(TeamColor.YIB + noticeKey+":삭제");
+	public String removeNotice(@RequestParam(value="noticeKey") int noticeKey
+									, @RequestParam(value="fileName", defaultValue="") String fileName
+									, HttpServletRequest request) {
+		log.debug(TeamColor.YIB + noticeKey + " : noticeKey");
+		log.debug(TeamColor.YIB + fileName + " : fileName");
+		// 이미지파일이 있으면 삭제를 위해 파일업로드 위치
+		String path = request.getServletContext().getRealPath("/notice-upload/");
+		noticeService.removeNotice(noticeKey, path, fileName);
+		log.debug(TeamColor.YIB + noticeKey + ": 삭제완료");
 		return "redirect:/employee/notice/noticeList";
 	}
 	

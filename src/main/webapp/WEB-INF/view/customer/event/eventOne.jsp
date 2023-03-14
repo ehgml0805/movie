@@ -30,7 +30,7 @@
 		
 		function loadEventCommentList(){
 			$.ajax({
-				url: "${pageContext.request.contextPath}/customer/event/eventCommentList",
+				url: "${pageContext.request.contextPath}/event/eventCommentList",
 				method: "GET",				
 			  	data: {
 					    "eventKey": eventKey
@@ -66,5 +66,8 @@
 	
 	<!-- 이빈트 댓글 리스트 -->
 	<div id="eventCommentList"></div>
+	
+	<!-- 페이징 -->
+	<div id="paging"></div>
 </body>
 </html>

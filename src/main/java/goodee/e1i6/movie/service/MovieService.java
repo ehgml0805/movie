@@ -41,7 +41,7 @@ public class MovieService {
 	// 영화 수정
 	public int modifyMovie(MovieForm movieForm, String path) {
 		// 1+2+3+4 -> 트랜잭션 처리
-
+		
 		// movie 테이블(1) : (N) still_cut 테이블
 		Movie movie = new Movie();
 		movie.setMovieKey(movieForm.getMovieKey());
@@ -58,95 +58,97 @@ public class MovieService {
     	movieForm.setPath(path);
     	
     	// stillCut가 하나 이상일 떄
-    	if(movieForm.getStillCut().get(0).getSize() > 0 && row == 1) {
-    		log.debug(TeamColor.JYW + "MovieController.modifyMovie : " + "수정된 파일이 있습니다.");
-    		
-    		// 2. 파일 업로드
-    		MultipartFile poster = movieForm.getPoster();
-    		log.debug(TeamColor.JYW + poster.getOriginalFilename() + poster.getSize());
-    		
-    		// 3. 파일 저장
-    		StillCut moviePoster = new StillCut();
-    		
-    		String posterFileName = UUID.randomUUID().toString().replace("-", ""); // 확장자 미포함
-    		String posterExt = poster.getOriginalFilename().substring(poster.getOriginalFilename().lastIndexOf(".")+1); 
-			
-    		posterFileName = posterFileName + "." + posterExt;   		
-			log.debug(TeamColor.JYW + "posterFileName : " + posterFileName);			   					
-			
-			File f1 = new File(movieForm.getPath() + posterFileName); // 풀네임으로 빈파일을 생성
-			
-			// 스틸컷 기본 키 출력
-			int[] stillCutKey = stillCutMapper.selectStillCut(movieForm.getMovieKey()); 
-			log.debug(TeamColor.JYW + "stillCutKey : "+ stillCutKey);
-			int i = 1;
-			
-			moviePoster.setStillCutKey(stillCutKey[0]);
-			moviePoster.setPoster("Y");
-    		moviePoster.setOriginName(poster.getOriginalFilename());   
-    		moviePoster.setFileName(posterFileName);
-    		moviePoster.setFileType(poster.getContentType());
-    		moviePoster.setFileSize(poster.getSize());
-			// 4. 파일정보를 stillcut 테이블에 저장
-			row = stillCutMapper.updateStillCut(moviePoster);
-			
-			try {
-				poster.transferTo(f1);
-			} catch (Exception e) {
-				e.printStackTrace();
-				// 파일업로드에 실패하면
-				// try...catch절이 필요로 하지 않는 RuntimeException을 발생시켜서
-				// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
-				throw new RuntimeException();
-			}   		
-    		
-			if (row != 0) {
-				List<MultipartFile> stillCuts = movieForm.getStillCut();
-	    		if(stillCuts != null) {
-	    			log.debug(TeamColor.JYW + "MovieController.modifyMovie stillCuts : ");
-	    			
-	    			for(MultipartFile mf : stillCuts) {
-	    				// 3. 파일 저장
-	    				StillCut stillCut = new StillCut();
-	    				
-	    				String originName = mf.getOriginalFilename();
-	    				log.debug(TeamColor.JYW + "originName : " + originName);
-	    				
-	    				String fileName = UUID.randomUUID().toString().replace("-", ""); // 확장자 미포함
-	    				
-	    				String ext = originName.substring(originName.lastIndexOf(".")+1); 
-	    				
-	    				fileName = fileName + "." + ext;
-	    				log.debug(TeamColor.JYW + fileName);
-	    				
-	    				File f = new File(movieForm.getPath() + fileName); // 풀네임으로 빈파일을 생성
-	    				// 빈파일에 mf안의 업로드된 파일을 복사
-	    				stillCut.setStillCutKey(stillCutKey[i]);
-	    				stillCut.setMovieKey(movieForm.getMovieKey());
-	    				stillCut.setPoster("N");
-	    				stillCut.setOriginName(originName);
-	    				stillCut.setFileName(fileName);
-	    				stillCut.setFileType(mf.getContentType());
-	    				stillCut.setFileSize(mf.getSize());
-	    				
-	    				// 다음 스틸컷 키 넣어주기
-	    				i++;
-	    				// 4. 파일정보를 stillcut 테이블에 저장
-	    				row = stillCutMapper.updateStillCut(stillCut);
-	    				
-	    				try {
-	    					mf.transferTo(f);
-	    				} catch (Exception e) {
-	    					e.printStackTrace();
-	    					// 파일업로드에 실패하면
-	    					// try...catch절이 필요로 하지 않는 RuntimeException을 발생시켜서
-	    					// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
-	    					throw new RuntimeException();
-	    				}   				  				
-	    			}
-	    		}
-    		}   		    		
-    	}		
+    	if(movieForm.getStillCut() != null) {
+	    	if(movieForm.getStillCut().get(0).getSize() > 0 && row == 1) {
+	    		log.debug(TeamColor.JYW + "MovieController.modifyMovie : " + "수정된 파일이 있습니다.");
+	    		
+	    		// 2. 파일 업로드
+	    		MultipartFile poster = movieForm.getPoster();
+	    		log.debug(TeamColor.JYW + poster.getOriginalFilename() + poster.getSize());
+	    		
+	    		// 3. 파일 저장
+	    		StillCut moviePoster = new StillCut();
+	    		
+	    		String posterFileName = UUID.randomUUID().toString().replace("-", ""); // 확장자 미포함
+	    		String posterExt = poster.getOriginalFilename().substring(poster.getOriginalFilename().lastIndexOf(".")+1); 
+				
+	    		posterFileName = posterFileName + "." + posterExt;   		
+				log.debug(TeamColor.JYW + "posterFileName : " + posterFileName);			   					
+				
+				File f1 = new File(movieForm.getPath() + posterFileName); // 풀네임으로 빈파일을 생성
+				
+				// 스틸컷 기본 키 출력
+				int[] stillCutKey = stillCutMapper.selectStillCut(movieForm.getMovieKey()); 
+				log.debug(TeamColor.JYW + "stillCutKey : "+ stillCutKey);
+				int i = 1;
+				
+				moviePoster.setStillCutKey(stillCutKey[0]);
+				moviePoster.setPoster("Y");
+	    		moviePoster.setOriginName(poster.getOriginalFilename());   
+	    		moviePoster.setFileName(posterFileName);
+	    		moviePoster.setFileType(poster.getContentType());
+	    		moviePoster.setFileSize(poster.getSize());
+				// 4. 파일정보를 stillcut 테이블에 저장
+				row = stillCutMapper.updateStillCut(moviePoster);
+				
+				try {
+					poster.transferTo(f1);
+				} catch (Exception e) {
+					e.printStackTrace();
+					// 파일업로드에 실패하면
+					// try...catch절이 필요로 하지 않는 RuntimeException을 발생시켜서
+					// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
+					throw new RuntimeException();
+				}   		
+	    		
+				if (row != 0) {
+					List<MultipartFile> stillCuts = movieForm.getStillCut();
+		    		if(stillCuts != null) {
+		    			log.debug(TeamColor.JYW + "MovieController.modifyMovie stillCuts : ");
+		    			
+		    			for(MultipartFile mf : stillCuts) {
+		    				// 3. 파일 저장
+		    				StillCut stillCut = new StillCut();
+		    				
+		    				String originName = mf.getOriginalFilename();
+		    				log.debug(TeamColor.JYW + "originName : " + originName);
+		    				
+		    				String fileName = UUID.randomUUID().toString().replace("-", ""); // 확장자 미포함
+		    				
+		    				String ext = originName.substring(originName.lastIndexOf(".")+1); 
+		    				
+		    				fileName = fileName + "." + ext;
+		    				log.debug(TeamColor.JYW + fileName);
+		    				
+		    				File f = new File(movieForm.getPath() + fileName); // 풀네임으로 빈파일을 생성
+		    				// 빈파일에 mf안의 업로드된 파일을 복사
+		    				stillCut.setStillCutKey(stillCutKey[i]);
+		    				stillCut.setMovieKey(movieForm.getMovieKey());
+		    				stillCut.setPoster("N");
+		    				stillCut.setOriginName(originName);
+		    				stillCut.setFileName(fileName);
+		    				stillCut.setFileType(mf.getContentType());
+		    				stillCut.setFileSize(mf.getSize());
+		    				
+		    				// 다음 스틸컷 키 넣어주기
+		    				i++;
+		    				// 4. 파일정보를 stillcut 테이블에 저장
+		    				row = stillCutMapper.updateStillCut(stillCut);
+		    				
+		    				try {
+		    					mf.transferTo(f);
+		    				} catch (Exception e) {
+		    					e.printStackTrace();
+		    					// 파일업로드에 실패하면
+		    					// try...catch절이 필요로 하지 않는 RuntimeException을 발생시켜서
+		    					// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
+		    					throw new RuntimeException();
+		    				}   				  				
+		    			}
+		    		}
+	    		}   		    		
+	    	}	
+    	}
 		return row;
 	}
 	

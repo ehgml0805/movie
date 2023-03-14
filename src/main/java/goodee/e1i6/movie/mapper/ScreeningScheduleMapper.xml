@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.ScreeningScheduleMapper">
+
+	<!-- 상영 스케줄 삭제 -->
+	<delete id="deleteScreeningSchedule" parameterType="int">
+		DELETE FROM screening_schedule
+		WHERE schedule_key = #{scheduleKey}
+	</delete>
+	
+	<!-- 상영 스케줄 수정 -->
+	<update id="updateScreeningSchedule" parameterType="goodee.e1i6.movie.vo.ScreeningSchedule">
+		UPDATE screening_schedule
+		SET movie_key = #{movieKey}
+			, screenroom_key = #{screenroomKey}
+			, start_date = #{startDate}
+			, end_date = #{endDate}
+			, preview = #{preview}
+			, price = #{price}
+		WHERE schedule_key = #{scheduleKey}
+	</update>
+	
+	<!-- 상영 스케줄 입력 -->
+	<insert id="insertScreeningSchedule" parameterType="goodee.e1i6.movie.vo.ScreeningSchedule">
+		INSERT INTO screening_schedule (
+			movie_key
+			, screenroom_key
+			, start_date
+			, end_date
+			, price
+		) VALUES (
+			#{movieKey}
+			, #{screenroomKey}
+			, #{startDate}
+			, #{endDate}
+			, #{price}
+		)
+	</insert>
+	
+	<!-- 상영 스케줄 한 개 -->
+	<select id="selectScreeningScheduleOne" parameterType="int" resultType="java.util.Map">
+		SELECT
+			ss.schedule_key scheduleKey
+			, ss.movie_key movieKey
+			, ss.screenroom_key screenroomKey
+			, ss.start_date startDate
+			, ss.end_date endDate
+			, ss.preview preview
+			, ss.price price
+			, ss.movie_title movieTitle
+			, ss.movie_info movieInfo
+			, ss.grade grade
+			, ss.openingdate openingdate
+			, ss.active active
+			, ss.screenroom_name screenroomName
+			, ss.theater_key theaterKey
+			, ss.seat_count seatCount
+			, t.theater_name theaterName
+			, t.theater_ticketing_info theaterTicketingInfo
+			FROM (SELECT 
+					ss.schedule_key
+					, ss.movie_key
+					, ss.screenroom_key
+					, ss.start_date
+					, ss.end_date
+					, ss.preview
+					, ss.price
+					, ss.movie_title
+					, ss.movie_info
+					, ss.grade
+					, ss.openingdate
+					, ss.active
+					, sr.screenroom_name
+					, sr.theater_key
+					, sr.seat_count
+					FROM (SELECT
+							ss.schedule_key
+							, ss.movie_key
+							, ss.screenroom_key
+							, ss.start_date
+							, ss.end_date
+							, ss.preview
+							, ss.price
+							, m.movie_title
+							, m.movie_info
+							, m.grade
+							, m.openingdate
+							, m.active
+							FROM screening_schedule ss INNER JOIN movie m
+							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
+					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
+			ON ss.theater_key = t.theater_key
+		WHERE ss.schedule_key = #{scheduleKey}	
+	</select>
+	
+	<!-- 상영 스케줄 목록 -->
+	<select id="selectScreeningScheduleList" parameterType="int" resultType="java.util.Map">
+		SELECT
+			ss.schedule_key scheduleKey
+			, ss.movie_key movieKey
+			, ss.screenroom_key screenroomKey
+			, ss.start_date startDate
+			, ss.end_date endDate
+			, ss.preview preview
+			, ss.price price
+			, ss.movie_title movieTitle
+			, ss.movie_info movieInfo
+			, ss.grade grade
+			, ss.openingdate openingdate
+			, ss.active active
+			, ss.screenroom_name screenroomName
+			, ss.theater_key theaterKey
+			, ss.seat_count seatCount
+			, t.theater_name theaterName
+			, t.theater_ticketing_info theaterTicketingInfo
+			FROM (SELECT 
+					ss.schedule_key
+					, ss.movie_key
+					, ss.screenroom_key
+					, ss.start_date
+					, ss.end_date
+					, ss.preview
+					, ss.price
+					, ss.movie_title
+					, ss.movie_info
+					, ss.grade
+					, ss.openingdate
+					, ss.active
+					, sr.screenroom_name
+					, sr.theater_key
+					, sr.seat_count
+					FROM (SELECT
+							ss.schedule_key
+							, ss.movie_key
+							, ss.screenroom_key
+							, ss.start_date
+							, ss.end_date
+							, ss.preview
+							, ss.price
+							, m.movie_title
+							, m.movie_info
+							, m.grade
+							, m.openingdate
+							, m.active
+							FROM screening_schedule ss INNER JOIN movie m
+							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
+					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
+			ON ss.theater_key = t.theater_key
+		<where>
+			<if test="movieKey != 0">
+				ss.movie_key = #{movieKey}
+			</if>
+		</where>
+		<where>
+			<if test="theaterKey != 0">
+				ss.theater_key = #{theaterKey}
+			</if>
+		</where>
+		ORDER BY ss.start_date ASC
+	</select>
+</mapper>

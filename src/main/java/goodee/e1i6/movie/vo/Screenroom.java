@@ -6,6 +6,7 @@ import lombok.Data;
 public class Screenroom {
 	private int screenroomKey;
 	private int theaterKey;
+	private String screenroomName;
 	private int seatCount;
 	private String createdate;
 }

@@ -25,6 +25,7 @@
 			<div>개봉일 : ${m.openingdate}</div>
 			<div>활성화 여부 : ${m.active}</div>
 			<div>포스터 : ${m.poster}</div>
+			<a href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매하기</a>	
 			<div>스틸컷 : </div>
 		</c:if>
 		<c:if test="${m.poster eq 'N'}">

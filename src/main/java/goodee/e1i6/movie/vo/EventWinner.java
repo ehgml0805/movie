@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class EventWinner {
 	private int eventCommentKey;
-	private int screeningScheduleKey;
+	private int ScheduleKey;
 }

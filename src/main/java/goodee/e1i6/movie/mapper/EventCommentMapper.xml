@@ -39,6 +39,22 @@
 		)
 	</insert>
 	
+	<select id="selectEventWinnerCommentList" resultType="goodee.e1i6.movie.vo.EventComment" parameterType="java.util.Map">
+		SELECT
+			ec.event_comment_key eventCommentKey
+			, ec.event_comment_content eventCommentContent
+			, ec.createdate createdate
+			, ec.customer_id customerId
+			, ec.schedule_key scheduleKey
+			, ec.event_key eventKey
+			, ec.insult_report insultReport
+			, ec.spoiler_report spoilerReport
+			, e.event_end_date eventEndDate
+		FROM event_comment ec INNER JOIN event e
+		ON ec.event_key = e.event_key
+		WHERE e.event_end_date &lt; CURRENT_DATE()
+	</select>
+	
 	<select id="selectEventCommentList" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT
 			ec.event_comment_key eventCommentKey
@@ -53,5 +69,6 @@
 		ON ci.customer_id = c.customer_id
 		WHERE ec.event_key = #{eventKey}
 		ORDER BY ec.createdate DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 </mapper>

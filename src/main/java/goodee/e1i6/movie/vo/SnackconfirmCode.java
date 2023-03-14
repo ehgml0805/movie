@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class SnackconfirmCode {
-	private int dataKey;
+	private String dataKey;
 	private String fileName;
 	private String fileType;
 	private String fileSize;

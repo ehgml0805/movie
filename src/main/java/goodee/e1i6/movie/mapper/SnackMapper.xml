@@ -6,12 +6,13 @@
 			s.snack_name snackName, i.file_name fileName, i.file_type fileType, c.category_content categoryContent, s.snack_price snackPrice, s.snack_key snackKey, s.sold_out soldOut
 		FROM snack s INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
 		WHERE s.snack_category_key = #{categoryNo}
+		ORDER BY s.snack_sales DESC
  	</select>
  	<select id="selectSnackByHit" resultType="goodee.e1i6.movie.vo.Snack">
 		SELECT 
 			s.snack_name snackName, i.file_name fileName, i.file_type fileType, c.category_content categoryContent, s.snack_price snackPrice, s.snack_key snackKey, s.sold_out soldOut
 		FROM snack s INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
-		ORDER BY s.snack_sales DESC LIMIT 0,4}
+		ORDER BY s.snack_sales DESC LIMIT 0,8
  	</select>
  	<select id="selectSnackBySearch" resultType="goodee.e1i6.movie.vo.Snack" parameterType="java.lang.String">
 		SELECT 
