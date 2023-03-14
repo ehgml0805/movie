@@ -13,7 +13,7 @@
 		
 		function loadAddEventComment(){
 			$.ajax({
-				url: "${pageContext.request.contextPath}/customer/event/addEventComment",
+				url: "${pageContext.request.contextPath}/event/addEventComment",
 				method: "GET",
 			  	data: {
 				    "eventKey": eventKey,

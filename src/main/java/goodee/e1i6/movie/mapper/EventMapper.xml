@@ -19,8 +19,8 @@
 			, ec.customer_id customerId
 			, ec.event_comment_content eventCommentContent
 			, ec.schedule_key scheduleKey
+			, ec.event_key eventKey
 			, c.customer_name customerName
-			, c.customer_phone customerPhone
 			, c.customer_email customerEmail
 			, e.event_title eventTitle
 		FROM event_winner ew INNER JOIN event_comment ec
@@ -29,6 +29,7 @@
 		ON c.customer_id = ec.customer_id
 		INNER JOIN event e
 		ON e.event_key = ec.event_key
+		WHERE ec.event_key = #{eventKey}
 	</select>
 	
 	<!-- eventSchedule-->
@@ -81,6 +82,16 @@
 		ON e.event_key = ei.event_key
 		WHERE e.event_key = #{eventKey}
 	</select>
+	
+	<select id="endEventCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM event
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				event_title like CONCAT('%',#{searchWord},'%') 
+			</if>
+			AND NOW() > event_end_date
+		</where>
+	</select>
 
 	<select id="eventCount" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM event
@@ -88,6 +99,7 @@
 			<if test="searchWord != null || searchWord !=''">
 				event_title like CONCAT('%',#{searchWord},'%') 
 			</if>
+			 AND event_end_date > NOW()
 		</where>
 	</select>
 	
@@ -109,6 +121,30 @@
 			,#{movieKey}
 		)
 	</insert>
+		<select id="selectEndEventList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+			e.event_key eventKey
+			, e.event_title eventTitle
+			, e.event_content eventContent
+			, e.event_start_date eventStartDate
+			, e.event_end_date eventEndDate
+			, e.movie_key movieKey
+			, ei.file_name fileName
+			, ei.file_type fileType
+			, ei.file_size fileSize
+			, ei.origin_name originName
+		FROM event e INNER JOIN event_img ei
+		ON e.event_key = ei.event_key
+		<where>
+			<if test="searchWord != null || searchWord !=''">
+				event_title like CONCAT('%',#{searchWord},'%')
+			</if>
+			 AND NOW() > event_end_date
+		</where>
+		GROUP BY e.event_key
+		ORDER BY e.event_key DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
 	
 	<select id="selectEventList" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT
@@ -128,10 +164,10 @@
 			<if test="searchWord != null || searchWord !=''">
 				event_title like CONCAT('%',#{searchWord},'%')
 			</if>
+			 AND event_end_date > NOW()
 		</where>
 		GROUP BY e.event_key
 		ORDER BY e.event_key DESC
 		LIMIT #{beginRow}, #{rowPerPage}
-			
 	</select>
 </mapper>
