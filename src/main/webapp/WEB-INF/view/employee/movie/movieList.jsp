@@ -39,7 +39,7 @@
 			<div>활성화 여부 : ${m.active}</div>
 			<div>포스터 : ${m.poster}</div>
 			<a href="${pageContext.request.contextPath}/employee/movie/modifyMovie?movieKey=${m.movieKey}">수정</a>
-		</c:if>		
+		</c:if>	
 	</c:forEach>
 </body>
 </html>

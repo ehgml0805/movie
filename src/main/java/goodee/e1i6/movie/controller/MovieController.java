@@ -113,7 +113,7 @@ public class MovieController {
 	}
 	
 	// 영화 상세정보 출력
-	@GetMapping("/customer/movie/movieOne")
+	@GetMapping("/movie/movieOne")
 	public String getMovieOne(Model model
 							, @RequestParam(value="movieKey", required = true) int movieKey) {
 		// log.debug(TeamColor.JYW + "movieOne");
@@ -125,7 +125,7 @@ public class MovieController {
 	}
 	
 	// 영화 목록 출력
-	@GetMapping("/customer/movie/movieList")
+	@GetMapping("/movie/movieList")
 	public String getMovieList(Model model) {
 		// log.debug(TeamColor.JYW + "GET movieList");
 		

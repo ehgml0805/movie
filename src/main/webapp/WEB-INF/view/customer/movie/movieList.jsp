@@ -12,21 +12,21 @@
 			<c:choose>
 			<c:when test="${m.movieCode ne '0'}">
 				<div>
-					<a href="${pageContext.request.contextPath}/customer/movie/movieOne?movieKey=${m.movieKey}" >
+					<a href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}" >
 						<img alt="영화이미지" src="${m.originName}" width="300px" height="500px">
 					</a>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div>
-					<a href="${pageContext.request.contextPath}/customer/movie/movieOne?movieKey=${m.movieKey}" >
+					<a href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}" >
 						<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.originName}" width="300px" height="500px">
 					</a>
 				</div>
 			</c:otherwise>		
 			</c:choose>				
 			<div>
-				<a href="${pageContext.request.contextPath}/customer/movie/movieOne?movieKey=${m.movieKey}" >
+				<a href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}" >
 					${m.movieTitle}
 				</a>
 			</div>
@@ -37,6 +37,7 @@
 			<div>개봉일 : ${m.openingdate}</div>
 			<div>활성화 여부 : ${m.active}</div>
 			<div>포스터 : ${m.poster}</div>
+			<a href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매하기</a>	
 		</c:if>		
 	</c:forEach>
 </body>
