@@ -6,6 +6,7 @@
 		SELECT 
 			theater_key theaterKey
 			, theater_name theaterName
+			, theater_region theaterRegion
 			, theater_info theaterInfo
 			, theater_address theaterAddress
 			, theater_ticketing_info theaterTicketingInfo
@@ -20,6 +21,7 @@
 		SELECT 
 			theater_key theaterKey
 			, theater_name theaterName
+			, theater_region theaterRegion
 			, theater_info theaterInfo
 			, theater_address theaterAddress
 			, theater_ticketing_info theaterTicketingInfo
@@ -34,11 +36,13 @@
 	<insert id="insertTheater" parameterType="goodee.e1i6.movie.vo.Theater">
 		INSERT INTO theater (
 			theater_name
+			, theater_region
 			, theater_info
 			, theater_address
 			, theater_ticketing_info
 		) VALUES (
 			#{theaterName}
+			, #{theaterRegion}
 			, #{theaterInfo}
 			, #{theaterAddress}
 			, #{theaterTicketingInfo}
@@ -50,6 +54,7 @@
 		UPDATE theater 
 		SET 
 			theater_name = #{theaterName}
+			, theater_region = #{theaterRegion}
 			, theater_info = #{theaterInfo}
 			, theater_address = #{theaterAddress}
 			, theater_ticketing_info = #{theaterTicketingInfo}

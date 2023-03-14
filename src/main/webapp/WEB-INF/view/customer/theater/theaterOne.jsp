@@ -13,6 +13,7 @@
 			<thead>
 				<tr>
 					<th>극장코드</th>
+					<th>극장지역</th>
 					<th>극장명</th>
 					<th>극장주소</th>
 				</tr>
@@ -20,6 +21,7 @@
 			<tbody>
 				<tr>
 					<td>${theaterOne.theaterKey}</td>
+					<td>${theaterOne.theaterRegion}</td>
 					<td>${theaterOne.theaterName}</td>
 					<td>${theaterOne.theaterAddress}</td>
 				</tr>

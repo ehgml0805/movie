@@ -14,6 +14,7 @@
 			<thead>
 				<tr>
 					<th>극장코드</th>
+					<th>극장지역</th>
 					<th>극장명</th>
 					<th>극장주소</th>
 				</tr>
@@ -22,6 +23,7 @@
 				<c:forEach var="t" items="${theaterList}">
 					<tr>
 						<td>${t.theaterKey}</td>
+						<td>${t.theaterRegion}</td>
 						<td><a href="${pageContext.request.contextPath}/employee/theater/theaterOne?theaterKey=${t.theaterKey}">${t.theaterName}</a></td>
 						<td>${t.theaterAddress}</td>
 					</tr>
