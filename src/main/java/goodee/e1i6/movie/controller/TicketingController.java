@@ -27,4 +27,15 @@ public class TicketingController {
 		
 		return "/customer/ticketing/screenList";
 	}
+	
+	@GetMapping("/ticketing/screenList2")
+	public String getScreenList2(Model model) {
+		List<Map<String, Object>> movieList = movieService.getMovieList();
+		List<Theater> theaterRegionList = theaterService.getTheaterListRegion();
+		
+		model.addAttribute("theaterRegionList", theaterRegionList);
+		model.addAttribute("movieList", movieList);	
+		
+		return "/customer/ticketing/screenList2";
+	}
 }
