@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.TheaterService;
-import goodee.e1i6.movie.vo.Theater;
 
 @Controller
 public class TicketingController {
@@ -20,7 +19,7 @@ public class TicketingController {
 	@GetMapping("/ticketing/screenList")
 	public String getScreenList(Model model) {
 		List<Map<String, Object>> movieList = movieService.getMovieList();
-		List<Theater> theaterRegionList = theaterService.getTheaterListRegion();
+		List<Map<String, Object>> theaterRegionList = theaterService.getTheaterRegionList();
 		
 		model.addAttribute("theaterRegionList", theaterRegionList);
 		model.addAttribute("movieList", movieList);	
@@ -31,7 +30,7 @@ public class TicketingController {
 	@GetMapping("/ticketing/screenList2")
 	public String getScreenList2(Model model) {
 		List<Map<String, Object>> movieList = movieService.getMovieList();
-		List<Theater> theaterRegionList = theaterService.getTheaterListRegion();
+		List<Map<String, Object>> theaterRegionList = theaterService.getTheaterRegionList();
 		
 		model.addAttribute("theaterRegionList", theaterRegionList);
 		model.addAttribute("movieList", movieList);	

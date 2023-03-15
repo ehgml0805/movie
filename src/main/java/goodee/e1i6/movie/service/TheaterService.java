@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,18 @@ import goodee.e1i6.movie.vo.Theater;
 public class TheaterService {
 	@Autowired TheaterMapper theaterMapper;
 	
+	// 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력
+	public List<Map<String, Object>> getRegionListByMovie(int movieKey) {
+		return theaterMapper.selectRegionListByMovie(movieKey);
+	}
+	
 	// 빠른 예매(해당 지역의 극장 목록)
 	public List<Theater> geTheaterNameListByRegion(String theaterRegion) {
 		return theaterMapper.selectTheaterNameListByRegion(theaterRegion);
 	}
 	
 	// 빠른 예매(지역순)
-	public List<Theater> getTheaterListRegion() {
+	public List<Map<String, Object>> getTheaterRegionList() {
 		return theaterMapper.selectTheaterRegionList();
 	}
 	

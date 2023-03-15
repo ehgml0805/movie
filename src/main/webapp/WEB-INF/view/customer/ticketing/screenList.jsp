@@ -46,7 +46,7 @@
 			<h1>극장</h1>
 			<div id="theater">
 				<div class="row">
-					<div class="col-6">
+					<div id="theaterRegion" class="col-6">
 						<c:forEach var="r" items="${theaterRegionList}">
 							<div>
 								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
@@ -79,6 +79,7 @@
     
     <script>
     	$(function() {
+    		/* 영화 선택 시 이미지 출력 */
     		$('button.movie-button').click(function(){
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
@@ -92,24 +93,46 @@
     			});
     		});
     		
-    		$('.region').click(function() {
+    		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
+    		$('.movie-button').click(function() {
 				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/ticketing/theaterList',
-					data : {theaterRegion : $(this).val()},
-					dataType : 'json',
-					success : function (data) {
-						var html = "";
-			            for (var i=0; i < data.length; i++) {
-			                html += "<div>" + data[i].theaterName + "</div>";
+					data : {movieKey : $(this).val()},
+					success : function(data) {
+						let html = '';
+			            for (let i=0; i < data.length; i++) {
+			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
 			            }
-						$('#theaterName').html(html);
+			            
+						$('#theaterRegion').html(html);
 					},
 					error : function() {
-						alert('error')						
+						alert('error')
 					}
 				})
-			})
+			});
+    		
+    		/*  지역 선택 시 해당 지역 극장 리스트 출력 */
+    		$(document).on('click', '.region', function() {
+    		    $.ajax({
+    		        type: 'GET',
+    		        url: '${pageContext.request.contextPath}/ticketing/theaterList',
+    		        data: { theaterRegion: $(this).val() },
+    		        dataType: 'json',
+    		        success: function(data) {
+    		            var html = "";
+    		            for (var i = 0; i < data.length; i++) {
+    		                html += "<div>" + data[i].theaterName + "</div>";
+    		            }
+    		            $('#theaterName').html(html);
+    		        },
+    		        error: function() {
+    		            alert('error')
+    		        }
+    		    })
+    		});
 			
 		})
     </script>
