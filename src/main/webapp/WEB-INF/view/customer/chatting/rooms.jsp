@@ -9,19 +9,21 @@
 </head>
 <body>
 
-        <div class="container">
-            <div>
-                <ul>
-	                <c:forEach var="l" items="${list}">
-	                    <li><a href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">[${l.name}]</a></li>
-	                </c:forEach>
-                </ul>
-            </div>
-        </div>
-        <form action="${pageContext.request.contextPath}/chatting/room" method="post">
-            <input type="text" name="name" class="form-control">
-            <button class="btn btn-secondary">개설하기</button>
-        </form>
+	<div class="container">
+	    <div>
+	        <ul>
+	         <c:forEach var="l" items="${list}">
+	         	<c:if test="${l.name eq id}">
+	            	<li><a id="check" href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></li>
+	         	</c:if>
+	         </c:forEach>
+	        </ul>
+	    </div>
+	</div>
+	<form action="${pageContext.request.contextPath}/chatting/room" method="post">
+	    <input type="text" name="name" class="form-control" value="${id}" readonly="readonly">
+	    <button type="button" id="btn" class="btn btn-secondary">개설하기</button>
+	</form>
 
 	<script>
 	
@@ -29,18 +31,16 @@
 	
 	    var roomName = "${roomName.name}";
 	
-	    if(roomName != null)
+	    if(roomName != "")
 	        alert(roomName + "방이 개설되었습니다.");
-	
-	    $(".btn-create").on("click", function (e){
-	        e.preventDefault();
-	
-	        var name = $("input[name='name']").val();
-	
-	        if(name == "")
-	            alert("Please write the name.")
-	        else
+
+	    $("#btn").on("click", function (e){
+
+	        if($('#check').val() != null) // 이미 방이 만들어져 있으면
+	        	alert("채팅방이 생성되어 있습니다.")
+	        else 
 	            $("form").submit();
+	        
 	    });
 	
 	});

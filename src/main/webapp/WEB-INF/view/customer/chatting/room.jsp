@@ -9,35 +9,35 @@
 </head>
 <body>
 
-        <div class="container">
-            <div class="col-6">
-                <h1>${room.name}</h1>
-            </div>
-            <div>
-                <div id="msgArea" class="col"></div>
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <input type="text" id="msg" class="form-control">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6"></div>
-        </div>
-
-
-        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<div class="container">
+	    <div class="col-6">
+	        <h2>${room.name}</h2>
+	    </div>
+	    <div>
+	        <div id="msgArea" class="col"></div>
+	        <div class="col-6">
+	            <div class="input-group mb-3">
+	                <input type="text" id="msg" class="form-control">
+	                <div class="input-group-append">
+	                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="col-6"></div>
+	</div>
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
         
 	<script>
 		
 		$(document).ready(function(){
 		
-			var roomName = "${room.name}";
-		    var roomId = "${room.roomId}";
-		    var username = "1";
+			var roomName = "${room.name}"; // 로그인한 고객 아이디
+		    var roomId = "${room.roomId}"; // UUID
+		    var username = "${loginId}"; // 로그인한 아이디
 		
 		    console.log(roomName + ", " + roomId + ", " + username);
 		
@@ -57,22 +57,23 @@
 		           var message = content.message;
 		           var str = '';
 		
-		           if(writer === username){
-		               str = "<div class='col-6'>";
+		           if(writer === username) {
+		        	   console.log("내채팅")
+		        	   str = "<div class='col-6'>";
 		               str += "<div class='alert alert-secondary'>";
 		               str += "<p>" + writer + " : " + message + "</p>";
 		               str += "</div></div>";
 		               $("#msgArea").append(str);
 		           }
-		           else{
-		               str = "<div class='col-6'>";
+		           else {
+		        	   console.log("상대채팅")
+		        	   str = "<div class='col-6'>";
 		               str += "<div class='alert alert-warning'>";
 		               str += "<p>" + writer + " : " + message + "</p>";
 		               str += "</div></div>";
 		               $("#msgArea").append(str);
 		           }
 		
-		           $("#msgArea").append(str);
 		       });
 		
 		       //3. send(path, header, message)로 메세지를 보낼 수 있음
