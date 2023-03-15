@@ -20,7 +20,7 @@ public class ScreenroomController {
 	@Autowired ScreenroomService screenroomService;
 	
 	// 상영관 상세 - 고객
-	@GetMapping("/customer/screenroom/screenroomOne")
+	@GetMapping("/screenroom/screenroomOne")
 	public String getScreenroomOneForCustomer(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
 		log.debug(TeamColor.CHOI + "GET screenroomOne");
 		

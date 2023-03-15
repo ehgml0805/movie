@@ -42,27 +42,42 @@
 			</div>	
 		</div>
 		<!-- 극장 -->
-		<div class="container">
+		<div class="container center-one">
 			<h1>극장</h1>
-			<div id="theater">
-				<div class="row">
-					<div class="col-6">
-						<c:forEach var="r" items="${theaterRegionList}">
-							<div>
-								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
-							</div>
-						</c:forEach>
-					</div>
-					<div class="col-6" id="theaterName"></div>
-				</div>
-			</div>
+			<div class="theater-list">
+                <button class="theater-all-button">전체</button>
+                <div class="theater-spacial-button"></div>
+            </div>
+            <div class="list-theater-detail">
+               <div class="all-theater-list">
+                	<div class="explain-button">
+                		<p style="display:flex">영화를 선택하세요</p>
+                		<c:forEach var="region" items="${regions }">
+                		<button class='list-theater-button' data-region='${region.no }' style="display:none">${region.name }</button>
+                	</c:forEach>
+                	</div>
+               </div>
+               <div class="theater-choies">
+               
+               </div>
+           </div>
+           <div class="theater-choies-check">
+               <p class="check-content" style="display:flex;">전체극장<br>
+                   목록에서 극장을 선택하세요
+               </p>
+               <!--선택했을 경우 클릭하면 입력되고 아니면 열리지 않는다.-->
+               <div class="check-theater" style="display:none;">
+               
+               </div>
+           </div>
 		</div>
 		<!-- 상영시간표 -->
-		<div class="container">
+		<div class="container right-one">
 			<h1>상영시간표</h1>
-			<div id="schedule">
-			
-			</div>
+			<div class="time-check">
+            </div>
+            <div class="movie-check">
+            </div>
 		</div>
 	</div>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
@@ -76,42 +91,21 @@
 	   	<input type="hidden" name="regionNo" value="" />
 	   	<input type="hidden" name="showScheduleNo" value="" />
     </form>
-    
-    <script>
-    	$(function() {
-    		$('button.movie-button').click(function(){
-    			$.ajax({
-    				url :'${pageContext.request.contextPath}/ticketing/movieOne'
-    				, type :'get'
-    				, data : {movieKey:$(this).val()}
-    				, success:function(list){
-    					// alert(list);
-    					let originName = list[0].originName;
-    					$('#picture').attr('src', originName);
-    				}
-    			});
-    		});
-    		
-    		$('.region').click(function() {
-				$.ajax({
-					type : 'GET',
-					url : '${pageContext.request.contextPath}/ticketing/theaterList',
-					data : {theaterRegion : $(this).val()},
-					dataType : 'json',
-					success : function (data) {
-						var html = "";
-			            for (var i=0; i < data.length; i++) {
-			                html += "<div>" + data[i].theaterName + "</div>";
-			            }
-						$('#theaterName').html(html);
-					},
-					error : function() {
-						alert('error')						
-					}
-				})
-			})
-			
-		})
-    </script>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$('button.movie-button').click(function(){
+			$.ajax({
+				url :'${pageContext.request.contextPath}/ticketing/movieOne'
+				, type :'get'
+				, data : {movieKey:$(this).val()}
+				, success:function(list){
+					// alert(list);
+					let originName = list[0].originName;
+					$('#picture').attr('src', originName);
+				}
+			});
+		});
+	});
+</script>
 </html>

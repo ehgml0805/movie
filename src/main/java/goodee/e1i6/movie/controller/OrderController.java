@@ -33,6 +33,7 @@ public class OrderController {
 		Snack s = snackService.snackOne(snackKey);
 		model.addAttribute("s", s);
 		model.addAttribute("c", c);
+		model.addAttribute("quantity", Quantity);
 		return "/customer/order/paymentDir";
 	}
 	@PostMapping("/customer/order/paymentDirect")

@@ -53,7 +53,7 @@
 				 				<td><h4><a style="color:black" href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${c.snackKey}">${c.snackName}</a></h4></td>
 				 			</tr>
 				 			<tr>
-			 					<form action="${pageContext.request.contextPath}/UpdateQuantity" method="post" id="updateQunatity${c.goodsCode}">
+			 					<form action="${pageContext.request.contextPath}/customer/order/updateCartQuantity" method="post" id="updateQunatity${c.goodsCode}">
 			 					<td>
 			 					₩ <fmt:formatNumber value="${c.cartPrice}" pattern="#,###"/>  &nbsp;&nbsp;&nbsp;
 			 					<c:if test="${c.soldOut=='N'}">	

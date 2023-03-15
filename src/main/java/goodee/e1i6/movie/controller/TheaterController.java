@@ -26,7 +26,7 @@ public class TheaterController {
 	@Autowired ScreenroomService screenroomService;
 	
 	// 극장 출력(이름순) - 고객
-	@GetMapping("/customer/theater/theaterList")
+	@GetMapping("/theater/theaterList")
 	public String getTheaterListForCustomer(Model model) {
 		log.debug(TeamColor.CHOI + "GET theaterList");
 		
@@ -37,7 +37,7 @@ public class TheaterController {
 	}
 	
 	// 극장 상세 정보 - 고객
-	@GetMapping("/customer/theater/theaterOne")
+	@GetMapping("/theater/theaterOne")
 	public String getTheaterOneForCoustomer(Model model, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey) {
 		log.debug(TeamColor.CHOI + "GET theaterOne");
 		
