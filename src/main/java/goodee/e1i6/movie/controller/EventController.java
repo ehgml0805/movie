@@ -53,15 +53,18 @@ public class EventController {
 	
 	// 이벤트 댓글 삭제
 	@GetMapping("/customer/event/removeEventComment")
-	public String removeEventComment(@RequestParam("eventCommentKey") int eventCommentKey) {
-		eventService.removeComment(eventCommentKey);
-		return "redirect:/event/eventOne";
+	public String removeEventComment(EventComment eventComment, @RequestParam(value="movieKey") int movieKey, @RequestParam(value="customerId") String customerId) {
+		eventService.removeComment(eventComment);
+		int eventKey = eventComment.getEventKey();
+		log.debug(TeamColor.JSM + eventKey + " <- removeCommentEventKey");
+		log.debug(TeamColor.JSM + movieKey + " <- removeCommentMovieKey");
+		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
 	}
 	
 	// 이벤트 댓글 수정
 	@GetMapping("/customer/event/modifyEventComment")
-	public String modifyEventComment(Model model, @RequestParam(value="eventCommentKey") int eventCommentKey) {
-		model.addAttribute("eventCommentKey", eventCommentKey);
+	public String modifyEventComment(Model model, @RequestParam(value="customerId") String customerId) {
+		model.addAttribute("customerId", customerId);
 		return "customer/event/modifyEventComment";
 	}	
 	@PostMapping("/customer/event/modifyEventComment")
@@ -74,8 +77,8 @@ public class EventController {
 	
 	// 이벤트 댓글 추가
 	@GetMapping("/event/addEventComment")
-	public String addEventComment(Model model, int eventKey, @RequestParam(value="customerId") String customerId) {
-		List<ScreeningSchedule> eventScheduleList = eventService.getEventScheduleList();
+	public String addEventComment(Model model, int eventKey, @RequestParam(value="customerId") String customerId, @RequestParam(value="movieKey") int movieKey) {
+		List<ScreeningSchedule> eventScheduleList = eventService.getEventScheduleList(movieKey);
 		
 		log.debug(TeamColor.JSM + "eventScheduleList: " + eventScheduleList);
 		log.debug(TeamColor.JSM + "addCommentEventKey :" + eventKey);
@@ -83,24 +86,27 @@ public class EventController {
 		model.addAttribute("eventScheduleList", eventScheduleList);
 		model.addAttribute("eventKey", eventKey);
 		model.addAttribute("customerId", customerId);
-		
+		model.addAttribute("movieKey", movieKey);
 		return "customer/event/addEventComment";
 	}
 	@PostMapping("/event/addEventComment")
-	public String addEventComment(EventComment eventComment) {	
+	public String addEventComment(EventComment eventComment, @RequestParam(value="movieKey") int movieKey) {	
 	    int eventKey = eventComment.getEventKey();
+	    String customerId = eventComment.getCustomerId();
 	    // log.debug(TeamColor.JSM + "eventKey " + eventKey);
 		eventService.addEventComment(eventComment);
-		return "redirect:/event/eventOne?eventKey="+eventKey;
+		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
 	}
 	// 이벤트 댓글 리스트 
 	@GetMapping("/event/eventCommentList")
 	public String eventCommentList (Model model 
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
-			, @RequestParam(value = "eventKey") int eventKey){ 
+			, @RequestParam(value = "eventKey") int eventKey
+			, @RequestParam(value = "movieKey") int movieKey){ 
 		
 		log.debug(TeamColor.JSM + "ec.eventKey :" + eventKey);
+		log.debug(TeamColor.JSM + "ec.movieKey :" + movieKey);
 		
 		List<EventComment> EventCommentList = eventService.getEventCommentList(currentPage, rowPerPage, eventKey);
 		log.debug(TeamColor.JSM + EventCommentList +" <- EventCommentList");
@@ -124,6 +130,7 @@ public class EventController {
 		model.addAttribute("eventCommentCount", eventCommentCount);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("eventKey", eventKey);
+		model.addAttribute("movieKey", movieKey);
 
 		
 		return "customer/event/eventCommentList";
@@ -135,6 +142,7 @@ public class EventController {
 		List<Event> eventOneList = eventService.getEventOne(event);
 		log.debug(TeamColor.JSM + eventOneList +" <- eventOnelist");
 		log.debug(TeamColor.JSM + event.getEventKey() +" <- eventKey");
+		log.debug(TeamColor.JSM + event.getMovieKey() +" <- movieKey");
 		
 		String customerId;
 		
@@ -149,6 +157,7 @@ public class EventController {
 		
 		model.addAttribute("eventOneList", eventOneList);
 		model.addAttribute("eventKey", event.getEventKey());
+		model.addAttribute("movieKey", event.getMovieKey());
 		model.addAttribute("customerId", customerId);
 		return "customer/event/eventOne";
 	}

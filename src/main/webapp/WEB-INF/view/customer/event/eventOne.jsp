@@ -8,6 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
  	const eventKey = ${eventKey};
+ 	const movieKey = ${movieKey};
  	let customerId = '${customerId}';
 	$(document).ready(function(){
 		
@@ -17,7 +18,8 @@
 				method: "GET",
 			  	data: {
 				    "eventKey": eventKey,
-				    "customerId": customerId
+				    "customerId": customerId,
+				    "movieKey": movieKey
 	  			},	
 				success: function(data){
 					$("#addComment").html(data);
@@ -33,7 +35,8 @@
 				url: "${pageContext.request.contextPath}/event/eventCommentList",
 				method: "GET",				
 			  	data: {
-					    "eventKey": eventKey
+					    "eventKey": eventKey,
+					    "movieKey": movieKey
 		  		},				
 				success: function(data){
 					$("#eventCommentList").html(data);
@@ -59,6 +62,11 @@
 	<c:forEach var="e" items="${eventOneList}">
 		<div>
 			<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="500" height="500">
+		</div>
+	</c:forEach>
+	<c:forEach var="e" items="${eventOneList}" begin="0" end="0">
+		<div>
+			${e.eventContent}
 		</div>
 	</c:forEach>
 	<!-- 이벤트 댓글 등록 폼 -->

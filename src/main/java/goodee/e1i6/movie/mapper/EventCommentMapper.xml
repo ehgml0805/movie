@@ -8,15 +8,15 @@
 		WHERE event_key = #{eventKey}
 	</select>
 	
-	<delete id="deleteEventComment">
+	<delete id="deleteEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">
 		DELETE FROM event_comment
-		WHERE event_comment_key = #{eventCommentKey}
+		WHERE customer_id = #{customerId} AND event_comment_key = #{eventCommentKey}
 	</delete>
 	<update id="updateEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">
 		UPDATE event_comment
 		SET event_comment_content = #{eventCommentContent}
 			, createdate = now()
-		WHERE event_comment_key = #{eventCommentKey}	
+		WHERE customer_id = #{customerId} AND event_comment_key = #{event_comment_key}	
 	</update>
 	
 	<insert id="insertEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">

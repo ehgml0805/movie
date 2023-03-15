@@ -12,7 +12,7 @@ public interface EventCommentMapper {
 	// count
 	int eventCommentCount(int eventKey);
 	// 이벤트 댓글 삭제
-	int deleteEventComment(int eventCommentKey);
+	int deleteEventComment(EventComment eventComment);
 	// 이벤트 댓글 수정
 	int updateEventComment(EventComment eventComment);
 	// 이벤트 댓글 등록

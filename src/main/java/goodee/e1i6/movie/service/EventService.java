@@ -53,8 +53,9 @@ public class EventService {
 	}
 	
 	// eventSchedule
-	public List<ScreeningSchedule> getEventScheduleList() {
+	public List<ScreeningSchedule> getEventScheduleList(int movieKey) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("movieKey", movieKey);
 		return eventMapper.selectEventScheduleList(paramMap);
 	}
 	
@@ -69,8 +70,8 @@ public class EventService {
 		return eventCommentMapper.eventCommentCount(eventKey);
 	}
 	// removeComment
-	public int removeComment(int eventCommentKey) {
-		return eventCommentMapper.deleteEventComment(eventCommentKey);
+	public int removeComment(EventComment eventComment) {
+		return eventCommentMapper.deleteEventComment(eventComment);
 	}
 	
 	// modifyComment
