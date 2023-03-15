@@ -16,7 +16,7 @@
 		UPDATE event_comment
 		SET event_comment_content = #{eventCommentContent}
 			, createdate = now()
-		WHERE customer_id = #{customerId} AND event_comment_key = #{event_comment_key}	
+		WHERE customer_id = #{customerId} AND event_comment_key = #{eventCommentKey}	
 	</update>
 	
 	<insert id="insertEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">

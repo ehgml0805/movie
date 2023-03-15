@@ -63,16 +63,26 @@ public class EventController {
 	
 	// 이벤트 댓글 수정
 	@GetMapping("/customer/event/modifyEventComment")
-	public String modifyEventComment(Model model, @RequestParam(value="customerId") String customerId) {
+	public String modifyEventComment(Model model
+									, @RequestParam(value="customerId") String customerId
+									, @RequestParam(value="movieKey") int movieKey
+									, @RequestParam(value="eventCommentKey") int eventCommentKey
+									, @RequestParam(value="eventKey") int eventKey)  {
 		model.addAttribute("customerId", customerId);
+		model.addAttribute("movieKey", movieKey);
+		model.addAttribute("eventKey", eventKey);
+		model.addAttribute("eventCommentKey", eventCommentKey);
 		return "customer/event/modifyEventComment";
 	}	
 	@PostMapping("/customer/event/modifyEventComment")
-	public String modifyEventComment(EventComment eventComment) {
+	public String modifyEventComment(EventComment eventComment
+									, @RequestParam(value="customerId") String customerId
+									, @RequestParam(value="movieKey") int movieKey
+									, @RequestParam(value="eventCommentKey") int eventCommentKey
+									, @RequestParam(value="eventKey") int eventKey) {
 		eventService.modifyEventComment(eventComment);
-		int eventKey = eventComment.getEventKey();
 		log.debug(TeamColor.JSM + eventComment + " <- modifyEventComment");
-		return "redirect:/event/eventOne?eventKey="+eventKey;
+		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
 	}
 	
 	// 이벤트 댓글 추가
@@ -114,21 +124,9 @@ public class EventController {
 		int eventCommentCount = eventService.eventCommentCount(eventKey);
 		log.debug(TeamColor.JSM + "eventCommentCount :" + eventCommentCount);
 
-		int lastPage = (int)Math.ceil((double)eventCommentCount / (double)rowPerPage);
-		
-		int startPage = ((currentPage - 1) / 10) * 10 + 1;
-		int endPage = startPage + 9;
-
-		if (endPage > lastPage) {
-		    endPage = lastPage;
-		}
 		
 		model.addAttribute("EventCommentList", EventCommentList);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("eventCommentCount", eventCommentCount);
-		model.addAttribute("endPage", endPage);
 		model.addAttribute("eventKey", eventKey);
 		model.addAttribute("movieKey", movieKey);
 

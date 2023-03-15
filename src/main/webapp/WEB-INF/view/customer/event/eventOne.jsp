@@ -7,11 +7,14 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
- 	const eventKey = ${eventKey};
- 	const movieKey = ${movieKey};
- 	let customerId = '${customerId}';
-	$(document).ready(function(){
-		
+	const eventKey = ${eventKey};
+	const movieKey = ${movieKey};
+	let customerId = '${customerId}';
+	let currentPage = 1;
+	let isLoading = false;
+	let rowPerPage = 5;
+	let noMoreComments = false;
+	$(document).ready(function(){	
 		function loadAddEventComment(){
 			$.ajax({
 				url: "${pageContext.request.contextPath}/event/addEventComment",
@@ -30,25 +33,39 @@
 			});
 		}
 		
-		function loadEventCommentList(){
-			$.ajax({
-				url: "${pageContext.request.contextPath}/event/eventCommentList",
-				method: "GET",				
-			  	data: {
-					    "eventKey": eventKey,
-					    "movieKey": movieKey
-		  		},				
-				success: function(data){
-					$("#eventCommentList").html(data);
-				},			
-				error: function(){
-					alert("이벤트 댓글 리스트 불러오기 실패");
-				}
-			});
-		}	
-		
+	    function loadEventCommentList(){
+	    	if(isLoading || noMoreComments) return;
+	        isLoading = true;
+	        $.ajax({
+	            url: "${pageContext.request.contextPath}/event/eventCommentList",
+	            method: "GET",
+	            data: {
+	                "currentPage": currentPage,
+	                "rowPerPage": rowPerPage,
+	                "eventKey": eventKey,
+	                "movieKey": movieKey
+	            },
+	            success: function(data){
+	                $("#eventCommentList").append(data);
+	                currentPage++;
+	                isLoading = false;
+	                if($(data).find(".comment").length < rowPerPage || data.trim() === ""){
+	                    noMoreComments = true;
+	                }
+	            },
+	            error: function(){
+	                alert("Failed to load comments");
+	                isLoading = false;
+	            }
+	        });
+	    }
+
+	    $(window).scroll(function(){
+	        if($(window).scrollTop() + $(window).height() > $(document).height() - 100){
+	        	loadEventCommentList();
+	        }
+	    });
 	    loadAddEventComment();
-	    loadEventCommentList();
 	});
 </script>
 </head>
@@ -74,8 +91,5 @@
 	
 	<!-- 이빈트 댓글 리스트 -->
 	<div id="eventCommentList"></div>
-	
-	<!-- 페이징 -->
-	<div id="paging"></div>
 </body>
 </html>
