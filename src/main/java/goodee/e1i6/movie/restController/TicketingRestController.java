@@ -1,5 +1,6 @@
 package goodee.e1i6.movie.restController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import goodee.e1i6.movie.service.MovieService;
+import goodee.e1i6.movie.service.ScreeningScheduleService;
 import goodee.e1i6.movie.service.TheaterService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Theater;
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TicketingRestController {
 	@Autowired TheaterService theaterService;
 	@Autowired MovieService movieService;
+	@Autowired ScreeningScheduleService screeningScheduleService;
 	
 	// 빠른 예매 - 극장 리스트
 	@GetMapping("/ticketing/theaterList")
@@ -39,6 +42,12 @@ public class TicketingRestController {
 	public List<Map<String, Object>> getRegionListByMovie(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
 		log.debug(TeamColor.CHOI + "GET RegionListByMovie");
 		return theaterService.getRegionListByMovie(movieKey);
+	}
+	
+	@GetMapping("/ticketing/screeningScheduleList")
+	public ArrayList<Map<String, Object>> getScreeningScheduleList(@RequestParam int movieKey, @RequestParam int theaterKey){
+		log.debug(TeamColor.JYW + "GET ScreeningScheduleList");
+		return screeningScheduleService.getScreeningScheduleList(movieKey, theaterKey);
 	}
 }
 

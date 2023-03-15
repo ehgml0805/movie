@@ -146,16 +146,23 @@
 							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
 					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
 			ON ss.theater_key = t.theater_key
-		<where>
-			<if test="movieKey != 0">
-				ss.movie_key = #{movieKey}
-			</if>
-		</where>
-		<where>
-			<if test="theaterKey != 0">
-				ss.theater_key = #{theaterKey}
-			</if>
-		</where>
+		<choose>
+			<when test="movieKey != 0 and theaterKey == 0">
+				<where>
+					ss.movie_key = #{movieKey}
+				</where>			
+			</when>
+			<when test="theaterKey != 0 and movieKey == 0">
+				<where>
+					ss.theater_key = #{theaterKey}
+				</where>				
+			</when>
+			<when test="movieKey != 0 and theaterKey != 0">
+				<where>
+					ss.movie_key = #{movieKey} AND ss.theater_key = #{theaterKey}
+				</where>
+			</when>
+		</choose>	
 		ORDER BY ss.start_date ASC
 	</select>
 </mapper>

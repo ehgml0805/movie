@@ -14,7 +14,8 @@
 	
 	<!-- 빠른 예매 - 지역에 해당하는 극장 목록 -->
 	<select id="selectTheaterNameListByRegion" parameterType="String" resultType="java.util.Map">
-		SELECT theater_name theaterName
+		SELECT theater_key theaterKey
+		, theater_name theaterName
 		FROM theater
 		WHERE theater_region = #{theaterRegion}
 	</select>

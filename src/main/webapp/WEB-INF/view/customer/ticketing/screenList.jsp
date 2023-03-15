@@ -19,6 +19,13 @@
             </div>
 		</div>	
 	</div>
+	<div class="container day">
+        <!-- 페이지 네이션으로 입력할 것 -->
+        <!--일에 따라서 class가 바뀐다. -->
+        <div class="month"></div>
+       	<div class="now-day">
+       	</div>
+    </div>
 	<div class="container d-flex">
 		<!-- 영화 -->
 		<div class="container movie-container left-one">
@@ -28,7 +35,7 @@
 			</div>
 			<c:forEach var="m" items="${movieList}">
 				<div class="movie-list">
-					<button class="movie-button" type="button" id="movieKey" name="movieKey" value="${m.movieKey}">
+					<button class="movie-button" type="button" value="${m.movieKey}">
 						<span>${m.grade}</span>
 						<span class="txt">${m.movieTitle}</span>						
 					</button>
@@ -67,8 +74,8 @@
 	</div>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
 	   	<input type="hidden" name="day" value="" />
-	   	<input type="hidden" name="movieKey" value="" />
-	   	<input type="hidden" name="theaterKey" value="" />
+	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
+	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" name="time" value="" />
 	   	<input type="hidden" name="ratingNo" value="" />
 	   	<input type="hidden" name="showTypeNo" value="" />
@@ -79,6 +86,122 @@
     
     <script>
     	$(function() {
+
+    		const dataDate = new Date();
+    		let year = dataDate.getFullYear();
+    		let month = dataDate.getMonth();
+    		let dataDay = dataDate.getDate();
+    		let dayLabel = dataDate.getDay();
+    		let dayNumber = Number(dataDay);
+    		$('div.month').text((Number(month)+1)+"월");
+    		
+    		const reserveDate = $('div.now-day');
+    		
+    		const weekOfDay = ["일", "월", "화", "수", "목", "금", "토"];
+    		let thisWeek = [];
+    		let button = "";
+    		let spanWeekOfDay = "";
+    		let spanDay = "";
+    		let div = "";
+    		for(let i = dayNumber ; i<=dayNumber+11 ; i++) {
+    			
+    			div = document.createElement("div");
+    			button = document.createElement("button");
+    			spanWeekOfMonth = document.createElement("span");
+    			spanWeekOfDay = document.createElement("span");
+    			spanDay = document.createElement("strong");
+    			spanWeekOfMonth.classList="movie-week-of-month";
+    			spanWeekOfDay.classList = 'movie-week-of-day';
+    			spanDay.classList ='movie-day';
+    			let resultDay = new Date(year, month, i);
+    			let yyyy = resultDay.getFullYear();
+    			let mm = Number(resultDay.getMonth())+1;
+    			let dd = resultDay.getDate();
+    			let d = resultDay.getDay();
+    			
+    			mm = String(mm).length === 1 ? '0'+mm : mm;
+    			dd = String(dd).length === 1 ? '0'+dd : dd;
+    			d = String(d).length === 1 ? '0'+d : d;
+    			spanWeekOfMonth.innerHTML = mm;
+    			spanWeekOfDay.innerHTML = dd;
+    			
+    			button.append(spanWeekOfDay);
+    			if(d == '01'){
+    				d=weekOfDay[1];
+    				button.classList = "mon";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			} else if(d == '02'){
+    				d=weekOfDay[2];
+    				button.classList = "mon";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			} else if(d == '03'){
+    				d=weekOfDay[3];
+    				button.classList = "mon";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			} else if(d == '04'){
+    				d=weekOfDay[4];
+    				button.classList = "mon";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			} else if(d == '05'){
+    				d=weekOfDay[5];
+    				button.classList = "mon";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			} else if(d == '06'){
+    				d=weekOfDay[6];
+    				button.classList ="mon sat";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			} else if(d == '00'){
+    				d=weekOfDay[0];
+    				button.classList="mon sun";
+    				button.setAttribute('data-day',yyyy+mm+dd+d);
+    			}
+    			if(i===dayNumber){
+    				button.classList="mon active";
+    				//해당날짜는 버튼이 눌려있게 설정함
+    			}
+    			spanDay.innerHTML = d;
+    			button.append(spanDay);
+    			reserveDate.append(button);
+    			
+    			
+    			thisWeek[i] = yyyy + "-" + mm +'-' +dd +'-'+d ;
+    		}
+    		//날짜 클릭시 활성화 버튼과 hidden으로 data값 전송
+    		$('div.now-day').on('click','button.mon',function(){
+    			let $btnActive = $(this);
+    			let dataAttr = $btnActive.attr('data-day');
+    			if($btnActive.hasClass('active')){
+    				$('button.mon').removeClass('active');
+    			} else{
+    				$('button.mon').removeClass('active');
+    				$btnActive.addClass('active');
+    			}
+    		})
+    		//날짜 클릭했으면 활성화버튼 해제 
+    		$('div.now-day').on('click','button.active',function(){
+    			let $btnMon = $(this);
+    			$btnMon.attr('class','mon');
+    		})
+    		
+    		$('button.movie-button').ready(function(){
+    			$.ajax({
+    				url :'${pageContext.request.contextPath}/ticketing/movieOne'
+    				, type :'get'
+    				, data : {movieKey:${param.movieKey}}
+    				, success:function(list){
+    					// alert(list);
+    					let originName = list[0].originName;
+    					let movieCode = list[0].movieCode;
+    					// alert(movieCode);
+    					if(movieCode != 0){
+    						$('#picture').attr('src', originName);
+    					} else {
+    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+originName);
+    					}    					
+    				}
+    			});
+    		});
+    		
     		/* 영화 선택 시 이미지 출력 */
     		$('button.movie-button').click(function(){
     			$.ajax({
@@ -88,7 +211,14 @@
     				, success:function(list){
     					// alert(list);
     					let originName = list[0].originName;
-    					$('#picture').attr('src', originName);
+    					let movieCode = list[0].movieCode;
+    					$('#movieKey').val(list[0].movieKey);
+    					// alert(movieCode);
+    					if(movieCode != 0){
+    						$('#picture').attr('src', originName);
+    					} else {
+    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+originName);
+    					}    					
     				}
     			});
     		});
@@ -122,9 +252,10 @@
     		        data: { theaterRegion: $(this).val() },
     		        dataType: 'json',
     		        success: function(data) {
+    		        	$('#theaterKey').val(data[0].theaterKey);
     		            var html = "";
     		            for (var i = 0; i < data.length; i++) {
-    		                html += "<div>" + data[i].theaterName + "</div>";
+    		                html += "<button class='theater-button'>" + data[i].theaterName + "</button>";
     		            }
     		            $('#theaterName').html(html);
     		        },
@@ -133,6 +264,31 @@
     		        }
     		    })
     		});
+    		
+    		$(document).on('click', '.theater-button', function() {
+    			// alert('클릭');
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/screeningScheduleList'
+					, type : 'GET'
+					, data : {movieKey: $('#movieKey').val(), theaterKey: $('#theaterKey').val()}
+					, dataType : 'json'
+					, success:function(list){
+						// alert(list)
+						let html = "";
+						for(let i=0; i< list.length; i++){
+							let startDate_ = list[i].startDate.split("T");
+							let startDate = startDate_[1].slice(0, 5);
+							let endDate_ = list[i].endDate.split("T");
+							let endDate = endDate_[1].slice(0, 5);
+							html += "<div>"+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</div><br>";
+						}
+						$('#schedule').html(html);
+					}
+					, error:function(){
+						alert('에러');
+					}
+				});	
+			});
 			
 		})
     </script>
