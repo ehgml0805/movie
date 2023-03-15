@@ -39,7 +39,7 @@
 		)
 	</insert>
 	
-	<select id="selectEventWinnerCommentList" resultType="goodee.e1i6.movie.vo.EventComment" parameterType="java.util.Map">
+	<select id="selectEventWinnerCommentList" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT
 			ec.event_comment_key eventCommentKey
 			, ec.event_comment_content eventCommentContent
@@ -50,8 +50,11 @@
 			, ec.insult_report insultReport
 			, ec.spoiler_report spoilerReport
 			, e.event_end_date eventEndDate
+			, c.customer_email customerEmail
 		FROM event_comment ec INNER JOIN event e
 		ON ec.event_key = e.event_key
+		INNER JOIN customer c
+		on c.customer_id = ec.customer_id
 		WHERE e.event_end_date &lt; CURRENT_DATE()
 		AND ec.event_key = #{eventKey}
 	</select>
