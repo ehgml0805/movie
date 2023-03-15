@@ -83,68 +83,68 @@
     <script>
     	$(function() {
 
-    	      // 시작 날짜 (오늘 날짜 기준)
-    	      const startDate = new Date();
+  	      // 시작 날짜 (오늘 날짜 기준)
+  	      const startDate = new Date();
 
-    	      // 끝 날짜 (2주일치)
-    	      const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
+  	      // 끝 날짜 (2주일치)
+  	      const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
 
-    	      // 달력 출력할 ul 요소
-    	      const calendar = document.getElementById("calendar");
+  	      // 달력 출력할 ul 요소
+  	      const calendar = document.getElementById("calendar");
 
-    	      // 달력 출력할 button 요소들
-    	      const buttonList = [];
+  	      // 달력 출력할 button 요소들
+  	      const buttonList = [];
 
-    	      // 날짜 출력 함수
-    	      
-    	      function renderCalendar(start, end) {
-    	        buttonList.length = 0;
-    	        calendar.innerHTML = "";
+  	      // 날짜 출력 함수
+  	      
+  	      function renderCalendar(start, end) {
+  	        buttonList.length = 0;
+  	        calendar.innerHTML = "";
 
-    	        for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-    	          const button = document.createElement("button");
-    	          const dateString = date.toISOString().slice(0, 10);
-    	          const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
-    	          button.value = dateString;
-    	          button.innerHTML = date.getDate() + " " + dayOfWeek;
-    	          buttonList.push(button);
-    	        }
+  	        for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+  	          const button = document.createElement("button");
+  	          const dateString = date.toISOString().slice(0, 10);
+  	          const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+  	          button.value = dateString;
+  	          button.innerHTML = date.getDate() + " " + dayOfWeek;
+  	          buttonList.push(button);
+  	        }
 
-    	        for (const button of buttonList) {
-    	          const li = document.createElement("li");
-    	          li.appendChild(button);
-    	          calendar.appendChild(li);
-    	        }
-    	      }
+  	        for (const button of buttonList) {
+  	          const li = document.createElement("li");
+  	          li.appendChild(button);
+  	          calendar.appendChild(li);
+  	        }
+  	      }
 
-    	      // 초기 출력
-    	      renderCalendar(startDate, endDate);
+  	      // 초기 출력
+  	      renderCalendar(startDate, endDate);
 
-    	      // 이전 버튼 클릭 시
-    	      $("#prevBtn").click(function() {
-    	        const newStartDate = new Date(startDate);
-    	        newStartDate.setDate(startDate.getDate() - 1);
-    	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
-    	        startDate.setTime(newStartDate.getTime());
-    	        endDate.setTime(newEndDate.getTime());
-    	        renderCalendar(startDate, endDate);
-    	      });
+  	      // 이전 버튼 클릭 시
+  	      $("#prevBtn").click(function() {
+  	        const newStartDate = new Date(startDate);
+  	        newStartDate.setDate(startDate.getDate() - 1);
+  	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+  	        startDate.setTime(newStartDate.getTime());
+  	        endDate.setTime(newEndDate.getTime());
+  	        renderCalendar(startDate, endDate);
+  	      });
 
-    	      // 다음 버튼 클릭 시
-    	      $("#nextBtn").click(function() {
-    	        const newStartDate = new Date(startDate);
-    	        newStartDate.setDate(startDate.getDate() + 1);
-    	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
-    	        startDate.setTime(newStartDate.getTime());
-    	        endDate.setTime(newEndDate.getTime());
-    	        renderCalendar(startDate, endDate);
-    	      });
-    			
+  	      // 다음 버튼 클릭 시
+  	      $("#nextBtn").click(function() {
+  	        const newStartDate = new Date(startDate);
+  	        newStartDate.setDate(startDate.getDate() + 1);
+  	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+  	        startDate.setTime(newStartDate.getTime());
+  	        endDate.setTime(newEndDate.getTime());
+  	        renderCalendar(startDate, endDate);
+  	      });
+    		
     		$('button.movie-button').ready(function(){
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
     				, type :'get'
-    				, data : {movieKey:${param.movieKey}}
+    				, data : {movieKey:${movieKey}}
     				, success:function(list){
     					// alert(list);
     					let fileName = list[0].fileName;
@@ -158,7 +158,8 @@
     				}
     			});
     		});
-    		
+  	      	
+  	      
     		/* 영화 선택 시 이미지 출력 */
     		$('button.movie-button').click(function(){
     			$.ajax({
@@ -245,7 +246,7 @@
 						alert('에러');
 					}
 				});	
-			});	
+			});
 		})
     </script>
 </body>

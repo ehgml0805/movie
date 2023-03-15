@@ -144,7 +144,7 @@
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
     				, type :'get'
-    				, data : {movieKey:${param.movieKey}}
+    				, data : {movieKey:${movieKey}}
     				, success:function(list){
     					// alert(list);
     					let fileName = list[0].fileName;
@@ -158,7 +158,8 @@
     				}
     			});
     		});
-    		
+  	      	
+  	      
     		/* 영화 선택 시 이미지 출력 */
     		$('button.movie-button').click(function(){
     			$.ajax({
