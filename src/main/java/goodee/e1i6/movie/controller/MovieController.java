@@ -64,7 +64,7 @@ public class MovieController {
 			return "redirect:/employee/movie/modifyMovie?movieKey="+movieForm.getMovieKey();
 		}
 		
-		return "redirect:/employee/movie/movieList";
+		return "redirect:/employee/movie/movieOne?movieKey="+movieForm.getMovieKey();
 	}
 	
 	// 영화 등록

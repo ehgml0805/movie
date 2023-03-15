@@ -43,12 +43,9 @@ public class EventService {
 	}
 	
 	// eventWinnerList
-	public List<EventWinner> getEventWinnerList(int currentPage, int rowPerPage) {
-		int beginRow = (currentPage-1)*rowPerPage;
+	public List<EventWinner> getEventWinnerList(int eventKey) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("beginRow", beginRow);
-		paramMap.put("rowPerPage", rowPerPage);
-		
+		paramMap.put("eventKey", eventKey);
 		return eventMapper.selectEventWinnerList(paramMap);
 	}
 	
@@ -118,15 +115,15 @@ public class EventService {
 
     	            // uniqueCommentList에서 랜덤하게 당첨자 선정
     	            List<EventComment> winners = new ArrayList<>();
-    	            int winnerCount = Math.min(5, uniqueCommentList.size());
+    	            int winnerCount = Math.min(1, uniqueCommentList.size());
+    	            Random random = new Random(); 
     	            for (int i = 0; i < winnerCount; i++) {
-    	                int randomIndex = new Random().nextInt(uniqueCommentList.size());
+    	                int randomIndex = random.nextInt(uniqueCommentList.size()); 
     	                EventComment winnerComment = uniqueCommentList.remove(randomIndex);
     	                winners.add(winnerComment);
-    	                log.debug(TeamColor.JSM + "Winner added :" + winnerComment.getEventCommentKey());    
+    	                log.debug(TeamColor.JSM + "Winner added :" + winnerComment.getEventCommentKey());
     	            }
-    	            log.debug(TeamColor.JSM + "Winners size: " + winners.size());  
-	              
+    	            log.debug(TeamColor.JSM + "Winners size: " + winners.size());
     	            // 이벤트위너 테이블에 추가
 		            for (EventComment winnerComment : winners) {
 		                EventWinner eventWinner = new EventWinner();
@@ -146,6 +143,14 @@ public class EventService {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("eventKey", event.getEventKey());
 		return eventMapper.eventOne(paramMap);
+	}
+	
+	// EventCount
+	public int endEventCount(String searchWord, int currentPage, int rowPerPage) {
+		int count = eventMapper.endEventCount(searchWord);
+		int lastPage =  (count + rowPerPage - 1) / rowPerPage;
+	
+		return lastPage;
 	}
 	
 	// EventCount
@@ -199,6 +204,16 @@ public class EventService {
 				}
 			}
 		}
+	}
+	
+	// EndEventList
+	public List<Event> getEndEventList(int currentPage, int rowPerPage, String searchWord) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
+		return eventMapper.selectEndEventList(paramMap);
 	}
 	
 	// EventList

@@ -41,17 +41,14 @@ public class EventController {
 	}
 
 	// 이벤트 당첨자 리스트
-	@GetMapping("/employee/event/eventWinnerList")
-	public String eventWinnerList(Model model 
-			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage) {
+	@GetMapping("/event/eventWinnerList")
+	public String eventWinnerList(Model model, @RequestParam("eventKey") int eventKey) {
 	
-		List<EventWinner> list = eventService.getEventWinnerList(currentPage, rowPerPage);
+		List<EventWinner> list = eventService.getEventWinnerList(eventKey);
 		log.debug(TeamColor.JSM + "EventWinnerList :" + list);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("currentPage", currentPage);
-		return "employee/event/eventWinnerList";
+		return "customer/event/eventWinnerList";
 	}
 	
 	// 이벤트 댓글 삭제
@@ -76,7 +73,7 @@ public class EventController {
 	}
 	
 	// 이벤트 댓글 추가
-	@GetMapping("/customer/event/addEventComment")
+	@GetMapping("/event/addEventComment")
 	public String addEventComment(Model model, int eventKey, @RequestParam(value="customerId") String customerId) {
 		List<ScreeningSchedule> eventScheduleList = eventService.getEventScheduleList();
 		
@@ -89,7 +86,7 @@ public class EventController {
 		
 		return "customer/event/addEventComment";
 	}
-	@PostMapping("/customer/event/addEventComment")
+	@PostMapping("/event/addEventComment")
 	public String addEventComment(EventComment eventComment) {	
 	    int eventKey = eventComment.getEventKey();
 	    // log.debug(TeamColor.JSM + "eventKey " + eventKey);
@@ -183,6 +180,33 @@ public class EventController {
 		eventService.addEvent(eventForm, path);
 		return "redirect:/event/eventList";
 	}
+	// 종료된 이벤트 리스트
+	@GetMapping("/event/endEventList")
+	public String EndEventList (Model model 
+			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+		    , @RequestParam(value="searchWord", defaultValue = "") String searchWord) { 
+	
+		List<Event> list = eventService.getEndEventList(currentPage, rowPerPage, searchWord);
+		log.debug(TeamColor.JSM + list +" <- endEventList");
+		
+		int count = eventService.endEventCount(searchWord, currentPage, rowPerPage);
+		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage);
+		int startPage = ((currentPage - 1) / 10) * 10 + 1;
+		int endPage = startPage + 9;
+
+		if (endPage > lastPage) {
+		    endPage = lastPage;
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("endPage", endPage);
+		return "customer/event/endEventList";
+	}
 	
 	// 이벤트 리스트
 	@GetMapping("/event/eventList")
@@ -193,7 +217,7 @@ public class EventController {
 	
 		List<Event> list = eventService.getEventList(currentPage, rowPerPage, searchWord);
 		log.debug(TeamColor.JSM + list +" <- eventList");
-
+		
 		int count = eventService.eventCount(searchWord, currentPage, rowPerPage);
 		int lastPage = (int)Math.ceil((double)count / (double)rowPerPage);
 		int startPage = ((currentPage - 1) / 10) * 10 + 1;
@@ -209,7 +233,6 @@ public class EventController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("endPage", endPage);
-		
 		return "customer/event/eventList";
 	}
 }

@@ -15,6 +15,16 @@ import goodee.e1i6.movie.vo.Theater;
 public class TheaterService {
 	@Autowired TheaterMapper theaterMapper;
 	
+	// 빠른 예매(해당 지역의 극장 목록)
+	public List<Theater> geTheaterNameListByRegion(String theaterRegion) {
+		return theaterMapper.selectTheaterNameListByRegion(theaterRegion);
+	}
+	
+	// 빠른 예매(지역순)
+	public List<Theater> getTheaterListRegion() {
+		return theaterMapper.selectTheaterRegionList();
+	}
+	
 	// 극장 출력(이름순)
 	public List<Theater> getTheaterList() {
 		return theaterMapper.selectTheaterList();
