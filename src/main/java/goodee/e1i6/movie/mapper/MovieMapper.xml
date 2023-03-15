@@ -34,7 +34,7 @@
 			, openingdate
 			, active
 			, poster
-			, origin_name originName
+			, file_name fileName
 		FROM movie m
 		JOIN still_cut s ON m.movie_key = s.movie_key
 		WHERE m.movie_key = #{movieKey}
@@ -53,7 +53,7 @@
 			, openingdate
 			, active
 			, poster
-			, origin_name originName
+			, file_name fileName
 		FROM movie m
 		JOIN still_cut s ON m.movie_key = s.movie_key
 		WHERE poster = 'Y'
