@@ -32,12 +32,15 @@ public class TicketingController {
 	}
 	
 	@GetMapping("/ticketing/screenList2")
-	public String getScreenList2(Model model) {
+	public String getScreenList2(Model model
+									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
 		List<Map<String, Object>> movieList = movieService.getMovieList();
 		List<Map<String, Object>> theaterRegionList = theaterService.getTheaterRegionList();
 		
 		model.addAttribute("theaterRegionList", theaterRegionList);
 		model.addAttribute("movieList", movieList);	
+		
+		model.addAttribute("movieKey", movieKey);
 		
 		return "/customer/ticketing/screenList2";
 	}

@@ -19,9 +19,13 @@
             </div>
 		</div>	
 	</div>
-	<button id="prevButton">이전</button>
-    <ul id="calendar"></ul>
-    <button id="nextButton">다음</button>
+	<!-- 날짜 -->
+	<div class="container">
+		<div class="date"></div>
+		<button class="prevBtn">이전</button>
+		<span class="container" id="calendar"></span>
+	    <button class="nextBtn">다음</button>
+    </div>
 	<div class="container d-flex">
 		<!-- 영화 -->
 		<div class="container movie-container left-one">
@@ -81,65 +85,83 @@
     </form>
     
     <script>
-    	$(function() {
-
-  	      // 시작 날짜 (오늘 날짜 기준)
-  	      const startDate = new Date();
-
-  	      // 끝 날짜 (2주일치)
-  	      const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
-
-  	      // 달력 출력할 ul 요소
-  	      const calendar = document.getElementById("calendar");
-
-  	      // 달력 출력할 button 요소들
-  	      const buttonList = [];
-
-  	      // 날짜 출력 함수
+		$(function() {
+			
+			// 시작 날짜 (오늘 날짜 기준)
+			const startDate = new Date();
+			let year = startDate.getFullYear();
+			let month = startDate.getMonth();
+			$('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			
+			// 끝 날짜 (2주일치)
+			const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
+			
+			// 달력 출력할 ul 요소
+			const calendar = document.getElementById("calendar");
+			
+			// 달력 출력할 button 요소들
+			const buttonList = [];
+			
+			// 날짜 출력 함수
   	      
-  	      function renderCalendar(start, end) {
-  	        buttonList.length = 0;
-  	        calendar.innerHTML = "";
+			function renderCalendar(start, end) {
+			  buttonList.length = 0;
+			  calendar.innerHTML = "";
+			
+			  for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+			    const button = document.createElement("button");
+			    const dateString = date.toISOString().slice(0, 10);
+			    const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+			    button.value = dateString;
+			    button.innerHTML = date.getDate() + " " + dayOfWeek;
+			    button.classList.add('date-button');
+			    buttonList.push(button);
+			  }
+			
+			  for (const button of buttonList) {
+			    const span = document.createElement("span");
+			    span.appendChild(button);
+			    calendar.appendChild(span);
+			  }
+			}
+			
+			// 초기 출력
+			renderCalendar(startDate, endDate);
 
-  	        for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
-  	          const button = document.createElement("button");
-  	          const dateString = date.toISOString().slice(0, 10);
-  	          const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
-  	          button.value = dateString;
-  	          button.innerHTML = date.getDate() + " " + dayOfWeek;
-  	          buttonList.push(button);
-  	        }
+			// 이전 버튼 클릭 시
+			$(document).on('click', 'button.prevBtn', function() {
+			  const newStartDate = new Date(startDate);
+			  newStartDate.setDate(startDate.getDate() - 14);
+			  const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+			  year = newStartDate.getFullYear();
+			  month = newStartDate.getMonth();
+			  $('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			  startDate.setTime(newStartDate.getTime());
+			  endDate.setTime(newEndDate.getTime());
+			  renderCalendar(startDate, endDate);
+			});
 
-  	        for (const button of buttonList) {
-  	          const li = document.createElement("li");
-  	          li.appendChild(button);
-  	          calendar.appendChild(li);
-  	        }
-  	      }
-
-  	      // 초기 출력
-  	      renderCalendar(startDate, endDate);
-
-  	      // 이전 버튼 클릭 시
-  	      $("#prevBtn").click(function() {
-  	        const newStartDate = new Date(startDate);
-  	        newStartDate.setDate(startDate.getDate() - 1);
-  	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
-  	        startDate.setTime(newStartDate.getTime());
-  	        endDate.setTime(newEndDate.getTime());
-  	        renderCalendar(startDate, endDate);
-  	      });
-
-  	      // 다음 버튼 클릭 시
-  	      $("#nextBtn").click(function() {
-  	        const newStartDate = new Date(startDate);
-  	        newStartDate.setDate(startDate.getDate() + 1);
-  	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
-  	        startDate.setTime(newStartDate.getTime());
-  	        endDate.setTime(newEndDate.getTime());
-  	        renderCalendar(startDate, endDate);
-  	      });
+			// 다음 버튼 클릭 시
+			$(document).on('click', 'button.nextBtn', function() {
+			  const newStartDate = new Date(startDate);
+			  newStartDate.setDate(startDate.getDate() - 12);
+			  const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+			  year = newStartDate.getFullYear();
+			  month = newStartDate.getMonth();
+			  $('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			  startDate.setTime(newStartDate.getTime());
+			  endDate.setTime(newEndDate.getTime());
+			  renderCalendar(startDate, endDate);
+			});
     		
+			// 날짜 버튼 클릭 시 년도와 월 변환
+			$(document).on('click', 'button.date-button', function() {
+				year = $(this).val().slice(0, 4);
+				month = $(this).val().slice(6, 7);
+				$('div.date').text(year+"년 "+(Number(month))+"월");
+			});
+			
+			// 영화 정보에서 예매하기 클릭하여 매개변수 값이 있을 경우
     		$('button.movie-button').ready(function(){
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
@@ -158,8 +180,7 @@
     				}
     			});
     		});
-  	      	
-  	      
+  	      	  	      
     		/* 영화 선택 시 이미지 출력 */
     		$('button.movie-button').click(function(){
     			$.ajax({
@@ -223,6 +244,7 @@
     		    })
     		});
     		
+    		// 극장 선택 시 상영 스케줄 출력
     		$(document).on('click', '.theater-button', function() {
     			// alert('클릭');
 				$.ajax({
