@@ -11,10 +11,10 @@
 		<c:if test="${m.poster eq 'Y'}">
 			<c:choose>
 				<c:when test="${m.movieCode ne '0'}">
-					<div><img alt="영화이미지" src="${m.originName}" width="300px" height="500px"></div>			
+					<div><img alt="영화이미지" src="${m.fileName}" width="300px" height="500px"></div>			
 				</c:when>
 				<c:otherwise>
-					<div><img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.originName}" width="300px" height="500px"></div>			
+					<div><img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}" width="300px" height="500px"></div>			
 				</c:otherwise>
 			</c:choose>
 			<div>${m.movieTitle}</div>
@@ -31,10 +31,10 @@
 		<c:if test="${m.poster eq 'N'}">
 			<c:choose>
 				<c:when test="${m.movieCode ne '0'}">
-					<div><img alt="영화이미지" src="${m.originName}" width="300px" height="500px"></div>			
+					<div><img alt="영화이미지" src="${m.fileName}" width="300px" height="500px"></div>			
 				</c:when>
 				<c:otherwise>
-					<div><img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.originName}" width="300px" height="500px"></div>			
+					<div><img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}" width="300px" height="500px"></div>			
 				</c:otherwise>
 			</c:choose>		
 		</c:if>			

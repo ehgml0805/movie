@@ -19,15 +19,10 @@
             </div>
 		</div>	
 	</div>
-	<div class="container day">
-        <!-- 페이지 네이션으로 입력할 것 -->
-        <!--일에 따라서 class가 바뀐다. -->
-        <div class="month"></div>
-       	<div class="now-day">
-       	</div>
-    </div>
+	<button id="prevButton">이전</button>
+    <ul id="calendar"></ul>
+    <button id="nextButton">다음</button>
 	<div class="container d-flex">
-		
 		<!-- 영화 -->
 		<div class="container movie-container left-one">
 			<h1>영화</h1>
@@ -54,14 +49,14 @@
 			<h1>극장</h1>
 			<div id="theater">
 				<div class="row">
-					<div class="col-6">
+					<div id="theaterRegion" class="col-6">
 						<c:forEach var="r" items="${theaterRegionList}">
 							<div>
 								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
 							</div>
 						</c:forEach>
 					</div>
-					<button class="col-6 theater-button" id="theaterName"></button>
+					<div class="col-6" id="theaterName"></div>
 				</div>
 			</div>
 		</div>
@@ -69,14 +64,14 @@
 		<div class="container">
 			<h1>상영시간표</h1>
 			<div id="schedule">
-				
+			
 			</div>
 		</div>
 	</div>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
 	   	<input type="hidden" name="day" value="" />
-	   	<input type="hidden" name="movieKey" value="" />
-	   	<input type="hidden" name="theaterKey" value="" />
+	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
+	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" name="time" value="" />
 	   	<input type="hidden" name="ratingNo" value="" />
 	   	<input type="hidden" name="showTypeNo" value="" />
@@ -87,103 +82,64 @@
     
     <script>
     	$(function() {
-    		
-    		const dataDate = new Date();
-    		let year = dataDate.getFullYear();
-    		let month = dataDate.getMonth();
-    		let dataDay = dataDate.getDate();
-    		let dayLabel = dataDate.getDay();
-    		let dayNumber = Number(dataDay);
-    		$('div.month').text((Number(month)+1)+"월");
-    		
-    		const reserveDate = $('div.now-day');
-    		
-    		const weekOfDay = ["일", "월", "화", "수", "목", "금", "토"];
-    		let thisWeek = [];
-    		let button = "";
-    		let spanWeekOfDay = "";
-    		let spanDay = "";
-    		let div = "";
-    		for(let i = dayNumber ; i<=dayNumber+11 ; i++) {
+
+    	      // 시작 날짜 (오늘 날짜 기준)
+    	      const startDate = new Date();
+
+    	      // 끝 날짜 (2주일치)
+    	      const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
+
+    	      // 달력 출력할 ul 요소
+    	      const calendar = document.getElementById("calendar");
+
+    	      // 달력 출력할 button 요소들
+    	      const buttonList = [];
+
+    	      // 날짜 출력 함수
+    	      
+    	      function renderCalendar(start, end) {
+    	        buttonList.length = 0;
+    	        calendar.innerHTML = "";
+
+    	        for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+    	          const button = document.createElement("button");
+    	          const dateString = date.toISOString().slice(0, 10);
+    	          const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
+    	          button.value = dateString;
+    	          button.innerHTML = date.getDate() + " " + dayOfWeek;
+    	          buttonList.push(button);
+    	        }
+
+    	        for (const button of buttonList) {
+    	          const li = document.createElement("li");
+    	          li.appendChild(button);
+    	          calendar.appendChild(li);
+    	        }
+    	      }
+
+    	      // 초기 출력
+    	      renderCalendar(startDate, endDate);
+
+    	      // 이전 버튼 클릭 시
+    	      $("#prevBtn").click(function() {
+    	        const newStartDate = new Date(startDate);
+    	        newStartDate.setDate(startDate.getDate() - 1);
+    	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+    	        startDate.setTime(newStartDate.getTime());
+    	        endDate.setTime(newEndDate.getTime());
+    	        renderCalendar(startDate, endDate);
+    	      });
+
+    	      // 다음 버튼 클릭 시
+    	      $("#nextBtn").click(function() {
+    	        const newStartDate = new Date(startDate);
+    	        newStartDate.setDate(startDate.getDate() + 1);
+    	        const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+    	        startDate.setTime(newStartDate.getTime());
+    	        endDate.setTime(newEndDate.getTime());
+    	        renderCalendar(startDate, endDate);
+    	      });
     			
-    			div = document.createElement("div");
-    			button = document.createElement("button");
-    			spanWeekOfMonth = document.createElement("span");
-    			spanWeekOfDay = document.createElement("span");
-    			spanDay = document.createElement("strong");
-    			spanWeekOfMonth.classList="movie-week-of-month";
-    			spanWeekOfDay.classList = 'movie-week-of-day';
-    			spanDay.classList ='movie-day';
-    			let resultDay = new Date(year, month, i);
-    			let yyyy = resultDay.getFullYear();
-    			let mm = Number(resultDay.getMonth())+1;
-    			let dd = resultDay.getDate();
-    			let d = resultDay.getDay();
-    			
-    			mm = String(mm).length === 1 ? '0'+mm : mm;
-    			dd = String(dd).length === 1 ? '0'+dd : dd;
-    			d = String(d).length === 1 ? '0'+d : d;
-    			spanWeekOfMonth.innerHTML = mm;
-    			spanWeekOfDay.innerHTML = dd;
-    			
-    			button.append(spanWeekOfDay);
-    			if(d == '01'){
-    				d=weekOfDay[1];
-    				button.classList = "mon";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			} else if(d == '02'){
-    				d=weekOfDay[2];
-    				button.classList = "mon";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			} else if(d == '03'){
-    				d=weekOfDay[3];
-    				button.classList = "mon";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			} else if(d == '04'){
-    				d=weekOfDay[4];
-    				button.classList = "mon";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			} else if(d == '05'){
-    				d=weekOfDay[5];
-    				button.classList = "mon";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			} else if(d == '06'){
-    				d=weekOfDay[6];
-    				button.classList ="mon sat";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			} else if(d == '00'){
-    				d=weekOfDay[0];
-    				button.classList="mon sun";
-    				button.setAttribute('data-day',yyyy+mm+dd+d);
-    			}
-    			if(i===dayNumber){
-    				button.classList="mon active";
-    				//해당날짜는 버튼이 눌려있게 설정함
-    			}
-    			spanDay.innerHTML = d;
-    			button.append(spanDay);
-    			reserveDate.append(button);
-    			
-    			
-    			thisWeek[i] = yyyy + "-" + mm +'-' +dd +'-'+d ;
-    		}
-    		//날짜 클릭시 활성화 버튼과 hidden으로 data값 전송
-    		$('div.now-day').on('click','button.mon',function(){
-    			let $btnActive = $(this);
-    			let dataAttr = $btnActive.attr('data-day');
-    			if($btnActive.hasClass('active')){
-    				$('button.mon').removeClass('active');
-    			} else{
-    				$('button.mon').removeClass('active');
-    				$btnActive.addClass('active');
-    			}
-    		})
-    		//날짜 클릭했으면 활성화버튼 해제 
-    		$('div.now-day').on('click','button.active',function(){
-    			let $btnMon = $(this);
-    			$btnMon.attr('class','mon');
-    		})
-    		
     		$('button.movie-button').ready(function(){
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
@@ -191,18 +147,19 @@
     				, data : {movieKey:${param.movieKey}}
     				, success:function(list){
     					// alert(list);
-    					let originName = list[0].originName;
+    					let fileName = list[0].fileName;
     					let movieCode = list[0].movieCode;
     					// alert(movieCode);
     					if(movieCode != 0){
-    						$('#picture').attr('src', originName);
+    						$('#picture').attr('src', fileName);
     					} else {
-    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+originName);
+    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
     					}    					
     				}
     			});
     		});
     		
+    		/* 영화 선택 시 이미지 출력 */
     		$('button.movie-button').click(function(){
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
@@ -210,57 +167,86 @@
     				, data : {movieKey:$(this).val()}
     				, success:function(list){
     					// alert(list);
-    					let originName = list[0].originName;
+    					let fileName = list[0].fileName;
     					let movieCode = list[0].movieCode;
-    					$('.movieKey').val() = list[0].movieKey
+    					$('#movieKey').val(list[0].movieKey);
     					// alert(movieCode);
     					if(movieCode != 0){
-    						$('#picture').attr('src', originName);
+    						$('#picture').attr('src', fileName);
     					} else {
-    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+originName);
+    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
     					}    					
     				}
     			});
     		});
     		
-    		$('.region').click(function() {
+    		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
+    		$('.movie-button').click(function() {
 				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					url : '${pageContext.request.contextPath}/ticketing/theaterList',
-					data : {theaterRegion : $(this).val()},
-					dataType : 'json',
-					success : function (data) {
-						$('.theaterKey').val() = data[0].theaterKey;
-						var html = "";
-			            for (var i=0; i < data.length; i++) {
-			                html += "<div>" + data[i].theaterName + "</div>";
+					data : {movieKey : $(this).val()},
+					success : function(data) {
+						let html = '';
+			            for (let i=0; i < data.length; i++) {
+			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
 			            }
-						$('#theaterName').html(html);
+			            
+						$('#theaterRegion').html(html);
 					},
 					error : function() {
-						alert('error')						
+						alert('error')
 					}
 				})
-			})
-			
-			$('button.theater-button').click(function(){
+			});
+    		
+    		/*  지역 선택 시 해당 지역 극장 리스트 출력 */
+    		$(document).on('click', '.region', function() {
+    		    $.ajax({
+    		        type: 'GET',
+    		        url: '${pageContext.request.contextPath}/ticketing/theaterList',
+    		        data: { theaterRegion: $(this).val() },
+    		        dataType: 'json',
+    		        success: function(data) {
+    		        	$('#theaterKey').val(data[0].theaterKey);
+    		            var html = "";
+    		            for (var i = 0; i < data.length; i++) {
+    		                html += "<button class='theater-button'>" + data[i].theaterName + "</button>";
+    		            }
+    		            $('#theaterName').html(html);
+    		        },
+    		        error: function() {
+    		            alert('error')
+    		        }
+    		    })
+    		});
+    		
+    		$(document).on('click', '.theater-button', function() {
+    			// alert('클릭');
 				$.ajax({
-					url : '${pageContext.request.contextPath}/ticketing/getScreeningScheduleList'
+					url : '${pageContext.request.contextPath}/ticketing/screeningScheduleList'
 					, type : 'GET'
-					, data : {movieKey: $('.movieKey').val(), theaterKey: $('.theaterKey').val()}
+					, data : {movieKey: $('#movieKey').val(), theaterKey: $('#theaterKey').val()}
 					, dataType : 'json'
 					, success:function(list){
 						// alert(list)
-						let html = :"";
+						let html = "";
 						for(let i=0; i< list.length; i++){
-							html += "<div>"+list[i].startDate+"</div>";
+							let startDate_ = list[i].startDate.split("T");
+							let startDate = startDate_[1].slice(0, 5);
+							let endDate_ = list[i].endDate.split("T");
+							let endDate = endDate_[1].slice(0, 5);
+							html += "<button>"+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";
 						}
 						$('#schedule').html(html);
 					}
+					, error:function(){
+						alert('에러');
+					}
 				});	
-			});
-    		
-		});
+			});	
+		})
     </script>
 </body>
 </html>

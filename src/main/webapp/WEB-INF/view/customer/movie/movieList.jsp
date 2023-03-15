@@ -13,14 +13,14 @@
 			<c:when test="${m.movieCode ne '0'}">
 				<div>
 					<a href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}" >
-						<img alt="영화이미지" src="${m.originName}" width="300px" height="500px">
+						<img alt="영화이미지" src="${m.fileName}" width="300px" height="500px">
 					</a>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div>
 					<a href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}" >
-						<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.originName}" width="300px" height="500px">
+						<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}" width="300px" height="500px">
 					</a>
 				</div>
 			</c:otherwise>		
