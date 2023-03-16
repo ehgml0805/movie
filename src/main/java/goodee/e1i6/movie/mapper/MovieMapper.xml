@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="goodee.e1i6.movie.mapper.MovieMapper">
+	<!--  빠른 예매 - 날짜에 따른 영화 전체 목록 -->
+	<select id="selectMovieListByDate" parameterType="String" resultType="java.util.Map">
+		SELECT 
+			m.movie_key movieKey
+			, movie_title movieTitle
+			, grade
+			, date(start_date) startDate 
+			, file_name fileName
+		FROM movie m 
+			LEFT JOIN screening_schedule ss ON m.movie_key = ss.movie_key <if test="!startDate.equals('')">AND DATE(start_date) = #{startDate}</if>
+			LEFT JOIN still_cut sc ON m.movie_key = sc.movie_key
+		GROUP BY m.movie_key	
+	</select>
 	
 	<!-- 영화 삭제 -->
 	<delete id="deleteMovie" parameterType="int">

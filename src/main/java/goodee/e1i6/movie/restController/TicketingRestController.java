@@ -23,6 +23,13 @@ public class TicketingRestController {
 	@Autowired MovieService movieService;
 	@Autowired ScreeningScheduleService screeningScheduleService;
 	
+	//  빠른 예매 - 날짜에 따른 영화 전체 목록
+	@GetMapping("/ticketing/movieListByDate")
+	public ArrayList<Map<String, Object>> getMovieListByDate(@RequestParam(value = "startDate", defaultValue = "") String startDate) {
+		log.debug(TeamColor.CHOI + "GET MovieListByDate");
+		return movieService.getMovieListByDate(startDate);
+	}
+	
 	// 빠른 예매 - 극장 리스트
 	@GetMapping("/ticketing/theaterList")
 	public List<Theater> getTheaterNameListByRegion(@RequestParam String theaterRegion) {

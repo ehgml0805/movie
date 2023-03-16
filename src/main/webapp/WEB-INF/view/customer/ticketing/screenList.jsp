@@ -33,14 +33,16 @@
 			<div class="movie-name">
 				<button class="movie-name-button" type="button">전체</button>
 			</div>
-			<c:forEach var="m" items="${movieList}">
-				<div class="movie-list">
-					<button class="movie-button" type="button" value="${m.movieKey}">
-						<span>${m.grade}</span>
-						<span class="txt">${m.movieTitle}</span>						
-					</button>
-				</div>					
-			</c:forEach>
+			<div id="movieList">
+				<c:forEach var="m" items="${movieList}">
+					<div class="movie-list">
+						<button class="movie-button" type="button" value="${m.movieKey}">
+							<span>${m.grade}</span>
+							<span class="txt">${m.movieTitle}</span>						
+						</button>
+					</div>					
+				</c:forEach>
+			</div>
 			<div class="movie-img">
 				<div class="choice-list" id="choiceMovieList-0">
 					<img id="picture" alt="no-picture" src="">
@@ -160,6 +162,56 @@
 				month = $(this).val().slice(6, 7);
 				$('div.date').text(year+"년 "+(Number(month))+"월");
 			});
+			
+			// 날짜 선택 시 예매 가능한 영화 목록 출력
+			$(document).on('click', '.date-button', function() {
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
+					type : 'GET',
+					data : {startDate : $(this).val()},
+					success : function (data) {
+						
+						let html = "";
+						for(let i = 0; i < data.length; i++) {
+						 	html +=	"<div class='movie-list'>"
+						 	if(data[i].startDate === undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+						 	if(data[i].startDate !== undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+							html += "</div>";
+							
+							/*
+							let moviekey = data[i].movieKey;
+							let grade = data[i].grade;
+							let movieTitle = data[i].movieTitle;
+							
+							
+							html += `
+								<div class='movie-list'>
+									<button class='movie-button' type='button' value='${data[i].movieKey}'>
+										<span>${data[i].grade}000</span>
+										<span class='txt'>${data[i].movieTitle}</span>		
+									</button>
+								</div>	
+							`;
+							*/
+							
+							$('#movieKey').val(data[0].movieKey);
+						}
+						
+						$('#movieList').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				})
+			})
 			
 			// 영화 정보에서 예매하기 클릭하여 매개변수 값이 있을 경우
     		$('button.movie-button').ready(function(){
