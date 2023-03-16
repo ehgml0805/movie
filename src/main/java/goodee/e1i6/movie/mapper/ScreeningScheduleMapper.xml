@@ -94,12 +94,81 @@
 	</select>
 	
 	<!-- 상영 스케줄 목록 -->
+	<select id="selectScreeningScheduleListByDate" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			ss.schedule_key scheduleKey
+			, ss.movie_key movieKey
+			, ss.screenroom_key screenroomKey
+			, Date(ss.start_date) date
+			, ss.start_date startDate
+			, ss.end_date endDate
+			, ss.preview preview
+			, ss.price price
+			, ss.movie_title movieTitle
+			, ss.movie_info movieInfo
+			, ss.grade grade
+			, ss.openingdate openingdate
+			, ss.active active
+			, ss.screenroom_name screenroomName
+			, ss.theater_key theaterKey
+			, ss.seat_count seatCount
+			, t.theater_name theaterName
+			, t.theater_ticketing_info theaterTicketingInfo
+			FROM (SELECT 
+					ss.schedule_key
+					, ss.movie_key
+					, ss.screenroom_key
+					, ss.start_date
+					, ss.end_date
+					, ss.preview
+					, ss.price
+					, ss.movie_title
+					, ss.movie_info
+					, ss.grade
+					, ss.openingdate
+					, ss.active
+					, sr.screenroom_name
+					, sr.theater_key
+					, sr.seat_count
+					FROM (SELECT
+							ss.schedule_key
+							, ss.movie_key
+							, ss.screenroom_key
+							, ss.start_date
+							, ss.end_date
+							, ss.preview
+							, ss.price
+							, m.movie_title
+							, m.movie_info
+							, m.grade
+							, m.openingdate
+							, m.active
+							FROM screening_schedule ss INNER JOIN movie m
+							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
+					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
+			ON ss.theater_key = t.theater_key
+		<choose>
+			<when test="movieKey == 0 and theaterKey != 0 and date != ''">
+				<where>
+					ss.theater_key = #{theaterKey} AND Date(ss.start_date) = #{date}
+				</where>				
+			</when>
+			<when test="movieKey != 0 and theaterKey != 0 and date != ''">
+				<where>
+					ss.movie_key = #{movieKey} AND ss.theater_key = #{theaterKey} AND Date(ss.start_date) = #{date}
+				</where>
+			</when>
+		</choose>	
+		ORDER BY ss.start_date ASC
+	</select>
+	
+	<!-- 상영 스케줄 목록 -->
 	<select id="selectScreeningScheduleList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
 			ss.schedule_key scheduleKey
 			, ss.movie_key movieKey
 			, ss.screenroom_key screenroomKey
-			, ss.start_date startDate
+			, Date(ss.start_date) startDate
 			, ss.end_date endDate
 			, ss.preview preview
 			, ss.price price
@@ -149,7 +218,7 @@
 		<choose>
 			<when test="movieKey != 0 and theaterKey == 0 and date != ''">
 				<where>
-					ss.movie_key = #{movieKey} AND ss.start_date LIKE #{date}
+					ss.movie_key = #{movieKey} AND Date(ss.start_date) = #{date}
 				</where>			
 			</when>
 			<when test="movieKey != 0 and theaterKey == 0 and date == ''">
@@ -159,7 +228,7 @@
 			</when>
 			<when test="theaterKey != 0 and movieKey == 0 and date != ''">
 				<where>
-					ss.theater_key = #{theaterKey} AND ss.start_date LIKE #{date}
+					ss.theater_key = #{theaterKey} AND Date(ss.start_date) = #{date}
 				</where>				
 			</when>
 			<when test="theaterKey != 0 and movieKey == 0 and date == ''">
@@ -169,7 +238,7 @@
 			</when>
 			<when test="movieKey != 0 and theaterKey != 0 and date != ''">
 				<where>
-					ss.movie_key = #{movieKey} AND ss.theater_key = #{theaterKey} AND ss.start_date LIKE #{date}
+					ss.movie_key = #{movieKey} AND ss.theater_key = #{theaterKey} AND Date(ss.start_date) = #{date}
 				</where>
 			</when>
 			<when test="movieKey != 0 and theaterKey != 0 and date == ''">
@@ -179,7 +248,7 @@
 			</when>
 			<when test="date != ''">
 				<where>
-					ss.start_date LIKE #{date}
+					Date(ss.start_date) =  #{date}
 				</where>
 			</when>
 		</choose>	

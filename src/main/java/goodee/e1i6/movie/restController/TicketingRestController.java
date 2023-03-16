@@ -61,12 +61,12 @@ public class TicketingRestController {
 		return theaterService.getRegionListByMovie(movieKey, startDate);
 	}
 	
-	@GetMapping("/ticketing/screeningScheduleList")
-	public ArrayList<Map<String, Object>> getScreeningScheduleList(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+	@GetMapping("/ticketing/screeningScheduleListByDate")
+	public ArrayList<Map<String, Object>> getScreeningScheduleListByDate(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
 																, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey
 																, @RequestParam(value = "date", defaultValue = "") String date){
 		log.debug(TeamColor.JYW + "GET ScreeningScheduleList");
-		return screeningScheduleService.getScreeningScheduleList(movieKey, theaterKey, date);
+		return screeningScheduleService.getScreeningScheduleListByDate(movieKey, theaterKey, date);
 	}
 }
 
