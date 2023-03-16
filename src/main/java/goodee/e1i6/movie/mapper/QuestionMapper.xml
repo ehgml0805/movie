@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.QuestionMapper">
+
+	
+	<!-- 문의사항 삭제 -->
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE FROM notice
+		WHERE notice_key = #{noticeKey}
+	</delete>
+	
+	<!-- 문의사항 수정 -->
+	<update id="updateQuestion" parameterType="java.util.Map">
+		UPDATE notice
+		SET notice_title = #{newTitle}, notice_content = #{newContent}
+		WHERE notice_key = #{noticeKey}
+	</update>
+	
+	<!-- 문의사항 내용 -->
+	<select id="selectQuestionOne" parameterType="int" resultType="java.util.Map">
+		SELECT 
+			n.notice_key noticeKey
+			, n.notice_title noticeTitle
+			, n.notice_content noticeContent
+			, n.createdate createdate
+			, ni.file_name fileName
+		FROM notice n 
+			LEFT OUTER JOIN notice_img ni ON n.notice_key = ni.notice_key
+		WHERE n.notice_key = #{noticeKey}
+	</select>
+	
+	<!-- 문의사항 리스트 마지막 페이지 -->
+	<select id="selectQuestionListCount" resultType="int">
+		SELECT COUNT(*) FROM Question
+		WHERE customer_id = #{customerId}
+	</select>
+	<!-- 문의사항 리스트 -->
+	<select id="selectQuestionList" parameterType="java.util.Map" resultType="goodee.e1i6.movie.vo.Notice">
+		SELECT
+			ROW_NUMBER() over(order BY notice_key DESC) num
+			, notice_key noticeKey
+			, notice_title noticeTitle
+			, notice_content noticeContent
+			, createdate
+		FROM notice
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 문의유형 리스트 -->
+	<select id="selectQuestionCategoryList" resultType="goodee.e1i6.movie.vo.QuestionCategory">
+		SELECT
+			question_category_key questionCategoryKey, question_category questionCategory
+		FROM question_category
+	</select>
+	
+	<!-- 문의사항 등록 -->
+	<insert id="insertQuestion" parameterType="goodee.e1i6.movie.vo.Question">
+		INSERT INTO question (
+			question_title
+			, customer_id
+			, question_category_key
+			, theater_key
+			, question_content
+		) VALUES (
+			#{questionTitle}
+			, #{customerId}
+			, #{questionCategoryKey}
+			, #{theaterKey}
+			, #{questionContent}
+		)
+	</insert>
+
+</mapper>

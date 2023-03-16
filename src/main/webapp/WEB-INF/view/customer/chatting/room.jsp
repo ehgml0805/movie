@@ -30,9 +30,7 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-        
 	<script>
-		
 		$(document).ready(function(){
 		
 			var roomName = "${room.name}"; // 로그인한 고객 아이디
