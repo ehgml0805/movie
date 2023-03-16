@@ -39,5 +39,25 @@
 			</c:choose>		
 		</c:if>			
 	</c:forEach>
+	
+	
+	<table>
+		<tr>
+			<td>customer_id</td>	
+			<td>ratings</td>	
+			<td>content</td>	
+			<td>like</td>	
+			<td>createdate</td>	
+		</tr>
+		<tr>
+			<c:forEach var="r" items="${rlist}">
+				<td>${r.customerId}</td>
+				<td>${r.ratings }</td>
+				<td>${r.content }</td>
+				<td>${r.love }</td>
+				<td>${r.createdate }</td>
+			</c:forEach>
+		</tr>
+	</table>
 </body>
 </html>

@@ -25,7 +25,7 @@ public class CouponController {
 	
 	//고객
 	//내가 다운받은 쿠폰 리스트
-	@GetMapping("/employee/coupon/mycouponList")
+	@GetMapping("/customer/coupon/mycouponList")
 	public String mycouponList(HttpSession session, Model model) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
 		List<Mycoupon> mcList=couponService.selectMyCouponList(session, c.getCustomerId());
@@ -63,7 +63,7 @@ public class CouponController {
 	
 	//쿠폰리스트에서 발행 버튼 누르면 발행모달창으로 띄워서 전송
 	@PostMapping("/employee/coupon/addCoupon")
-	public String addCoupon(HttpSession session, Coupon coupon, Model model) {
+	public String addCoupon(HttpSession session, Coupon coupon) {
 		int row= couponService.addCoupon(coupon);
 		if(row==0) {
 			log.debug(TeamColor.KDH+row+"<==0: 쿠폰 발행 실패");

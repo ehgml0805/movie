@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.MovieService;
+import goodee.e1i6.movie.service.ReviewService;
 import goodee.e1i6.movie.service.StillCutService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.MovieForm;
+import goodee.e1i6.movie.vo.Review;
 import goodee.e1i6.movie.vo.StillCut;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MovieController {
 	@Autowired MovieService movieService;
 	@Autowired StillCutService stillCutService;
+	@Autowired ReviewService reviewService; 
 	
 	// 삭제
 	@GetMapping("/employee/movie/removeMovie")
@@ -115,11 +118,16 @@ public class MovieController {
 	// 영화 상세정보 출력
 	@GetMapping("/movie/movieOne")
 	public String getMovieOne(Model model
-							, @RequestParam(value="movieKey", required = true) int movieKey) {
+							, @RequestParam(value="movieKey", required = true) int movieKey
+							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+							, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
 		// log.debug(TeamColor.JYW + "movieOne");
 		
 		ArrayList<Map<String, Object>> movie = movieService.getMovieOne(movieKey);
 		model.addAttribute("movie", movie);
+		
+		List<Review> rlist= reviewService.selectReviewList(currentPage, rowPerPage, movieKey);
+		model.addAttribute("rlist", rlist);
 		
 		return "/customer/movie/movieOne";
 	}

@@ -3,8 +3,11 @@ package goodee.e1i6.movie.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import goodee.e1i6.movie.vo.Review;
 
+@Mapper
 public interface ReviewMapper {
 	
 	
@@ -23,5 +26,5 @@ public interface ReviewMapper {
 	int selectCount();
 	//리뷰 리스트 출력
 	List<Review> selectReviewList(Map<String, Object> paramMap);
-	List<Review> selectReviewList();
+	List<Review> ReviewList();
 }

@@ -8,7 +8,7 @@ public class Review {
 	private String customerId;
 	private int ratings;
 	private String content;
-	private int like;
+	private int love;
 	private int insultReport;
 	private int spoilerReport;
 	private String createdate;

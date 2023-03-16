@@ -27,7 +27,7 @@
 							,customer_id customerId
 							,ratings ratings
 							,content content
-							,`like` like
+							,love love
 							,createdate createdate
 							,insult_report insultReport
 							,spoiler_report spoilerReport
@@ -53,32 +53,37 @@
 	<select id="selectReviewList" resultType="goodee.e1i6.movie.vo.Review" parameterType="java.util.Map">
 	
 		SELECT 
-	 			ticketing_key ticketingKey
-	 			, customer_id customerId
-	 			, ratings ratings
-	 			, content content
-	 			, `like` like
-	 			, createdate createdate
-	 			, insult_report insultReport
-	 			, spoiler_report spoilerReport
-		FROM review
-		ORDER BY use_by_date ASC
+		      r.ticketing_key ticketingKey
+		      , r.customer_id customerId
+		      , r.ratings ratings
+		      , r.content content
+		      , r.love love
+		      , r.createdate createdate
+		      , r.insult_report insultReport
+		      , r.spoiler_report spoilerReport
+		FROM review r INNER JOIN ticketing tc
+		ON r.ticketing_key = tc.ticketing_key
+		INNER JOIN screening_schedule sc 
+		ON tc.schedule_key = sc.schedule_key
+		WHERE sc.movie_key=#{movieKey}
+		ORDER BY r.createdate ASC
 		LIMIT #{beginRow}, #{rowPerPage} 
 	</select>
-	<!-- 리뷰 리스트 -->
-	<select id="selectReviewList" resultType="goodee.e1i6.movie.vo.Review">
+	
+	<!-- 리뷰 리스트 스케줄러-->
+	<select id="ReviewList" resultType="goodee.e1i6.movie.vo.Review" >
 	
 		SELECT 
-	 			ticketing_key ticketingKey
-	 			, customer_id customerId
-	 			, ratings ratings
-	 			, content content
-	 			, `like` like
-	 			, createdate createdate
-	 			, insult_report insultReport
-	 			, spoiler_report spoilerReport
+	 			ticketing_key
+	 			, customer_id
+	 			, ratings
+	 			, content
+	 			, love
+	 			, createdate
+	 			, insult_report
+	 			, spoiler_report
 		FROM review
-		ORDER BY use_by_date ASC
-		LIMIT #{beginRow}, #{rowPerPage} 
+		ORDER BY createdate ASC
+
 	</select>
 </mapper>

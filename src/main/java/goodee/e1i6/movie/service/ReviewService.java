@@ -1,16 +1,21 @@
 package goodee.e1i6.movie.service;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.ReviewMapper;
 import goodee.e1i6.movie.vo.Review;
 
+@Service
+@Transactional
 public class ReviewService {
-	@Autowired ReviewMapper reviewMapper;
+	@Autowired private ReviewMapper reviewMapper;
 	
 	
 	//스포일러 신고 업데이트
@@ -33,11 +38,12 @@ public class ReviewService {
 		return reviewMapper.selectCount();
 	}
 	//리뷰 리스트
-	public List<Review> selectReviewList(int currentPage, int rowPerPage){
+	public List<Review> selectReviewList(int currentPage, int rowPerPage, int movieKey){
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
-		paramMap.put("rowPerPage", rowPerPage); //몇개씩 보여줄거
+		paramMap.put("rowPerPage", rowPerPage); 
+		paramMap.put("movieKey", movieKey); //몇개씩 보여줄거
 		return reviewMapper.selectReviewList(paramMap);
 	}
 }
