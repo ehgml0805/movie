@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	const eventKey = ${eventKey};
 	const movieKey = ${movieKey};
@@ -14,16 +15,17 @@
 	let isLoading = false;
 	let rowPerPage = 5;
 	let noMoreComments = false;
+	
 	$(document).ready(function(){	
 		function loadAddEventComment(){
 			$.ajax({
 				url: "${pageContext.request.contextPath}/event/addEventComment",
 				method: "GET",
-			  	data: {
-				    "eventKey": eventKey,
-				    "customerId": customerId,
-				    "movieKey": movieKey
-	  			},	
+				data: {
+					"eventKey": eventKey,
+					"customerId": customerId,
+					"movieKey": movieKey
+				},	
 				success: function(data){
 					$("#addComment").html(data);
 				},
@@ -33,39 +35,43 @@
 			});
 		}
 		
-	    function loadEventCommentList(){
-	    	if(isLoading || noMoreComments) return;
-	        isLoading = true;
-	        $.ajax({
-	            url: "${pageContext.request.contextPath}/event/eventCommentList",
-	            method: "GET",
-	            data: {
-	                "currentPage": currentPage,
-	                "rowPerPage": rowPerPage,
-	                "eventKey": eventKey,
-	                "movieKey": movieKey
-	            },
-	            success: function(data){
-	                $("#eventCommentList").append(data);
-	                currentPage++;
-	                isLoading = false;
-	                if($(data).find(".comment").length < rowPerPage || data.trim() === ""){
-	                    noMoreComments = true;
-	                }
-	            },
-	            error: function(){
-	                alert("Failed to load comments");
-	                isLoading = false;
-	            }
-	        });
-	    }
-
-	    $(window).scroll(function(){
-	        if($(window).scrollTop() + $(window).height() > $(document).height() - 100){
-	        	loadEventCommentList();
-	        }
-	    });
-	    loadAddEventComment();
+		function loadEventCommentList(){
+			if(isLoading || noMoreComments) return;
+			console.log('noMoreComments:', noMoreComments);
+			isLoading = true;
+			$.ajax({
+				url: "${pageContext.request.contextPath}/event/eventCommentList",
+				method: "GET",
+				data: {
+					"currentPage": currentPage,
+					"rowPerPage": rowPerPage,
+					"eventKey": eventKey,
+					"movieKey": movieKey
+				},
+				success: function(data) {
+				    $("#eventCommentList").append(data);
+				    isLoading = false;
+				    if ($(data).find(".comment").length < rowPerPage && currentPage > Math.ceil(${eventCommentCount}/rowPerPage) || data.trim() === "") {
+				        noMoreComments = true;
+				        $('#more-btn').hide(); 
+				    } else {
+				        currentPage++; 
+				    }
+				},
+				error: function(){
+					isLoading = false;
+				}
+			});
+		}
+		
+		loadEventCommentList();
+		
+		$('#more-btn').click(function() {
+			rowPerPage = 5; 
+			loadEventCommentList();
+		});
+		
+		loadAddEventComment();
 	});
 </script>
 </head>
@@ -88,8 +94,9 @@
 	</c:forEach>
 	<!-- 이벤트 댓글 등록 폼 -->
 	<div id="addComment"></div>
-	
-	<!-- 이빈트 댓글 리스트 -->
+	<h2>댓글 (${eventCommentCount})</h2>
+	<!-- 이벤트 댓글 리스트 -->
 	<div id="eventCommentList"></div>
+	<button id="more-btn">더보기</button>
 </body>
 </html>

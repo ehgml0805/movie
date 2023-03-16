@@ -120,13 +120,9 @@ public class EventController {
 		
 		List<EventComment> EventCommentList = eventService.getEventCommentList(currentPage, rowPerPage, eventKey);
 		log.debug(TeamColor.JSM + EventCommentList +" <- EventCommentList");
-		
-		int eventCommentCount = eventService.eventCommentCount(eventKey);
-		log.debug(TeamColor.JSM + "eventCommentCount :" + eventCommentCount);
 
-		
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("EventCommentList", EventCommentList);
-		model.addAttribute("eventCommentCount", eventCommentCount);
 		model.addAttribute("eventKey", eventKey);
 		model.addAttribute("movieKey", movieKey);
 
@@ -153,10 +149,17 @@ public class EventController {
 		
 		log.debug(TeamColor.JSM + customerId +" <- eventOneCustomerId");
 		
+		
+		int eventCommentCount = eventService.eventCommentCount(event.getEventKey());
+		log.debug(TeamColor.JSM + "eventCommentCount :" + eventCommentCount);
+
+		
 		model.addAttribute("eventOneList", eventOneList);
 		model.addAttribute("eventKey", event.getEventKey());
 		model.addAttribute("movieKey", event.getMovieKey());
 		model.addAttribute("customerId", customerId);
+		model.addAttribute("eventCommentCount", eventCommentCount);
+		
 		return "customer/event/eventOne";
 	}
 	

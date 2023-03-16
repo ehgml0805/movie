@@ -25,7 +25,7 @@ public class EventScheduler {
 	@Autowired EventService eventService;
 	@Autowired EventMapper eventMapper;
 	// 이벤트 종료 다음날 00시에 실행
-	@Scheduled (cron = "0 0 0 * * *") // 30초마다 실행(fixedRate = 30000)
+	@Scheduled (cron = "0 0 0 * * *") // 30초마다 실행  (fixedRate = 30000)
     public void eventWinners() {
 		log.debug(TeamColor.JSM + "실행테스트");
 		List<Event> pastEvents = eventMapper.selectPastEvents();
