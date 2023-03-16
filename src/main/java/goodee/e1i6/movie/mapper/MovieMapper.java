@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +11,7 @@ import goodee.e1i6.movie.vo.Movie;
 @Mapper
 public interface MovieMapper {
 	//  빠른 예매 - 날짜에 따른 영화 전체 목록
-	ArrayList<Map<String, Object>> selectMovieListByDate(String startDate);
+	List<Map<String, Object>> selectMovieListByDate(String startDate);
 	
 	// 영화 삭제
 	int deleteMovie(int movieKey);

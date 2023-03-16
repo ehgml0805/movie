@@ -9,9 +9,9 @@ public interface ReviewMapper {
 	
 	
 	//스포일러 신고 업데이트
-	int spoilerReport(String customerId);
+	int spoilerReport(int ticketingKey, String customerId);
 	//욕설, 비방 신고 업데이트
-	int insultReport(String customerId);
+	int insultReport(int ticketingKey, String customerId);
 	
 	//리뷰삭제?
 	int deleteReview(int ticketing_key, String customerId);

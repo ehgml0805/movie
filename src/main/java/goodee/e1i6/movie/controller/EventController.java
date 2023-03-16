@@ -28,6 +28,20 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class EventController {
 	@Autowired EventService eventService;
+	@GetMapping("/customer/event/spoilerReport")
+	public String spoilerReport(@RequestParam(value="eventCommentKey") int eventCommentKey
+								, @RequestParam(value="customerId") String customerId
+								, @RequestParam(value = "eventKey") int eventKey
+								, @RequestParam(value="movieKey") int movieKey) {
+		int row=eventService.spoilerReport(eventCommentKey, customerId);
+		if(row==1) {
+			log.debug(TeamColor.KDH+ row +"<==1: 스포일러 신고 성공");
+		}else {
+			log.debug(TeamColor.KDH+ row +"<==0: 스포일러 신고 실패");
+		}
+		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
+	}
+	
 	// 이벤트 당첨자 추가
 	@GetMapping("/employee/event/eventWinner")
 	public String eventWinner() {
