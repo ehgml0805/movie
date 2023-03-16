@@ -25,6 +25,18 @@ public class LoginService {
 		return loginMapper.insertCustomer(customer);
 	}
 	
+	// customer 회원찾기
+	@Transactional (readOnly = true)
+	public Customer findCustomer(String customerId) {
+		
+		Customer customer = loginMapper.findByCustomerId(customerId);
+		
+
+		return customer;
+	}
+	
+	
+	
 	// 회원가입중복검사
 	public String getCustomerId(String customerId) {
 		// 사용가능한 id면 yes 아니면 no

@@ -15,4 +15,7 @@ public interface LoginMapper {
 	
 	// 회원가입 아이디 중복
 	public String selectCustomerId(String customerId);
+	
+	// 회원찾기
+	public Customer findByCustomerId(String customerId);
 }
