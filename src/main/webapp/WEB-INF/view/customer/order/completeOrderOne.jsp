@@ -68,7 +68,7 @@ footer {
 			<tr><td colspan="4"><hr></td></tr>	
 			
 				<tr>
-					<td><img src="${pageContext.request.contextPath}/image/${s.fileName}.${s.fileType}" width="200px" height="200px"> ${s.snackName}</td>
+					<td><img src="${pageContext.request.contextPath}/snackImg/${s.fileName}.${s.fileType}" width="200px" height="200px"> ${s.snackName}</td>
 					<td>${o.orderQuantity}</td>
 					<td><fmt:formatNumber value="${o.orderPrice/o.orderQuantity}" pattern="#,###"/></td>
 					<td><fmt:formatNumber value="${o.orderPrice}" pattern="#,###"/></td>

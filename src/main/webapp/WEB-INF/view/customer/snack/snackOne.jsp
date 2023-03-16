@@ -92,7 +92,7 @@
 								<option value="4">4</option>
 								<option value="5">5</option>
 						</select>		
-						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/insertOrder'">바로구매</button>
+						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/order/paymentDir'">바로구매</button>
 						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/snack/insertCart'">장바구니에 담기</button>
 						<br><br>
 					</form>

@@ -25,7 +25,7 @@
 
 		<a href="${pageContext.request.contextPath}/customer/event/eventList">이벤트</a>
 		<a href="${pageContext.request.contextPath}/customer/order/cartList">카트</a>
-
+		<a href="${pageContext.request.contextPath}/customer/order/orderPage">주문</a>
 		<a href="${pageContext.request.contextPath}/event/eventList">이벤트</a>
 
 		<a href="${pageContext.request.contextPath}/snack/snackHome">스토어</a>

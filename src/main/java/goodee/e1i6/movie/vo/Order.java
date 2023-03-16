@@ -11,5 +11,6 @@ public class Order {
 	private String orderState;
 	private String createdate;
 	private int orderQuantity;
-
+	private String dataKey;
+	private String active;
 }

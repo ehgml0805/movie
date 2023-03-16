@@ -43,7 +43,7 @@
 		SELECT
 			o.order_price orderPrice, o.order_state orderState, o.order_quantity orderQuantity, 
 			s.snack_name snackName, i.file_name snackFileName, i.file_type snackFileType, 
-			c.order_key orderKey, c.data_key dataKey, c.file_name fileName, c.file_type fileType, c.active active
+			c.order_key orderKey, c.data_key dataKey, c.active active, s.snack_key snackKey
 		FROM `order` o INNER JOIN snack s ON o.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snackconfirm_code c ON c.order_key = o.order_key
 		WHERE o.customer_id= #{customerId} 
 		ORDER BY o.createdate DESC
@@ -83,9 +83,10 @@
 		ORDER BY createdate DESC LIMIT 0, 1
 	</select>
 	<select id="selectOrderOne" resultType="goodee.e1i6.movie.vo.Order" parameterType="int">
-		SELECT order_key orderKey, snack_key snackKey, customer_id customerId, order_price orderPrice, order_state orderState, createdate, order_quantity orderQuantity
-		FROM `order`
-		WHERE order_key = #{orderKey}
+		SELECT o.order_key orderKey, o.snack_key snackKey, o.customer_id customerId, o.order_price orderPrice, o.order_state orderState, o.createdate createdate, o.order_quantity orderQuantity
+		,s.data_key dataKey, s.active active
+		FROM `order` o inner join snackconfirm_code s ON o.order_key = s.order_key
+		WHERE o.order_key = #{orderKey}
 	</select>
 	<update id="updateCartQuantity" parameterType="goodee.e1i6.movie.vo.Cart">
 		UPDATE cart SET cart_quantity=#{cartQuantity} WHERE customer_id=#{customerId} AND snack_key= #{snackKey}

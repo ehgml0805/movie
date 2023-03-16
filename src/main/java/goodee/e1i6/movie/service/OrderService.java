@@ -48,6 +48,8 @@ public class OrderService {
 			String dataKey = UUID.randomUUID().toString();
 			try {
 				Barcode barCode = BarcodeFactory.createCode128(dataKey);
+				barCode.setLabel(dataKey);
+				barCode.setDrawingText(true);
 				File file= new File(path+dataKey+".png");
 				BarcodeImageHandler.savePNG(barCode, file);
 				SnackconfirmCode confirm = new SnackconfirmCode();
