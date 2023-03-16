@@ -255,7 +255,7 @@
     		});
     		
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
-    		$('.movie-button').click(function() {
+    		$(document).on('click', '.movie-button' ,function() {
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
