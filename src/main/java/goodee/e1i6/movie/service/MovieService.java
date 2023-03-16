@@ -34,7 +34,7 @@ public class MovieService {
 	@Autowired StillCutMapper stillCutMapper; 
 	
 	// 빠른 예매 - 날짜에 따른 영화 전체 목록
-	public ArrayList<Map<String, Object>> getMovieListByDate(String startDate) {
+	public List<Map<String, Object>> getMovieListByDate(String startDate) {
 		return movieMapper.selectMovieListByDate(startDate);
 	}
 	
