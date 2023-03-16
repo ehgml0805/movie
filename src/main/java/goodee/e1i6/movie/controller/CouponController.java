@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Coupon;
+import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.Mycoupon;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +27,8 @@ public class CouponController {
 	//내가 다운받은 쿠폰 리스트
 	@GetMapping("/employee/coupon/mycouponList")
 	public String mycouponList(HttpSession session, Model model) {
-		
-		List<Mycoupon> mcList=couponService.selectMyCouponList();
+		Customer c = (Customer)session.getAttribute("loginCustomer");
+		List<Mycoupon> mcList=couponService.selectMyCouponList(session, c.getCustomerId());
 		model.addAttribute("mc", mcList);
 		
 		return "/customer/coupon/mycouponList";

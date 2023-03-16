@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.CouponMapper;
 import goodee.e1i6.movie.vo.Coupon;
+import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.Mycoupon;
 @Service
 @Transactional
@@ -25,8 +28,9 @@ public class CouponService {
 		return couponMapper.insertMyCoupon(mycoupon);
 	}
 	//내 쿠폰 리스트 출력
-	public List<Mycoupon> selectMyCouponList(){
-		return couponMapper.selectMyCouponList();
+	public List<Mycoupon> selectMyCouponList(HttpSession session, String customerId){
+		Customer c = (Customer)session.getAttribute("loginCustomer");
+		return couponMapper.selectMyCouponList(c.getCustomerId());
 	}
 	
 	
