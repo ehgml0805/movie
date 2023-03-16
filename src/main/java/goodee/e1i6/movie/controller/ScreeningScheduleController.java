@@ -57,8 +57,8 @@ public class ScreeningScheduleController {
 	
 	// 상영 스케줄 입력
 	@GetMapping("/employee/screeningSchedule/addScreeningSchedule")
-	public String addScreeningScheduleList(Model model) {
-		ArrayList<Map<String, Object>> movieList = movieService.getMovieList();
+	public String addScreeningScheduleList(Model model, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
+		ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		model.addAttribute("movieList", movieList);
 		
 		List<Screenroom> screenroomList = screenroomService.getScreenroomList();
