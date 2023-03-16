@@ -16,10 +16,10 @@
 						<td rowspan="7">
 							<c:choose>
 								<c:when test="${m.movieCode ne '0'}">
-									<img alt="영화이미지" src="${m.originName}" width="300px" height="500px">
+									<img alt="영화이미지" src="${m.fileName}" width="300px" height="500px">
 								</c:when>
 								<c:otherwise>
-									<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.originName}" width="300px" height="500px">			
+									<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}" width="300px" height="500px">			
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -114,12 +114,12 @@
 						<c:choose>
 							<c:when test="${s.fileSize eq 0}">
 								<a href="${pageContext.request.contextPath}/employee/stillCut/stillCutOne?stillCutKey=${s.stillCutKey}">
-									<img alt="영화이미지" src="${s.originName}">
+									<img alt="영화이미지" src="${s.fileName}">
 								</a>
 							</c:when>
 							<c:otherwise>
 								<a href="${pageContext.request.contextPath}/employee/stillCut/stillCutOne?stillCutKey=${s.stillCutKey}">
-									<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${s.originName}">
+									<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${s.fileName}">
 								</a>
 							</c:otherwise>
 						</c:choose>

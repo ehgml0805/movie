@@ -92,7 +92,7 @@
 					<div>
 						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="200" height="200">
 					</div>
-					<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}">${e.eventTitle}</a>
+					<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
 				</td>
 				<td>${e.eventStartDate}</td>
 				<td>${e.eventEndDate}</td>

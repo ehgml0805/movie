@@ -41,7 +41,8 @@
 			, start_date startDate
 			, end_date endDate
 			, preview
-		FROM screening_schedule	 
+		FROM screening_schedule	
+		WHERE movie_key = #{movieKey}  AND preview = 'Y'
 	</select>
 	
 	<!-- eventMovieList -->

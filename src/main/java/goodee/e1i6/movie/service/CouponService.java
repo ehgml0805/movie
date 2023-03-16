@@ -10,14 +10,35 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.CouponMapper;
 import goodee.e1i6.movie.vo.Coupon;
+import goodee.e1i6.movie.vo.Mycoupon;
 @Service
 @Transactional
 public class CouponService {
 	@Autowired private CouponMapper couponMapper;
 	
+	//쿠폰 사용후 상태 변경
+	public int modifyMycoupon(Mycoupon mycoupon) {
+		return couponMapper.updateMycoupon(mycoupon);
+	}
+	//쿠폰 내려받기
+	public int addMycoupon(Mycoupon mycoupon) {
+		return couponMapper.insertMyCoupon(mycoupon);
+	}
+	//내 쿠폰 리스트 출력
+	public List<Mycoupon> selectMyCouponList(){
+		return couponMapper.selectMyCouponList();
+	}
+	
+	
+	
+	//관리자
 	//쿠폰 삭제(처음 잘못 등록시에만 삭제 가능)
 	public int removeCoupon(int couponKey) {
 		return couponMapper.deleteCoupon(couponKey);
+	}
+	//쿠폰 수정
+	public int modifyCoupon(Coupon coupon) {
+		return couponMapper.updateCoupon(coupon);
 	}
 	//쿠폰 발행(등록)
 	public int addCoupon(Coupon coupon) {

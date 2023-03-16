@@ -33,6 +33,11 @@ public class MovieService {
 	@Autowired MovieMapper movieMapper; 
 	@Autowired StillCutMapper stillCutMapper; 
 	
+	// 빠른 예매 - 날짜에 따른 영화 전체 목록
+	public ArrayList<Map<String, Object>> getMovieListByDate(String startDate) {
+		return movieMapper.selectMovieListByDate(startDate);
+	}
+	
 	// 영화 삭제
 	public int removeMovie(int movieKey) {
 		return movieMapper.deleteMovie(movieKey);

@@ -12,13 +12,13 @@ public interface EventCommentMapper {
 	// count
 	int eventCommentCount(int eventKey);
 	// 이벤트 댓글 삭제
-	int deleteEventComment(int eventCommentKey);
+	int deleteEventComment(EventComment eventComment);
 	// 이벤트 댓글 수정
 	int updateEventComment(EventComment eventComment);
 	// 이벤트 댓글 등록
 	int insertEventComment(EventComment eventComment);
 	// 이벤트 당첨자 댓글 리스트
-	List<EventComment> selectEventWinnerCommentList(Map<String, Object>paraMap);
+	List<Map<String, Object>> selectEventWinnerCommentList(Map<String, Object>paraMap);
 	// 이벤트 댓글 리스트
 	List<EventComment> selectEventCommentList(Map<String, Object>paraMap);
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +37,9 @@ public class EventService {
 	@Autowired private EventMapper eventMapper;
 	@Autowired private EventImgMapper eventImgMapper;
 	@Autowired private EventCommentMapper eventCommentMapper; 
-		
+	@Autowired private EmailService emailService;
+	@Autowired private JavaMailSender javaMailSender;
+	
 	// eventWinner
 	public int addEventWinner(EventWinner eventWinner) {
 		return eventMapper.insertEventWinner(eventWinner);
@@ -50,8 +53,9 @@ public class EventService {
 	}
 	
 	// eventSchedule
-	public List<ScreeningSchedule> getEventScheduleList() {
+	public List<ScreeningSchedule> getEventScheduleList(int movieKey) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("movieKey", movieKey);
 		return eventMapper.selectEventScheduleList(paramMap);
 	}
 	
@@ -66,8 +70,8 @@ public class EventService {
 		return eventCommentMapper.eventCommentCount(eventKey);
 	}
 	// removeComment
-	public int removeComment(int eventCommentKey) {
-		return eventCommentMapper.deleteEventComment(eventCommentKey);
+	public int removeComment(EventComment eventComment) {
+		return eventCommentMapper.deleteEventComment(eventComment);
 	}
 	
 	// modifyComment
@@ -100,36 +104,44 @@ public class EventService {
     				// 이벤트에 대한 댓글 리스트 가져오기
     				Map<String, Object> paramMap = new HashMap<>();
     				paramMap.put("eventKey", event.getEventKey());
-    				log.debug(TeamColor.JSM + "eventKey " + event.getEventKey());
-    				List<EventComment> commentList = eventCommentMapper.selectEventWinnerCommentList(paramMap);
-
-    	            // 중복된 아이디 제외한 리스트 만들기
+    				 List<Map<String, Object>> commentList = eventCommentMapper.selectEventWinnerCommentList(paramMap);
+    				
+    				log.debug(TeamColor.JSM + "commentList " + commentList);
+    	           
+    				// 중복된 아이디 제외한 리스트 만들기
     	            Set<String> customerIdSet = new HashSet<>();
-    	            List<EventComment> uniqueCommentList = new ArrayList<>();
-    	            for (EventComment comment : commentList) {
-    	                if (!customerIdSet.contains(comment.getCustomerId())) {
-    	                    customerIdSet.add(comment.getCustomerId());
+    	            List<Map<String, Object>> uniqueCommentList = new ArrayList<>();
+    	            for (Map<String, Object> comment: commentList) {
+    	                if (!customerIdSet.contains(comment.get("customerId"))) {
+    	                    customerIdSet.add((String) comment.get("customerId"));
     	                    uniqueCommentList.add(comment);
     	                }
     	            }
 
     	            // uniqueCommentList에서 랜덤하게 당첨자 선정
-    	            List<EventComment> winners = new ArrayList<>();
+    	            List<Map<String, Object>> winners = new ArrayList<>();
     	            int winnerCount = Math.min(1, uniqueCommentList.size());
     	            Random random = new Random(); 
     	            for (int i = 0; i < winnerCount; i++) {
     	                int randomIndex = random.nextInt(uniqueCommentList.size()); 
-    	                EventComment winnerComment = uniqueCommentList.remove(randomIndex);
+    	                Map<String, Object> winnerComment = uniqueCommentList.remove(randomIndex);
     	                winners.add(winnerComment);
-    	                log.debug(TeamColor.JSM + "Winner added :" + winnerComment.getEventCommentKey());
+    	                log.debug(TeamColor.JSM + "Winner added :" + winnerComment.get("eventCommentKey"));
     	            }
+    	     
     	            log.debug(TeamColor.JSM + "Winners size: " + winners.size());
     	            // 이벤트위너 테이블에 추가
-		            for (EventComment winnerComment : winners) {
+    	            for (Map<String, Object> winnerComment: winners) {
 		                EventWinner eventWinner = new EventWinner();
-		                eventWinner.setEventCommentKey(winnerComment.getEventCommentKey());
-		                eventWinner.setScheduleKey(winnerComment.getScheduleKey());
+		                eventWinner.setEventCommentKey((int) winnerComment.get("eventCommentKey"));
+		                eventWinner.setScheduleKey((int) winnerComment.get("scheduleKey"));
 		                eventMapper.insertEventWinner(eventWinner);
+		                
+    	                log.debug(TeamColor.JSM + "winnerComment :" + winnerComment.get("customerEmail"));
+
+		                
+		                String recipientAddress = (String) winnerComment.get("customerEmail");
+		                emailService.sendEmail(recipientAddress);
 		            }
 	        
     			}

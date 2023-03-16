@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.ReviewMapper">
+	
+	<!--리뷰에서 스포일러 신고 업데이트 -->
+	<update id="spoilerReport" parameterType="String">
+		
+		UPDATE review SET spoiler_report=spoiler_report+1
+		WHERE ticketing_key= #{ticketingKey} AND customer_id = #{customerId}
+	
+	</update>
+	
+	<!--리뷰에서 욕설, 비방 신고 업데이트 -->
+	<update id="insultReport" parameterType="String">
+		
+		UPDATE review SET insult_report=insult_report+1
+		WHERE ticketing_key= #{ticketingKey} AND customer_id = #{customerId}
+	
+	</update>
+	
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="goodee.e1i6.movie.vo.Review">
+	
+		INSERT INTO review (
+							ticketing_key ticketingKey
+							,customer_id customerId
+							,ratings ratings
+							,content content
+							,`like` like
+							,createdate createdate
+							,insult_report insultReport
+							,spoiler_report spoilerReport
+		
+		) VALUES (
+					#{ticketingKey}
+					, #{customerId}
+					, #{ratings}
+					, #{content}
+					, 0
+					, NOW()
+					, 0
+					, 0 	)
+	
+	</insert>
+	
+	<!-- 페이징 총 개수 -->
+	<select id="selectCount">
+		 SELECT COUNT(*) FROM review
+	</select>
+	
+	<!-- 리뷰 리스트 -->
+	<select id="selectReviewList" resultType="goodee.e1i6.movie.vo.Review" parameterType="java.util.Map">
+	
+		SELECT 
+	 			ticketing_key ticketingKey
+	 			, customer_id customerId
+	 			, ratings ratings
+	 			, content content
+	 			, `like` like
+	 			, createdate createdate
+	 			, insult_report insultReport
+	 			, spoiler_report spoilerReport
+		FROM review
+		ORDER BY use_by_date ASC
+		LIMIT #{beginRow}, #{rowPerPage} 
+	</select>
+</mapper>

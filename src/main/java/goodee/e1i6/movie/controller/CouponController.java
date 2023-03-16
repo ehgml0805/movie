@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.CouponService;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Coupon;
+import goodee.e1i6.movie.vo.Mycoupon;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,11 +22,41 @@ import lombok.extern.slf4j.Slf4j;
 public class CouponController {
 	@Autowired CouponService couponService;
 	
+	//고객
+	//내가 다운받은 쿠폰 리스트
+	@GetMapping("/employee/coupon/mycouponList")
+	public String mycouponList(HttpSession session, Model model) {
+		
+		List<Mycoupon> mcList=couponService.selectMyCouponList();
+		model.addAttribute("mc", mcList);
+		
+		return "/customer/coupon/mycouponList";
+	}
 	
+	
+	//관리자
 	//쿠폰삭제(처음 잘못 등록시에만 삭제 가능)
-	@PostMapping("/employee/coupon/removeCoupon")
+	@GetMapping("/employee/coupon/removeCoupon")
 	public String removeCoupon(HttpSession session, @RequestParam("couponKey") int couponKey) {
 		couponService.removeCoupon(couponKey);
+		return "redirect:/employee/coupon/couponList";
+	}
+	//쿠폰수정
+	@GetMapping("/employee/coupon/modifyCoupon")
+	public String modifyCoupon(HttpSession session, int couponKey, Model model) {
+		Coupon couponOne=couponService.selectCouponOne(couponKey);
+		model.addAttribute("co", couponOne);
+		log.debug(TeamColor.KDH+couponOne+"<==쿠폰 상세보기");
+		
+		return "/employee/coupon/modifyCoupon";
+	}
+	@PostMapping("/employee/coupon/modifyCoupon")
+	public String modifyCoupon(HttpSession session, Coupon coupon) {
+		
+		int row=couponService.modifyCoupon(coupon);
+		if(row==1) {
+			log.debug(TeamColor.KDH+row+"<==1: 쿠폰 수정 성공");
+		}
 		return "redirect:/employee/coupon/couponList";
 	}
 	
@@ -33,18 +65,19 @@ public class CouponController {
 	public String addCoupon(HttpSession session, Coupon coupon, Model model) {
 		int row= couponService.addCoupon(coupon);
 		if(row==0) {
-			log.debug(0+"<==쿠폰 발행 실패");
+			log.debug(TeamColor.KDH+row+"<==0: 쿠폰 발행 실패");
 		}
-		log.debug(1+"<==쿠폰 발행 성공");
+		log.debug(TeamColor.KDH+row+"<==1: 쿠폰 발행 성공");
 		return "redirect:/employee/coupon/couponList";
 	}
+	//발행 된 쿠폰리스트 
 	@GetMapping("/employee/coupon/couponList")
 	public String couponList(HttpSession session, Model model
 								, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 								, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
 		//페이징 하기 위한 총 개수
 		int selectCount=couponService.selectCount(rowPerPage);
-		log.debug("selectCount");
+		log.debug(TeamColor.KDH+selectCount+"<==총 개수");
 		int lastPage=selectCount/rowPerPage;
 		if(selectCount/rowPerPage !=0) {
 			lastPage=lastPage+1;

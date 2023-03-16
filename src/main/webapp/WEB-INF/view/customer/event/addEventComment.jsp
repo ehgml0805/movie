@@ -8,9 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="${pageContext.request.contextPath}/customer/event/addEventComment">
+	<form method="post" action="${pageContext.request.contextPath}/event/addEventComment">
 		<input type="hidden" name="eventKey" value="${eventKey}">
 		<input type="hidden" name="customerId" value="${customerId}">
+		<input type="hidden" name="movieKey" value="${movieKey}">
 		<div>
 			시간 선택:
 			<select name="scheduleKey">
@@ -20,7 +21,6 @@
 							<option value="${es.scheduleKey}">상영시간:
 								<fmt:formatDate value="${es.startDate}" pattern="yyyy-MM-dd HH:mm"/> ~
 								<fmt:formatDate value="${es.endDate}" pattern="yyyy-MM-dd HH:mm"/>
-
 							</option>
 						</c:if>		
 					</c:forEach>			

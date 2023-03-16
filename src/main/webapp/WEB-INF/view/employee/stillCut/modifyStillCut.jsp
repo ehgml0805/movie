@@ -14,10 +14,10 @@
 				<td rowspan="6">
 					<c:choose>
 						<c:when test="${stillCut.fileSize eq 0}">
-							<img alt="영화이미지" src="${stillCut.originName}">
+							<img alt="영화이미지" src="${stillCut.fileName}">
 						</c:when>
 						<c:otherwise>						
-							<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${stillCut.originName}">
+							<img alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${stillCut.fileName}">
 						</c:otherwise>
 					</c:choose>
 				</td>
