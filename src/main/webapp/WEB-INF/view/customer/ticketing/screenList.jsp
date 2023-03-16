@@ -60,7 +60,7 @@
 							<div>
 								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
 							</div>
-						</c:forEach>
+						</c:forEach>	
 					</div>
 					<div class="col-6" id="theaterName"></div>
 				</div>
@@ -168,12 +168,13 @@
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
 					type : 'GET',
-					data : {startDate : $(this).val()},
+					data : {startDate : $(this).val()
+							, movieKey : $('#movieKey').val()},
 					success : function (data) {
 						
 						let html = "";
 						for(let i = 0; i < data.length; i++) {
-						 	html +=	"<div class='movie-list'>"
+							html +=	"<div class='movie-list'>"
 						 	if(data[i].startDate === undefined) {
 								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
@@ -223,6 +224,7 @@
     					// alert(list);
     					let fileName = list[0].fileName;
     					let movieCode = list[0].movieCode;
+    					$('#movieKey').val(list[0].movieKey);
     					// alert(movieCode);
     					if(movieCode != 0){
     						$('#picture').attr('src', fileName);
@@ -234,7 +236,7 @@
     		});
   	      	  	      
     		/* 영화 선택 시 이미지 출력 */
-    		$('button.movie-button').click(function(){
+    		$(document).on('click', '.movie-button', function() {
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
     				, type :'get'

@@ -25,8 +25,17 @@ public class TicketingRestController {
 	
 	//  빠른 예매 - 날짜에 따른 영화 전체 목록
 	@GetMapping("/ticketing/movieListByDate")
-	public ArrayList<Map<String, Object>> getMovieListByDate(@RequestParam(value = "startDate", defaultValue = "") String startDate) {
+	public List<Map<String, Object>> getMovieListByDate(@RequestParam(value = "startDate", defaultValue = "") String startDate
+																, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
 		log.debug(TeamColor.CHOI + "GET MovieListByDate");
+//		
+//		List<Map<String, Object>> movieListByDate = movieService.getMovieListByDate(startDate);
+//		List<Map<String, Object>> regionListByDate = theaterService.getRegionListByMovie(movieKey);
+//		
+//		ArrayList<List<Map<String, Object>>> movieInfoListByDate = new ArrayList<>();
+//		movieInfoListByDate.add(movieListByDate);
+//		movieInfoListByDate.add(regionListByDate);
+//		
 		return movieService.getMovieListByDate(startDate);
 	}
 	
