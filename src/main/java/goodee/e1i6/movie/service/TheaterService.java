@@ -1,5 +1,8 @@
 package goodee.e1i6.movie.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +20,23 @@ public class TheaterService {
 	@Autowired TheaterMapper theaterMapper;
 	
 	// 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력
-	public List<Map<String, Object>> getRegionListByMovie(int movieKey) {
-		return theaterMapper.selectRegionListByMovie(movieKey);
+	public List<Map<String, Object>> getRegionListByMovie(int movieKey, String startDate) {
+		if(startDate.equals("")) {
+			 // 오늘 날짜 가져오기
+	        LocalDate today = LocalDate.now();
+	        
+	        // 출력 형식 지정
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+	        
+	        // 형식에 맞게 출력
+	        startDate = today.format(formatter);
+		}
+		
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("movieKey", movieKey);
+		paramMap.put("startDate", startDate);
+		
+		return theaterMapper.selectRegionListByMovie(paramMap);
 	}
 	
 	// 빠른 예매(해당 지역의 극장 목록)

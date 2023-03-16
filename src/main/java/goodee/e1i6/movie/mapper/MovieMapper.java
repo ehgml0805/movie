@@ -23,7 +23,7 @@ public interface MovieMapper {
 	ArrayList<Map<String, Object>> selectMovieOne(int movieKey);
 	
 	// 영화 목록
-	ArrayList<Map<String, Object>> selectMovieList();
+	ArrayList<Map<String, Object>> selectMovieList(String startDate);
 	
 	// 영화 등록
 	int insertMovie(Movie movie);

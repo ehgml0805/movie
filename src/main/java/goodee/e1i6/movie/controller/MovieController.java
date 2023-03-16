@@ -103,10 +103,10 @@ public class MovieController {
 	
 	// 영화 목록 출력
 	@GetMapping("/employee/movie/movieList")
-	public String getMovieListByEmployee(Model model) {
+	public String getMovieListByEmployee(Model model, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
 		// log.debug(TeamColor.JYW + "GET movieList");
 		
-		ArrayList<Map<String, Object>> movieList = movieService.getMovieList();
+		ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		model.addAttribute("movieList", movieList);
 		
 		return "/employee/movie/movieList";
@@ -126,10 +126,10 @@ public class MovieController {
 	
 	// 영화 목록 출력
 	@GetMapping("/movie/movieList")
-	public String getMovieList(Model model) {
+	public String getMovieList(Model model, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
 		// log.debug(TeamColor.JYW + "GET movieList");
 		
-		ArrayList<Map<String, Object>> movieList = movieService.getMovieList();
+		ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		model.addAttribute("movieList", movieList);
 		
 		return "/customer/movie/movieList";

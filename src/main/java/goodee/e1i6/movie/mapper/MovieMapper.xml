@@ -54,7 +54,7 @@
 	</select>
 
 	<!-- 영화 목록 -->
-	<select id="selectMovieList" resultType="java.util.Map">
+	<select id="selectMovieList" parameterType="String" resultType="java.util.Map">
 		SELECT 
 			m.movie_key movieKey
 			, movie_code movieCode
@@ -67,9 +67,12 @@
 			, active
 			, poster
 			, file_name fileName
+			, DATE(start_date) startDate
 		FROM movie m
 		JOIN still_cut s ON m.movie_key = s.movie_key
+		LEFT JOIN screening_schedule ss ON m.movie_key = ss.movie_key AND DATE(start_date) = #{startDate}
 		WHERE poster = 'Y'
+		GROUP BY m.movie_key
 		ORDER BY reservation_rate DESC
 	</select>
 	

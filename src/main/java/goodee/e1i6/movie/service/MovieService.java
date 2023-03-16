@@ -3,6 +3,8 @@ package goodee.e1i6.movie.service;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,17 @@ public class MovieService {
 	
 	// 빠른 예매 - 날짜에 따른 영화 전체 목록
 	public List<Map<String, Object>> getMovieListByDate(String startDate) {
+		if(startDate.equals("")) {
+			 // 오늘 날짜 가져오기
+	        LocalDate today = LocalDate.now();
+	        
+	        // 출력 형식 지정
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+	        
+	        // 형식에 맞게 출력
+	        startDate = today.format(formatter);
+		}
+		
 		return movieMapper.selectMovieListByDate(startDate);
 	}
 	
@@ -163,9 +176,19 @@ public class MovieService {
 	}
 	
 	// 영화 목록 출력
-	public ArrayList<Map<String, Object>> getMovieList() {
+	public ArrayList<Map<String, Object>> getMovieList(String startDate) {
+		if(startDate.equals("")) {
+			 // 오늘 날짜 가져오기
+	        LocalDate today = LocalDate.now();
+	        
+	        // 출력 형식 지정
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+	        
+	        // 형식에 맞게 출력
+	        startDate = today.format(formatter);
+		}
 		
-		return movieMapper.selectMovieList();
+		return movieMapper.selectMovieList(startDate);
 	}
 	
 	// 영화 등록

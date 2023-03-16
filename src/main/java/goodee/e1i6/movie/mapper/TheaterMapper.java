@@ -17,5 +17,5 @@ public interface TheaterMapper {
 	List<Theater> selectTheaterList();
 	List<Map<String, Object>> selectTheaterRegionList();
 	List<Theater> selectTheaterNameListByRegion(String theaterRegion);
-	List<Map<String, Object>> selectRegionListByMovie(int movieKey);
+	List<Map<String, Object>> selectRegionListByMovie(Map<String, Object> paramMap);
 }

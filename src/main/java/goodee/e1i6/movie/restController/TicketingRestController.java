@@ -55,9 +55,10 @@ public class TicketingRestController {
 	
 	// 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력
 	@GetMapping("/ticketing/regionList")
-	public List<Map<String, Object>> getRegionListByMovie(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
+	public List<Map<String, Object>> getRegionListByMovie(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+															, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
 		log.debug(TeamColor.CHOI + "GET RegionListByMovie");
-		return theaterService.getRegionListByMovie(movieKey);
+		return theaterService.getRegionListByMovie(movieKey, startDate);
 	}
 	
 	@GetMapping("/ticketing/screeningScheduleList")

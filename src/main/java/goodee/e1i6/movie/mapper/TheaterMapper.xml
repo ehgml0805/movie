@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.TheaterMapper">
 	<!-- 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 -->
-	<select id="selectRegionListByMovie" parameterType="int" resultType="java.util.Map">
+	<select id="selectRegionListByMovie" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
 			t.theater_region theaterRegion
 			, COUNT(ss.schedule_key) regionCount
 		FROM theater t
 			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
-			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key AND ss.movie_key = #{movieKey}
+			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key <if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if> AND DATE(start_date) = #{startDate}
 		GROUP BY t.theater_region;
 	</select>
 	

@@ -36,10 +36,18 @@
 			<div id="movieList">
 				<c:forEach var="m" items="${movieList}">
 					<div class="movie-list">
-						<button class="movie-button" type="button" value="${m.movieKey}">
-							<span>${m.grade}</span>
-							<span class="txt">${m.movieTitle}</span>						
-						</button>
+						<c:if test="${m.startDate eq null}">
+							<button type="button" disabled="disabled">
+								<span>${m.grade}</span>
+								<span>${m.movieTitle}</span>						
+							</button>
+						</c:if>
+						<c:if test="${m.startDate ne null}">
+							<button class="movie-button" type="button" value="${m.movieKey}">
+								<span>${m.grade}</span>
+								<span class="txt">${m.movieTitle}</span>						
+							</button>
+						</c:if>
 					</div>					
 				</c:forEach>
 			</div>
@@ -297,6 +305,60 @@
     		        }
     		    })
     		});
+    		
+    		// 극장 선택 시 날짜 기준 
+    		$(document).on('click', '.theater-button', function() {
+    			// 지역(수)목록 출력
+    			$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/regionList',
+					type : 'GET',
+					data : {movieKey : $(this).val()},
+					success : function(data) {
+						let html = '';
+			            for (let i=0; i < data.length; i++) {
+			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			            }
+			            
+						$('#theaterRegion').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				})	
+				
+				// 오늘 날짜 기준 영화 리스트
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
+					type : 'GET',
+					data : {movieKey : $('#movieKey').val()},
+					success : function (data) {
+						
+						let html = "";
+						for(let i = 0; i < data.length; i++) {
+							html +=	"<div class='movie-list'>"
+						 	if(data[i].startDate === undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+						 	if(data[i].startDate !== undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+							html += "</div>";
+							
+							$('#movieKey').val(data[0].movieKey);
+						}
+						
+						$('#movieList').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				})
+			});
     		
     		// 극장 선택 시 상영 스케줄 출력
     		$(document).on('click', '.theater-button', function() {

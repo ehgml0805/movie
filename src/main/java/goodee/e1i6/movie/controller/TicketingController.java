@@ -19,8 +19,9 @@ public class TicketingController {
 	
 	@GetMapping("/ticketing/screenList")
 	public String getScreenList(Model model
-									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
-		List<Map<String, Object>> movieList = movieService.getMovieList();
+									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+									, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
+		List<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		List<Map<String, Object>> theaterRegionList = theaterService.getTheaterRegionList();
 		
 		model.addAttribute("theaterRegionList", theaterRegionList);
@@ -33,8 +34,9 @@ public class TicketingController {
 	
 	@GetMapping("/ticketing/screenList2")
 	public String getScreenList2(Model model
-									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
-		List<Map<String, Object>> movieList = movieService.getMovieList();
+									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+									, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
+		List<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		List<Map<String, Object>> theaterRegionList = theaterService.getTheaterRegionList();
 		
 		model.addAttribute("theaterRegionList", theaterRegionList);
