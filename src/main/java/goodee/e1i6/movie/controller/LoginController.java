@@ -31,6 +31,7 @@ import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.KakaoProfile;
 import goodee.e1i6.movie.vo.OAuthToken;
+import lombok.Builder;
 
 
 @Controller
@@ -40,6 +41,7 @@ public class LoginController {
 
 	
 	// 카카오 로그인
+	@Builder
 	@GetMapping("/kakao/callback") 
 	public @ResponseBody String kakaoCallback(String code) { //ResponseBody : Data를 리턴해주는 컨트롤러 함수
 		
@@ -131,16 +133,16 @@ public class LoginController {
 		UUID garbagePassword =  UUID.randomUUID();
 		System.out.println("페이지 패스워드 :"+garbagePassword);
 		
-		Customer KakaoCustomer = Customer.builder()
-			.customerId(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
-			.customerPw(garbagePassword.toString())
-			.customerEmail(kakaoProfile.getKakao_account().getEmail())
-			.build();
+		//Customer KakaoCustomer = Customer.builder()
+			//.customerId(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
+			//.customerPw(garbagePassword.toString())
+			//.customerEmail(kakaoProfile.getKakao_account().getEmail())
+			//.build();
 		
 		System.out.println("11111111111111111111111111");
 		
 		// 가입자 혹은 비가입자 체크 해서 처리
-		System.out.println(KakaoCustomer.getCustomerId());
+		//System.out.println(KakaoCustomer.getCustomerId());
 		//Customer originCustomer = loginService.findCustomer(KakaoCustomer.getcustomer);
 		
 		

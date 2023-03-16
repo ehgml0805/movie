@@ -32,7 +32,9 @@
 				<tr>
 					<td><img src="${pageContext.request.contextPath}/customer-upload/${ec.fileName}" width="50" height="50"></td>
 					<td class="comment">${ec.customerId}</td>
-					<td>${ec.eventCommentContent}</td>
+					<c:if test="${ec.insultReport>=5 }">
+						<td>${ec.eventCommentContent}</td>
+					</c:if>
 					<td>${ec.createdate}</td>
 					<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
 					<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
