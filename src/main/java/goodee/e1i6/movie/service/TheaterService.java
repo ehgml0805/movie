@@ -19,6 +19,11 @@ import goodee.e1i6.movie.vo.Theater;
 public class TheaterService {
 	@Autowired TheaterMapper theaterMapper;
 	
+	// 빠른 예매 - 극장 선택 시 극장 키 값 출력
+	public int getTheaterOneByName(String theaterName) {
+		return theaterMapper.selectTheaterOneByName(theaterName);
+	}
+	
 	// 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력
 	public List<Map<String, Object>> getRegionListByMovie(int movieKey, String startDate) {
 		if(startDate.equals("")) {

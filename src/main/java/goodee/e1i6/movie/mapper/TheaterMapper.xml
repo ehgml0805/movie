@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.TheaterMapper">
+	<!-- 빠른 예매 - 극장 선택 시 극장 이름으로 극장 키 값 출력 -->
+	<select id="selectTheaterOneByName" parameterType="String" resultType="int">
+		SELECT
+			theater_key theaterKey
+		FROM theater
+		WHERE theater_name LIKE '%${theaterName}%'
+	</select>
+
 	<!-- 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 -->
 	<select id="selectRegionListByMovie" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 

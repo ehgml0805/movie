@@ -147,6 +147,8 @@
 							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
 					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
 			ON ss.theater_key = t.theater_key
+		WHERE Date(ss.start_date) = #{date} <if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if><if test="theaterKey != 0">AND ss.theater_key = #{theaterKey}</if>	
+		<!-- 
 		<choose>
 			<when test="movieKey == 0 and theaterKey != 0 and date != ''">
 				<where>
@@ -159,6 +161,7 @@
 				</where>
 			</when>
 		</choose>	
+		 -->
 		ORDER BY ss.start_date ASC
 	</select>
 	

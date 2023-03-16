@@ -13,6 +13,7 @@ public interface TheaterMapper {
 	int deleteTheater(int theaterKey);
 	int updateTheater(Theater theater);
 	int insertTheater(Theater theater);
+	int selectTheaterOneByName(String theaterName);
 	Theater selectTheaterOne(int theaterKey);
 	List<Theater> selectTheaterList();
 	List<Map<String, Object>> selectTheaterRegionList();

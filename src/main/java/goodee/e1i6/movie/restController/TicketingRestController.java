@@ -39,6 +39,14 @@ public class TicketingRestController {
 		return movieService.getMovieListByDate(startDate);
 	}
 	
+	// 빠른 예매 - 극장 선택 시 극장 키 값
+		@GetMapping("/ticketing/theaterOneByName")
+		public int getTheaterOneByName(@RequestParam(value = "theaterName", defaultValue = "") String theaterName) {
+			log.debug(TeamColor.JYW + "GET theaterOneByName");
+			
+			return theaterService.getTheaterOneByName(theaterName);
+		}
+	
 	// 빠른 예매 - 극장 리스트
 	@GetMapping("/ticketing/theaterList")
 	public List<Theater> getTheaterNameListByRegion(@RequestParam String theaterRegion) {
