@@ -125,6 +125,10 @@ public class MovieController {
 		
 		ArrayList<Map<String, Object>> movie = movieService.getMovieOne(movieKey);
 		model.addAttribute("movie", movie);
+		for(Map<String, Object> m: movie) {
+			int mKey= (int) m.get("movieKey");
+			model.addAttribute("mKey", mKey);
+		}
 		
 		List<Review> rlist= reviewService.selectReviewList(currentPage, rowPerPage, movieKey);
 		model.addAttribute("rlist", rlist);

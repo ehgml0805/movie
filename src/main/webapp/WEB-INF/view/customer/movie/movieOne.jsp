@@ -43,20 +43,41 @@
 	
 	<table>
 		<tr>
-			<td>customer_id</td>	
-			<td>ratings</td>	
-			<td>content</td>	
-			<td>like</td>	
-			<td>createdate</td>	
+			<td>고객아이디</td>	
+			<td>평점</td>	
+			<td>내용</td>	
+			<td>좋아요</td>	
+			<td>작성일자</td>	
+			<td>삭제</td>	
+			<td>신고</td>	
 		</tr>
 		<tr>
 			<c:forEach var="r" items="${rlist}">
 				<td>${r.customerId}</td>
-				<td>${r.ratings }</td>
+				<td>
+					${r.ratings }
+					<c:if test="${r.ratings==1}">
+						★
+						</c:if> <c:if test="${r.ratings==2}">
+						★★
+						</c:if> <c:if test="${r.ratings==3}">
+						★★★
+						</c:if> <c:if test="${r.ratings==4}">
+						★★★★
+						</c:if> <c:if test="${r.ratings==5}">
+						★★★★★
+					</c:if>
+				</td>
 				<td>${r.content }</td>
 				<td>${r.love }</td>
 				<td>${r.createdate }</td>
+				<td><a>삭제</a> </td>
+				<td>
+					<a href="${pageContext.request.contextPath}/customer/review/report?customerId=${r.customerId}&ticketingKey=${r.ticketingKey}&movieKey=${mKey}">욕설/비방 신고</a>
+					<a href="${pageContext.request.contextPath}/customer/review/report?customerId=${r.customerId}&ticketingKey=${r.ticketingKey}&movieKey=${mKey}">스포일러 신고</a>
+				</td>
 			</c:forEach>
+			
 		</tr>
 	</table>
 </body>

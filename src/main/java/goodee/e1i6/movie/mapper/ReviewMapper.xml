@@ -3,7 +3,7 @@
 <mapper namespace="goodee.e1i6.movie.mapper.ReviewMapper">
 	
 	<!--리뷰에서 스포일러 신고 업데이트 -->
-	<update id="spoilerReport" parameterType="String">
+	<update id="spoilerReport" >
 		
 		UPDATE review SET spoiler_report=spoiler_report+1
 		WHERE ticketing_key= #{ticketingKey} AND customer_id = #{customerId}
@@ -11,7 +11,7 @@
 	</update>
 	
 	<!--리뷰에서 욕설, 비방 신고 업데이트 -->
-	<update id="insultReport" parameterType="String">
+	<update id="insultReport" >
 		
 		UPDATE review SET insult_report=insult_report+1
 		WHERE ticketing_key= #{ticketingKey} AND customer_id = #{customerId}

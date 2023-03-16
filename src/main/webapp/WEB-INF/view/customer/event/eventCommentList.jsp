@@ -39,8 +39,8 @@
 					<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
 					<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
 					<td>
-						<a href="${pageContext.request.contextPath}/customer/event/spoilerReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">욕설/비방 신고</a>
-						<a href="${pageContext.request.contextPath}/customer/event/spoilerReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">스포일러 신고</a>
+						<a href="${pageContext.request.contextPath}/customer/event/report?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">욕설/비방 신고</a>
+						<a href="${pageContext.request.contextPath}/customer/event/report?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">스포일러 신고</a>
 					</td>
 				</tr>
 			</c:if>	

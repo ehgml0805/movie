@@ -28,16 +28,21 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class EventController {
 	@Autowired EventService eventService;
-	@GetMapping("/customer/event/spoilerReport")
+	
+	//리뷰 신고
+	@GetMapping("/customer/event/report")
 	public String spoilerReport(@RequestParam(value="eventCommentKey") int eventCommentKey
 								, @RequestParam(value="customerId") String customerId
 								, @RequestParam(value = "eventKey") int eventKey
 								, @RequestParam(value="movieKey") int movieKey) {
-		int row=eventService.spoilerReport(eventCommentKey, customerId);
-		if(row==1) {
-			log.debug(TeamColor.KDH+ row +"<==1: 스포일러 신고 성공");
+		int row1=eventService.spoilerReport(eventCommentKey, customerId);
+		int row2=eventService.insultReport(eventCommentKey, customerId);
+		if(row1==1 || row2==1) {
+			log.debug(TeamColor.KDH+ row1 +"<==1: 스포일러 신고 성공");
+			log.debug(TeamColor.KDH+ row2 +"<==1: 욕설/비방 신고 성공");
 		}else {
-			log.debug(TeamColor.KDH+ row +"<==0: 스포일러 신고 실패");
+			log.debug(TeamColor.KDH+ row1 +"<==0: 스포일러 신고 실패");
+			log.debug(TeamColor.KDH+ row2 +"<==0: 욕설/비방 신고 실패");
 		}
 		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
 	}
