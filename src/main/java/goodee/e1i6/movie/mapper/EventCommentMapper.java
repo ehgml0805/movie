@@ -9,6 +9,13 @@ import goodee.e1i6.movie.vo.EventComment;
 
 @Mapper
 public interface EventCommentMapper {
+	
+	//스포일러 신고 업데이트
+	int spoilerReport(int eventCommentKey, String customerId);
+	//욕설, 비방 신고 업데이트
+	int insultReport(int eventCommentKey, String customerId);
+	
+	
 	// count
 	int eventCommentCount(int eventKey);
 	// 이벤트 댓글 삭제

@@ -14,13 +14,13 @@ public class ReviewService {
 	
 	
 	//스포일러 신고 업데이트
-	public int spoilerReport(String cutomerId) {
-		return reviewMapper.insultReport(cutomerId);
+	public int spoilerReport(int ticketingKey,String cutomerId) {
+		return reviewMapper.spoilerReport(ticketingKey, cutomerId);
 	}
 	
 	//욕설, 비방 신고 업데이트
-	public int insultReport(String cutomerId) {
-		return reviewMapper.insultReport(cutomerId);
+	public int insultReport(int ticketingKey,String cutomerId) {
+		return reviewMapper.insultReport(ticketingKey, cutomerId);
 	}
 	
 	//리뷰 작성

@@ -40,6 +40,17 @@ public class EventService {
 	@Autowired private EmailService emailService;
 	@Autowired private JavaMailSender javaMailSender;
 	
+	//스포일러 신고 업데이트
+	public int spoilerReport(int eventCommentKey, String customerId) {
+		return eventCommentMapper.spoilerReport(eventCommentKey, customerId);
+	}
+	
+	//욕설, 비방 신고 업데이트
+	public int insultReport(int eventCommentKey, String customerId) {
+		return eventCommentMapper.insultReport(eventCommentKey, customerId);
+	}
+
+	
 	// eventWinner
 	public int addEventWinner(EventWinner eventWinner) {
 		return eventMapper.insertEventWinner(eventWinner);
