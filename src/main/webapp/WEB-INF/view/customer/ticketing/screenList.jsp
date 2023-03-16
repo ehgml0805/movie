@@ -102,6 +102,7 @@
 			let year = startDate.getFullYear();
 			let month = startDate.getMonth();
 			$('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			$('#day').val(year+"-"+(Number(month)+1)+"-"+startDate.getDate());
 			
 			// 끝 날짜 (2주일치)
 			const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
@@ -213,7 +214,7 @@
 							`;
 							*/
 							
-							$('#movieKey').val(data[0].movieKey);
+							// $('#movieKey').val(data[0].movieKey);
 						}
 						
 						$('#movieList').html(html);
@@ -251,15 +252,18 @@
     				, data : {movieKey:${movieKey}}
     				, success:function(list){
     					// alert(list);
-    					let fileName = list[0].fileName;
-    					let movieCode = list[0].movieCode;
-    					$('#movieKey').val(list[0].movieKey);
-    					// alert(movieCode);
-    					if(movieCode != 0){
-    						$('#picture').attr('src', fileName);
-    					} else {
-    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
-    					}    					
+    					if(list !== null){
+    						let fileName = list[0].fileName;
+        					let movieCode = list[0].movieCode;
+        					$('#movieKey').val(list[0].movieKey);
+        					// alert(movieCode);
+        					if(movieCode != 0){
+        						$('#picture').attr('src', fileName);
+        					} else {
+        						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
+        					}    	
+    					}
+    									
     				}
     			});
     		});
@@ -373,7 +377,7 @@
 						 	}
 							html += "</div>";
 							
-							$('#movieKey').val(data[0].movieKey);
+							// $('#movieKey').val(data[0].movieKey);
 						}
 						
 						$('#movieList').html(html);
@@ -388,12 +392,14 @@
     		$(document).on('click', '.theater-button', function() {
     			// alert('클릭');
 				$.ajax({
-					url : '${pageContext.request.contextPath}/ticketing/screeningScheduleList'
+					url : '${pageContext.request.contextPath}/ticketing/screeningScheduleListByDate'
 					, type : 'GET'
-					, data : {movieKey: $('#movieKey').val(), theaterKey: $('#theaterKey').val()}
+					, data : {movieKey: $('#movieKey').val(), theaterKey: $('#theaterKey').val(), date: $('#day').val()}
 					, dataType : 'json'
 					, success:function(list){
-						// alert(list)
+						// alert(list);
+						// alert('클릭');
+						alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
 						let html = "";
 						for(let i=0; i< list.length; i++){
 							let startDate_ = list[i].startDate.split("T");

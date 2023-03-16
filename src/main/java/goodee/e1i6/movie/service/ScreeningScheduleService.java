@@ -50,6 +50,16 @@ public class ScreeningScheduleService {
 		return screeningScheduleMapper.selectScreeningScheduleOne(scheduleKey);
 	}
 	
+	// 영화 예매 시 상영 스케줄 목록
+	public ArrayList<Map<String, Object>> getScreeningScheduleListByDate(int movieKey, int theaterKey, String date){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("movieKey", movieKey);
+		paramMap.put("theaterKey", theaterKey);
+		paramMap.put("date", date);
+		
+		return screeningScheduleMapper.selectScreeningScheduleListByDate(paramMap);
+	}
+	
 	// 상영 스케줄 목록
 	public ArrayList<Map<String, Object>> getScreeningScheduleList(int movieKey, int theaterKey, String date){
 		Map<String, Object> paramMap = new HashMap<String, Object>();

@@ -36,10 +36,18 @@
 			<div id="movieList">
 				<c:forEach var="m" items="${movieList}">
 					<div class="movie-list">
-						<button class="movie-button" type="button" value="${m.movieKey}">
-							<span>${m.grade}</span>
-							<span class="txt">${m.movieTitle}</span>						
-						</button>
+						<c:if test="${m.startDate eq null}">
+							<button type="button" disabled="disabled">
+								<span>${m.grade}</span>
+								<span>${m.movieTitle}</span>						
+							</button>
+						</c:if>
+						<c:if test="${m.startDate ne null}">
+							<button class="movie-button" type="button" value="${m.movieKey}">
+								<span>${m.grade}</span>
+								<span class="txt">${m.movieTitle}</span>						
+							</button>
+						</c:if>
 					</div>					
 				</c:forEach>
 			</div>
@@ -75,7 +83,7 @@
 		</div>
 	</div>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
-	   	<input type="hidden" name="day" value="" />
+	   	<input type="hidden" id="day" name="day" value="" />
 	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" name="time" value="" />
@@ -94,6 +102,7 @@
 			let year = startDate.getFullYear();
 			let month = startDate.getMonth();
 			$('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			$('#day').val(year+"-"+(Number(month)+1)+"-"+startDate.getDate());
 			
 			// 끝 날짜 (2주일치)
 			const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
@@ -163,8 +172,10 @@
 				$('div.date').text(year+"년 "+(Number(month))+"월");
 			});
 			
-			// 날짜 선택 시 예매 가능한 영화 목록 출력
+			// 날짜 선택 시
 			$(document).on('click', '.date-button', function() {
+				$('#day').val($(this).val()); // 선택한 날짜를 hidden에 넣어줌
+				// 예매 가능한 영화 목록 출력
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
 					type : 'GET',
@@ -212,6 +223,25 @@
 						alert('error')
 					}
 				})
+				
+				// 상영하고 있는 (전체영화)지역(수) 출력
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/regionList',
+					type : 'GET',
+					data : {startDate : $(this).val()},
+					success : function(data) {
+						let html = '';
+			            for (let i=0; i < data.length; i++) {
+			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			            }
+			            
+						$('#theaterRegion').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				});
 			})
 			
 			// 영화 정보에서 예매하기 클릭하여 매개변수 값이 있을 경우
@@ -235,8 +265,9 @@
     			});
     		});
   	      	  	      
-    		/* 영화 선택 시 이미지 출력 */
+    		// 영화 선택 시
     		$(document).on('click', '.movie-button', function() {
+    			//  이미지 출력
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
     				, type :'get'
@@ -254,6 +285,8 @@
     					}    					
     				}
     			});
+    			
+    			// 날짜 영화 리스트
     		});
     		
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
@@ -261,7 +294,7 @@
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					data : {movieKey : $(this).val()},
+					data : {movieKey : $(this).val(), startDate : $('#day').val()},
 					success : function(data) {
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
@@ -298,16 +331,72 @@
     		    })
     		});
     		
+    		// 극장 선택 시 날짜 기준
+    		$(document).on('click', '.theater-button', function() {
+    			// 지역(수)목록 출력
+    			$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/regionList',
+					type : 'GET',
+					data : {movieKey : $(this).val(), startDate : $('#day').val()},
+					success : function(data) {
+						let html = '';
+			            for (let i=0; i < data.length; i++) {
+			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			            }
+			            
+						$('#theaterRegion').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				})	
+				
+				// 오늘 날짜 기준 영화 리스트
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
+					type : 'GET',
+					data : {movieKey : $('#movieKey').val(), startDate : $('#day').val()},
+					success : function (data) {
+						
+						let html = "";
+						for(let i = 0; i < data.length; i++) {
+							html +=	"<div class='movie-list'>"
+						 	if(data[i].startDate === undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+						 	if(data[i].startDate !== undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+							html += "</div>";
+							
+							$('#movieKey').val(data[0].movieKey);
+						}
+						
+						$('#movieList').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				})
+			});
+    		
     		// 극장 선택 시 상영 스케줄 출력
     		$(document).on('click', '.theater-button', function() {
     			// alert('클릭');
 				$.ajax({
-					url : '${pageContext.request.contextPath}/ticketing/screeningScheduleList'
+					url : '${pageContext.request.contextPath}/ticketing/screeningScheduleListByDate'
 					, type : 'GET'
-					, data : {movieKey: $('#movieKey').val(), theaterKey: $('#theaterKey').val()}
+					, data : {movieKey: $('#movieKey').val(), theaterKey: $('#theaterKey').val(), date: $('#day').val()}
 					, dataType : 'json'
 					, success:function(list){
-						// alert(list)
+						alert(list.value());
+						// alert('클릭');
+						alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
 						let html = "";
 						for(let i=0; i< list.length; i++){
 							let startDate_ = list[i].startDate.split("T");
@@ -316,6 +405,7 @@
 							let endDate = endDate_[1].slice(0, 5);
 							html += "<button>"+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";
 						}
+						alert(html.val());
 						$('#schedule').html(html);
 					}
 					, error:function(){
