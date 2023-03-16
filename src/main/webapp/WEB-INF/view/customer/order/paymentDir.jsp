@@ -68,7 +68,7 @@
 					<tr><td colspan=4><hr></td></tr>
 					</table>
 				
-			><br><br>
+			<br><br>
 			<br><br>
 			<fieldset>
 				<legend>결제 정보</legend>
