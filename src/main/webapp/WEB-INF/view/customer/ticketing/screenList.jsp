@@ -83,7 +83,7 @@
 		</div>
 	</div>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
-	   	<input type="hidden" name="day" value="" />
+	   	<input type="hidden" id="day" name="day" value="" />
 	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" name="time" value="" />
@@ -171,8 +171,10 @@
 				$('div.date').text(year+"년 "+(Number(month))+"월");
 			});
 			
-			// 날짜 선택 시 예매 가능한 영화 목록 출력
+			// 날짜 선택 시
 			$(document).on('click', '.date-button', function() {
+				$('#day').val($(this).val()); // 선택한 날짜를 hidden에 넣어줌
+				// 예매 가능한 영화 목록 출력
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
 					type : 'GET',
@@ -220,6 +222,25 @@
 						alert('error')
 					}
 				})
+				
+				// 상영하고 있는 (전체영화)지역(수) 출력
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/regionList',
+					type : 'GET',
+					data : {startDate : $(this).val()},
+					success : function(data) {
+						let html = '';
+			            for (let i=0; i < data.length; i++) {
+			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			            }
+			            
+						$('#theaterRegion').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				});
 			})
 			
 			// 영화 정보에서 예매하기 클릭하여 매개변수 값이 있을 경우
@@ -243,8 +264,9 @@
     			});
     		});
   	      	  	      
-    		/* 영화 선택 시 이미지 출력 */
+    		// 영화 선택 시
     		$(document).on('click', '.movie-button', function() {
+    			//  이미지 출력
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
     				, type :'get'
@@ -262,6 +284,8 @@
     					}    					
     				}
     			});
+    			
+    			// 날짜 영화 리스트
     		});
     		
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
@@ -269,7 +293,7 @@
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					data : {movieKey : $(this).val()},
+					data : {movieKey : $(this).val(), startDate : $('#day').val()},
 					success : function(data) {
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
@@ -306,13 +330,13 @@
     		    })
     		});
     		
-    		// 극장 선택 시 날짜 기준 
+    		// 극장 선택 시 날짜 기준
     		$(document).on('click', '.theater-button', function() {
     			// 지역(수)목록 출력
     			$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					data : {movieKey : $(this).val()},
+					data : {movieKey : $(this).val(), startDate : $('#day').val()},
 					success : function(data) {
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
@@ -331,7 +355,7 @@
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
 					type : 'GET',
-					data : {movieKey : $('#movieKey').val()},
+					data : {movieKey : $('#movieKey').val(), startDate : $('#day').val()},
 					success : function (data) {
 						
 						let html = "";
