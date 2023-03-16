@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import ch.qos.logback.classic.spi.STEUtil;
 import goodee.e1i6.movie.vo.Coupon;
 import goodee.e1i6.movie.vo.Mycoupon;
 
@@ -18,7 +19,7 @@ public interface CouponMapper {
 		//쿠폰 내려 받기
 		int insertMyCoupon(Mycoupon mycoupon);
 		//내 쿠폰 리스트 출력
-		List<Mycoupon> selectMyCouponList();
+		List<Mycoupon> selectMyCouponList(String customerId);
 		
 
 		//쿠폰삭제(처음 잘못 등록시에만 삭제 가능)

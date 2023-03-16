@@ -30,20 +30,20 @@
 	</insert>
 	
 	<!-- 쿠폰 리스트 -->
-	<select id="selectMyCouponList" resultType="goodee.e1i6.movie.vo.Mycoupon" parameterType="java.util.Map">
+	<select id="selectMyCouponList" resultType="goodee.e1i6.movie.vo.Mycoupon" >
 	
 		SELECT 
-				 mc.mycoupon_key 
+				 mc.mycoupon_key  mycouponKey
 				, mc.state state 
-				, mc.coupon_key 
-				, c.coupon_name 
-				, c.coupon_sale_price 
-				, c.coupon_grade 
-				, c.use_by_date 
-				, c.createdate 
+				, mc.coupon_key couponKey
+				, c.coupon_name couponName
+				, c.coupon_sale_price couponSalePrice
+				, c.coupon_grade couponGrade
+				, c.use_by_date useByDate
+				, c.createdate createdate
 		FROM mycoupon mc 
 		INNER JOIN coupon c ON mc.coupon_key = c.coupon_key
-		WHERE mc.customer_id=#{customerId}
+		WHERE mc.customer_id= #{customerId}
 		ORDER BY c.use_by_date ASC
 		
 	</select>

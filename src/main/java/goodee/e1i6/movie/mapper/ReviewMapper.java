@@ -23,4 +23,5 @@ public interface ReviewMapper {
 	int selectCount();
 	//리뷰 리스트 출력
 	List<Review> selectReviewList(Map<String, Object> paramMap);
+	List<Review> selectReviewList();
 }

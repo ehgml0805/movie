@@ -65,4 +65,20 @@
 		ORDER BY use_by_date ASC
 		LIMIT #{beginRow}, #{rowPerPage} 
 	</select>
+	<!-- 리뷰 리스트 -->
+	<select id="selectReviewList" resultType="goodee.e1i6.movie.vo.Review">
+	
+		SELECT 
+	 			ticketing_key ticketingKey
+	 			, customer_id customerId
+	 			, ratings ratings
+	 			, content content
+	 			, `like` like
+	 			, createdate createdate
+	 			, insult_report insultReport
+	 			, spoiler_report spoilerReport
+		FROM review
+		ORDER BY use_by_date ASC
+		LIMIT #{beginRow}, #{rowPerPage} 
+	</select>
 </mapper>
