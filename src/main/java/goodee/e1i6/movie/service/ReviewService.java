@@ -1,7 +1,7 @@
 package goodee.e1i6.movie.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -10,22 +10,34 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.ReviewMapper;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Review;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 @Transactional
 public class ReviewService {
 	@Autowired private ReviewMapper reviewMapper;
-	
+	@Autowired BlackListService blackListService;
 	
 	//스포일러 신고 업데이트
-	public int spoilerReport(int ticketingKey,String cutomerId) {
-		return reviewMapper.spoilerReport(ticketingKey, cutomerId);
+	public int spoilerReport(int ticketingKey,String customerId) {
+		return reviewMapper.spoilerReport(ticketingKey, customerId);
 	}
 	
 	//욕설, 비방 신고 업데이트
-	public int insultReport(int ticketingKey,String cutomerId) {
-		return reviewMapper.insultReport(ticketingKey, cutomerId);
+	public int insultReport(int ticketingKey,String customerId) {
+		List<Review> rlist= new ArrayList<Review>();
+		for(Review r: rlist) { 
+			int insultReport =(int) r.getInsultReport();
+			 if(insultReport==5) { 
+				 int reportCategoryKey=2;
+				 int row3=blackListService.addBlackList(customerId, reportCategoryKey);
+				 log.debug(TeamColor.KDH + row3+"<==1: ");
+			 }
+		}
+		
+		return reviewMapper.insultReport(ticketingKey, customerId);
 	}
 	
 	//리뷰 작성
@@ -45,5 +57,10 @@ public class ReviewService {
 		paramMap.put("rowPerPage", rowPerPage); 
 		paramMap.put("movieKey", movieKey); //몇개씩 보여줄거
 		return reviewMapper.selectReviewList(paramMap);
+	}
+	
+	//리뷰 리스트
+	public List<Review> ReviewList(){
+		return reviewMapper.ReviewList();
 	}
 }

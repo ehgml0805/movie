@@ -1,5 +1,7 @@
 package goodee.e1i6.movie.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.e1i6.movie.service.BlackListService;
 import goodee.e1i6.movie.service.ReviewService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Review;
@@ -17,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ReviewController {
 	@Autowired ReviewService reviewService;
-	
+	@Autowired BlackListService blackListService;
 	//리뷰 삭제
 	
 	//리뷰 신고
@@ -35,6 +38,14 @@ public class ReviewController {
 			log.debug(TeamColor.KDH+ row1 +"<==0: 스포일러 신고 실패");
 			log.debug(TeamColor.KDH+ row2 +"<==0: 욕설/비방 신고 실패");
 		}
+		
+		/*
+		 * List<Review> rlist= reviewService.ReviewList(); for(Review r: rlist) { int
+		 * insultReport =(int) r.getInsultReport(); if(insultReport==5) { int
+		 * reportCategoryKey=2; int row3=blackListService.addBlackList(customerId,
+		 * reportCategoryKey); } }
+		 */
+		
 		return "redirect:/movie/movieOne?&movieKey="+movieKey;
 	}
 	

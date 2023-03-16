@@ -83,7 +83,6 @@
 	 			, insult_report
 	 			, spoiler_report
 		FROM review
-		ORDER BY createdate ASC
-
+		
 	</select>
 </mapper>
