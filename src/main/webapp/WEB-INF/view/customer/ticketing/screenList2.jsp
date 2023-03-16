@@ -33,17 +33,19 @@
 			<div class="movie-name">
 				<button class="movie-name-button" type="button">전체</button>
 			</div>
-			<c:forEach var="m" items="${movieList}">
-				<div class="movie-list">
-					<button class="movie-button" type="button" value="${m.movieKey}">
-						<span>${m.grade}</span>
-						<span class="txt">${m.movieTitle}</span>						
-					</button>
-				</div>					
-			</c:forEach>
+			<div id="movieList">
+				<c:forEach var="m" items="${movieList}">
+					<div class="movie-list">
+						<button class="movie-button" type="button" value="${m.movieKey}">
+							<span>${m.grade}</span>
+							<span class="txt">${m.movieTitle}</span>						
+						</button>
+					</div>					
+				</c:forEach>
+			</div>
 			<div class="movie-img">
 				<div class="choice-list" id="choiceMovieList-0">
-					<img id="picture" alt="no-picture" src="">
+					<img id="picture" alt="no-picture" src="" style="width:120px; height:171px;">
                     <p id="picture-name">영화를 클릭하세요</p>
 				</div>
 			</div>	
@@ -58,7 +60,7 @@
 							<div>
 								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
 							</div>
-						</c:forEach>
+						</c:forEach>	
 					</div>
 					<div class="col-6" id="theaterName"></div>
 				</div>
@@ -161,6 +163,57 @@
 				$('div.date').text(year+"년 "+(Number(month))+"월");
 			});
 			
+			// 날짜 선택 시 예매 가능한 영화 목록 출력
+			$(document).on('click', '.date-button', function() {
+				$.ajax({
+					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
+					type : 'GET',
+					data : {startDate : $(this).val()
+							, movieKey : $('#movieKey').val()},
+					success : function (data) {
+						
+						let html = "";
+						for(let i = 0; i < data.length; i++) {
+							html +=	"<div class='movie-list'>"
+						 	if(data[i].startDate === undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+						 	if(data[i].startDate !== undefined) {
+								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
+								html += "</button>"						 		
+						 	}
+							html += "</div>";
+							
+							/*
+							let moviekey = data[i].movieKey;
+							let grade = data[i].grade;
+							let movieTitle = data[i].movieTitle;
+							
+							
+							html += `
+								<div class='movie-list'>
+									<button class='movie-button' type='button' value='${data[i].movieKey}'>
+										<span>${data[i].grade}000</span>
+										<span class='txt'>${data[i].movieTitle}</span>		
+									</button>
+								</div>	
+							`;
+							*/
+							
+							$('#movieKey').val(data[0].movieKey);
+						}
+						
+						$('#movieList').html(html);
+					},
+					error : function() {
+						alert('error')
+					}
+				})
+			})
+			
 			// 영화 정보에서 예매하기 클릭하여 매개변수 값이 있을 경우
     		$('button.movie-button').ready(function(){
     			$.ajax({
@@ -171,6 +224,7 @@
     					// alert(list);
     					let fileName = list[0].fileName;
     					let movieCode = list[0].movieCode;
+    					$('#movieKey').val(list[0].movieKey);
     					// alert(movieCode);
     					if(movieCode != 0){
     						$('#picture').attr('src', fileName);
@@ -182,7 +236,7 @@
     		});
   	      	  	      
     		/* 영화 선택 시 이미지 출력 */
-    		$('button.movie-button').click(function(){
+    		$(document).on('click', '.movie-button', function() {
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
     				, type :'get'
@@ -203,7 +257,7 @@
     		});
     		
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
-    		$('.movie-button').click(function() {
+    		$(document).on('click', '.movie-button' ,function() {
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',

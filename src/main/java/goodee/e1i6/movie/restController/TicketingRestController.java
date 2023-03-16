@@ -61,9 +61,11 @@ public class TicketingRestController {
 	}
 	
 	@GetMapping("/ticketing/screeningScheduleList")
-	public ArrayList<Map<String, Object>> getScreeningScheduleList(@RequestParam int movieKey, @RequestParam int theaterKey){
+	public ArrayList<Map<String, Object>> getScreeningScheduleList(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+																, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey
+																, @RequestParam(value = "date", defaultValue = "") String date){
 		log.debug(TeamColor.JYW + "GET ScreeningScheduleList");
-		return screeningScheduleService.getScreeningScheduleList(movieKey, theaterKey);
+		return screeningScheduleService.getScreeningScheduleList(movieKey, theaterKey, date);
 	}
 }
 

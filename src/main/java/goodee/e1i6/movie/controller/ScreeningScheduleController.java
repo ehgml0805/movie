@@ -95,10 +95,11 @@ public class ScreeningScheduleController {
 	@GetMapping("/employee/screeningSchedule/screeningScheduleList")
 	public String getScreeningScheduleList(Model model
 										, @RequestParam(value="movieKey", defaultValue = "0", required = false) int movieKey
-										, @RequestParam(value="theaterKey", defaultValue = "0", required = false) int theaterKey) {
+										, @RequestParam(value="theaterKey", defaultValue = "0", required = false) int theaterKey
+										, @RequestParam(value="date", defaultValue = "", required = false) String date) {
 		log.debug(TeamColor.JYW + "GET screeningScheduleList");
 		
-		ArrayList<Map<String, Object>> screeningScheduleList = screeningScheduleService.getScreeningScheduleList(movieKey, theaterKey);
+		ArrayList<Map<String, Object>> screeningScheduleList = screeningScheduleService.getScreeningScheduleList(movieKey, theaterKey, date);
 		model.addAttribute("screeningScheduleList", screeningScheduleList);
 		
 		return "/employee/screeningSchedule/screeningScheduleList";

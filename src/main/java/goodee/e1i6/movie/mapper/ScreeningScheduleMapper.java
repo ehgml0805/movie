@@ -23,5 +23,5 @@ public interface ScreeningScheduleMapper {
 	Map<String, Object> selectScreeningScheduleOne(int scheduleKey);
 	
 	// 상영 스케줄 목록
-	ArrayList<Map<String, Object>> selectScreeningScheduleList(int movieKey, int theaterKey);
+	ArrayList<Map<String, Object>> selectScreeningScheduleList(Map<String, Object> paramMap);
 }

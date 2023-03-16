@@ -45,7 +45,7 @@
 			</div>
 			<div class="movie-img">
 				<div class="choice-list" id="choiceMovieList-0">
-					<img id="picture" alt="no-picture" src="">
+					<img id="picture" alt="no-picture" src="" style="width:120px; height:171px;">
                     <p id="picture-name">영화를 클릭하세요</p>
 				</div>
 			</div>	

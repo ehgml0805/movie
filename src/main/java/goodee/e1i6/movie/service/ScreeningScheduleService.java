@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,12 @@ public class ScreeningScheduleService {
 	}
 	
 	// 상영 스케줄 목록
-	public ArrayList<Map<String, Object>> getScreeningScheduleList(int movieKey, int theaterKey){
-		return screeningScheduleMapper.selectScreeningScheduleList(movieKey, theaterKey);
+	public ArrayList<Map<String, Object>> getScreeningScheduleList(int movieKey, int theaterKey, String date){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("movieKey", movieKey);
+		paramMap.put("theaterKey", theaterKey);
+		paramMap.put("date", date);
+		
+		return screeningScheduleMapper.selectScreeningScheduleList(paramMap);
 	}
 }
