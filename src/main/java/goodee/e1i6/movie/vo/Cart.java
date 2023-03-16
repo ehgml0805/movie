@@ -14,7 +14,7 @@ public class Cart {
 	private String fileType;
 	private int snackPrice;
 	private String soldOut;
-	private int select;
+	private int selected;
 	private int orderKey;
 	private int cartPrice;
 }

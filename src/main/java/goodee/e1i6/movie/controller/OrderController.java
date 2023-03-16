@@ -89,7 +89,7 @@ public class OrderController {
 		List<Cart> list = orderService.selectCartListbyid(c.getCustomerId());
 		model.addAttribute("list", list);
 		List<Snack> hit = snackService.selectSnackByHit();
-		int sum =orderService.selectSumgoodsPrice(c.getCustomerId());
+		Integer sum =orderService.selectSumgoodsPrice(c.getCustomerId());
 		model.addAttribute("hit", hit);
 		model.addAttribute("sum", sum);
 		
@@ -150,10 +150,10 @@ public class OrderController {
 		return "/customer/order/totalOrderList";
 	}
 	@PostMapping("/customer/order/selectCart")
-	public String selectCart(HttpSession session, @RequestParam(value="snackKey") int snackKey, @RequestParam(value="select", defaultValue="0") int select) {
+	public String selectCart(HttpSession session, @RequestParam(value="snackKey") int snackKey, @RequestParam(value="selected", defaultValue="0") int selected) {
 		Cart c = new Cart();
 		c.setSnackKey(snackKey);
-		c.setSelect(select);
+		c.setSelected(selected);
 		Customer cust = (Customer)session.getAttribute("loginCustomer");
 		c.setCustomerId(cust.getCustomerId());
 		orderService.selectOne(c);

@@ -42,7 +42,7 @@
 					<c:if test="${c.soldOut=='N'}">
 						<form action="${pageContext.request.contextPath}/customer/order/selectCart" method="post" id="checkForm${c.snackKey}">
 						<input type="hidden" name="snackKey" value="${c.snackKey}">
-					 		<td width='5%' style="text-align: center;"><input type="checkBox" name="select" id="selected${c.snackKey}" value= 1 <c:if test="${c.select==1}">checked</c:if>></td>
+					 		<td width='5%' style="text-align: center;"><input type="checkBox" name="selected" id="selected${c.snackKey}" value= 1 <c:if test="${c.selected==1}">checked</c:if>></td>
 				 		</form>
 					</c:if>	
 					<c:if test="${c.soldOut=='Y'}"><td width="5%" style="text-align: center;">품절</td></c:if>
@@ -53,7 +53,7 @@
 				 				<td><h4><a style="color:black" href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${c.snackKey}">${c.snackName}</a></h4></td>
 				 			</tr>
 				 			<tr>
-			 					<form action="${pageContext.request.contextPath}/customer/order/updateCartQuantity" method="post" id="updateQunatity${c.goodsCode}">
+			 					<form action="${pageContext.request.contextPath}/customer/order/updateCartQuantity" method="post" id="updateQunatity${c.snackKey}">
 			 					<td>
 			 					₩ <fmt:formatNumber value="${c.cartPrice}" pattern="#,###"/>  &nbsp;&nbsp;&nbsp;
 			 					<c:if test="${c.soldOut=='N'}">	
@@ -66,11 +66,7 @@
 											<option value="3">3</option>
 											<option value="4">4</option>
 											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
+										
 										</select>	
 									</c:if>	
 									<c:if test="${c.cartQuantity==2}">
@@ -80,11 +76,7 @@
 											<option value="3">3</option>
 											<option value="4">4</option>
 											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
+										
 										</select>	
 									</c:if>	
 									<c:if test="${c.cartQuantity==3}" >
@@ -108,12 +100,7 @@
 											<option value="3">3</option>
 											<option value="4" selected="selected">4</option>
 											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
-										</select>	
+										
 									</c:if>	
 									<c:if test="${c.cartQuantity==5}">
 								 		<select name="cartQuantity" id="quantity${c.snackKey}">
@@ -122,15 +109,11 @@
 											<option value="3">3</option>
 											<option value="4">4</option>
 											<option value="5" selected="selected">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
+											
 										</select>	
 									</c:if>
 								 </c:if>
-							 <c:if test="${c.soldout=='Y'}">
+							 <c:if test="${c.soldOut=='Y'}">
 					 			품절
 					 			</c:if>
 					 		</td></form>
@@ -152,7 +135,7 @@
 		<fieldset style="text-align: center;">
 			
 			<h4>
-				총 가격 : ₩ <fmt:formatNumber value="${sum}" pattern="###,###"/> 
+				총 가격 : ₩ <fmt:formatNumber value="${sum+0}" pattern="###,###"/> 
 			</h4>
 		</fieldset>
 		

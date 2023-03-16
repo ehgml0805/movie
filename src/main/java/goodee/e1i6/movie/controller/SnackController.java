@@ -45,11 +45,12 @@ public class SnackController {
 	}
 	@GetMapping("/snack/snackOne")
 	public String snackOne(Model model,
-			@RequestParam(value="snackKey") int snackKey) {
+			@RequestParam(value="snackKey") int snackKey, @RequestParam(value="row",defaultValue="3") int row) {
 		Snack s = snackService.snackOne(snackKey);
 		model.addAttribute("s", s);
 		List<Snack> b = snackService.selectSnackByHit();
 		model.addAttribute("best", b);		
+		model.addAttribute("row", row);
 		return "/customer/snack/snackOne";		
 	}
 
@@ -58,7 +59,8 @@ public class SnackController {
 		Customer loginCust = (Customer)session.getAttribute("loginCustomer");
 		c.setCustomerId(loginCust.getCustomerId());		
 		int row= OrderService.insertCart(c);
-		return "redirect:/snack/snackOne?row="+row;
+		return "redirect:/snack/snackOne?snackKey="+c.getSnackKey()+"&row="+row;
+		
 	}
 	@GetMapping("/employee/snack/addSnack")
 	public String addSnack(Model model) {

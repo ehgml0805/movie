@@ -23,6 +23,7 @@
 		<a href="${pageContext.request.contextPath}/theater/theaterList">극장</a>
 		<a href="${pageContext.request.contextPath}/homeEx">홈</a>
 		<a href="${pageContext.request.contextPath}/customer/event/eventList">이벤트</a>
+		<a href="${pageContext.request.contextPath}/customer/order/cartList">카트</a>
 		<a href="${pageContext.request.contextPath}/snack/snackHome">스토어</a>
 		<a href="${pageContext.request.contextPath}/membership/membership">혜택/멤버쉽</a>
 		<a href="${pageContext.request.contextPath}">관리자</a>

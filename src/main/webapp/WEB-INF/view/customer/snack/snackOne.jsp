@@ -97,11 +97,11 @@
 						<br><br>
 					</form>
 				</c:if>
-				<c:if test="${result==1}">
+				<c:if test="${row==1}">
 							<div>장바구니에 담았습니다</div>
 						</c:if>
 						
-						<c:if test="${result==0}">
+						<c:if test="${row==0}">
 							<div>이미 담겨있는 상품 입니다</div>
 						</c:if>
 						<br>

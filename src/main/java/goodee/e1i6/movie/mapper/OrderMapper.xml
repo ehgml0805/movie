@@ -2,21 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.OrderMapper">
 	<insert id="insertCart" parameterType="goodee.e1i6.movie.vo.Cart">
-		INSERT INTO cart(customer_id,, snack_key, cart_quantity)VAULES(#{customerId}, #{snackKey}, #{cartQuantity})
+		INSERT INTO cart(customer_id, snack_key, cart_quantity)VALUES(#{customerId}, #{snackKey}, #{cartQuantity})
 	</insert>
 	<select id="selectCartListById" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String">
 		SELECT 
-			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType, c.select select, (c.cart_quantity * s.snack_price) cartPrice
+			c.cart_quantity cartQuantity, s.snack_name snackName,s.snack_key snackKey, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType, c.selected selected, (c.cart_quantity * s.snack_price) cartPrice
 		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
 		WHERE c.customer_id= #{customerId}
-		ORDER BY createdate ASC
+		ORDER BY c.createdate ASC
 	</select>
 	<select id="selectCartListBySelect" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String" >
 		SELECT 
-			c.cart_quantity cartQuantity, s.snack_name snackName, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
+			c.cart_quantity cartQuantity, c.customer_id customerId,s.snack_name snackName, s.snack_key snackKey, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
 		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
-		WHERE c.customer_id= #{customerId} AND c.select = 1
-		ORDER BY createdate ASC
+		WHERE c.customer_id= #{customerId} AND c.selected = 1
+		ORDER BY c.createdate ASC
 	</select>
 	<insert id="insertOrdersByCart" parameterType="goodee.e1i6.movie.vo.Cart">
 		<selectKey resultType="int" 
@@ -24,27 +24,27 @@
 			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
 			SELECT LAST_INSERT_ID() 
 		</selectKey>
-		INSERT INTO order(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{cartQuantity*snackPrice}, #{cartQuantity})
+		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) VALUES (${snackKey}, '${customerId}', ${cartQuantity*snackPrice}, ${cartQuantity})
 	</insert>
 	<insert id="insertTotalOrder" parameterType="goodee.e1i6.movie.vo.TotalOrder">
-		INSERT INTO totalOrder(createdate, total_price, customer_id, mycoupon_key) VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
+		INSERT INTO total_order(createdate, total_price, customer_id, mycoupon_key) VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
 	</insert>
 	<delete id="deleteCartById" parameterType="java.lang.String">
-		DELETE FROM cart WHERE customer_id = #{customerId} AND select= 1
+		DELETE FROM cart WHERE customer_id = #{customerId} AND selected= 1
 	</delete>
 	<delete id="deleteCartOne" parameterType="goodee.e1i6.movie.vo.Cart">
 		DELETE FROM cart WHERE customer_id = #{customerId} AND snack_key= #{snackKey}
 	</delete>
 	
 	<select id="selectSumGoodsPrice" resultType="int" parameterType="java.lang.String">
-		SELECT sum(s.snack_price*c.cart_quantity) sum FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key WHERE c.customer_id= #{customerId} AND select= 1
+		SELECT sum(s.snack_price*c.cart_quantity) sum FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key WHERE c.customer_id= #{customerId} AND selected= 1
 	</select>
 	<select id="selectOrderListById" resultType="map" parameterType="java.lang.String">
 		SELECT
 			o.order_price orderPrice, o.order_state orderState, o.order_quantity orderQuantity, 
 			s.snack_name snackName, i.file_name snackFileName, i.file_type snackFileType, 
 			c.order_key orderKey, c.data_key dataKey, c.file_name fileName, c.file_type fileType, c.active active
-		FROM order o INNER JOIN snack s ON o.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snackconfirm_code c ON c.order_key = o.order_key
+		FROM `order` o INNER JOIN snack s ON o.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snackconfirm_code c ON c.order_key = o.order_key
 		WHERE o.customer_id= #{customerId} 
 		ORDER BY o.createdate DESC
 	</select>
@@ -54,13 +54,13 @@
 			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
 			SELECT LAST_INSERT_ID() 
 		</selectKey>
-		INSERT INTO order(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{orderPrice}, #{orderQuantity})
+		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{orderPrice}, #{orderQuantity})
 	</insert>
 	<update id="updateSelectAll" parameterType="java.lang.String">
-		UPDATE cart SET select = 1 where customer_id = #{customerId}
+		UPDATE cart SET selected = 1 where customer_id = #{customerId}
 	</update>
 	<update id="updateSelectOne" parameterType="goodee.e1i6.movie.vo.Cart">
-		UPDATE cart SET select = #{select} WHERE customer_id = #{customerId} AND snack_key = #{snackKey}
+		UPDATE cart SET selected = #{selected} WHERE customer_id = #{customerId} AND snack_key = #{snackKey}
 	</update>	
 	<select id="selectCartCount" resultType="int" parameterType="java.lang.String">
 		SELECT count(*) FROM cart WHERE customer_id=#{customerId}
@@ -77,14 +77,17 @@
 		WHERE t.customerId=#{customerId}
 	</select>
 	<select id="selectOrderCreatedate" resultType="goodee.e1i6.movie.vo.TotalOrder" parameterType="java.lang.String">
-		SELCET createdate
-		FROM order
+		SELECT createdate
+		FROM `order`
 		WHERE customer_id= #{customerId}
 		ORDER BY createdate DESC LIMIT 0, 1
 	</select>
 	<select id="selectOrderOne" resultType="goodee.e1i6.movie.vo.Order" parameterType="int">
 		SELECT order_key orderKey, snack_key snackKey, customer_id customerId, order_price orderPrice, order_state orderState, createdate, order_quantity orderQuantity
-		FROM order
+		FROM `order`
 		WHERE order_key = #{orderKey}
 	</select>
+	<update id="updateCartQuantity" parameterType="goodee.e1i6.movie.vo.Cart">
+		UPDATE cart SET cart_quantity=#{cartQuantity} WHERE customer_id=#{customerId} AND snack_key= #{snackKey}
+	</update>
 </mapper>

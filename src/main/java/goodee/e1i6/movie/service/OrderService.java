@@ -26,7 +26,13 @@ public class OrderService {
 	private OrderMapper orderMapper;
 	
 	public int insertCart(Cart c) {
-		return orderMapper.insertCart(c);
+		int row=0;
+		try {
+			row=orderMapper.insertCart(c);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return row;
 	}
 	public List<Cart> selectCartListbyid(String customerId){
 		
@@ -42,7 +48,7 @@ public class OrderService {
 			String dataKey = UUID.randomUUID().toString();
 			try {
 				Barcode barCode = BarcodeFactory.createCode128(dataKey);
-				File file= new File(path+dataKey+"png");
+				File file= new File(path+dataKey+".png");
 				BarcodeImageHandler.savePNG(barCode, file);
 				SnackconfirmCode confirm = new SnackconfirmCode();
 				confirm.setDataKey(dataKey);
@@ -77,7 +83,7 @@ public class OrderService {
 		
 		return orderMapper.insertTotalOrder(paramt);
 	}
-	public int selectSumgoodsPrice(String customerId) {
+	public Integer selectSumgoodsPrice(String customerId) {
 		return orderMapper.selectSumGoodsPrice(customerId);
 	}
 	public List<Map<String, Object>> selectOrderListByid(String customerId){
@@ -88,7 +94,7 @@ public class OrderService {
 		String dataKey = UUID.randomUUID().toString();
 		try {
 			Barcode barCode = BarcodeFactory.createCode128(dataKey);
-			File file= new File(path+dataKey+"png");
+			File file= new File(path+dataKey+".png");
 			BarcodeImageHandler.savePNG(barCode, file);
 			SnackconfirmCode confirm = new SnackconfirmCode();
 			confirm.setDataKey(dataKey);

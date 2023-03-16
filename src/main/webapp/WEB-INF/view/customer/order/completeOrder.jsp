@@ -68,10 +68,10 @@ footer {
 			<tr><td colspan="4"><hr></td></tr>	
 			<c:forEach var="c" items="${list}">
 				<tr>
-					<td><img src="${pageContext.request.contextPath}/image/${c.fileName}.${c.fileType}" width="200px" height="200px"> ${c.snackName}</td>
+					<td><img src="${pageContext.request.contextPath}/snackImg/${c.fileName}.${c.fileType}" width="200px" height="200px"> ${c.snackName}</td>
 					<td>${c.cartQuantity}</td>
-					<td><fmt:formatNumber value="${c.cartPrice/c.cartQuantity}" pattern="#,###"/></td>
-					<td><fmt:formatNumber value="${c.cartPrice}" pattern="#,###"/></td>
+					<td><fmt:formatNumber value="${c.snackPrice/c.cartQuantity}" pattern="#,###"/></td>
+					<td><fmt:formatNumber value="${c.snackPrice}" pattern="#,###"/></td>
 				</tr>
 			</c:forEach>
 		</table>
