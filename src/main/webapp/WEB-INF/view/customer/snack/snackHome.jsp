@@ -64,6 +64,9 @@
 				 			<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 				 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a></div><br>
 				 			<div style="text-align: center;">${b.snackName}</div>
+				 			<c:if test="${loginEmp != null }">
+					 			<a> 삭제 </a>
+				 			</c:if>
 				 		</td>
 				 	</c:forEach>
 			 		</tr>

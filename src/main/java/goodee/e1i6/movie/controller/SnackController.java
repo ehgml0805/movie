@@ -56,14 +56,13 @@ public class SnackController {
 		List<Snack> b = snackService.selectSnackByHit();
 		model.addAttribute("best", b);		
 		model.addAttribute("row", row);
+		
 		return "/customer/snack/snackOne";		
 	}
 	
 	//검색
 	@GetMapping("/snack/searchSnack")	
-	public String searchSnack(
-			@RequestParam(value="word") String word,
-			Model model) {
+	public String searchSnack( @RequestParam(value="word") String word, Model model) {
 		List<Snack> list= snackService.selectsnackBySearch(word);
 		model.addAttribute("list", list);
 			
@@ -71,10 +70,11 @@ public class SnackController {
 	}
 	
 	@PostMapping("/customer/snack/insertCart")
-	public String insertCart(HttpSession session,Cart c) {
+	public String insertCart(HttpSession session, Cart c) {
 		Customer loginCust = (Customer)session.getAttribute("loginCustomer");
 		c.setCustomerId(loginCust.getCustomerId());		
 		int row= OrderService.insertCart(c);
+		
 		return "redirect:/snack/snackOne?snackKey="+c.getSnackKey()+"&row="+row;
 		
 	}

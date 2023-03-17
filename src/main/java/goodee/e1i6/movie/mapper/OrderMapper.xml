@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.OrderMapper">
+
 	<insert id="insertCart" parameterType="goodee.e1i6.movie.vo.Cart">
 		INSERT INTO cart(customer_id, snack_key, cart_quantity)VALUES(#{customerId}, #{snackKey}, #{cartQuantity})
 	</insert>
+	
 	<select id="selectCartListById" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String">
 		SELECT 
 			c.cart_quantity cartQuantity, s.snack_name snackName,s.snack_key snackKey, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType, c.selected selected, (c.cart_quantity * s.snack_price) cartPrice
@@ -11,6 +13,7 @@
 		WHERE c.customer_id= #{customerId}
 		ORDER BY c.createdate ASC
 	</select>
+	
 	<select id="selectCartListBySelect" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String" >
 		SELECT 
 			c.cart_quantity cartQuantity, c.customer_id customerId,s.snack_name snackName, s.snack_key snackKey, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
@@ -18,6 +21,7 @@
 		WHERE c.customer_id= #{customerId} AND c.selected = 1
 		ORDER BY c.createdate ASC
 	</select>
+	
 	<insert id="insertOrdersByCart" parameterType="goodee.e1i6.movie.vo.Cart">
 		<selectKey resultType="int" 
 			keyProperty="orderKey" keyColumn="order_key" order="AFTER">
@@ -26,12 +30,16 @@
 		</selectKey>
 		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) VALUES (${snackKey}, '${customerId}', ${cartQuantity*snackPrice}, ${cartQuantity})
 	</insert>
+	
 	<insert id="insertTotalOrder" parameterType="goodee.e1i6.movie.vo.TotalOrder">
 		INSERT INTO total_order(createdate, total_price, customer_id, mycoupon_key) VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
 	</insert>
+	
+	<!-- 카트 담긴거 삭제 -->
 	<delete id="deleteCartById" parameterType="java.lang.String">
 		DELETE FROM cart WHERE customer_id = #{customerId} AND selected= 1
 	</delete>
+	
 	<delete id="deleteCartOne" parameterType="goodee.e1i6.movie.vo.Cart">
 		DELETE FROM cart WHERE customer_id = #{customerId} AND snack_key= #{snackKey}
 	</delete>
@@ -39,6 +47,7 @@
 	<select id="selectSumGoodsPrice" resultType="int" parameterType="java.lang.String">
 		SELECT sum(s.snack_price*c.cart_quantity) sum FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key WHERE c.customer_id= #{customerId} AND selected= 1
 	</select>
+	
 	<select id="selectOrderListById" resultType="map" parameterType="java.lang.String">
 		SELECT
 			o.order_price orderPrice, o.order_state orderState, o.order_quantity orderQuantity, 
@@ -48,6 +57,7 @@
 		WHERE o.customer_id= #{customerId} 
 		ORDER BY o.createdate DESC
 	</select>
+	
 	<insert id="insertOrderByDir" parameterType="goodee.e1i6.movie.vo.Order">
 		<selectKey resultType="int" 
 			keyProperty="orderKey" keyColumn="order_key" order="AFTER">
@@ -56,39 +66,64 @@
 		</selectKey>
 		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{orderPrice}, #{orderQuantity})
 	</insert>
+	
 	<update id="updateSelectAll" parameterType="java.lang.String">
 		UPDATE cart SET selected = 1 where customer_id = #{customerId}
 	</update>
+	
 	<update id="updateSelectOne" parameterType="goodee.e1i6.movie.vo.Cart">
 		UPDATE cart SET selected = #{selected} WHERE customer_id = #{customerId} AND snack_key = #{snackKey}
-	</update>	
+	</update>
+		
 	<select id="selectCartCount" resultType="int" parameterType="java.lang.String">
 		SELECT count(*) FROM cart WHERE customer_id=#{customerId}
 	</select>
+	
 	<insert id="insertSnackConfirm" parameterType="goodee.e1i6.movie.vo.SnackconfirmCode">
 		INSERT INTO snackconfirm_code(data_key, order_key) VALUES (#{dataKey}, #{orderKey})
 	</insert>
+	
 	<update id="updateSnackConfirm" parameterType="goodee.e1i6.movie.vo.SnackconfirmCode">
 		UPDATE snackconfirm_code SET active=#{active} WHERE data_key = #{dataKey}
 	</update>
+	
 	<select id="selectTotalOrderById" resultType="goodee.e1i6.movie.vo.TotalOrder" parameterType="java.lang.String">
-		SELECT t.total_price totalPrice, t.createdate createdate, c.coupon_name couponName, c.coupon_sale_price couponSalePrice 
-		FROM total_order t INNER JOIN mycoupon m ON t.mycoupon_key= m.mycoupon_key INNER JOIN coupon c ON c.coupon_key = m.coupon_key
+		SELECT 
+				t.total_price totalPrice
+				, t.createdate createdate
+				, c.coupon_name couponName
+				, c.coupon_sale_price couponSalePrice 
+		FROM total_order t 
+		INNER JOIN mycoupon m ON t.mycoupon_key= m.mycoupon_key 
+		INNER JOIN coupon c ON c.coupon_key = m.coupon_key
 		WHERE t.customerId=#{customerId}
 	</select>
+	
 	<select id="selectOrderCreatedate" resultType="goodee.e1i6.movie.vo.TotalOrder" parameterType="java.lang.String">
 		SELECT createdate
 		FROM `order`
 		WHERE customer_id= #{customerId}
 		ORDER BY createdate DESC LIMIT 0, 1
 	</select>
+	
 	<select id="selectOrderOne" resultType="goodee.e1i6.movie.vo.Order" parameterType="int">
-		SELECT o.order_key orderKey, o.snack_key snackKey, o.customer_id customerId, o.order_price orderPrice, o.order_state orderState, o.createdate createdate, o.order_quantity orderQuantity
-		,s.data_key dataKey, s.active active
-		FROM `order` o inner join snackconfirm_code s ON o.order_key = s.order_key
+		SELECT o.order_key orderKey
+				, o.snack_key snackKey
+				, o.customer_id customerId
+				, o.order_price orderPrice
+				, o.order_state orderState
+				, o.createdate createdate
+				, o.order_quantity orderQuantity
+				,s.data_key dataKey
+				, s.active active
+		FROM `order` o 
+		INNER JOIN snackconfirm_code s ON o.order_key = s.order_key
 		WHERE o.order_key = #{orderKey}
 	</select>
+	
+	<!-- 카트 수량 수정 -->
 	<update id="updateCartQuantity" parameterType="goodee.e1i6.movie.vo.Cart">
-		UPDATE cart SET cart_quantity=#{cartQuantity} WHERE customer_id=#{customerId} AND snack_key= #{snackKey}
+		UPDATE cart SET cart_quantity=#{cartQuantity} 
+		WHERE customer_id=#{customerId} AND snack_key= #{snackKey}
 	</update>
 </mapper>
