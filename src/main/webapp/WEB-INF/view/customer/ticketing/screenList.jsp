@@ -76,6 +76,7 @@
 			</div>
 		</div>
 	</div>
+	<br>
     <form action="/ticketing/ticketingList" method="post" id="form-post-List">
 	   	<input type="hidden" id="day" name="day" value="" />
 	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
@@ -90,48 +91,59 @@
 	   	
 	   	<div class="container d-flex">
 		   	<div class="row col-lg-12 col-sm-12">
-		   		<div class="movie-img col-lg-4 col-sm-4">
+		   		<div class="movie-img col-lg-3 col-sm-3">
 					<div class="choice-list" id="choiceMovieList-0">
 						<img id="picture" alt="no-picture" src="" style="width:120px; height:171px;">
 	                    <p id="picture-name">영화를 클릭하세요</p>
 					</div>
 				</div>	
-				<div class="col-lg-4 col-sm-4">
+				<div class="col-lg-3 col-sm-3">
 					<table>
 						<tr>
 							<td>극장</td>
-							<td></td>
+							<td><span id="theater-name"></span></td>
 						</tr>
 						<tr>
 							<td>일시</td>
-							<td></td>
+							<td><span id="startday"></span><span id="time"></span></td>
 						</tr>
 						<tr>
 							<td>상영관</td>
-							<td></td>
+							<td><span id="screenroom-name"></span></td>
 						</tr>
 						<tr>
 							<td>인원</td>
-							<td></td>
+							<td><span id="party"></span></td>
 						</tr>
 					</table>
 				</div>
-				<div class="col-lg-4 col-sm-4">
+				<div class="col-lg-3 col-sm-3">
 					<table>
 						<tr>
 							<td>좌석명</td>
-							<td></td>
+							<td><span id="seatName"></span></td>
 						</tr>
 						<tr>
 							<td>좌석번호</td>
-							<td></td>
+							<td><span id="seatNo"></span></td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-lg-3 col-sm-3">
+					<table>
+						<tr>
+							<td>일반</td>
+							<td><span id="price"></span></td>
+						</tr>
+						<tr>
+							<td>총금액</td>
+							<td><span id="totalPrice"></span></td>
 						</tr>
 					</table>
 				</div>
 		   	</div>
 		   	<button class="seatBtn" type="button" disabled="disabled">좌석 선택하기</button>
 	   	</div>
-	   	
     </form>
     
     <script>
@@ -325,6 +337,9 @@
     					if(list !== null){
     						let fileName = list[0].fileName;
         					let movieCode = list[0].movieCode;
+        					let movieTitle = list[0].movieTitle;
+        					// alert('movieTitle : ' + movieTitle);
+        					$('#picture-name').html(movieTitle);
         					$('#movieKey').val(list[0].movieKey);
         					// alert(movieCode);
         					if(movieCode != 0){
@@ -337,7 +352,7 @@
     				}
     			});
     		});
-  	      	  	      
+  	      	
     		// 영화 선택 시
     		$(document).on('click', '.movie-button', function() {
     			//  이미지 출력
@@ -349,6 +364,9 @@
     					// alert(list);
     					let fileName = list[0].fileName;
     					let movieCode = list[0].movieCode;
+    					let movieTitle = list[0].movieTitle;
+    					// alert('movieTitle : ' + movieTitle);
+    					$('#picture-name').html(movieTitle);
     					$('#movieKey').val(list[0].movieKey);
     					// alert('movieKey: '+$('#movieKey').val());
     					if(movieCode != 0){
