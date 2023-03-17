@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import goodee.e1i6.movie.service.BlackListService;
 import goodee.e1i6.movie.service.EventService;
+import goodee.e1i6.movie.service.ReviewService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.Event;
@@ -21,6 +23,7 @@ import goodee.e1i6.movie.vo.EventComment;
 import goodee.e1i6.movie.vo.EventForm;
 import goodee.e1i6.movie.vo.EventWinner;
 import goodee.e1i6.movie.vo.Movie;
+import goodee.e1i6.movie.vo.Review;
 import goodee.e1i6.movie.vo.ScreeningSchedule;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,22 +31,60 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class EventController {
 	@Autowired EventService eventService;
+	@Autowired ReviewService reviewService;
+	@Autowired BlackListService blackListService;
 	
-	//리뷰 신고
-	@GetMapping("/customer/event/report")
-	public String spoilerReport(@RequestParam(value="eventCommentKey") int eventCommentKey
+	//리뷰 신고 - 욕설 비방
+	@GetMapping("/customer/event/insultReport")
+	public String insultReport(@RequestParam(value="eventCommentKey") int eventCommentKey
 								, @RequestParam(value="customerId") String customerId
 								, @RequestParam(value = "eventKey") int eventKey
 								, @RequestParam(value="movieKey") int movieKey) {
-		int row1=eventService.spoilerReport(eventCommentKey, customerId);
-		int row2=eventService.insultReport(eventCommentKey, customerId);
-		if(row1==1 || row2==1) {
-			log.debug(TeamColor.KDH+ row1 +"<==1: 스포일러 신고 성공");
-			log.debug(TeamColor.KDH+ row2 +"<==1: 욕설/비방 신고 성공");
+		int row=eventService.insultReport(eventCommentKey, customerId);
+		if(row==1) {
+			log.debug(TeamColor.KDH+ row +"<==1: 욕설/비방 신고 성공");
 		}else {
-			log.debug(TeamColor.KDH+ row1 +"<==0: 스포일러 신고 실패");
-			log.debug(TeamColor.KDH+ row2 +"<==0: 욕설/비방 신고 실패");
+			log.debug(TeamColor.KDH+ row +"<==0: 욕설/비방 신고 실패");
 		}
+		List<Review> rlist= reviewService.selectReviewList(1, 1, movieKey);
+		for(Review r: rlist) { 
+			int insultReport =(int) r.getInsultReport();
+			log.debug(TeamColor.KDH + insultReport + "<==욕설비방 신고 횟수");
+			if(insultReport==5) { 
+				int reportCategoryKey=1; 
+				int row3=blackListService.insultBlackList(customerId, reportCategoryKey); 
+				log.debug(TeamColor.KDH+ row3 + "<==블랙리스트 추가 성공");
+			 } 
+			 
+		 }
+		
+		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
+	}
+	//리뷰 신고 - 스포일러
+	@GetMapping("/customer/event/spoilerReport")
+	public String spoilerReport(@RequestParam(value="eventCommentKey") int eventCommentKey
+			, @RequestParam(value="customerId") String customerId
+			, @RequestParam(value = "eventKey") int eventKey
+			, @RequestParam(value="movieKey") int movieKey) {
+		int row=eventService.spoilerReport(eventCommentKey, customerId);
+		if(row==1) {
+			log.debug(TeamColor.KDH+ row +"<==1: 스포일러 신고 성공");
+		}else {
+			log.debug(TeamColor.KDH+ row +"<==0: 스포일러 신고 실패");
+		}
+		
+		List<Review> rlist= reviewService.selectReviewList(1, 1, movieKey);
+		for(Review r: rlist) { 
+			int spoilerReport =(int) r.getSpoilerReport();
+			log.debug(TeamColor.KDH + spoilerReport + "<==스포일러 신고 횟수");
+			if(spoilerReport==10) { 
+				int reportCategoryKey=2; 
+				int row3=blackListService.spoilerBlackList(customerId, reportCategoryKey); 
+				log.debug(TeamColor.KDH+ row3 + "<==블랙리스트 추가 성공");
+			 } 
+			 
+		 }
+		
 		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
 	}
 	

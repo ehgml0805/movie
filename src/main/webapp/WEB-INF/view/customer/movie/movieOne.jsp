@@ -73,8 +73,8 @@
 				<td>${r.createdate }</td>
 				<td><a>삭제</a> </td>
 				<td>
-					<a href="${pageContext.request.contextPath}/customer/review/report?customerId=${r.customerId}&ticketingKey=${r.ticketingKey}&movieKey=${mKey}">욕설/비방 신고</a>
-					<a href="${pageContext.request.contextPath}/customer/review/report?customerId=${r.customerId}&ticketingKey=${r.ticketingKey}&movieKey=${mKey}">스포일러 신고</a>
+					<a href="${pageContext.request.contextPath}/customer/review/insultReport?customerId=${r.customerId}&ticketingKey=${r.ticketingKey}&movieKey=${mKey}">욕설/비방 신고</a>
+					<a href="${pageContext.request.contextPath}/customer/review/spoilerReport?customerId=${r.customerId}&ticketingKey=${r.ticketingKey}&movieKey=${mKey}">스포일러 신고</a>
 				</td>
 			</c:forEach>
 			

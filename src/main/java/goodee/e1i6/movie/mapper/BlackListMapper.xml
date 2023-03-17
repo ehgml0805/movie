@@ -3,10 +3,17 @@
 <mapper namespace="goodee.e1i6.movie.mapper.BlackListMapper">
 
 
-	<insert id="insertBlackList">
+	<insert id="insultBlackList">
 	
 		INSERT INTO blacklist(customer_id, report_category_key, startdate, enddate)
- 		VALUES (#{customerId}, #{reportCategoryKey} , NOW(), (SELECT DATEADD(DAY, +5, NOW())) )
+ 		VALUES (#{customerId}, #{reportCategoryKey} , NOW(), (SELECT DATE_ADD(NOW(), INTERVAL 5 DAY)) )
+	
+	</insert>
+	
+	<insert id="spoilerBlackList">
+	
+		INSERT INTO blacklist(customer_id, report_category_key, startdate, enddate)
+ 		VALUES (#{customerId}, #{reportCategoryKey} , NOW(), (SELECT DATE_ADD(NOW(), INTERVAL 10 DAY)) )
 	
 	</insert>
 

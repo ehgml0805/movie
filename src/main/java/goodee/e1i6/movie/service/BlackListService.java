@@ -10,10 +10,15 @@ import goodee.e1i6.movie.mapper.BlackListMapper;
 public class BlackListService {
 	@Autowired private BlackListMapper blackListMapper;
 	
-	//쿠폰 발행(등록)
-	public int addBlackList(String customerId, int reportCategoryKey) {
+	//블랙리스트 등록
+	public int insultBlackList(String customerId, int reportCategoryKey) {
 		
-		return blackListMapper.insertBlackList(customerId, reportCategoryKey);
+		return blackListMapper.insultBlackList(customerId, reportCategoryKey);
+	}
+	//블랙리스트 등록
+	public int spoilerBlackList(String customerId, int reportCategoryKey) {
+		
+		return blackListMapper.spoilerBlackList(customerId, reportCategoryKey);
 	}
 	
 }

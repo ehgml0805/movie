@@ -1,6 +1,5 @@
 package goodee.e1i6.movie.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.ReviewMapper;
-import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Review;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -27,16 +25,6 @@ public class ReviewService {
 	
 	//욕설, 비방 신고 업데이트
 	public int insultReport(int ticketingKey,String customerId) {
-		List<Review> rlist= new ArrayList<Review>();
-		for(Review r: rlist) { 
-			int insultReport =(int) r.getInsultReport();
-			 if(insultReport==5) { 
-				 int reportCategoryKey=2;
-				 int row3=blackListService.addBlackList(customerId, reportCategoryKey);
-				 log.debug(TeamColor.KDH + row3+"<==1: ");
-			 }
-		}
-		
 		return reviewMapper.insultReport(ticketingKey, customerId);
 	}
 	
