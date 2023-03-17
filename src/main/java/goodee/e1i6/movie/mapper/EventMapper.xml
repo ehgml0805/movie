@@ -5,10 +5,12 @@
 	<!-- eventWinner -->
 	<insert id="insertEventWinner" parameterType="goodee.e1i6.movie.vo.EventWinner">
 		INSERT INTO event_winner (
-			event_comment_key
+			event_key
+			,event_comment_key
 			, schedule_key
 		) VALUES (
-			#{eventCommentKey}
+			#{eventKey}
+			, #{eventCommentKey}
 			, #{scheduleKey}
 		)
 	</insert>

@@ -144,6 +144,7 @@ public class EventService {
     	            // 이벤트위너 테이블에 추가
     	            for (Map<String, Object> winnerComment: winners) {
 		                EventWinner eventWinner = new EventWinner();
+		                eventWinner.setEventKey(event.getEventKey()); 
 		                eventWinner.setEventCommentKey((int) winnerComment.get("eventCommentKey"));
 		                eventWinner.setScheduleKey((int) winnerComment.get("scheduleKey"));
 		                eventMapper.insertEventWinner(eventWinner);
