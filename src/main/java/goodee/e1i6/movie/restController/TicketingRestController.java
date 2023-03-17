@@ -69,6 +69,16 @@ public class TicketingRestController {
 		return theaterService.getRegionListByMovie(movieKey, startDate);
 	}
 	
+	/*
+	// 빠른 예매 - 지역별 극장 수 카운트 단, 스케쥴키가 있는 영화만 카운트
+	@GetMapping("/ticketing/regionListBySchedule")
+	public List<Map<String, Object>> getRegionListBySchedule(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+			, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
+		log.debug(TeamColor.CHOI + "GET RegionListBySchedule");
+		return theaterService.getRegionListBySchedule(movieKey, startDate);
+	}
+	*/
+	
 	@GetMapping("/ticketing/screeningScheduleListByDate")
 	public ArrayList<Map<String, Object>> getScreeningScheduleListByDate(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
 																, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey
