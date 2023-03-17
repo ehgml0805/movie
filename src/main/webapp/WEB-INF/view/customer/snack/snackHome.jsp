@@ -89,7 +89,7 @@
 		  		<table>
 					<tr>
 				 	<c:forEach var="b" items="${snack3}" varStatus="s">
-				 		<c:if test = "${s.inext != 0; s.index%3==0}">
+				 		<c:if test = "${s.index != 0; s.index%3==0}">
 				 			</tr><tr>
 				 		</c:if>
 				 		<td>
