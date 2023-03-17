@@ -100,8 +100,9 @@
 			ss.schedule_key scheduleKey
 			, ss.movie_key movieKey
 			, ss.screenroom_key screenroomKey
-			, CONVERT_TZ(ss.start_date, '+00:00', '+09:00') startDate
-			, CONVERT_TZ(ss.end_date, '+00:00', '+09:00') endDate
+			, Date(ss.start_date) date
+			, date_format(ss.start_date, '%H:%i') startDate
+			, date_format(ss.end_date, '%H:%i') endDate
 			, ss.preview preview
 			, ss.price price
 			, ss.movie_title movieTitle

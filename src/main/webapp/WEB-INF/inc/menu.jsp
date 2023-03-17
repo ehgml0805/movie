@@ -51,7 +51,7 @@
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/movie/movieList">영화</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/ticket/ticketing">예매</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/theater/theaterList">극장</a></li>
-					<li class="nav-item"><a class="nav-link" href="/" style="font-family: 'Alfa Slab One'; font-weight: 400;">HTA CINEMA</a></li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/homeEx" style="font-family: 'Alfa Slab One'; font-weight: 400;">CINEMA</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/event/eventList">이벤트</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/snack/snackHome">스토어</a></li>
 		

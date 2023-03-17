@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.MovieService;
+import goodee.e1i6.movie.service.ScreeningScheduleService;
+import goodee.e1i6.movie.service.StillCutService;
 import goodee.e1i6.movie.service.TheaterService;
+import goodee.e1i6.movie.vo.StillCut;
 
 @Controller
 public class TicketingController {
 	@Autowired MovieService movieService;
 	@Autowired TheaterService theaterService;
+	@Autowired ScreeningScheduleService screeningScheduleService;
+	@Autowired StillCutService stillCutService;
 	
 	@GetMapping("/ticketing/screenList")
 	public String getScreenList(Model model
@@ -45,5 +50,19 @@ public class TicketingController {
 		model.addAttribute("movieKey", movieKey);
 		
 		return "/customer/ticketing/screenList2";
+	}
+	
+	@GetMapping("/ticketing/ticketingSeat")
+	public String ticketingSeat(Model model
+									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
+									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
+		
+		Map<String, Object> scheduleOne = screeningScheduleService.getScreeningScheduleOne(scheduleKey);
+		model.addAttribute("scheduleOne", scheduleOne);	
+		
+		StillCut stillCut = stillCutService.getStillCutOneByTicketing(movieKey);
+		model.addAttribute("stillCut", stillCut);	
+		
+		return "/customer/ticketing/ticketingSeat";
 	}
 }

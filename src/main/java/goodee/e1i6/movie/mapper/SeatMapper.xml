@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="goodee.e1i6.movie.mapper.SeatMapper"></mapper>
+<mapper namespace="goodee.e1i6.movie.mapper.SeatMapper">
+	<!-- (임시) 좌석 추가 -->
+	<insert id="insertSeat" parameterType="java.util.Map">
+		INSERT INTO seat(
+			screenroom_key
+			, seat_number
+		) VALUES( 
+			#{screenroomKey}
+			, #{seatNumber}
+		)
+	</insert>
+	
+	<!-- 좌석 목록 -->
+	<select id="selectSeatListByScreenroom" parameterType="int" resultType="java.util.Map">
+		SELECT 
+			seat_key seatKey
+			, screenroom_key screenroomKey
+			, seat_number seatNumber
+			, active
+			, empty
+		FROM 
+			seat
+		WHERE screenroom_key = #{screenroomKey}
+	</select>
+</mapper>

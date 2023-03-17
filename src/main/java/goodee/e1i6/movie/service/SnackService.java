@@ -28,7 +28,7 @@ public class SnackService {
 	public Snack snackOne(int snackKey) {
 		return snackMapper.selectSnackOne(snackKey);
 	}
-	
+	//스낵 추가
 	public int insertSnack(Snack s, MultipartFile mf, String path) {
 		int row= snackMapper.insertSnack(s);
 		if(row==1) {
@@ -74,6 +74,7 @@ public class SnackService {
 		
 		return snackMapper.selectSnackBySearch(word);
 	}
+	//스낵 카테고리 리스트
 	public List<SnackCategory> selectCateogry(){
 		return snackMapper.selectCategory();
 	}

@@ -11,7 +11,7 @@ import goodee.e1i6.movie.vo.Seat;
 public interface SeatMapper {
 	int deleteSeat(int seatKey);
 	int updateSeat(Seat seat);
-	int insertSeat(String seatName);
+	int insertSeat(Map<String, Object> paramMap);
 	Seat selectSeatOne(int seatKey);
-	List<Seat> selectSeatList(Map<String, Object> paramMap);
+	List<Seat> selectSeatListByScreenroom(int screenroomKey);
 }
