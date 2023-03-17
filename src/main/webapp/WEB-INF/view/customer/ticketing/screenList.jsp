@@ -315,7 +315,7 @@
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
 			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
-			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			                		+ data[i].theaterRegion + "(" + data[i].theaterCount + ")" + "</button></div>";
 			            }
 			            
 						$('#theaterRegion').html(html);
@@ -417,7 +417,7 @@
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
 			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
-			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			                		+ data[i].theaterRegion + "(" + data[i].theaterCount + ")" + "</button></div>";
 			            }
 			            
 						$('#theaterRegion').html(html);
@@ -439,7 +439,18 @@
     		        	// $('#theaterKey').val(data[0].theaterKey);
     		            var html = "";
     		            for (var i = 0; i < data.length; i++) {
-    		                html += "<button class='theater-button'>" + data[i].theaterName + "</button><br>";
+   		            	 
+    		            	if($('#movieKey').val() !== '0') {
+	    		            	if(data[i].startDate !== undefined) {
+		    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button>";    		            		
+	    		            	} else {
+		    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button>";    		            		
+	    		            	}    		            		
+    		            	} else if($('#movieKey').val() === '0') {
+    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button>";
+    		            	}
+    		            	
+    		            	//html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button>";
     		            }
     		            $('#theaterName').html(html);
     		        },
@@ -504,7 +515,7 @@
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
 			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
-			                		+ data[i].theaterRegion + "(" + data[i].regionCount + ")" + "</button></div>";
+			                		+ data[i].theaterRegion + "(" + data[i].theaterCount + ")" + "</button></div>";
 			            }			            
 						$('#theaterRegion').html(html);
 					},
