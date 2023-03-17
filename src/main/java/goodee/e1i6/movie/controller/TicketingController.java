@@ -40,7 +40,7 @@ public class TicketingController {
 		List<Map<String, Object>> theaterRegionList = theaterService.getTheaterRegionList();
 		
 		model.addAttribute("theaterRegionList", theaterRegionList);
-		model.addAttribute("movieList", movieList);	
+		model.addAttribute("movieList", movieList);
 		
 		model.addAttribute("movieKey", movieKey);
 		

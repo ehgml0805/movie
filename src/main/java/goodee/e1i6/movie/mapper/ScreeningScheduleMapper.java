@@ -10,6 +10,9 @@ import goodee.e1i6.movie.vo.ScreeningSchedule;
 @Mapper
 public interface ScreeningScheduleMapper {
 	
+	// 빠른 예매 시 상영 스케줄 키 값 받아오기
+	Map<String, Object> selectScreeningScheduleOneByTicketing(Map<String, Object> paramMap);
+	
 	// 상영 스케줄 삭제
 	int deleteScreeningSchedule(int scheduleKey);
 	

@@ -15,8 +15,8 @@ public class ScreenroomService {
 	@Autowired ScreenroomMapper screenroomMapper;
 	
 	// 상영관 목록(이름순)
-	public List<Screenroom> getScreenroomList() {
-		return screenroomMapper.selectScreenroomList();
+	public List<Screenroom> getScreenroomList(int theaterKey) {
+		return screenroomMapper.selectScreenroomList(theaterKey);
 	}
 	
 	// 상영관 상세

@@ -13,5 +13,5 @@ public interface ScreenroomMapper {
 	int updateScreenroom(Screenroom screenroom);
 	int insertScreenroom(Screenroom screenroom);
 	Screenroom selectScreenroomOne(int screenroomKey);
-	List<Screenroom> selectScreenroomList();
+	List<Screenroom> selectScreenroomList(int theaterKey);
 }

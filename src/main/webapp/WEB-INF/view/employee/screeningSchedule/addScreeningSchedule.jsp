@@ -21,6 +21,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td>극장 선택</td>
+				<td>
+					<select name="theaterKey">
+						<c:forEach var="t" items="${theaterList}">
+							<option value="${t.theaterKey}">${t.theaterRegion} ${t.theaterName}</option>
+						</c:forEach>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>상영관 선택</td>
 				<td>
 					<select name="screenroomKey">
@@ -52,4 +62,7 @@
 		<button type="submit">등록</button>
 	</form>
 </body>
+<script>
+	// ajax로 지역 선택시 극장 출력/ 극장 선택시 상영관 출력 되게 수정
+</script>
 </html>

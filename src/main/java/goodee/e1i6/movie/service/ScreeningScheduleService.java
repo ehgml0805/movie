@@ -19,6 +19,15 @@ import lombok.extern.slf4j.Slf4j;
 public class ScreeningScheduleService {
 	@Autowired ScreeningScheduleMapper screeningScheduleMapper;
 	
+	// 빠른 예매 시 상영 스케줄 키 값 받아오기
+	public Map<String, Object> getScreeningScheduleOneByTicketing(int movieKey, String time) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("movieKey", movieKey);
+		paramMap.put("time", time);
+		
+		return screeningScheduleMapper.selectScreeningScheduleOneByTicketing(paramMap);
+	}
+	
 	// 상영 스케줄 삭제
 	public int removeScreeningSchedule(int scheduleKey) {
 		return screeningScheduleMapper.deleteScreeningSchedule(scheduleKey);

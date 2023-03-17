@@ -37,14 +37,71 @@
 		)
 	</insert>
 	
+	<!-- 영화 예매 시 상영 스케줄 한 개 -->
+	<select id="selectScreeningScheduleOneByTicketing" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			ss.schedule_key scheduleKey
+			, ss.movie_key movieKey
+			, ss.screenroom_key screenroomKey
+			, Date(ss.start_date) date
+			, CONVERT_TZ(ss.start_date, '+00:00', '+09:00') startDate
+			, CONVERT_TZ(ss.end_date, '+00:00', '+09:00') endDate
+			, ss.preview preview
+			, ss.price price
+			, ss.movie_title movieTitle
+			, ss.movie_info movieInfo
+			, ss.grade grade
+			, ss.openingdate openingdate
+			, ss.active active
+			, ss.screenroom_name screenroomName
+			, ss.theater_key theaterKey
+			, ss.seat_count seatCount
+			, t.theater_name theaterName
+			, t.theater_ticketing_info theaterTicketingInfo
+			FROM (SELECT 
+					ss.schedule_key
+					, ss.movie_key
+					, ss.screenroom_key
+					, ss.start_date
+					, ss.end_date
+					, ss.preview
+					, ss.price
+					, ss.movie_title
+					, ss.movie_info
+					, ss.grade
+					, ss.openingdate
+					, ss.active
+					, sr.screenroom_name
+					, sr.theater_key
+					, sr.seat_count
+					FROM (SELECT
+							ss.schedule_key
+							, ss.movie_key
+							, ss.screenroom_key
+							, ss.start_date
+							, ss.end_date
+							, ss.preview
+							, ss.price
+							, m.movie_title
+							, m.movie_info
+							, m.grade
+							, m.openingdate
+							, m.active
+							FROM screening_schedule ss INNER JOIN movie m
+							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
+					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
+			ON ss.theater_key = t.theater_key
+		WHERE ss.movie_key = #{movieKey} AND ss.start_date LIKE '%${time}%'
+	</select>
+	
 	<!-- 상영 스케줄 한 개 -->
 	<select id="selectScreeningScheduleOne" parameterType="int" resultType="java.util.Map">
 		SELECT
 			ss.schedule_key scheduleKey
 			, ss.movie_key movieKey
 			, ss.screenroom_key screenroomKey
-			, ss.start_date startDate
-			, ss.end_date endDate
+			, CONVERT_TZ(ss.start_date, '+00:00', '+09:00') startDate
+			, CONVERT_TZ(ss.end_date, '+00:00', '+09:00') endDate
 			, ss.preview preview
 			, ss.price price
 			, ss.movie_title movieTitle
@@ -93,15 +150,15 @@
 		WHERE ss.schedule_key = #{scheduleKey}	
 	</select>
 	
-	<!-- 상영 스케줄 목록 -->
+	<!-- 영화 예매 시 상영 스케줄 목록 -->
 	<select id="selectScreeningScheduleListByDate" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
 			ss.schedule_key scheduleKey
 			, ss.movie_key movieKey
 			, ss.screenroom_key screenroomKey
 			, Date(ss.start_date) date
-			, ss.start_date startDate
-			, ss.end_date endDate
+			, CONVERT_TZ(ss.start_date, '+00:00', '+09:00') startDate
+			, CONVERT_TZ(ss.end_date, '+00:00', '+09:00') endDate
 			, ss.preview preview
 			, ss.price price
 			, ss.movie_title movieTitle
@@ -171,8 +228,9 @@
 			ss.schedule_key scheduleKey
 			, ss.movie_key movieKey
 			, ss.screenroom_key screenroomKey
-			, Date(ss.start_date) startDate
-			, ss.end_date endDate
+			, Date(ss.start_date) date
+			, CONVERT_TZ(ss.start_date, '+00:00', '+09:00') startDate
+			, CONVERT_TZ(ss.end_date, '+00:00', '+09:00') endDate
 			, ss.preview preview
 			, ss.price price
 			, ss.movie_title movieTitle

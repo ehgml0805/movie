@@ -38,7 +38,7 @@ public class TheaterController {
 	
 	// 극장 상세 정보 - 고객
 	@GetMapping("/theater/theaterOne")
-	public String getTheaterOneForCoustomer(Model model, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey) {
+	public String getTheaterOneForCustomer(Model model, @RequestParam(value = "theaterKey", defaultValue = "0") int theaterKey) {
 		log.debug(TeamColor.CHOI + "GET theaterOne");
 		
 		if(theaterKey == 0) {
@@ -46,7 +46,7 @@ public class TheaterController {
 		}
 		
 		Theater theaterOne = theaterService.getTheaterOne(theaterKey);
-		List<Screenroom> screenroomList = screenroomService.getScreenroomList(); // 상영관 목록(이름순)
+		List<Screenroom> screenroomList = screenroomService.getScreenroomList(theaterKey); // 상영관 목록(이름순)
 		
 		model.addAttribute("screenroomList", screenroomList);
 		model.addAttribute("theaterOne", theaterOne);
@@ -75,7 +75,7 @@ public class TheaterController {
 			return "redirect:/employee/theater/theaterList";
 		}
 		
-		List<Screenroom> screenroomList = screenroomService.getScreenroomList(); // 상영관 목록(이름순)
+		List<Screenroom> screenroomList = screenroomService.getScreenroomList(theaterKey); // 상영관 목록(이름순)
 		
 		model.addAttribute("screenroomList", screenroomList);
 		model.addAttribute("theaterOne", theaterOne);

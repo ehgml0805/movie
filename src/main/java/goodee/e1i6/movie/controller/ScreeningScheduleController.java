@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.ScreeningScheduleService;
 import goodee.e1i6.movie.service.ScreenroomService;
+import goodee.e1i6.movie.service.TheaterService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.ScreeningSchedule;
-import goodee.e1i6.movie.vo.Screenroom;
+import goodee.e1i6.movie.vo.Theater;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,6 +26,7 @@ public class ScreeningScheduleController {
 	@Autowired ScreeningScheduleService screeningScheduleService;
 	@Autowired MovieService movieService;
 	@Autowired ScreenroomService screenroomService;
+	@Autowired TheaterService theaterService;
 	
 	// 상영 스케줄 삭제
 	@GetMapping("/employee/screeningSchedule/removeScreeningSchedule")
@@ -61,8 +63,8 @@ public class ScreeningScheduleController {
 		ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		model.addAttribute("movieList", movieList);
 		
-		List<Screenroom> screenroomList = screenroomService.getScreenroomList();
-		model.addAttribute("screenroomList", screenroomList);
+		List<Theater> theaterList = theaterService.getTheaterList();
+		model.addAttribute("theaterList", theaterList);
 		
 		return "/employee/screeningSchedule/addScreeningSchedule";
 	}

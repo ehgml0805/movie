@@ -272,7 +272,7 @@
 						$('#movieList').html(html);
 						
 						// 극장, 날짜 선택 후 영화를 눌렀을 때 상영 시간표 출력
-						alert('ck : '+ $('#ck').val());
+						// alert('ck : '+ $('#ck').val());
     					if($('#ck').val() == 1){
     						// 극장, 날짜 선택 후 영화를 눌렀을 때 상영 시간표 출력
         	    			$.ajax({
@@ -283,7 +283,7 @@
         						, success:function(list){
         							// alert(list);
         							// alert('클릭');
-        							alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
+        							// alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
         							let html = "";
         							for(let i=0; i< list.length; i++){
         								let startDate_ = list[i].startDate.split("T");
@@ -387,7 +387,7 @@
         						, success:function(list){
         							// alert(list);
         							// alert('클릭');
-        							alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
+        							// alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
         							let html = "";
         							for(let i=0; i< list.length; i++){
         								let startDate_ = list[i].startDate.split("T");
@@ -474,7 +474,7 @@
     					// alert("theaterKey : "+data);
     					$('#theaterKey').val(data);
     					$('#ck').val(1);
-						alert('ck : ' + $('#ck').val());
+						// alert('ck : ' + $('#ck').val());
     					// 극장 선택 시 상영 스케줄 출력
     					// alert('클릭');
     					$.ajax({
@@ -485,7 +485,7 @@
     						, success:function(list){
     							// alert(list);
     							// alert('클릭');
-    							alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
+    							// alert("영화키 : " + $('#movieKey').val() + " 극장키 : " + $('#theaterKey').val() + ' 날짜 : ' + $('#day').val());
     							let html = "";
     							for(let i=0; i< list.length; i++){
     								let startDate_ = list[i].startDate.split("T");
@@ -560,8 +560,27 @@
     		// 상영 스케줄 선택 시 좌석 선택 가능
     		$(document).on('click', '.schedule-button', function() {
     			alert('schedule-button 클릭');
-    			let target = document.getElementsByClassName("seatBtn");
-    			target.disabled = false;
+    			let day = $('#day').val();
+    			let time = day + " " + $(this).text().slice(0, 5);
+    			let movieKey = $('#movieKey').val();
+    			alert(time);
+    			// 샹영 스케줄 키 값 받아오기    			
+    			$.ajax({
+    				url : '${pageContext.request.contextPath}/ticketing/screeningScheduleOneByTicketing',
+    				type : 'GET',
+    				data : {movieKey : movieKey, time : time}, 
+    				success : function(data){
+    					// alert(data.scheduleKey);
+    					let scheduleKey = data.scheduleKey
+    					alert('scheduleKey : ' + scheduleKey);
+    					$('#scheduleKey').val(scheduleKey);
+    				},
+					error : function() {
+						alert('screeningScheduleOneByTicketing error')
+					}
+    			});
+    			
+    			$('.seatBtn').attr("disabled", false);
     		});
 		})
     </script>

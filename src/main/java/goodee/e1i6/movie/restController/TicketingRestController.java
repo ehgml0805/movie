@@ -23,6 +23,15 @@ public class TicketingRestController {
 	@Autowired MovieService movieService;
 	@Autowired ScreeningScheduleService screeningScheduleService;
 	
+	// 빠른 예매 - 상영 스케줄 키 값 받아오기
+	@GetMapping("/ticketing/screeningScheduleOneByTicketing")
+	public Map<String, Object> getScreeningScheduleOneByTicketing(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+																	, @RequestParam(value = "time", defaultValue = "") String time){
+		log.debug(TeamColor.JYW + "GET ScreeningScheduleOneByTicketing");
+		
+		return screeningScheduleService.getScreeningScheduleOneByTicketing(movieKey, time);
+	}
+	
 	//  빠른 예매 - 날짜에 따른 영화 전체 목록
 	@GetMapping("/ticketing/movieListByDate")
 	public List<Map<String, Object>> getMovieListByDate(@RequestParam(value = "startDate", defaultValue = "") String startDate
@@ -40,12 +49,12 @@ public class TicketingRestController {
 	}
 	
 	// 빠른 예매 - 극장 선택 시 극장 키 값
-		@GetMapping("/ticketing/theaterOneByName")
-		public int getTheaterOneByName(@RequestParam(value = "theaterName", defaultValue = "") String theaterName) {
-			log.debug(TeamColor.JYW + "GET theaterOneByName");
-			
-			return theaterService.getTheaterOneByName(theaterName);
-		}
+	@GetMapping("/ticketing/theaterOneByName")
+	public int getTheaterOneByName(@RequestParam(value = "theaterName", defaultValue = "") String theaterName) {
+		log.debug(TeamColor.JYW + "GET theaterOneByName");
+		
+		return theaterService.getTheaterOneByName(theaterName);
+	}
 	
 	// 빠른 예매 - 극장 리스트
 	@GetMapping("/ticketing/theaterList")
