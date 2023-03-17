@@ -120,7 +120,7 @@
 				<tr>
 					<c:forEach var="b" items="${best}">
 						<td>
-							<div><a href="${pageContext.request.contextPath}/customer/snack/snackOne?snackKey=${b.snackKey}">
+							<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 								<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="200" height="200">
 							</a></div>
 							<div>${b.snackName}</div>

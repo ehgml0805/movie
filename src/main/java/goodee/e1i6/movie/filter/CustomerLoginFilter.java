@@ -29,7 +29,7 @@ public class CustomerLoginFilter implements Filter {
 			HttpSession session = ((HttpServletRequest) request).getSession();
 			
 			if(session.getAttribute("loginCustomer") == null) {
-				((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginCustomer");
+				((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/login/loginCustomer");
 				return;
 			}
 		} else {

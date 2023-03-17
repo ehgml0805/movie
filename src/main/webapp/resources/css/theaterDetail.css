@@ -1,0 +1,523 @@
+.tab-content.current {
+	z-index: 9999;
+	display: inherit;
+}
+
+.region-tab {
+	width: 100%;
+	border-radius: 5px;
+	color: #fff;
+	padding: 20px;
+	cursor: pointer;
+	padding: 5px 10px;
+}
+
+.theater-menu{
+	position: relative;
+	/*
+	background-image: url('resources/images/theater/theater-menu.jpg')
+	*/
+}
+
+.tab-content {
+
+	position: absolute;
+	display: none;
+	color: #000;
+	background-color: yellow;
+	padding: 20px;
+	border-radius: 10px;
+	width: 100px;
+}
+
+.region-tab li{
+	display: inline-block;
+	position: relative;
+}
+.info-content{
+	position: absolute;
+	display: none;
+	color: #000;
+	padding: 50px;
+	border-radius: 10px;
+	width: 1100px;
+}
+.info-content.current {
+	display: inherit;
+}
+
+.theater-menu li {
+	display: inline-block;
+	padding: 5px 10px;
+}
+
+.list-tab .row{
+	background-color: yellow;
+	width: 100%;
+}
+
+
+.movie-name{
+	overflow: hidden;
+    padding: 40px 0 0 0;
+    text-align: center;
+    color: #fff;
+    font-size: 3.0666em;
+    font-weight: 400;
+    line-height: 1.1;
+    text-shadow: 2px 2px 10px rgb(0 0 0 / 70%);
+}
+
+.list-tab{
+	width:100%;
+	background-image: url('/resources/images/theater/theater-menu.jpg') 
+}
+.inner-wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+.pt40 {
+    padding-top: 40px!important;
+}
+.public-transportation .transportation-section .icon-box .ico-bus {
+    width: 67px;
+    height: 70px;
+    background-image: url('/resources/images/theater/ico-bus.png');
+}
+.public-transportation .transportation-section .icon-box .ico-metro {
+    width: 58px;
+    height: 70px;
+    background-image: url('/resources/images/theater/ico-metro.png');
+}
+.public-transportation .transportation-section {
+    position: relative;
+    padding: 30px 0 0 0;
+}
+.public-transportation .transportation-section .info {
+    padding-left: 150px;
+}
+.iconset {
+    overflow: hidden;
+    display: inline-block;
+    margin: -1px 0 0 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+.public-transportation .transportation-section .icon-box {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 150px;
+    text-align: center;
+}
+
+.info-tab li{
+	display: inline-block;
+	position: relative;
+	width: 32%;
+    height: 41px;
+    line-height: 40px;
+    padding: 0;
+    text-align: center;
+	border: 1px solid #503396;
+    color: #222;
+    font-size: 1.0667em;
+    float: left;
+    text-decoration: none;
+}
+.public-transportation {
+    padding: 0 0 30px 0;
+    border: 1px solid #d8d9db;
+    border-radius: 10px;
+}
+.tab-info.current{
+    border-bottom: 0;
+}
+
+
+.info-tab{
+	cursor: pointer;
+}
+
+.contents-wrap{
+	margin-top: 50px;
+}
+
+h2.tit.small {
+    padding: 0 0 16px 0;
+    font-size: 1.4666em;
+    color: #503396;
+}
+
+h3.tit.small {
+    padding: 0 0 10px 0;
+    font-size: 1.2em;
+    color: #222;
+}
+
+.theater-facility {
+    overflow: hidden;
+    padding: 2px 0 0 0;
+}
+
+.button {
+    display: inline-block;
+    height: 36px;
+    margin: 0;
+    padding: 0 15px;
+    text-align: center;
+    line-height: 34px;
+    color: #503396;
+    font-weight: 400;
+    border-radius: 4px;
+    font-family: NanumBarunGothic,Dotum,'돋움',sans-serif;
+    text-decoration: none;
+    border: 1px solid #503396;
+    vertical-align: middle;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.button.purple{
+	color: #fff;
+    line-height: 36px;
+    border: 0;
+    background: #503396;
+}
+
+.theater-facility p {
+    float: left;
+    width: 111px;
+    margin: 0 30px 0 0;
+    padding: 0;
+    text-align: center;
+    display:inline;
+    
+}
+
+p {
+    display: inline;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.theater-facility p .iconset {
+    margin-bottom: 10px;
+    
+}
+.iconset {
+    overflow: hidden;
+    display: inline-block;
+    margin: -1px 0 0 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+.ico-facility-theater {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-theater.png');
+}
+.ico-facility-sweet {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-sweet.png');
+}
+.ico-facility-royal {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-royal.png');
+}
+.ico-facility-mx {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-mx.png');
+}
+.ico-facility-disabled {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-disabled.png');
+}
+.ico-facility-couple {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-couple.png');
+}
+.ico-facility-comfort {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-comfort.png');
+}
+.ico-facility-boutique {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-boutique.png');
+}
+.ico-facility-balcony {
+    width: 111px;
+    height: 111px;
+	background-image: url('/resources/images/theater/ico-facility-balcony.png');
+}
+
+.day{
+    border-top: 1px solid;
+    border-bottom: 1px solid rgb(207, 204, 204);
+    width:1000px;
+    box-sizing: border-box;
+}
+.now-day{
+	margin-top: 10px;
+}
+.mon {
+    background-color: white;
+    border: 1px white;
+    width: 80px;
+    height: 6px;
+    display: inline;
+    font-size: medium;
+    padding-bottom: 30px;
+}
+.movie-option .option {
+    float: left;
+}
+.movie-option{
+	display: flex;
+	width: 110%;
+}
+
+.movie-option .option ul li {
+    float: left;
+    margin-right: 15px;
+    line-height: 1em;
+}
+
+.movie-option .option .iconset {
+    margin-right: 5px;
+    margin-top: -3px;
+}
+
+.movie-option .option .iconset {
+    margin-right: 5px;
+    margin-top: -3px;
+}
+
+.iconset {
+    overflow: hidden;
+    display: inline-block;
+    margin: -1px 0 0 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ico-stage {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option01.png);
+}
+
+.ico-user {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option02.png);
+}
+
+.ico-open {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option03.png);
+}
+
+.ico-goods {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option04.png);
+}
+   
+.ico-singalong {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option05.png);
+    
+}
+.ico-gv {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option06.png);
+    
+}
+.ico-sun {
+    width: 14px;
+    height: 14px;
+    background-image: url(/resources/images/theater/ico-greeting-option-sun.png);
+}
+.ico-brunch {
+    width: 14px;
+    height: 14px;
+    background-image: url(/resources/images/theater/ico-time-brunch.png);
+    
+}
+.ico-moon {
+    width: 12px;
+    height: 12px;
+    background-image: url(/resources/images/theater/ico-greeting-option-moon.png);
+}
+.tab-content{
+    border-bottom: 1px solid rgba(255,255,255,.15);
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.tab-content>li {
+    float: left;
+    margin-left: 72px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.tab-link>li>.depth1 {
+    position: relative;
+    display: block;
+    color: #fff;
+    line-height: 60px;
+    padding: 0 5px;
+}
+.tab-content{
+    display: none;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 500%;
+    padding: 25px 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgb(0 0 0 / 20%);
+}
+
+.theaterName{
+    float: left;
+    margin: 5px 0;
+}
+
+li.theaterName.on a {
+    color: #01738b!important;
+}
+
+.theater-tit {
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    padding: 10px 20px;
+    background-color: #f7f8f9;
+    border-top: 1px solid #eaeaea!important;
+    border-bottom: 1px solid #eaeaea;
+    margin-top: -1px!important;
+    margin-bottom: 20px;
+}
+.theater-type-box {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+.theater-list .theater-type-box {
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid #eaeaea;
+}
+.theater-list .theater-type-box .theater-type {
+    text-align: left;
+    padding: 20px 0 0 20px;
+    float: left;
+    width: 208px;
+    display: table-cell;
+    vertical-align: middle;   
+}
+.theater-list .theater-type-box .theater-type p.theater-name {
+    font-size: 1.2em;
+    color: #444;
+    font-weight: 400;
+    margin-bottom: 10px;
+    line-height: 1em;
+}
+.reserve.theater-list-box .theater-list .theater-type-box .theater-type p.chair {
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1em;
+}
+.theater-type-area {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+    background-color: #f2f4f5;
+    text-align: center;
+    color: #444;
+    font-weight: 700;
+    border-bottom: 0;
+}
+
+.theater-time-box {
+    display: table-cell;
+    width: 800px;
+}
+.reserve.theater-list-box .theater-list .theater-type-box .theater-type-area {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100px;
+    background-color: #f2f4f5;
+    text-align: center;
+    color: #444;
+    font-weight: 700;
+    border-bottom: 0;
+}
+.txt-center{
+	border: 1px solid #c0c0c0;
+	width: 120px;
+	background-color: #503396;
+	border-radius: 5px;
+	text-align: center;
+	margin: 25px;
+	
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+.txt-center p{
+	color: white;	
+}
