@@ -13,19 +13,37 @@
 	<select id="selectRegionListByMovie" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
 			t.theater_region theaterRegion
-			, COUNT(ss.schedule_key) regionCount
+			, COUNT(DISTINCT theater_name) theaterCount
 		FROM theater t
 			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
 			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key <if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if> AND DATE(start_date) = #{startDate}
 		GROUP BY t.theater_region;
 	</select>
 	
+	<!-- 빠른 예매 - 지역별 극장 수 카운트 단, 스케쥴키가 있는 영화만 카운트
+	<select id="selectRegionListBySchedule" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			t.theater_region theaterRegion
+			, COUNT(DISTINCT ss.screenroom_key) theaterCount
+		FROM theater t
+			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
+			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key
+		<if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if> AND DATE(start_date) = #{startDate} AND ss.schedule_key IS NOT NULL
+		GROUP BY t.theater_region
+	</select>
+	 -->
+	 
 	<!-- 빠른 예매 - 지역에 해당하는 극장 목록 -->
 	<select id="selectTheaterNameListByRegion" parameterType="String" resultType="java.util.Map">
-		SELECT theater_key theaterKey
-		, theater_name theaterName
-		FROM theater
+		SELECT 
+			t.theater_key theaterKey
+			, theater_name theaterName
+			, start_date startDate
+		FROM theater t
+			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
+			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key
 		WHERE theater_region = #{theaterRegion}
+		GROUP BY t.theater_key
 	</select>
 	
 	<!-- 빠른 예매(지역순) -->

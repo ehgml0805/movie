@@ -44,6 +44,28 @@ public class TheaterService {
 		return theaterMapper.selectRegionListByMovie(paramMap);
 	}
 	
+	/*
+	// 빠른 예매 - 지역별 극장 수 카운트 단, 스케쥴키가 있는 영화만 카운트
+	public List<Map<String, Object>> getRegionListBySchedule(int movieKey, String startDate) {
+		if(startDate.equals("")) {
+			// 오늘 날짜 가져오기
+			LocalDate today = LocalDate.now();
+			
+			// 출력 형식 지정
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+			
+			// 형식에 맞게 출력
+			startDate = today.format(formatter);
+		}
+		
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("movieKey", movieKey);
+		paramMap.put("startDate", startDate);
+		
+		return theaterMapper.selectRegionListByMovie(paramMap);
+	}
+	*/
+	
 	// 빠른 예매(해당 지역의 극장 목록)
 	public List<Theater> geTheaterNameListByRegion(String theaterRegion) {
 		return theaterMapper.selectTheaterNameListByRegion(theaterRegion);
