@@ -6,7 +6,7 @@ import lombok.Data;
 public class CustomerImg {
 	private String fileName;
 	private String fileType;
-	private String fileSize;
+	private long fileSize;
 	private String originName;
 	private String createdate;
 	private String customerId;

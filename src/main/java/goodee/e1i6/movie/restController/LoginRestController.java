@@ -11,7 +11,7 @@ import goodee.e1i6.movie.service.LoginService;
 public class LoginRestController {
 	@Autowired LoginService loginService;
 	
-	@GetMapping("/idck")
+	@GetMapping("/login/idck")
 	public String idck(@RequestParam(value ="customerId") String customerId) {
 		return loginService.getCustomerId(customerId);
 	}

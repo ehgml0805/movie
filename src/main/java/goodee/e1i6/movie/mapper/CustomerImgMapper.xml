@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.CustomerImgMapper">
+	<insert id="insertCustomerImg" parameterType="goodee.e1i6.movie.vo.CustomerImg">
+		INSERT INTO customer_img (
+			file_name
+			, file_type
+			, file_size
+			, origin_name
+			, createdate
+			, customer_id 
+		) VALUES (
+			#{fileName}
+			, #{fileType}
+			, #{fileSize}
+			, #{originName}
+			, now()
+			, #{customerId}
+		)
+	</insert>
+</mapper>

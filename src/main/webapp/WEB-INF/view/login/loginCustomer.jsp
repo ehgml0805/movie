@@ -47,7 +47,9 @@
 		<img src="${pageContext.request.contextPath}/img/kakao_login.png">
 	</a>
 
-
+	<div>
+		<a href="${pageContext.request.contextPath}/login/addCustomer">회원가입</a>
+	</div>
 	
 	
 	
@@ -55,6 +57,8 @@
 	<div>
 		<a href="${pageContext.request.contextPath}/homeEx">이전</a>
 	</div>
+	
+
 	
 	<!-- 로그인되있는 상태라면 -->
 

@@ -6,6 +6,27 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#ckBtn').click(function(){
+			$.ajax({
+				url:'idck'
+				, type:'get'
+				, data : {customerId:$('#id').val()}
+				, success:function(model){ // model : 'YES' / 'NO'
+					if(model=='YES') {
+						// 사용가능한 아이디
+						$('#customerId').val($('#id').val());
+					} else {
+						// 사용중인 아이디
+						alert($('#id').val()+'는 사용중인 아이디입니다');
+					}
+				}
+			});
+		});	
+	});
+</script>
+
 </head>
 
 <body>
@@ -16,47 +37,53 @@
 	</div>	
 	<div>${errorMsg}</div>
 	
-	<form method ="post" action ="${pageContext.request.contextPath}/login/addCustomer">
+	<form method ="post" action ="${pageContext.request.contextPath}/login/addCustomer" enctype="multipart/form-data">
 		<table>
 			<tr>
-				<th>customerId</th>
+				<th>프로필 사진</th>
+				<td>
+					<input type="file" name="customerImgList">
+				</td>
+			</tr>
+			<tr>
+				<th>아이디</th>
 				<td>
 					<input type ="text" id = "customerId" name="customerId">
 				</td>
 			</tr>
 			<tr>	
-				<th>customerName</th>
+				<th>이름</th>
 				<td>
 					<input type ="text" id="customerName" name="customerName">
 				</td>
 			</tr>
 			<tr>	
-				<th>customerPw</th>
+				<th>비밀번호</th>
 				<td>
 					<input type ="password" id ="customerPw" name="customerPw">
 				</td>
 			</tr>
 			<tr>	
-				<th>customerAddress</th>
+				<th>주소</th>
 				<td>
 					<input type ="text" id ="customerAddress" name="customerAddress">
 				</td>
 			</tr>
 			<tr>	
-				<th>customerBirthday</th>
+				<th>생일</th>
 				<td>
 					<input type ="date" id ="customerBirthday" name="customerBirthday">
 				</td>
 			</tr>
 			<tr>	
-				<th>customerGender</th>
+				<th>성별</th>
 				<td>
 					<input type ="radio" id ="customerGender" name="customerGender" value="M" checked>남자
 					<input type ="radio" id ="customerGender" name="customerGender" value="F" >여자
 				</td>
 			</tr>
 			<tr>	
-				<th>customerPhone</th>
+				<th>휴대폰 번호</th>
 				<td>
 					<input type ="tel" id ="customerPhone" name="customerPhone"
 						pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
@@ -66,7 +93,7 @@
 				</td>
 			</tr>
 			<tr>	
-				<th>customerEmail</th>
+				<th>Email</th>
 				<td>
 					<input type ="email" id ="customerEmail" name="customerEmail" 
 						 size="30" required>
@@ -80,31 +107,4 @@
 	
 	</form>
 </body>
-<script>
-
-	$('#ckBtn').click(function(){
-		$.ajax({
-			url:'idck'
-			, type:'get'
-			, data : {customerId:$('#id').val()}
-			, success:function(model){ // model : 'YES' / 'NO'
-				if(model=='YES') {
-					// 사용가능한 아이디
-					$('#customerId').val($('#id').val());
-				} else {
-					// 사용중인 아이디
-					alert($('#id').val()+'는 사용중인 아이디입니다');
-				}
-			}
-		});
-	});
-	
-	
-
-	$('#addBtn').click(function(){
-		console.log("form action 전송");
-		
-	})
-
-</script>
 </html>

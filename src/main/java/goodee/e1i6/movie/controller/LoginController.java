@@ -2,15 +2,16 @@ package goodee.e1i6.movie.controller;
 
 
 
+import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,12 +29,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import goodee.e1i6.movie.service.IdService;
 import goodee.e1i6.movie.service.LoginService;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
+import goodee.e1i6.movie.vo.CustomerForm;
 import goodee.e1i6.movie.vo.KakaoProfile;
 import goodee.e1i6.movie.vo.OAuthToken;
-import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Controller
 public class LoginController {
 	@Autowired LoginService loginService;
@@ -187,22 +190,27 @@ public class LoginController {
 		return "login/addCustomer";
 	}
 	@PostMapping("/login/addCustomer")
-	public String addCustomer(Model model, Customer customer) {
+	public String addCustomer(Model model, HttpServletRequest request, CustomerForm customerForm) {
+		String path = request.getServletContext().getRealPath("/customer-upload/");
+		log.debug(TeamColor.JSM + path + " <- addCustomer path");
+		log.debug(TeamColor.JSM + customerForm + " <- customerForm :");
 		
-		String id = idService.getIdCheck(customer.getCustomerId());
+		List<MultipartFile> customerImgList = customerForm.getCustomerImgList();
+		if(customerImgList.get(0).getSize() > 0) {// 하나 이상의 파일이 업로드 될 경우
+			for(MultipartFile mf : customerImgList) {
+				log.debug(TeamColor.JSM + mf.getOriginalFilename() + " <- addCustomer fileName");
+			}
+		}
+			
+		String id = idService.getIdCheck(customerForm.getCustomerId());
 		if(id != null) { // 입력한 ID가 기존 DB에 존재 시, 다시 회원가입 페이지로 이동
 			model.addAttribute("errorMsg", "중복된 ID입니다");
 			return "login/addCustomer";
 		}
 		
-		int row = loginService.addCustomer(customer);
-		if(row != 1) { // row != 1이면 입력실패
-			model.addAttribute("errorMsg", "가입 실패");
-			return "customer/addCustoemr";
-			
-		}
-		return "redirect:/login/loginCustomer";
+		loginService.addCustomer(customerForm, path);
 		
+		return "redirect:/login/loginCustomer";
 		
 	}
 	
