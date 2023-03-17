@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Question {
-	private int qustionKey;
+	private int questionKey;
 	private String questionTitle;
 	private String customerId;
 	private int questionCategoryKey;

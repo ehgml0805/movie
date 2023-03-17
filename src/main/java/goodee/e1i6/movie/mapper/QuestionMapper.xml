@@ -3,46 +3,53 @@
 <mapper namespace="goodee.e1i6.movie.mapper.QuestionMapper">
 
 	
-	<!-- 문의사항 삭제 -->
-	<delete id="deleteQuestion" parameterType="int">
-		DELETE FROM notice
-		WHERE notice_key = #{noticeKey}
-	</delete>
-	
-	<!-- 문의사항 수정 -->
+	<!-- 내문의사항 수정 -->
 	<update id="updateQuestion" parameterType="java.util.Map">
-		UPDATE notice
-		SET notice_title = #{newTitle}, notice_content = #{newContent}
-		WHERE notice_key = #{noticeKey}
+		UPDATE question
+		SET question_title = #{questionTitle}, question_content = #{questionContent}
+		WHERE question_key = #{questionKey} AND customer_id = #{customerId}
 	</update>
 	
-	<!-- 문의사항 내용 -->
-	<select id="selectQuestionOne" parameterType="int" resultType="java.util.Map">
-		SELECT 
-			n.notice_key noticeKey
-			, n.notice_title noticeTitle
-			, n.notice_content noticeContent
-			, n.createdate createdate
-			, ni.file_name fileName
-		FROM notice n 
-			LEFT OUTER JOIN notice_img ni ON n.notice_key = ni.notice_key
-		WHERE n.notice_key = #{noticeKey}
+	<!-- 내문의사항 내용, 답변 -->
+	<select id="selectQuestionOneAndAnswer" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			qu.question_key questionKey
+			, qu.question_title questionTitle
+			, qu.question_content questionContent
+			, qc.question_category questionCategory
+			, th.theater_name theaterName
+			, th.theater_region theaterRegion
+			, qa.question_answer questionAnswer
+			, qa.createdate createdate
+		FROM question qu
+			INNER JOIN question_category qc ON qu.question_category_key = qc.question_category_key
+			INNER JOIN theater th ON qu.theater_key = th.theater_key
+			LEFT OUTER JOIN question_answer qa ON qu.question_key = qa.question_key
+		WHERE qu.customer_id = #{customerId} AND qu.question_key = #{questionKey}
 	</select>
 	
+	<!-- 내문의사항 삭제 -->
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE FROM question
+		WHERE question_key = #{questionKey}
+	</delete>
+	
 	<!-- 문의사항 리스트 마지막 페이지 -->
-	<select id="selectQuestionListCount" resultType="int">
-		SELECT COUNT(*) FROM Question
+	<select id="selectQuestionListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM question
 		WHERE customer_id = #{customerId}
 	</select>
 	<!-- 문의사항 리스트 -->
-	<select id="selectQuestionList" parameterType="java.util.Map" resultType="goodee.e1i6.movie.vo.Notice">
+	<select id="selectQuestionList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
-			ROW_NUMBER() over(order BY notice_key DESC) num
-			, notice_key noticeKey
-			, notice_title noticeTitle
-			, notice_content noticeContent
-			, createdate
-		FROM notice
+			ROW_NUMBER() over(order BY q.question_key DESC) num
+			, q.question_key questionKey
+			, q.question_title questionTitle
+			, q.createdate createdate
+			, qa.question_answer questionAnswer
+		FROM question q
+			LEFT OUTER JOIN question_answer qa ON q.question_key = qa.question_key
+		WHERE customer_id = #{customerId}
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

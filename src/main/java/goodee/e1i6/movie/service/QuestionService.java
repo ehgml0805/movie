@@ -1,6 +1,8 @@
 package goodee.e1i6.movie.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,43 @@ import goodee.e1i6.movie.vo.QuestionCategory;
 @Transactional
 public class QuestionService {
 	@Autowired private QuestionMapper questionMapper;
+	
+	// 내문의사항 수정
+	public int modifyQuestion(int questionKey, String customerId, String questionTitle, String questionContent) {
+		Question question = new Question();
+		question.setQuestionKey(questionKey);
+		question.setCustomerId(customerId);
+		question.setQuestionTitle(questionTitle);
+		question.setQuestionContent(questionContent);
+		return questionMapper.updateQuestion(question);
+	}
+	
+	// 내문의사항 내용, 답변
+	public Map<String, Object> getQuestionOneAndAnswer(String customerId, int questionKey) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("customerId", customerId);
+		paramMap.put("questionKey", questionKey);
+		return questionMapper.selectQuestionOneAndAnswer(paramMap);
+	}
+	
+	// 내문의사항 삭제
+	public int removeQuestion(int questionKey) {
+		return questionMapper.deleteQuestion(questionKey);
+	}
+	
+	// 내문의 리스트 마지막페이지
+	public int getQuestionListCount(String customerId) {
+		return questionMapper.selectQuestionListCount(customerId);
+	}
+	// 내문의 리스트
+	public List<Map<String, Object>> getQuestionList(String customerId, int currentPage, int rowPerPage) {
+		int beginRow = (currentPage -1) * rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("customerId", customerId);
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		return questionMapper.selectQuestionList(paramMap);
+	}
 	
 	// 문의유형 리스트
 	public List<QuestionCategory> getQuestionCategoryList() {
