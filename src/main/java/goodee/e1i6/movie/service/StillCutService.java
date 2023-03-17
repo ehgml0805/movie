@@ -20,6 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 public class StillCutService {
 	@Autowired StillCutMapper stillCutMapper; 
 	
+	// 빠른 예매 시 영화 포스터 불러오기
+	public StillCut getStillCutOneByTicketing(int movieKey) {
+		return stillCutMapper.selectStillCutOne(movieKey);
+	}
+	
 	// 영화 이미지 삭제
 	public int removeStillCut(int stillCutKey) {
 		return stillCutMapper.deleteStillCut(stillCutKey);

@@ -77,7 +77,7 @@
 		</div>
 	</div>
 	<br>
-    <form action="/ticketing/ticketingList" method="post" id="form-post-List">
+    <form action="${pageContext.request.contextPath}/ticketing/ticketingSeat" method="get" id="form-post-List">
 	   	<input type="hidden" id="day" name="day" value="" />
 	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
@@ -89,7 +89,7 @@
 	   	<input type="hidden" name="regionNo" value="" />
 	   	<input type="hidden" name="showScheduleNo" value="" />
 	   	
-	   	<div class="container d-flex">
+	   	<div class="container d-flex bg-dark" style="color:white;">
 		   	<div class="row col-lg-12 col-sm-12">
 		   		<div class="movie-img col-lg-3 col-sm-3">
 					<div class="choice-list" id="choiceMovieList-0">
@@ -142,7 +142,7 @@
 					</table>
 				</div>
 		   	</div>
-		   	<button class="seatBtn" type="button" disabled="disabled">좌석 선택하기</button>
+		   	<button class="seatBtn" type="submit" disabled="disabled">좌석 선택</button>
 	   	</div>
     </form>
     
@@ -442,15 +442,15 @@
    		            	 
     		            	if($('#movieKey').val() !== '0') {
 	    		            	if(data[i].startDate !== undefined) {
-		    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button>";    		            		
+		    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
 	    		            	} else {
-		    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button>";    		            		
+		    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
 	    		            	}    		            		
     		            	} else if($('#movieKey').val() === '0') {
-    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button>";
+    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
     		            	}
     		            	
-    		            	//html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button>";
+    		            	//html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
     		            }
     		            $('#theaterName').html(html);
     		        },
