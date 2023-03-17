@@ -1,5 +1,7 @@
 package goodee.e1i6.movie.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,14 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goodee.e1i6.movie.service.ScreenroomService;
+import goodee.e1i6.movie.service.SeatService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Screenroom;
+import goodee.e1i6.movie.vo.Seat;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class ScreenroomController {
 	@Autowired ScreenroomService screenroomService;
+	@Autowired SeatService seatService;
 	
 	// 상영관 상세 - 고객
 	@GetMapping("/screenroom/screenroomOne")
@@ -37,12 +42,16 @@ public class ScreenroomController {
 	@GetMapping("/employee/screenroom/screenroomOne")
 	public String getScreenroomOneForEmployee(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
 		log.debug(TeamColor.CHOI + "GET screenroomOne");
-		
+		// 상영관 상세 정보
 		Screenroom screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
 		if(screenroomOne == null) { 
 			return "redirect:/employee/theater/theaterList";
 		}
+		// 좌석 목록
+		List<Seat> seatList = seatService.getSeatListByScreenroom(screenroomKey);
+		
 		model.addAttribute("screenroomOne", screenroomOne);
+		model.addAttribute("seatList", seatList);
 		
 		return "/employee/screenroom/screenroomOne";
 	}

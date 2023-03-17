@@ -14,7 +14,7 @@
 			<button type="button" id="modifyBtn">수정</button>
 			<button type="button" id="removeBtn">삭제</button>
 		</form>
-		<a href="${pageContext.request.contextPath}/employee/seat/addSeat">좌석 등록</a>
+		<a href="${pageContext.request.contextPath}/employee/seat/addSeat?screenroomKey=${screenroomOne.screenroomKey}">좌석 등록</a>
 		<div id="modify">
 			<table border="1">
 				<thead>
@@ -34,7 +34,9 @@
 			</table>
 		</div>
 		<div id="seat">좌석 배치도</div>
-		좌석배치표
+		<c:forEach var="s" items="${seatList}">
+			<div>${s.seatNumber}</div>
+		</c:forEach>
 		<script>
 			$(function() {
 				let msg = '${msg}';
