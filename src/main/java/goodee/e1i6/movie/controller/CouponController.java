@@ -24,15 +24,6 @@ public class CouponController {
 	@Autowired CouponService couponService;
 	
 	//고객
-	//내가 다운받은 쿠폰 리스트
-	@GetMapping("/customer/coupon/mycouponList")
-	public String mycouponList(HttpSession session, Model model) {
-		Customer c = (Customer)session.getAttribute("loginCustomer");
-		List<Mycoupon> mcList=couponService.selectMyCouponList(session, c.getCustomerId());
-		model.addAttribute("mc", mcList);
-		
-		return "/customer/coupon/mycouponList";
-	}
 	
 	
 	//관리자

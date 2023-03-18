@@ -28,7 +28,7 @@ public class CouponService {
 		return couponMapper.insertMyCoupon(mycoupon);
 	}
 	//내 쿠폰 리스트 출력
-	public List<Mycoupon> selectMyCouponList(HttpSession session, String customerId){
+	public List<Map<String, Object>> selectMyCouponList(HttpSession session, String customerId){
 		Customer c = (Customer)session.getAttribute("loginCustomer");
 		return couponMapper.selectMyCouponList(c.getCustomerId());
 	}

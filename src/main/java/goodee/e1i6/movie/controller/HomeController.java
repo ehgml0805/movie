@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.VisitorService;
 import goodee.e1i6.movie.teamColor.TeamColor;
+import goodee.e1i6.movie.vo.Coupon;
 import goodee.e1i6.movie.vo.Customer;
-import goodee.e1i6.movie.vo.Mycoupon;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
@@ -48,7 +49,7 @@ public class HomeController {
 		String customerId= c.getCustomerId();
 		log.debug(TeamColor.KDH + customerId +"<==고객아이디 ");
 		
-		List<Mycoupon> clist = couponService.selectMyCouponList(session, customerId);
+		List<Map<String, Object>> clist = couponService.selectMyCouponList(session, customerId);
 		model.addAttribute("clist", clist);
 		
 		return "customer/mypage";

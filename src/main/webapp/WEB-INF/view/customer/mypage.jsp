@@ -6,22 +6,81 @@
 <meta charset="UTF-8">
 <title>마이 페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
 </head>
 <body>
 	<div>
 		<c:import url="/WEB-INF/inc/menu.jsp">
 		</c:import>
 	</div>
+
+
+
+	<!-- 사이드 네비바  -->
 	<div class="container">
-		<ul class="nav flex-column">
-			<li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Active</a></li>
-			<li class="nav-item"> <a data-toggle="tab" href="#tab2" class="nav-link"  style="color: black;">Link</a></li>
-			<li class="nav-item"> <a class="nav-link" href="#">Link</a></li>
-			<li class="nav-item"> <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a></li>
-		</ul>
+		<div class="d-flex align-items-start">
+			<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+				<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+					role="tab" aria-controls="v-pills-home" aria-selected="true">나의 예매내역</button>
+					
+				<button class="nav-link" id="v-pills-coupon-tab" data-bs-toggle="pill" data-bs-target="#v-pills-coupon"
+					type="button" role="tab" aria-controls="v-pills-coupon"
+					aria-selected="false">관람권/할인쿠폰 관리</button>
+					
+				<button class="nav-link" id="v-pills-event-tab" data-bs-toggle="pill" data-bs-target="#v-pills-event"
+					type="button" role="tab" aria-controls="v-pills-event"
+					aria-selected="false">이벤트 참여내역</button>
+					
+				<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+					type="button" role="tab" aria-controls="v-pills-profile"
+					aria-selected="false">회원정보</button>
+			</div>
+	
+			<div class="tab-content" id="v-pills-tabContent">
+				<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+				
+				</div>
+				
+				<div class="tab-pane fade" id="v-pills-coupon" role="tabpanel" aria-labelledby="v-pills-coupon-tab">
+					<table>
+						<tr>
+							<td>쿠폰명</td>
+							<td>쿠폰상태</td>
+							<td>할인금액</td>
+							<td>쿠폰등급</td>
+							<td>사용기한</td>
+						</tr>
+						<tr>
+							<c:forEach var="c" items="${clist }">
+								<td>${c.couponName }</td>
+								<td>${c.state }</td>
+								<td>${c.couponSalePrice }</td>
+								<td>${c.couponGrade }</td>
+								<td>${c.useByDate }</td>
+							</c:forEach>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="tab-pane fade" id="v-pills-event" role="tabpanel" aria-labelledby="v-pills-event-tab">
+					내가 참여한 이벤트 내역 보여주기 
+				</div>
+				
+				<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+					고객 정보 수정 
+				</div>
+			</div>
+		</div>
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+	
+<script src="${pageContext.request.contextPath}/bootstrap/nav/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/nav/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/nav/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/nav/js/jquery.sticky.js"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/nav/js/main.js"></script>
 </body>
 </html>

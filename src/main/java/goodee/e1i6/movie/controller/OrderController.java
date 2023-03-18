@@ -105,7 +105,7 @@ public class OrderController {
 		model.addAttribute("hit", hit);
 		model.addAttribute("sum", sum);
 		
-		List<Mycoupon> clist=couponService.selectMyCouponList(session, c.getCustomerId());
+		List<Map<String, Object>> clist=couponService.selectMyCouponList(session, c.getCustomerId());
 		model.addAttribute("clist", clist);
 		
 		return "customer/order/cartList";

@@ -29,8 +29,8 @@
 	
 	</insert>
 	
-	<!-- 쿠폰 리스트 -->
-	<select id="selectMyCouponList" resultType="goodee.e1i6.movie.vo.Mycoupon" >
+	<!-- 내 쿠폰 리스트 -->
+	<select id="selectMyCouponList" resultType="java.util.Map">
 	
 		SELECT 
 				 mc.mycoupon_key mycouponKey
