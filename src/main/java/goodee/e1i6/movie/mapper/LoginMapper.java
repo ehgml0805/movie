@@ -16,6 +16,7 @@ public interface LoginMapper {
 	
 	// 카카오 로그인
 	Customer KakaoLogin(Customer customer);
+	
 	// 회원가입
 	int insertCustomer(Customer customer);
 	

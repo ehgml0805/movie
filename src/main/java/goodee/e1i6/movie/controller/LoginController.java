@@ -144,10 +144,33 @@ public class LoginController {
 		//	.oauth("kakao")
 		//	.build();
 		
-		System.out.println("11111111111111111111111111");
+		
+		Customer kakaoCustomer = new Customer();
+		kakaoCustomer.setCustomerId(kakaoProfile.getKakao_account().getEmail());
+		kakaoCustomer.setCustomerPw("java1234");
+		kakaoCustomer.setCustomerEmail(kakaoProfile.getKakao_account().getEmail());
+		kakaoCustomer.setOauth("kakao");
+		
+		System.out.println(kakaoCustomer);
+		
+		Customer OriginCustomer = loginService.findCustomer(kakaoCustomer.getCustomerId());
+		
+		if(OriginCustomer == null) {
+			loginService.addCustomer(kakaoCustomer);
+			return "/homeEx";
+			
+		} else if(OriginCustomer ){
+			Customer kakaoOne=loginService.kakaoLogin(OriginCustomer);
+			log.debug(TeamColor.KSH +kakaoOne + "<==카카오 로그인 값");
+			return "/homeEx";
+		}
+		
+		
+		
+	
 		
 		// 가입자 혹은 비가입자 체크 해서 처리
-		//System.out.println(KakaoCustomer.getCustomerId());
+		//System.out.println(kakaoCustomer.getCustomerId());
 		
 		//Customer originCustomer = loginService.findCustomer(KakaoCustomer.getCustomerId());
 		
@@ -157,7 +180,7 @@ public class LoginController {
 		
 		// 로그인 처리
 
-		return response2.getBody();
+		
 	}
 	
 	

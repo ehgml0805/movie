@@ -24,6 +24,12 @@ public class LoginService {
 	@Autowired private LoginMapper loginMapper;
 	@Autowired private CustomerImgMapper customerImgMapper;
 	
+	// 카카오 호그인
+	public Customer kakaoLogin(Customer customer) {
+		return loginMapper.KakaoLogin(customer);
+		}
+	
+	
 	// employee 호그인
 	public Employee loginEmployee(Employee employee) {
 		return loginMapper.loginEmployee(employee);
@@ -111,6 +117,10 @@ public class LoginService {
 		}
 
 		return resultStr;
-}
+	}
+	// customer 회원가입
+	public int addCustomer(Customer customer) {
+		return loginMapper.insertCustomer(customer);
+	}
 	
 }
