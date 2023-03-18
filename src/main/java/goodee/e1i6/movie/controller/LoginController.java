@@ -47,7 +47,7 @@ public class LoginController {
 	// 카카오 로그인
 	
 	@GetMapping("/kakao/callback") 
-	public @ResponseBody String kakaoCallback(String code) { //ResponseBody : Data를 리턴해주는 컨트롤러 함수
+	public String kakaoCallback(String code, Customer customer, HttpSession session) { //ResponseBody : Data를 리턴해주는 컨트롤러 함수
 		
 		//POST방식으로 key=value 데이터를 요청(카카오쪽으로)
 		//Retrofit2
@@ -147,9 +147,10 @@ public class LoginController {
 		
 		Customer kakaoCustomer = new Customer();
 		kakaoCustomer.setCustomerId(kakaoProfile.getKakao_account().getEmail());
-		kakaoCustomer.setCustomerPw("java1234");
+		kakaoCustomer.setCustomerPw(garbagePassword.toString());
 		kakaoCustomer.setCustomerEmail(kakaoProfile.getKakao_account().getEmail());
 		kakaoCustomer.setOauth("kakao");
+		kakaoCustomer.setCustomerName(kakaoProfile.getProperties().getNickname());
 		
 		System.out.println(kakaoCustomer);
 		
@@ -159,27 +160,17 @@ public class LoginController {
 			loginService.addCustomer(kakaoCustomer);
 			return "/homeEx";
 			
-		} else if(OriginCustomer ){
-			Customer kakaoOne=loginService.kakaoLogin(OriginCustomer);
-			log.debug(TeamColor.KSH +kakaoOne + "<==카카오 로그인 값");
-			return "/homeEx";
+		} else {
+			
+			//Customer kakaoOne=loginService.kakaoLogin(customer);
+			//log.debug(TeamColor.KSH +kakaoOne + "<==카카오 로그인 값");
+			Customer resultCustomer = loginService.kakaoLogin(OriginCustomer);
+			session.setAttribute("loginCustomer", resultCustomer);
+			
+		
 		}
+		return "redirect:/homeEx";
 		
-		
-		
-	
-		
-		// 가입자 혹은 비가입자 체크 해서 처리
-		//System.out.println(kakaoCustomer.getCustomerId());
-		
-		//Customer originCustomer = loginService.findCustomer(KakaoCustomer.getCustomerId());
-		
-		//if(originCustomer == null) {
-		//	loginService.addCustomer(KakaoCustomer);
-		//}
-		
-		// 로그인 처리
-
 		
 	}
 	

@@ -46,7 +46,7 @@
 			, customer_point customerPoint
 			, customer_email customerEmail
 		FROM customer
-		WHERE customer_id = #{customerId})
+		WHERE customer_id = #{customerId}
 	</select>
 	
 	<!-- 고객 회원가입 -->
@@ -73,8 +73,8 @@
 	</select>
 	
 	<select id="findByCustomerId"
-		parameterType = "String"
-		resultType ="String">
+		parameterType = "goodee.e1i6.movie.vo.Customer"
+		resultType ="goodee.e1i6.movie.vo.Customer">
 		SELECT customer_id customerId
 		FROM customer
 		WHERE customer_id =#{customerId}
