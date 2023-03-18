@@ -60,7 +60,7 @@
 			<div class="collapse navbar-collapse justify-content-end">
 				<ul class="navbar-nav util-list">
 					<li class="nav-item"><a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-schedule.png"></a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-mymega.png"></a></li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-mymega.png"></a></li>
 				</ul>
 			</div>
 		</nav>
