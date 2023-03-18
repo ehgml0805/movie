@@ -72,4 +72,22 @@ public class TicketingController {
 		
 		return "/customer/ticketing/ticketingSeat";
 	}
+	
+	@GetMapping("/ticketing/ticketingSeat2")
+	public String ticketingSeat2(Model model
+									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
+									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
+		
+		Map<String, Object> scheduleOne = screeningScheduleService.getScreeningScheduleOne(scheduleKey);
+		model.addAttribute("scheduleOne", scheduleOne);	
+		
+		int screenroomKey = (int)scheduleOne.get("screenroomKey");
+		List<Seat> seatList = seatService.getSeatListByScreenroom(screenroomKey);
+		model.addAttribute("seatList", seatList);	
+		
+		StillCut stillCut = stillCutService.getStillCutOneByTicketing(movieKey);
+		model.addAttribute("stillCut", stillCut);	
+		
+		return "/customer/ticketing/ticketingSeat2";
+	}
 }

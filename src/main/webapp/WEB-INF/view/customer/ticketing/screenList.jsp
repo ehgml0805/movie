@@ -559,11 +559,11 @@
     		
     		// 상영 스케줄 선택 시 좌석 선택 가능
     		$(document).on('click', '.schedule-button', function() {
-    			alert('schedule-button 클릭');
+    			// alert('schedule-button 클릭');
     			let day = $('#day').val();
     			let time = day + " " + $(this).text().slice(0, 5);
     			let movieKey = $('#movieKey').val();
-    			alert(time);
+    			// alert(time);
     			// 샹영 스케줄 키 값 받아오기    			
     			$.ajax({
     				url : '${pageContext.request.contextPath}/ticketing/screeningScheduleOneByTicketing',
@@ -572,7 +572,7 @@
     				success : function(data){
     					// alert(data.scheduleKey);
     					let scheduleKey = data.scheduleKey
-    					alert('scheduleKey : ' + scheduleKey);
+    					// alert('scheduleKey : ' + scheduleKey);
     					$('#scheduleKey').val(scheduleKey);
     				},
 					error : function() {
