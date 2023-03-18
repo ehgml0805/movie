@@ -81,16 +81,46 @@
 									<c:choose>
 										<c:when test="${exRow ne row}">
 											</div>
-											<div class="seatRow-${row}">
-											${row} : 										
-											
-											<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}">${seatNumber}</button>
-										</c:when>
-										<c:otherwise>
-											<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}">${seatNumber}</button>				
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
+												<div class="seatRow-${row}"	>
+												${row}
+												<c:if test="${s.active eq 'Y'}">
+													<c:if test="${s.useable eq 'Y'}">
+														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}">${seatNumber}</button>
+													</c:if>
+													<c:if test="${s.useable eq 'N'}">
+														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;">1</button>
+													</c:if>
+												</c:if>
+												<c:if test="${s.active eq 'N'}">
+													<c:if test="${s.useable eq 'Y'}">
+														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" disabled="disabled">X</button>
+													</c:if>
+													<c:if test="${s.useable eq 'N'}">
+														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+													</c:if>
+												</c:if>
+											</c:when>
+											<c:otherwise>
+												<c:if test="${s.active eq 'Y'}">
+													<c:if test="${s.useable eq 'Y'}">
+														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}" value="${s.seatKey}">${seatNumber}</button>
+													</c:if>
+													<c:if test="${s.useable eq 'N'}">
+														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+													</c:if>
+												</c:if>				
+												<c:if test="${s.active eq 'N'}">
+													<c:if test="${s.useable eq 'Y'}">
+														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}" value="${s.seatKey}" disabled="disabled">X</button>
+													</c:if>
+													<c:if test="${s.useable eq 'N'}">
+														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+													</c:if>
+												</c:if>				
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</div>
 							</div>
 						</section>	
 					</div>
@@ -266,12 +296,22 @@
 				let parent = $(this).parent();
 				let lastButton = parent.children().last();
 				// alert(lastButton);
-				if($(this).val() == lastButton.val()){
-					let button2 = $(this).prev();
-					button2.css('background-color','red');
-				} else if($(this).val() != lastButton.val()) {
-					let button2 = $(this).next();				
-					button2.css('background-color','red');
+				if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
+					let button2 = $(this).prev(); // 해당 버튼 기준 왼쪽 버튼
+					
+					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+						button2.css('background-color','red');
+					} else { 								  // 예매된 좌석
+						button2.css('background-color','');
+					}
+				} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면
+					let button2 = $(this).next();
+					let prevBtn = $(this).prev();
+					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+						button2.css('background-color','red');
+					} else {								  // 예매된 좌석
+						prevBtn.css('background-color','red');
+					}
 				}				
 			} else if(totalNow != 0) {
 				$(this).css('background-color','red');
@@ -284,12 +324,24 @@
 				let parent = $(this).parent();
 				let lastButton = parent.children().last();
 				// alert(lastButton);
-				if($(this).val() == lastButton.val()){
+				if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
 					let button2 = $(this).prev();
-					button2.css('background-color','white');
-				} else if($(this).val() != lastButton.val()) {				
+				
+					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+						button2.css('background-color','white');	
+					} else {								  // 예매 된 좌석
+						button2.css('background-color','');
+					}
+				} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면			
 					let button2 = $(this).next();
-					button2.css('background-color','white');
+					let prevBtn = $(this).prev();
+				
+					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+						button2.css('background-color','white');
+					} else {								  // 예매 된 좌석
+						button2.css('background-color','');
+						prevBtn.css('background-color','white');
+					}
 				}				
 			} else if(totalNow != 0) {
 				$(this).css('background-color','white');
