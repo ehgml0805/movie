@@ -136,7 +136,10 @@
 						</tr>
 						<tr>
 							<td>인원</td>
-							<td><span id="party"></span></td>
+							<td>
+								<span id="adult-count"></span>
+								<span id="teenager-count"></span>
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -201,37 +204,58 @@
 		// 청소년 인원 버튼
 		const upBtnTeenager = document.querySelector('.btn-teenager-up');
 		const downBtnTeenager = document.querySelector('.btn-teenager-down');
+		// 총 인원 수 (인원 제한 8명)
+		let totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent); 
+		// 결제서 인원 수
+		let adultCount = document.querySelector('#adult-count');
+		let teenagerCount = document.querySelector('#teenager-count');
 		
 		// 성인 + 버튼
 		upBtnAdult.addEventListener('click', function(){
 			let q = parseInt(adultQuantity.textContent);
-			if(adultQuantity.textContent < 8) {
-				adultQuantity.textContent = q+1;		
+			totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
+			if(totalQuantity < 8) {
+				adultQuantity.textContent = q+1;
+				adultCount.textContent = "성인 " + parseInt(adultQuantity.textContent); 
+			} else {
+				alert('인원선택은 총 8명까지 가능합니다.')
 			}
 	    });
 		// 성인 -버튼
 		downBtnAdult.addEventListener('click', function(){
 			let q = parseInt(adultQuantity.textContent);
 			if(adultQuantity.textContent > 0) {
-				adultQuantity.textContent = q-1;		
+				adultQuantity.textContent = q-1;	
+				adultCount.textContent = "성인 " + parseInt(adultQuantity.textContent);
+			}
+			if(adultQuantity.textContent == 0) {
+				adultCount.textContent = "";
 			}
 	    });
 		
 		// 청소년 + 버튼
 		upBtnTeenager.addEventListener('click', function(){
 			let q = parseInt(teenagerQuantity.textContent);
-			if(teenagerQuantity.textContent < 8) {
-				teenagerQuantity.textContent = q+1;		
+			totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
+			if(totalQuantity < 8) {
+				teenagerQuantity.textContent = q+1;
+				teenagerCount.textContent = "청소년 " + parseInt(teenagerQuantity.textContent);
+			} else {
+				alert('인원선택은 총 8명까지 가능합니다.')
 			}
 	    });
 		// 청소년 -버튼
 		downBtnTeenager.addEventListener('click', function(){
 			let q = parseInt(teenagerQuantity.textContent);
 			if(teenagerQuantity.textContent > 0) {
-				teenagerQuantity.textContent = q-1;		
+				teenagerQuantity.textContent = q-1;
+				teenagerCount.textContent = "청소년 " + parseInt(teenagerQuantity.textContent);
 			}
+			if(teenagerQuantity.textContent == 0) {
+				teenagerCount.textContent = "";
+			}
+			
 	    });
-		
 	});
 </script>
 </html>
