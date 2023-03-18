@@ -20,6 +20,9 @@ public interface LoginMapper {
 	// 회원가입
 	int insertCustomer(Customer customer);
 	
+	// 회원정보 one
+	Customer SelectCustomerOne(Customer customer);
+	
 	// 회원수정
 	
 	

@@ -72,6 +72,7 @@
 	
 	</select>
 	
+	<!-- 카카오로그인시 기존회원인시 확인 -->
 	<select id="findByCustomerId"
 		parameterType = "goodee.e1i6.movie.vo.Customer"
 		resultType ="goodee.e1i6.movie.vo.Customer">
@@ -81,7 +82,8 @@
 	
 	</select>
 	
-	<select id="selectCustomerOne"
+	<!-- 회원정보one -->
+	<select id="SelectCustomerOne"
 			parameterType = "goodee.e1i6.movie.vo.Customer">
 		select customer_id customerId
 			, oauth oauth
@@ -92,9 +94,25 @@
 			, customer_gender customerGender
 			, customer_phone customerPhone	
 			, customer_email customerEmail	
-			,
+			, last_login lastLogin
+			, createdate createdate
+		FROM customer
+		WHERE customer_id = #{customerId}
 	</select>
 	
+	<update id="updateCustomer"
+		parameterType="java.util.Map">
+		UPDATE customer
+		SET
+			customer_pw = PASSWORD(#{customerPw})	
+			, customer_name = #{customerName}	
+			, customer_address = #{customerAddress}	
+			, customer_birthday = #{customerBirthday}	
+			, customer_gender = #{customerGender}	
+			, customer_phone = #{customerPhone}		
+			, customer_email = #{customerEmail}		
+		
+	</update>
 
 
 

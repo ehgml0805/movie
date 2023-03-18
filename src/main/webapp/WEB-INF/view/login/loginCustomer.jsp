@@ -38,8 +38,8 @@
 	</c:if>
 	
 	
-	<a href="https://kauth.kakao.com/oauth/authorize? client_id=45fa960795332ab0baa93dabe554c8a5 
-			&redirect_uri=http://localhost/movie/kakao/callback &response_type=code">
+	<a href="https://kauth.kakao.com/oauth/authorize?client_id=ade6ceae84db1bedc786e318204f8ca8
+			&redirect_uri=http://localhost/movie/kakao/callback&response_type=code">
 					
 	
 		<img src="${pageContext.request.contextPath}/img/kakao_login.png">

@@ -19,10 +19,12 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	<a href="${pageContext.request.contextPath}/login/loginCustomer">로그인</a>
 	
 	<c:if test="${loginCustomer != null }">
 
 		<h1>${loginCustomer.customerName}님 반갑습니다</h1>
+		<a href="${pageContext.request.contextPath}/login/modifyCustomer">정보수정</a>
 	</c:if>
 	
 	<c:if test="${loginEmployee != null }">

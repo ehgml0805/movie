@@ -64,7 +64,7 @@ public class LoginController {
 		// HttpBody 오브젝트 생성
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "45fa960795332ab0baa93dabe554c8a5");
+		params.add("client_id", "ade6ceae84db1bedc786e318204f8ca8");
 		params.add("redirect_uri", "http://localhost/movie/kakao/callback");
 		params.add("code", code); //code는 동적이다
 	
@@ -252,6 +252,11 @@ public class LoginController {
 	}
 	
 
+	// 한명의 회원정보 불러오기
+	@GetMapping("/login/modifyCustomer")
+	public String selectCustomerOne(Customer customer) {
+		return "/login/modifyCustomer";
+	}
 	
 	
 	

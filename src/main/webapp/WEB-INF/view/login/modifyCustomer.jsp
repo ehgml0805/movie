@@ -8,7 +8,7 @@
 
 </head>
 <body>
-	<h1>회원가입</h1>
+	<h1>회원수정</h1>
 	
 
 	<form method ="post" action ="${pageContext.request.contextPath}/login/modifyCustomer" enctype="multipart/form-data">
@@ -22,31 +22,36 @@
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type ="text" id = "customerId" name="customerId">
+					<input type ="text" id = "customerId" name="customerId" value="${loginCustomer.customerId}" readonly="readonly">
 				</td>
 			</tr>
 			<tr>	
 				<th>이름</th>
 				<td>
-					<input type ="text" id="customerName" name="customerName">
+					<input type ="text" id="customerName" name="customerName" value="${loginCustomer.customerName}">
 				</td>
 			</tr>
+			
+			<!-- 카카오회원은 비밀번호를 수정할 수 없다 -->
+			<c:if test="${empty loginCustomer.oauth}">
 			<tr>	
 				<th>비밀번호</th>
 				<td>
 					<input type ="password" id ="customerPw" name="customerPw">
 				</td>
 			</tr>
+			
+			</c:if>
 			<tr>	
 				<th>주소</th>
 				<td>
-					<input type ="text" id ="customerAddress" name="customerAddress">
+					<input type ="text" id ="customerAddress" name="customerAddress" value="${loginCustomer.customerAddress}">
 				</td>
 			</tr>
 			<tr>	
 				<th>생일</th>
 				<td>
-					<input type ="date" id ="customerBirthday" name="customerBirthday">
+					<input type ="date" id ="customerBirthday" name="customerBirthday" value="${loginCustomer.customerBirthday}">
 				</td>
 			</tr>
 			<tr>	
@@ -59,20 +64,23 @@
 			<tr>	
 				<th>휴대폰 번호</th>
 				<td>
-					<input type ="tel" id ="customerPhone" name="customerPhone"
+					<input type ="tel" id ="customerPhone" name="customerPhone" placeholder="000-0000-0000" value="${loginCustomer.customerPhone}"
 						pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
      					required
      					minlength="13"
 						maxlength="13">
 				</td>
 			</tr>
-			<tr>	
-				<th>Email</th>
-				<td>
-					<input type ="email" id ="customerEmail" name="customerEmail" 
-						 size="30" required>
-				</td>
-			</tr>
+			<!-- 카카오 회원은 email을 수정할 수 없다 -->
+			<c:if test="${empty loginCustomer.oauth}">
+				<tr>	
+					<th>Email</th>
+					<td>
+						<input type ="email" id ="customerEmail" name="customerEmail"  value="${loginCustomer.customerEmail}"
+							 size="30" required >
+					</td>
+				</tr>
+			</c:if>
 			
 			
 		</table>

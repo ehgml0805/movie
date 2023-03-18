@@ -123,4 +123,12 @@ public class LoginService {
 		return loginMapper.insertCustomer(customer);
 	}
 	
+	// 한명의 회원정보 불러오기
+	public Customer selectCustomerOne(Customer customer) {
+		Customer resultCustomer = loginMapper.SelectCustomerOne(customer);
+		
+		
+		return resultCustomer;
+	}
+	
 }
