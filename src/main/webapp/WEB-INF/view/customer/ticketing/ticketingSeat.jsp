@@ -28,8 +28,26 @@
 		<div class="container d-flex col-1g-12 col-sm-12">
 			<!-- 인원 선택 -->
 			<div class="col-1g-6 col-sm-6">
-				<div>성인 : </div>
-				<div>일반 : </div>
+				<div class="d-flex">
+					<div class="ms-5">
+					<span class="me-3">성인</span>
+						<div class="btn-group border" role="group" aria-label="Basic example">
+							<button type="button" class="btn btn-light btn-adult-down">-</button>
+							 <!-- <input type="number" class="adult-quantity w-25 text-center" name="adult-quantity" value="0"/> -->
+							<button type="button" class="btn border-left border-right adult-quantity">0</button>
+							<button type="button" class="btn btn-light btn-adult-up">+</button>
+						</div>
+					</div>
+					<div class="ms-5">
+						<span class="me-3">청소년</span>
+						<div class="btn-group border" role="group" aria-label="Basic example">
+							<button type="button" class="btn btn-light btn-teenager-down">-</button>
+							<!-- <input type="number" class="teenager-quantity w-25 text-center" name="teenager-quantity" value="0"/> -->
+							<button type="button" class="btn border-left border-right teenager-quantity">0</button>
+							<button type="button" class="btn btn-light btn-teenager-up">+</button>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- 극장, 시간 정보 -->
 			<div class="col-1g-6 col-sm-6">
@@ -126,6 +144,46 @@
 			, data : {screen}
 		})
 		*/
+		// 인원수
+		const adultQuantity = document.querySelector('.adult-quantity');
+		const teenagerQuantity = document.querySelector('.teenager-quantity');
+		// 성인 인원 버튼
+		const upBtnAdult = document.querySelector('.btn-adult-up');
+		const downBtnAdult = document.querySelector('.btn-adult-down');
+		// 청소년 인원 버튼
+		const upBtnTeenager = document.querySelector('.btn-teenager-up');
+		const downBtnTeenager = document.querySelector('.btn-teenager-down');
+		
+		// 성인 + 버튼
+		upBtnAdult.addEventListener('click', function(){
+			let q = parseInt(adultQuantity.textContent);
+			if(adultQuantity.textContent < 8) {
+				adultQuantity.textContent = q+1;		
+			}
+	    });
+		// 성인 -버튼
+		downBtnAdult.addEventListener('click', function(){
+			let q = parseInt(adultQuantity.textContent);
+			if(adultQuantity.textContent > 0) {
+				adultQuantity.textContent = q-1;		
+			}
+	    });
+		
+		// 청소년 + 버튼
+		upBtnTeenager.addEventListener('click', function(){
+			let q = parseInt(teenagerQuantity.textContent);
+			if(teenagerQuantity.textContent < 8) {
+				teenagerQuantity.textContent = q+1;		
+			}
+	    });
+		// 청소년 -버튼
+		downBtnTeenager.addEventListener('click', function(){
+			let q = parseInt(teenagerQuantity.textContent);
+			if(teenagerQuantity.textContent > 0) {
+				teenagerQuantity.textContent = q-1;		
+			}
+	    });
+		
 	});
 </script>
 </html>

@@ -23,7 +23,7 @@
 					<tr>
 						<td>${t.theaterKey}</td>
 						<td>${t.theaterRegion}</td>
-						<td><a href="${pageContext.request.contextPath}/customer/theater/theaterOne?theaterKey=${t.theaterKey}">${t.theaterName}</a></td>
+						<td><a href="${pageContext.request.contextPath}/theater/theaterOne?theaterKey=${t.theaterKey}">${t.theaterName}</a></td>
 						<td>${t.theaterAddress}</td>
 					</tr>
 				</c:forEach>
