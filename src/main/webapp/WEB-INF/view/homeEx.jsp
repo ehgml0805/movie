@@ -23,7 +23,6 @@
 	<c:if test="${loginCustomer != null }">
 
 		<h1>${loginCustomer.customerName}님 반갑습니다</h1>
-		<a href="${pageContext.request.contextPath}/customer/mypage">마이페이지</a>
 	</c:if>
 	
 	<c:if test="${loginEmployee != null }">
