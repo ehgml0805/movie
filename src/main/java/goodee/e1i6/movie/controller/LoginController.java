@@ -158,7 +158,7 @@ public class LoginController {
 		
 		if(OriginCustomer == null) {
 			loginService.addCustomer(kakaoCustomer);
-			return "/homeEx";
+			return "/login/modifyCustomer";
 			
 		} else {
 			

@@ -20,6 +20,9 @@ public interface LoginMapper {
 	// 회원가입
 	int insertCustomer(Customer customer);
 	
+	// 회원수정
+	
+	
 	// 회원가입 아이디 중복
 	public String selectCustomerId(String customerId);
 	

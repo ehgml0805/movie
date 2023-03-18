@@ -81,6 +81,20 @@
 	
 	</select>
 	
+	<select id="selectCustomerOne"
+			parameterType = "goodee.e1i6.movie.vo.Customer">
+		select customer_id customerId
+			, oauth oauth
+			, customer_pw customerPw
+			, customer_name customerName
+			, customer_address customerAddress
+			, customer_birthday customerBirthday
+			, customer_gender customerGender
+			, customer_phone customerPhone	
+			, customer_email customerEmail	
+			,
+	</select>
+	
 
 
 
