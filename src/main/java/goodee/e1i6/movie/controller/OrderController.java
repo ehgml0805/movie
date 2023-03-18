@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.OrderService;
 import goodee.e1i6.movie.service.SnackService;
 import goodee.e1i6.movie.vo.Cart;
 import goodee.e1i6.movie.vo.Customer;
+import goodee.e1i6.movie.vo.Mycoupon;
 import goodee.e1i6.movie.vo.Order;
 import goodee.e1i6.movie.vo.Snack;
 import goodee.e1i6.movie.vo.TotalOrder;
@@ -27,6 +29,8 @@ public class OrderController {
 	SnackService snackService;
 	@Autowired
 	OrderService orderService;
+	@Autowired CouponService couponService;
+	
 	@PostMapping("/customer/order/paymentDir")
 	public String paymentdir(HttpSession session,@RequestParam(value="snackKey") int snackKey, Model model, @RequestParam(value= "cartQuantity") int Quantity) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
@@ -36,6 +40,8 @@ public class OrderController {
 		model.addAttribute("quantity", Quantity);
 		return "/customer/order/paymentDir";
 	}
+	
+	
 	@PostMapping("/customer/order/paymentDirect")
 	public String paymentdir(HttpSession session, Order o,HttpServletRequest request) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
@@ -48,6 +54,8 @@ public class OrderController {
 		orderService.insertTotalOrder(t);
 		return "redirect:/customer/order/completeOrderOne?orderKey="+row;
 	}
+	
+	
 	@GetMapping("/customer/order/paymentCart")
 	public String paymentCart(HttpSession session, Model model) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
@@ -71,6 +79,8 @@ public class OrderController {
 		
 		return "redirect:/customer/order/completeOrder";
 	}
+	
+	
 	@GetMapping("/customer/order/orderOne")
 	public String orderOne(@RequestParam(value="orderKey") int orderKey, Model model) {
 		Order o = orderService.selectOrderOne(orderKey);
@@ -83,6 +93,8 @@ public class OrderController {
 		
 		return "/customer/order/orderOne";
 	}
+	
+	
 	@GetMapping("/customer/order/cartList")
 	public String cartList(HttpSession session, Model model) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
@@ -93,9 +105,13 @@ public class OrderController {
 		model.addAttribute("hit", hit);
 		model.addAttribute("sum", sum);
 		
+		List<Mycoupon> clist=couponService.selectMyCouponList(session, c.getCustomerId());
+		model.addAttribute("clist", clist);
 		
 		return "customer/order/cartList";
 	}
+	
+	
 	@GetMapping("/customer/order/completeOrder")
 	public String completeOrder(HttpSession session, Model model) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
@@ -107,6 +123,8 @@ public class OrderController {
 		orderService.deleteCartById(c.getCustomerId());
 		return "/customer/order/completeOrder";
 	}
+	
+	
 	@GetMapping("/customer/order/completeOrderOne")
 	public String completeOrderOne(HttpSession session, Model model,@RequestParam(value="orderKey") int orderKey) {
 		
@@ -116,6 +134,8 @@ public class OrderController {
 		model.addAttribute("s", s);
 		return "/customer/order/completeOrderOne";
 	}
+	
+	
 	@GetMapping("/customer/order/orderPage")
 	public String orderPage(HttpSession session, Model model) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
@@ -131,6 +151,8 @@ public class OrderController {
 		
 		return "redirect:/customer/order/cartList";
 	}
+	
+	
 	@GetMapping("/customer/order/deleteCart")
 	public String deleteCartOne(HttpSession session, @RequestParam(value="snackKey") int snackKey) {
 		Customer cust = (Customer)session.getAttribute("loginCustomer");
@@ -141,6 +163,8 @@ public class OrderController {
 		
 		return "redirect:/customer/order/cartList"; 
 	}
+	
+	
 	@GetMapping("/customer/order/totalOrderList")
 	public String totalOrderList(HttpSession session, Model model) {
 		Customer cust = (Customer)session.getAttribute("loginCustomer");

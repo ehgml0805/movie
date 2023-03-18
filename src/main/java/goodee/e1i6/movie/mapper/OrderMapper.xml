@@ -8,16 +8,35 @@
 	
 	<select id="selectCartListById" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String">
 		SELECT 
-			c.cart_quantity cartQuantity, s.snack_name snackName,s.snack_key snackKey, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType, c.selected selected, (c.cart_quantity * s.snack_price) cartPrice
-		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
+			c.cart_quantity cartQuantity
+			, s.snack_name snackName
+			,s.snack_key snackKey
+			, s.snack_price snackPrice
+			, s.sold_out soldOut
+			, i.file_name fileName
+			, i.file_type fileType
+			, c.selected selected
+			, (c.cart_quantity * s.snack_price) cartPrice
+		FROM cart c 
+		INNER JOIN snack s ON c.snack_key = s.snack_key 
+		INNER JOIN snack_img i ON s.snack_key = i.snack_key
 		WHERE c.customer_id= #{customerId}
 		ORDER BY c.createdate ASC
 	</select>
 	
 	<select id="selectCartListBySelect" resultType="goodee.e1i6.movie.vo.Cart" parameterType="java.lang.String" >
 		SELECT 
-			c.cart_quantity cartQuantity, c.customer_id customerId,s.snack_name snackName, s.snack_key snackKey, s.snack_price snackPrice, s.sold_out soldOut, i.file_name fileName, i.file_type fileType
-		FROM cart c INNER JOIN snack s ON c.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key
+			c.cart_quantity cartQuantity
+			, c.customer_id customerId
+			,s.snack_name snackName
+			, s.snack_key snackKey
+			, s.snack_price snackPrice
+			, s.sold_out soldOut
+			, i.file_name fileName
+			, i.file_type fileType
+		FROM cart c 
+		INNER JOIN snack s ON c.snack_key = s.snack_key 
+		INNER JOIN snack_img i ON s.snack_key = i.snack_key
 		WHERE c.customer_id= #{customerId} AND c.selected = 1
 		ORDER BY c.createdate ASC
 	</select>
@@ -28,11 +47,13 @@
 			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
 			SELECT LAST_INSERT_ID() 
 		</selectKey>
-		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) VALUES (${snackKey}, '${customerId}', ${cartQuantity*snackPrice}, ${cartQuantity})
+		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) 
+		VALUES (${snackKey}, '${customerId}', ${cartQuantity*snackPrice}, ${cartQuantity})
 	</insert>
 	
 	<insert id="insertTotalOrder" parameterType="goodee.e1i6.movie.vo.TotalOrder">
-		INSERT INTO total_order(createdate, total_price, customer_id, mycoupon_key) VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
+		INSERT INTO total_order(createdate, total_price, customer_id, mycoupon_key) 
+		VALUES (#{createdate}, #{totalPrice}, #{customerId}, #{mycouponKey})
 	</insert>
 	
 	<!-- 카트 담긴거 삭제 -->
@@ -50,10 +71,19 @@
 	
 	<select id="selectOrderListById" resultType="map" parameterType="java.lang.String">
 		SELECT
-			o.order_price orderPrice, o.order_state orderState, o.order_quantity orderQuantity, 
-			s.snack_name snackName, i.file_name snackFileName, i.file_type snackFileType, 
-			c.order_key orderKey, c.data_key dataKey, c.active active, s.snack_key snackKey
-		FROM `order` o INNER JOIN snack s ON o.snack_key = s.snack_key INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snackconfirm_code c ON c.order_key = o.order_key
+			o.order_price orderPrice
+			, o.order_state orderState
+			, o.order_quantity orderQuantity
+			, s.snack_name snackName
+			, i.file_name snackFileName
+			, i.file_type snackFileType
+			, c.order_key orderKey
+			, c.data_key dataKey
+			, c.active active
+			, s.snack_key snackKey
+		FROM `order` o 
+		INNER JOIN snack s ON o.snack_key = s.snack_key 
+		INNER JOIN snack_img i ON s.snack_key = i.snack_key INNER JOIN snackconfirm_code c ON c.order_key = o.order_key
 		WHERE o.customer_id= #{customerId} 
 		ORDER BY o.createdate DESC
 	</select>
@@ -64,7 +94,8 @@
 			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
 			SELECT LAST_INSERT_ID() 
 		</selectKey>
-		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) VALUES (#{snackKey}, #{customerId}, #{orderPrice}, #{orderQuantity})
+		INSERT INTO `order`(snack_key, customer_id, order_price, order_quantity) 
+		VALUES (#{snackKey}, #{customerId}, #{orderPrice}, #{orderQuantity})
 	</insert>
 	
 	<update id="updateSelectAll" parameterType="java.lang.String">
@@ -72,7 +103,8 @@
 	</update>
 	
 	<update id="updateSelectOne" parameterType="goodee.e1i6.movie.vo.Cart">
-		UPDATE cart SET selected = #{selected} WHERE customer_id = #{customerId} AND snack_key = #{snackKey}
+		UPDATE cart SET selected = #{selected} 
+		WHERE customer_id = #{customerId} AND snack_key = #{snackKey}
 	</update>
 		
 	<select id="selectCartCount" resultType="int" parameterType="java.lang.String">

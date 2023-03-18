@@ -33,7 +33,7 @@
 	<select id="selectMyCouponList" resultType="goodee.e1i6.movie.vo.Mycoupon" >
 	
 		SELECT 
-				 mc.mycoupon_key  mycouponKey
+				 mc.mycoupon_key mycouponKey
 				, mc.state state 
 				, mc.coupon_key couponKey
 				, c.coupon_name couponName

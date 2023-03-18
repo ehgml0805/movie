@@ -131,6 +131,16 @@
 				</table>	
 		</c:forEach>
 		<br>
+		
+		<c:forEach var="c" items="${clist}">
+		${c.mycouponKey}
+		${c.couponName}
+		${c.couponSalePrice}
+		${c.useByDate}
+		
+		
+		</c:forEach>
+		
 		<c:if test="${!empty list}">
 		<fieldset style="text-align: center;">
 			

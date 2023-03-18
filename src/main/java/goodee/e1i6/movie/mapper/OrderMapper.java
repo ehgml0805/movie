@@ -12,10 +12,15 @@ import goodee.e1i6.movie.vo.TotalOrder;
 
 @Mapper
 public interface OrderMapper {
+	//카트 담기 
 	Integer insertCart(Cart c);
+	//아이디별 카트 리스트 
 	List<Cart> selectCartListById(String customerId);
+	//??? 
 	List<Cart> selectCartListBySelect(String customerId);
+	//주문에 담기 
 	Integer insertOrdersByCart(Cart c);
+	
 	Integer insertTotalOrder(TotalOrder t);
 	Integer deleteCartById(String customerId);
 	Integer selectSumGoodsPrice(String customerId);
