@@ -136,7 +136,7 @@
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}" />
 	   	<input type="hidden" id="ck" name="ck" value="" />
-	   	<input type="hidden" name="ratingNo" value="" />
+	   	<input type="hidden" id="totalNow" name="totalNow" value="0" />
 	   	<input type="hidden" name="showTypeNo" value="" />
 	   	<input type="hidden" name="screenNo" value="" />
 	   	<input type="hidden" name="regionNo" value="" />
@@ -204,6 +204,11 @@
 </body>
 <script>
 	$(document).ready(function(){
+		// 기본값 설정
+		$('#ck').val(0);
+		$('#totalNow').val(0);
+		alert('ck : ' + ck);
+		alert('totalNow : ' + totalNow);
 		
 		// 상영관 키로 좌석 가져오기
 		$('show-seat').append(function(){
@@ -350,15 +355,67 @@
 		
 		// 좌석 선택 시
 		$(document).on('click', '.choice-seat', function() {
-			// 좌석 키 값 저장, 좌석 위치 출력
-			let totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
-			if(totalNow != 0 && totalNow >= 2){
-				totalNow = totalNow-2
-			} else if(totalNow != 0) {
-				totalNow = totalNow-1
-			}	
 			
-			// 가격 출력
+			if($('#ck').val() == 1){
+				alert('좌석 선택이 완료되었습니다.');
+			} else (
+					// 좌석 키 값 저장, 선택된 좌석 위치 색상 바꿔주기
+					
+					// 총 인원 수 값 가져오기
+					let totalNow = $('#totalNow').val();
+					
+					if(totalNow != 0 && totalNow >= 2){
+						// 총 인원수에서 선택된 인원 수 빼주기
+						totalNow = totalNow-2
+						
+						// 좌석 키 값 저장
+						let seatKey = [];
+						seatKey.push($(this).val());
+						
+						// 좌석 색깔 바꿔주기
+						$(this).css('background-color','red');
+						
+						// 행의 마지막 버튼 불러오기
+						let parent = $(this).parent();
+						let lastButton = parent.children().last();
+						// alert(lastButton);
+						
+						if($(this).val() == lastButton.val()){
+							let button2 = $(this).prev();
+							
+							// 좌석 색깔 바꿔주기
+							button2.css('background-color','red');
+							
+							// 좌석 키 값 저장
+							seatKey.push(button2.val());
+							
+						} else if($(this).val() != lastButton.val()) {				
+							let button2 = $(this).next();
+							
+							// 좌석 색깔 바꿔주기
+							button2.css('background-color','red');
+							
+							// 좌석 키 값 저장
+							seatKey.push(button2.val());
+						}				
+					} else if(totalNow != 0) {
+						// 총 인원수에서 선택된 인원 수 빼주기
+						totalNow = totalNow-1
+						
+						// 좌석 색깔 바꿔주기
+						$(this).css('background-color','red');
+						
+						// 좌석 키 값 저장
+						seatKey.push($(this).val());
+						
+						$('#ck').val(1);
+						if($('#ck').val() == 1){
+							$('.payBtn').attr("disabled", false);
+						}
+					}
+					
+					// 가격 출력
+			)
 		});
 	});
 </script>
