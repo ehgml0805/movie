@@ -57,6 +57,9 @@
 	<div>
 		<a href="${pageContext.request.contextPath}/homeEx">이전</a>
 	</div>
+	<div>
+		<a href="${pageContext.request.contextPath}/login/loginEmployee">관리자 로그인</a>
+	</div>
 	
 
 	

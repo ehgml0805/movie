@@ -44,6 +44,9 @@
 	<div>
 		<a href="${pageContext.request.contextPath}/homeEx">이전</a>
 	</div>
+	<div>
+		<a href="${pageContext.request.contextPath}/login/loginCustomer">고객 로그인</a>
+	</div>
 	
 	<!-- 로그인되있는 상태라면 -->
 
