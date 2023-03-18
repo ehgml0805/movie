@@ -8,5 +8,5 @@ public class Seat {
 	private int screenroomKey;
 	private String seatNumber;
 	private String active;
-	private String empty;
+	private String useable;
 }

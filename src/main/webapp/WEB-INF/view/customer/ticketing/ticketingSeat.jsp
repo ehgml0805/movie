@@ -40,7 +40,9 @@
 		
 		<!-- 좌석 선택 -->
 		<div class="container">
-			
+			<c:forEach var="s" items="${seatList}">
+				<button>${s.seatNumber} ${s.seatKey} ${s.useable} ${s.active}</button>
+			</c:forEach>
 		</div>
 	</div>
 	
@@ -116,7 +118,7 @@
 </body>
 <script>
 	$(document).ready(function(){
-		// 상영 스케줄 키로 모든 정보 가져오기
+		// 상영관 키로 좌석 가져오기
 		/*
 		$.ajax({
 			url : ''

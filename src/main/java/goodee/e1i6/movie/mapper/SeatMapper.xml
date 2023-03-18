@@ -19,7 +19,7 @@
 			, screenroom_key screenroomKey
 			, seat_number seatNumber
 			, active
-			, empty
+			, useable
 		FROM 
 			seat
 		WHERE screenroom_key = #{screenroomKey}

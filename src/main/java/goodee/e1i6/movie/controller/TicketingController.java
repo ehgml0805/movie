@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.ScreeningScheduleService;
+import goodee.e1i6.movie.service.SeatService;
 import goodee.e1i6.movie.service.StillCutService;
 import goodee.e1i6.movie.service.TheaterService;
+import goodee.e1i6.movie.vo.Seat;
 import goodee.e1i6.movie.vo.StillCut;
 
 @Controller
@@ -21,6 +23,7 @@ public class TicketingController {
 	@Autowired TheaterService theaterService;
 	@Autowired ScreeningScheduleService screeningScheduleService;
 	@Autowired StillCutService stillCutService;
+	@Autowired SeatService seatService;
 	
 	@GetMapping("/ticketing/screenList")
 	public String getScreenList(Model model
@@ -59,6 +62,10 @@ public class TicketingController {
 		
 		Map<String, Object> scheduleOne = screeningScheduleService.getScreeningScheduleOne(scheduleKey);
 		model.addAttribute("scheduleOne", scheduleOne);	
+		
+		int screenroomKey = (int)scheduleOne.get("screenroomKey");
+		List<Seat> seatList = seatService.getSeatListByScreenroom(screenroomKey);
+		model.addAttribute("seatList", seatList);	
 		
 		StillCut stillCut = stillCutService.getStillCutOneByTicketing(movieKey);
 		model.addAttribute("stillCut", stillCut);	
