@@ -12,7 +12,7 @@ public interface LoginMapper {
 	Customer login(Customer customer);
 	
 	// 관리자 로그인
-	Employee employeeLogin(Employee employee);
+	Employee loginEmployee(Employee employee);
 	
 	// 카카오 로그인
 	Customer KakaoLogin(Customer customer);

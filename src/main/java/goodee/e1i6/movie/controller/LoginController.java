@@ -137,17 +137,17 @@ public class LoginController {
 		UUID garbagePassword =  UUID.randomUUID();
 		System.out.println("페이지 패스워드 :"+garbagePassword);
 		
-		Customer KakaoCustomer = Customer.builder()
-			.customerId(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
-			.customerPw(garbagePassword.toString())
-			.customerEmail(kakaoProfile.getKakao_account().getEmail())
-			.oauth("kakao")
-			.build();
+		//Customer KakaoCustomer = Customer.builder()
+		//	.customerId(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
+		//	.customerPw(garbagePassword.toString())
+		//	.customerEmail(kakaoProfile.getKakao_account().getEmail())
+		//	.oauth("kakao")
+		//	.build();
 		
 		System.out.println("11111111111111111111111111");
 		
 		// 가입자 혹은 비가입자 체크 해서 처리
-		System.out.println(KakaoCustomer.getCustomerId());
+		//System.out.println(KakaoCustomer.getCustomerId());
 		
 		//Customer originCustomer = loginService.findCustomer(KakaoCustomer.getCustomerId());
 		
@@ -199,7 +199,7 @@ public class LoginController {
 	
 	
 	// customer 로그아웃
-	@GetMapping("/login/logout")
+	@GetMapping("/login/logoutEmployee")
 	public String logoutEmployee(HttpSession session) {
 		session.invalidate();
 		return "redirect:/homeEx";

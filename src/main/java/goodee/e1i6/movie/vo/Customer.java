@@ -4,7 +4,6 @@ package goodee.e1i6.movie.vo;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
 public class Customer {
 	private String customerId;

@@ -26,7 +26,7 @@ public class LoginService {
 	
 	// employee 호그인
 	public Employee loginEmployee(Employee employee) {
-		return loginMapper.employeeLogin(employee);
+		return loginMapper.loginEmployee(employee);
 	}
 		
 	 

@@ -3,7 +3,7 @@
 <mapper namespace="goodee.e1i6.movie.mapper.LoginMapper">
 
 	<!-- 관리자 로그인 -->
-	<select id="login"
+	<select id="loginEmployee"
 		resultType="goodee.e1i6.movie.vo.Employee"
 		parameterType="goodee.e1i6.movie.vo.Employee">
 		SELECT
