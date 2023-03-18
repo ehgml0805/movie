@@ -13,6 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class VisitorService {
 	@Autowired private VisitorMapper visitorMapper;
+	// 오늘 첫 방문자가 아닐 경우 update
+	public int modifyVisitor(Visitor visitor) {
+		return visitorMapper.updateVisitor(visitor);
+	}
+	
 	// 오늘 첫 방문자
 	public int addVisitor(Visitor visitor) {
 		return visitorMapper.insertVisitor(visitor);

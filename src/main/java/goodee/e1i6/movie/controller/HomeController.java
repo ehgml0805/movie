@@ -1,7 +1,6 @@
 package goodee.e1i6.movie.controller;
 
-import java.util.Iterator;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class HomeController {
 	@Autowired CouponService couponService; 
 	
 	@GetMapping("/homeEx")
-	public String getHome(Model model) {
+	public String getHome(HttpServletRequest request, Model model) {
 		
 			String[] arr = {"a","b","c","d","e"};
 			
@@ -31,9 +30,11 @@ public class HomeController {
 					//System.out.println(seatNumber);					
 				}
 			}
-			
+			Integer currentVisitors = (Integer) request.getServletContext().getAttribute("currentVisitors");
 			int todayVisitorCount = visitorService.getTodayVisitorCount();
+			
 			model.addAttribute("todayCount", todayVisitorCount);
+			model.addAttribute("currentVisitors", currentVisitors);
 			
 		return "homeEx";
 	}
