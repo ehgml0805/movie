@@ -81,13 +81,13 @@
 									<c:choose>
 										<c:when test="${exRow ne row}">
 											</div>
-											<div>
-											${row} : 											
+											<div class="seatRow-${row}">
+											${row} : 										
 											
-											<button style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}">${seatNumber}</button>
+											<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}">${seatNumber}</button>
 										</c:when>
 										<c:otherwise>
-											<button style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}">${seatNumber}</button>				
+											<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}">${seatNumber}</button>				
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -256,6 +256,58 @@
 			}
 			
 	    });
+		
+		// 좌석에 마우스를 올릴 시
+		$('.choice-seat').hover(function() {
+			let totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
+			if(totalNow != 0 && totalNow >= 2){
+				$(this).css('background-color','red');
+				
+				let parent = $(this).parent();
+				let lastButton = parent.children().last();
+				// alert(lastButton);
+				if($(this).val() == lastButton.val()){
+					let button2 = $(this).prev();
+					button2.css('background-color','red');
+				} else if($(this).val() != lastButton.val()) {
+					let button2 = $(this).next();				
+					button2.css('background-color','red');
+				}				
+			} else if(totalNow != 0) {
+				$(this).css('background-color','red');
+			}
+		}, function(){
+			let totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
+			if(totalNow != 0 && totalNow >= 2){
+				$(this).css('background-color','white');
+				
+				let parent = $(this).parent();
+				let lastButton = parent.children().last();
+				// alert(lastButton);
+				if($(this).val() == lastButton.val()){
+					let button2 = $(this).prev();
+					button2.css('background-color','white');
+				} else if($(this).val() != lastButton.val()) {				
+					let button2 = $(this).next();
+					button2.css('background-color','white');
+				}				
+			} else if(totalNow != 0) {
+				$(this).css('background-color','white');
+			}
+		});
+		
+		// 좌석 선택 시
+		$(document).on('click', '.choice-seat', function() {
+			// 좌석 키 값 저장, 좌석 위치 출력
+			let totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
+			if(totalNow != 0 && totalNow >= 2){
+				totalNow = totalNow-2
+			} else if(totalNow != 0) {
+				totalNow = totalNow-1
+			}	
+			
+			// 가격 출력
+		});
 	});
 </script>
 </html>
