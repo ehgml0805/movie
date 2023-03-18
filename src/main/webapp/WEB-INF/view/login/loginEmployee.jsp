@@ -16,20 +16,20 @@
 <body>
 	<!-- 로그인 전 -->
 	
-	<c:if test="${loginCustomer == null}">
+	<c:if test="${loginEmployee == null}">
 		<h1>고객 로그인</h1>
-		<form method="post" action="${pageContext.request.contextPath}/login/loginCustomer">
+		<form method="post" action="${pageContext.request.contextPath}/login/loginEmployee">
 			<table>
 				<tr>
-					<th>customerId</th>
+					<th>employeeId</th>
 					<td>
-						<input type ="text" name="customerId">
+						<input type ="text" name="employeeId">
 					</td>
 				</tr>
 				<tr>	
-					<th>customerPw</th>
+					<th>employeePw</th>
 					<td>
-						<input type ="password" name="customerPw">
+						<input type ="password" name="employeePw">
 					</td>	
 				</tr>
 			</table>
@@ -38,34 +38,21 @@
 	</c:if>
 	
 	
-	<a href="https://kauth.kakao.com/oauth/authorize? client_id=45fa960795332ab0baa93dabe554c8a5 
-			&redirect_uri=http://localhost/movie/kakao/callback &response_type=code">
-					
-	
-		<img src="${pageContext.request.contextPath}/img/kakao_login.png">
-	</a>
 
-	<div>
-		<a href="${pageContext.request.contextPath}/login/addCustomer">회원가입</a>
-	</div>
-	
-	
 	
 
 	<div>
 		<a href="${pageContext.request.contextPath}/homeEx">이전</a>
 	</div>
 	<div>
-		<a href="${pageContext.request.contextPath}/login/loginEmployee">관리자 로그인</a>
+		<a href="${pageContext.request.contextPath}/login/loginCustomer">고객 로그인</a>
 	</div>
-	
-
 	
 	<!-- 로그인되있는 상태라면 -->
 
-	<c:if test="${loginCustomer != null }">
+	<c:if test="${loginEmployee != null }">
 	
-		<h1>${loginCustomer.customerName}님 로그인 되어있습니다.</h1>
+		<h1>${loginEmployee.employeeName}님 로그인 되어있습니다.</h1>
 	
 	</c:if>
 

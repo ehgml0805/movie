@@ -25,6 +25,11 @@
 		<h1>${loginCustomer.customerName}님 반갑습니다</h1>
 		<a href="${pageContext.request.contextPath}/customer/mypage">마이페이지</a>
 	</c:if>
+	<c:if test="${loginEmployee != null }">
+
+		<h1>${loginEmployee.employeeName}님 반갑습니다</h1>
+		
+	</c:if>
 	<div>오늘 총 방문자 수: ${todayCount}</div>
 	안녕하세요. 홈 입니다.
 </body>

@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.LoginMapper">
 
+	<!-- 관리자 로그인 -->
+	<select id="loginEmployee"
+		resultType="goodee.e1i6.movie.vo.Employee"
+		parameterType="goodee.e1i6.movie.vo.Employee">
+		SELECT
+			employee_id employeeId
+			, employee_name employeeName
+
+		FROM employee
+		WHERE employee_id = #{employeeId} AND employee_pw = PASSWORD(#{employeePw})
+	</select>
 
 	<!-- 고객 로그인 -->
 	<select id="login"
@@ -9,6 +20,7 @@
 		parameterType="goodee.e1i6.movie.vo.Customer">
 		SELECT
 			customer_id customerId
+			, oauth oauth
 			, customer_name customerName
 			, customer_address customerAddress
 			, customer_birthday customerBirthday
@@ -20,14 +32,31 @@
 		WHERE customer_id = #{customerId} AND customer_pw = PASSWORD(#{customerPw})
 	</select>
 	
+	<!-- 카카오 로그인 -->
+	<select id="KakaoLogin"
+		resultType="goodee.e1i6.movie.vo.Customer"
+		parameterType="goodee.e1i6.movie.vo.Customer">
+		SELECT
+			customer_id customerId
+			, oauth oauth
+			, customer_name customerName
+			, customer_address customerAddress
+			, customer_birthday customerBirthday
+			, customer_gender customerGender
+			, customer_point customerPoint
+			, customer_email customerEmail
+		FROM customer
+		WHERE customer_id = #{customerId})
+	</select>
+	
 	<!-- 고객 회원가입 -->
 	<insert id="insertCustomer"
 		parameterType ="goodee.e1i6.movie.vo.Customer">
 		INSERT INTO customer 
-			(customer_id, customer_pw, customer_name, customer_address
+			(customer_id, oauth, customer_pw, customer_name, customer_address
 			, customer_birthday, customer_gender, customer_phone, customer_email, last_login, createdate)
 			
-		VALUES (#{customerId}, PASSWORD(#{customerPw}), #{customerName},  #{customerAddress}
+		VALUES (#{customerId}, #{oauth}, PASSWORD(#{customerPw}), #{customerName},  #{customerAddress}
 			, #{customerBirthday}, #{customerGender}, #{customerPhone}, #{customerEmail}, NOW(), NOW())
 					
 	</insert>
@@ -38,6 +67,15 @@
 		resultType ="String">
 	
 		SELECT customer_id customerId 
+		FROM customer
+		WHERE customer_id =#{customerId}
+	
+	</select>
+	
+	<select id="findByCustomerId"
+		parameterType = "String"
+		resultType ="String">
+		SELECT customer_id customerId
 		FROM customer
 		WHERE customer_id =#{customerId}
 	

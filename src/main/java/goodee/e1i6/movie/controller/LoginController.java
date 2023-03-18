@@ -32,6 +32,7 @@ import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.CustomerForm;
+import goodee.e1i6.movie.vo.Employee;
 import goodee.e1i6.movie.vo.KakaoProfile;
 import goodee.e1i6.movie.vo.OAuthToken;
 import lombok.extern.slf4j.Slf4j;
@@ -136,17 +137,40 @@ public class LoginController {
 		UUID garbagePassword =  UUID.randomUUID();
 		System.out.println("페이지 패스워드 :"+garbagePassword);
 		
-		Customer KakaoCustomer = Customer.builder()
-			.customerId(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
-			.customerPw(garbagePassword.toString())
-			.customerEmail(kakaoProfile.getKakao_account().getEmail())
-			.oauth("kakao")
-			.build();
+		//Customer KakaoCustomer = Customer.builder()
+		//	.customerId(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
+		//	.customerPw(garbagePassword.toString())
+		//	.customerEmail(kakaoProfile.getKakao_account().getEmail())
+		//	.oauth("kakao")
+		//	.build();
 		
-		System.out.println("11111111111111111111111111");
+		
+		Customer kakaoCustomer = new Customer();
+		kakaoCustomer.setCustomerId(kakaoProfile.getKakao_account().getEmail());
+		kakaoCustomer.setCustomerPw("java1234");
+		kakaoCustomer.setCustomerEmail(kakaoProfile.getKakao_account().getEmail());
+		kakaoCustomer.setOauth("kakao");
+		
+		System.out.println(kakaoCustomer);
+		
+		Customer OriginCustomer = loginService.findCustomer(kakaoCustomer.getCustomerId());
+		
+		if(OriginCustomer == null) {
+			loginService.addCustomer(kakaoCustomer);
+			return "/homeEx";
+			
+		} else if(OriginCustomer ){
+			Customer kakaoOne=loginService.kakaoLogin(OriginCustomer);
+			log.debug(TeamColor.KSH +kakaoOne + "<==카카오 로그인 값");
+			return "/homeEx";
+		}
+		
+		
+		
+	
 		
 		// 가입자 혹은 비가입자 체크 해서 처리
-		System.out.println(KakaoCustomer.getCustomerId());
+		//System.out.println(kakaoCustomer.getCustomerId());
 		
 		//Customer originCustomer = loginService.findCustomer(KakaoCustomer.getCustomerId());
 		
@@ -156,7 +180,7 @@ public class LoginController {
 		
 		// 로그인 처리
 
-		return response2.getBody();
+		
 	}
 	
 	
@@ -178,6 +202,28 @@ public class LoginController {
 	// customer 로그아웃
 	@GetMapping("/login/logout")
 	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/homeEx";
+	}
+	
+	// 관리자 로그인
+	@GetMapping("/login/loginEmployee")
+	public String loginEmployee() {
+		
+		return "login/loginEmployee";
+	}
+	
+	@PostMapping("/login/loginEmployee")
+	public String loginEmployee (HttpSession session, Employee employee) {
+		Employee resultEmployee = loginService.loginEmployee(employee);
+		session.setAttribute("loginEmployee", resultEmployee);
+		return "redirect:/homeEx";
+	}
+	
+	
+	// customer 로그아웃
+	@GetMapping("/login/logoutEmployee")
+	public String logoutEmployee(HttpSession session) {
 		session.invalidate();
 		return "redirect:/homeEx";
 	}
