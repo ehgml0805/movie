@@ -1,0 +1,24 @@
+package goodee.e1i6.movie.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import goodee.e1i6.movie.mapper.VisitorMapper;
+import goodee.e1i6.movie.vo.Visitor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@Transactional
+public class VisitorService {
+	@Autowired private VisitorMapper visitorMapper;
+	// 오늘 첫 방문자
+	public int addVisitor(Visitor visitor) {
+		return visitorMapper.insertVisitor(visitor);
+	}
+	// 오늘 총 방문자 수
+    public int getTodayVisitorCount() {
+        return visitorMapper.todayVisitorCount();
+    }
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.VisitorMapper">
+	<insert id="updateVisitor">
+	
+	
+	</insert>
+
+	<insert id="insertVisitor" parameterType="goodee.e1i6.movie.vo.Visitor">
+		INSERT INTO visitor (
+			date_of_visit
+			, visitors_count
+		) VALUES (
+			CURDATE()
+			, 1 <!-- 일일 첫 방문자만 insert -->
+	</insert>
+	
+	<select id="todayVisitorCount" resultType="int">
+		SELECT 
+			visitors_count visitorsCount
+			FROM visitor
+			WHERE date_of_visit = CURDATE()
+	</select>
+</mapper>
