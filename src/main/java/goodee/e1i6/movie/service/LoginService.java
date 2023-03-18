@@ -14,6 +14,7 @@ import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.CustomerForm;
 import goodee.e1i6.movie.vo.CustomerImg;
+import goodee.e1i6.movie.vo.Employee;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // static Log log = new Log() 로그 객체를 선언하여 사용할 수 있게 함
@@ -23,6 +24,12 @@ public class LoginService {
 	@Autowired private LoginMapper loginMapper;
 	@Autowired private CustomerImgMapper customerImgMapper;
 	
+	// employee 호그인
+	public Employee loginEmployee(Employee employee) {
+		return loginMapper.employeeLogin(employee);
+	}
+		
+	 
 	// customer 로그인
 	public Customer login(Customer customer) {
 		return loginMapper.login(customer);

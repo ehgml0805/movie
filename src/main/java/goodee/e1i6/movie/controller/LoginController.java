@@ -32,6 +32,7 @@ import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.CustomerForm;
+import goodee.e1i6.movie.vo.Employee;
 import goodee.e1i6.movie.vo.KakaoProfile;
 import goodee.e1i6.movie.vo.OAuthToken;
 import lombok.extern.slf4j.Slf4j;
@@ -178,6 +179,28 @@ public class LoginController {
 	// customer 로그아웃
 	@GetMapping("/login/logout")
 	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/homeEx";
+	}
+	
+	// 관리자 로그인
+	@GetMapping("/login/loginEmployee")
+	public String loginEmployee() {
+		
+		return "login/loginEmployee";
+	}
+	
+	@PostMapping("/login/loginEmployee")
+	public String loginEmployee (HttpSession session, Employee employee) {
+		Employee resultEmployee = loginService.loginEmployee(employee);
+		session.setAttribute("loginEmployee", resultEmployee);
+		return "redirect:/homeEx";
+	}
+	
+	
+	// customer 로그아웃
+	@GetMapping("/login/logout")
+	public String logoutEmployee(HttpSession session) {
 		session.invalidate();
 		return "redirect:/homeEx";
 	}
