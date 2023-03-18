@@ -30,7 +30,7 @@ public class VisitorListener implements HttpSessionListener {
         }
         currentVisitors++;
         context.setAttribute("currentVisitors", currentVisitors);
-        log.debug(TeamColor.JSM + currentVisitors + " <- 현재방문자 수");
+        log.debug(TeamColor.JSM + currentVisitors + " <- 현재 방문자 수");
     	
     	
         try {
@@ -55,7 +55,7 @@ public class VisitorListener implements HttpSessionListener {
         if (currentVisitors != null && currentVisitors > 0) {
             currentVisitors--;
             context.setAttribute("currentVisitors", currentVisitors);
-            log.debug(TeamColor.JSM + currentVisitors + " <- 현재방문자 수");
+            log.debug(TeamColor.JSM + currentVisitors + " <- 현재 방문자 수");
         }    
     }
 }

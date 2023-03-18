@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.VisitorMapper">
+	
+	<select id="selectMonthVisitorCount" resultType="java.util.Map">
+	    SELECT
+	        MONTH(date_of_visit) month,
+	        SUM(visitors_count) totalVisitors
+	    FROM visitor
+	    WHERE YEAR(date_of_visit) = #{year}
+	    GROUP BY MONTH(date_of_visit)
+	    ORDER BY month
+	</select>
+	
 	<update id="updateVisitor" parameterType="goodee.e1i6.movie.vo.Visitor">
    		UPDATE visitor
     	SET visitors_count = visitors_count + 1
