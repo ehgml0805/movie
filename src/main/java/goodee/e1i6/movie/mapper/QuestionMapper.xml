@@ -2,6 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.QuestionMapper">
 
+	<!-- 답변 삭제(관리자) -->
+	<delete id="deleteQuestionAnswer" parameterType="int">
+		DELETE FROM question_answer
+		WHERE question_key = #{questionKey}
+	</delete>
+
+	<!-- 답변 등록(관리자) -->
+	<insert id="insertQuestionAnswer" parameterType="goodee.e1i6.movie.vo.QuestionAnswer">
+		INSERT INTO question_answer (
+			question_key
+			, question_answer
+		) VALUES (
+			#{questionKey}
+			, #{questionAnswer}
+		)
+	</insert>
+
+	<!-- 고객 문의사항 내용, 답변(관리자) -->
+	<select id="selectQuestionOneAndAnswerByAdmin" parameterType="int" resultType="java.util.Map">
+		SELECT
+			qu.question_key questionKey
+			, qu.question_title questionTitle
+			, qu.question_content questionContent
+			, qu.customer_id customerId
+			, qc.question_category questionCategory
+			, th.theater_name theaterName
+			, th.theater_region theaterRegion
+			, qa.question_answer questionAnswer
+			, qa.createdate createdate
+		FROM question qu
+			INNER JOIN question_category qc ON qu.question_category_key = qc.question_category_key
+			INNER JOIN theater th ON qu.theater_key = th.theater_key
+			LEFT OUTER JOIN question_answer qa ON qu.question_key = qa.question_key
+		WHERE qu.question_key = #{questionKey}
+	</select>
+
+	<!-- 문의사항 리스트 마지막 페이지(관리자) -->
+	<select id="selectQuestionListCountByAdmin" resultType="int">
+		SELECT COUNT(*) 
+		FROM question
+	</select>
+	<!-- 문의사항 리스트(관리자) -->
+	<select id="selectQuestionListByAdmin" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			ROW_NUMBER() over(order BY q.question_key DESC) num
+			, q.question_key questionKey
+			, q.question_title questionTitle
+			, q.createdate createdate
+			, qa.question_answer questionAnswer
+		FROM question q
+			LEFT OUTER JOIN question_answer qa ON q.question_key = qa.question_key
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
 	
 	<!-- 내문의사항 수정 -->
 	<update id="updateQuestion" parameterType="java.util.Map">

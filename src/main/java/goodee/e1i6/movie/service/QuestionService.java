@@ -10,12 +10,44 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.QuestionMapper;
 import goodee.e1i6.movie.vo.Question;
+import goodee.e1i6.movie.vo.QuestionAnswer;
 import goodee.e1i6.movie.vo.QuestionCategory;
 
 @Service
 @Transactional
 public class QuestionService {
 	@Autowired private QuestionMapper questionMapper;
+	
+	// 내문의사항 삭제
+	public int removeQuestionAnswer(int questionKey) {
+		return questionMapper.deleteQuestionAnswer(questionKey);
+	}
+	
+	// 내문의사항 등록
+	public int addQuestionAnswer(int questionKey, String questionAnswer) {
+		QuestionAnswer qa = new QuestionAnswer();
+		qa.setQuestionKey(questionKey);
+		qa.setQuestionAnswer(questionAnswer);
+		return questionMapper.insertQuestionAnswer(qa);
+	}
+	
+	// 고객 문의사항 내용, 답변(관리자)
+	public Map<String, Object> getQuestionOneAndAnswerByAdmin(int questionKey) {
+		return questionMapper.selectQuestionOneAndAnswerByAdmin(questionKey);
+	}
+	
+	// 문의 리스트 마지막페이지(관리자)
+	public int getQuestionListCountByAdmin() {
+		return questionMapper.selectQuestionListCountByAdmin();
+	}
+	// 문의 리스트(관리자)
+	public List<Map<String, Object>> getQuestionListByAdmin(int currentPage, int rowPerPage) {
+		int beginRow = (currentPage -1) * rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		return questionMapper.selectQuestionListByAdmin(paramMap);
+	}
 	
 	// 내문의사항 수정
 	public int modifyQuestion(int questionKey, String customerId, String questionTitle, String questionContent) {
@@ -59,7 +91,7 @@ public class QuestionService {
 		return questionMapper.selectQuestionCategoryList();
 	}
 	
-	// 문의사항 등록
+	// 내문의사항 등록
 	public int addQuestion(String questionTitle, String customerId, int questionCategoryKey, int theaterKey, String questionContent) {
 		Question question = new Question();
 		question.setQuestionTitle(questionTitle);

@@ -55,7 +55,7 @@
 			</tr>
 			<tr>
 				<td>내용</td>
-				<td><textarea name="questionContent" id="questionContent"></textarea></td>
+				<td><textarea rows="5" cols="20" name="questionContent" id="questionContent"></textarea></td>
 			</tr>
 		</table>
 		<button type="submit">등록</button>
