@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.VisitorMapper">
+    <select id="selectYearVisitorCount" resultType="java.util.Map">
+        SELECT
+            YEAR(date_of_visit) year,
+            SUM(visitors_count) totalVisitors
+        FROM visitor
+        GROUP BY YEAR(date_of_visit)
+        ORDER BY year ASC
+    </select>
 	
 	<select id="selectMonthVisitorCount" resultType="java.util.Map">
 	    SELECT
@@ -25,6 +33,7 @@
 		) VALUES (
 			CURDATE()
 			, 1 <!-- 일일 첫 방문자만 insert -->
+		)	
 	</insert>
 	
 	<select id="todayVisitorCount" resultType="int">
