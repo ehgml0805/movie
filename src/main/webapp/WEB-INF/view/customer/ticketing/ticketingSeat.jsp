@@ -131,7 +131,7 @@
 	
 	<!-- 결제 선택 -->
 	<form action="/ticketing/ticketingList" method="post" id="form-post-List">
-	   	<input type="hidden" id="day" name="day" value="" />
+	   	<input type="hidden" id="seatKey" name="seatKey" value="" />
 	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}" />
@@ -203,12 +203,15 @@
     </form>
 </body>
 <script>
-	$(document).ready(function(){
-		// 기본값 설정
-		$('#ck').val(0);
-		$('#totalNow').val(0);
-		alert('ck : ' + ck);
-		alert('totalNow : ' + totalNow);
+	$(function(){
+		$(document).ready(function(){
+			// 기본값 설정
+			$('#ck').val(0);
+			$('#totalNow').val(0);
+			
+			var totalNow = $('#totalNow').val();
+			/* var seatKey = new Array(0); */
+		});
 		
 		// 상영관 키로 좌석 가져오기
 		$('show-seat').append(function(){
@@ -294,7 +297,7 @@
 		
 		// 좌석에 마우스를 올릴 시
 		$('.choice-seat').hover(function() {
-			let totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
+			totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
 			if(totalNow != 0 && totalNow >= 2){
 				$(this).css('background-color','red');
 				
@@ -322,7 +325,7 @@
 				$(this).css('background-color','red');
 			}
 		}, function(){
-			let totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
+			totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
 			if(totalNow != 0 && totalNow >= 2){
 				$(this).css('background-color','white');
 				
@@ -352,25 +355,26 @@
 				$(this).css('background-color','white');
 			}
 		});
-		
+		var seatKey = new Array();
 		// 좌석 선택 시
 		$(document).on('click', '.choice-seat', function() {
 			
 			if($('#ck').val() == 1){
 				alert('좌석 선택이 완료되었습니다.');
-			} else (
+			} else {
 					// 좌석 키 값 저장, 선택된 좌석 위치 색상 바꿔주기
+					totalNow = $('#totalNow').val(parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent));
 					
 					// 총 인원 수 값 가져오기
-					let totalNow = $('#totalNow').val();
+					alert('totalNow : ' + totalNow)
 					
-					if(totalNow != 0 && totalNow >= 2){
+					if(totalNow.val() != 0 && totalNow.val() >= 2){
 						// 총 인원수에서 선택된 인원 수 빼주기
-						totalNow = totalNow-2
+						totalNow.val(totalNow.val()-2);
 						
 						// 좌석 키 값 저장
-						let seatKey = [];
 						seatKey.push($(this).val());
+						
 						
 						// 좌석 색깔 바꿔주기
 						$(this).css('background-color','red');
@@ -397,10 +401,17 @@
 							
 							// 좌석 키 값 저장
 							seatKey.push(button2.val());
-						}				
+						}					
+						
+						if(totalNow.val() == 0){
+							$('#ck').val(1);
+							if($('#ck').val() == 1){
+								$('.payBtn').attr("disabled", false);
+							}
+						}
 					} else if(totalNow != 0) {
 						// 총 인원수에서 선택된 인원 수 빼주기
-						totalNow = totalNow-1
+						totalNow = totalNow-1;
 						
 						// 좌석 색깔 바꿔주기
 						$(this).css('background-color','red');
@@ -413,9 +424,10 @@
 							$('.payBtn').attr("disabled", false);
 						}
 					}
-					
+					$('#seatKey').val(seatKey);
+					alert(seatKey);
 					// 가격 출력
-			)
+			}
 		});
 	});
 </script>
