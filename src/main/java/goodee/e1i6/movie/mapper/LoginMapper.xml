@@ -27,6 +27,7 @@
 			, customer_gender customerGender
 			, customer_point customerPoint
 			, customer_email customerEmail
+			, customer_phone customerPhone
 			
 		FROM customer
 		WHERE customer_id = #{customerId} AND customer_pw = PASSWORD(#{customerPw})
@@ -45,6 +46,7 @@
 			, customer_gender customerGender
 			, customer_point customerPoint
 			, customer_email customerEmail
+			, customer_phone customerPhone
 		FROM customer
 		WHERE customer_id = #{customerId}
 	</select>
@@ -84,33 +86,38 @@
 	
 	<!-- 회원정보one -->
 	<select id="SelectCustomerOne"
-			parameterType = "goodee.e1i6.movie.vo.Customer">
-		select customer_id customerId
-			, oauth oauth
-			, customer_pw customerPw
-			, customer_name customerName
-			, customer_address customerAddress
-			, customer_birthday customerBirthday
-			, customer_gender customerGender
-			, customer_phone customerPhone	
-			, customer_email customerEmail	
-			, last_login lastLogin
-			, createdate createdate
-		FROM customer
-		WHERE customer_id = #{customerId}
+			parameterType = "goodee.e1i6.movie.vo.Customer"
+			resultType="java.util.Map">
+		SELECT 
+			c.customer_id customerId
+			, c.oauth oauth
+			, c.customer_pw customerPw
+			, c.customer_name customerName
+			, c.customer_address customerAddress
+			, c.customer_birthday customerBirthday
+			, c.customer_gender customerGender
+			, c.customer_phone customerPhone	
+			, c.customer_email customerEmail	
+			, c.last_login lastLogin
+			, c.createdate createdate
+			, ci.file_name fileName
+		FROM customer c
+			LEFT OUTER JOIN customer_img ci ON c.customer_id = ci.customer_id
+		WHERE c.customer_id = #{customerId}
 	</select>
 	
+	<!-- 회원정보 수정 -->
 	<update id="updateCustomer"
-		parameterType="java.util.Map">
+		parameterType="goodee.e1i6.movie.vo.Customer">
+		
 		UPDATE customer
-		SET
-			customer_pw = PASSWORD(#{customerPw})	
-			, customer_name = #{customerName}	
+		SET 
+			customer_name = #{customerName}	
 			, customer_address = #{customerAddress}	
 			, customer_birthday = #{customerBirthday}	
 			, customer_gender = #{customerGender}	
 			, customer_phone = #{customerPhone}		
-			, customer_email = #{customerEmail}		
+		WHERE customer_id = #{customerId}		
 		
 	</update>
 

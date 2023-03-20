@@ -19,6 +19,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -169,7 +170,7 @@ public class LoginController {
 			
 		
 		}
-		return "redirect:/homeEx";
+		return "redirect:/home";
 		
 		
 	}
@@ -186,7 +187,7 @@ public class LoginController {
 	public String loginCustomer (HttpSession session, Customer customer) {
 		Customer resultCustomer = loginService.login(customer);
 		session.setAttribute("loginCustomer", resultCustomer);
-		return "redirect:/homeEx";
+		return "redirect:/home";
 	}
 	
 	
@@ -194,7 +195,7 @@ public class LoginController {
 	@GetMapping("/login/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/homeEx";
+		return "redirect:/home";
 	}
 	
 	// 관리자 로그인
@@ -208,7 +209,7 @@ public class LoginController {
 	public String loginEmployee (HttpSession session, Employee employee) {
 		Employee resultEmployee = loginService.loginEmployee(employee);
 		session.setAttribute("loginEmployee", resultEmployee);
-		return "redirect:/homeEx";
+		return "redirect:/home";
 	}
 	
 	
@@ -216,7 +217,7 @@ public class LoginController {
 	@GetMapping("/login/logoutEmployee")
 	public String logoutEmployee(HttpSession session) {
 		session.invalidate();
-		return "redirect:/homeEx";
+		return "redirect:/home";
 	}
 	
 	
@@ -257,6 +258,19 @@ public class LoginController {
 	public String selectCustomerOne(Customer customer) {
 		return "/login/modifyCustomer";
 	}
+	
+	// 회원정보 수정
+	@PostMapping("/login/modifyCustomer")
+	public String modifyCustomer(HttpSession session, Customer customer) {
+			
+		Customer loginCustomer = (Customer) session.getAttribute("loginCustomer");
+		
+		loginService.updateCustomer(customer);
+		
+		return "redirect:/home";
+	
+	}
+	
 	
 	
 	

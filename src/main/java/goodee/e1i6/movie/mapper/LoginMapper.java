@@ -1,5 +1,7 @@
 package goodee.e1i6.movie.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import goodee.e1i6.movie.vo.Customer;
@@ -21,10 +23,10 @@ public interface LoginMapper {
 	int insertCustomer(Customer customer);
 	
 	// 회원정보 one
-	Customer SelectCustomerOne(Customer customer);
+	Map<String, Object> SelectCustomerOne(String customerId);
 	
 	// 회원수정
-	
+	int updateCustomer(Customer customer);
 	
 	// 회원가입 아이디 중복
 	public String selectCustomerId(String customerId);

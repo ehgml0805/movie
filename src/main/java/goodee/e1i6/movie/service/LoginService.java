@@ -1,6 +1,8 @@
 package goodee.e1i6.movie.service;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,11 +126,13 @@ public class LoginService {
 	}
 	
 	// 한명의 회원정보 불러오기
-	public Customer selectCustomerOne(Customer customer) {
-		Customer resultCustomer = loginMapper.SelectCustomerOne(customer);
-		
-		
-		return resultCustomer;
+	public Map<String, Object> getSelectCustomer(String customerId) {
+		return loginMapper.SelectCustomerOne(customerId);
+	}
+	
+	// 회원 정보 수정
+	public int updateCustomer(Customer customer) {
+		return loginMapper.updateCustomer(customer);
 	}
 	
 }

@@ -11,12 +11,15 @@
 	<h1>회원수정</h1>
 	
 
-	<form method ="post" action ="${pageContext.request.contextPath}/login/modifyCustomer" enctype="multipart/form-data">
+	<form method ="post" action ="${pageContext.request.contextPath}/login/modifyCustomer" >
 		<table>
 			<tr>
 				<th>프로필 사진</th>
 				<td>
 					<input type="file" name="customerImgList">
+					<c:if test="${map.fileName ne null}">
+						<div><img src="${pageContext.request.contextPath}/customer-upload/${map.fileName}" name="customerImgFileName"></div>
+					</c:if>
 				</td>
 			</tr>
 			<tr>
@@ -56,10 +59,18 @@
 			</tr>
 			<tr>	
 				<th>성별</th>
+				<c:if test="${loginCustomer.customerGender =='M'}">
 				<td>
 					<input type ="radio" id ="customerGender" name="customerGender" value="M" checked>남자
 					<input type ="radio" id ="customerGender" name="customerGender" value="F" >여자
 				</td>
+				</c:if>
+				<c:if test="${loginCustomer.customerGender =='F'}">
+				<td>
+					<input type ="radio" id ="customerGender" name="customerGender" value="M" >남자
+					<input type ="radio" id ="customerGender" name="customerGender" value="F" checked >여자
+				</td>
+				</c:if>
 			</tr>
 			<tr>	
 				<th>휴대폰 번호</th>
@@ -81,6 +92,8 @@
 					</td>
 				</tr>
 			</c:if>
+			
+			
 			
 			
 		</table>
