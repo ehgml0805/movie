@@ -19,7 +19,8 @@ public class QuestionRestController {
 	// 지역선택 후 극장 리스트 받기
 	@GetMapping("/question/theaterList")
 	public List<Theater> getTheaterListByRegion(@RequestParam(value="theaterRegion") String theaterRegion) {
-		log.debug(TeamColor.YIB + "get 극장 리스트");
+		log.debug(TeamColor.YIB + "get 극장 리스트--");
+		log.debug(TeamColor.YIB + theaterRegion + " : theaterRegion");
 		return theaterService.geTheaterNameListByRegion(theaterRegion);
 
 	}

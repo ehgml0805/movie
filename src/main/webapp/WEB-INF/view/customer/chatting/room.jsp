@@ -12,6 +12,7 @@
 	<div class="container">
 	    <div class="col-6">
 	        <h2>${room.name}</h2>
+	        <button id="chat_end">나가기</button>
 	    </div>
 	    <div>
 	        <div id="msgArea" class="col"></div>
@@ -19,7 +20,7 @@
 	            <div class="input-group mb-3">
 	                <input type="text" id="msg" class="form-control">
 	                <div class="input-group-append">
-	                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+	                    <button class="btn btn-outline-secondary" type="button" id="button_send">전송</button>
 	                </div>
 	            </div>
 	        </div>
@@ -78,13 +79,23 @@
 		       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
 		    });
 		
-		    $("#button-send").on("click", function(e){
+		    $("#button_send").on("click", function(e){
 		        var msg = document.getElementById("msg");
 		
 		        console.log(username + ":" + msg.value);
 		        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
 		        msg.value = '';
 		    });
+		    // 나가기버튼 클릭시
+		    $("#chat_end").on("click", function(){
+		    	var result = confirm("대화방을 나가시겠습니까?");
+		    	
+		    	if(result == true) {
+		    		stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
+		    		$(location).attr("href", "rooms")
+		    	} 
+		    });
+		    
 		});
 	</script>
 </body>
