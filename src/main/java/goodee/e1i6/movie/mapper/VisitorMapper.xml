@@ -29,7 +29,7 @@
 	
 	<select id="todayVisitorCount" resultType="int">
 		SELECT 
-			visitors_count visitorsCount
+			COALESCE(SUM(visitors_count), 0) visitorsCount
 			FROM visitor
 			WHERE date_of_visit = CURDATE()
 	</select>
