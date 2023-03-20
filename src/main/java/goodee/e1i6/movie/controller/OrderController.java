@@ -1,5 +1,7 @@
 package goodee.e1i6.movie.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.OrderService;
 import goodee.e1i6.movie.service.SnackService;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Cart;
 import goodee.e1i6.movie.vo.Customer;
-import goodee.e1i6.movie.vo.Mycoupon;
 import goodee.e1i6.movie.vo.Order;
 import goodee.e1i6.movie.vo.Snack;
 import goodee.e1i6.movie.vo.TotalOrder;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 public class OrderController {
 	@Autowired
@@ -105,8 +108,16 @@ public class OrderController {
 		model.addAttribute("hit", hit);
 		model.addAttribute("sum", sum);
 		
+		//쿠폰 리스트 출력 
 		List<Map<String, Object>> clist=couponService.selectMyCouponList(session, c.getCustomerId());
 		model.addAttribute("clist", clist);
+		
+		//오늘 날짜와 비교 해서 오늘 날짜보다 쿠폰의 사용 가능 날짜가 전이면 사용 불가 
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		String nowTime1 = sdf1.format(now);
+		model.addAttribute("nowTime1", nowTime1);
+		log.debug(TeamColor.KDH + nowTime1);
 		
 		return "customer/order/cartList";
 	}

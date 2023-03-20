@@ -23,7 +23,7 @@ public class HomeController {
 	@Autowired VisitorService visitorService;
 	@Autowired CouponService couponService; 
 	
-	@GetMapping("/homeEx")
+	@GetMapping("/home")
 	public String getHome(HttpServletRequest request, Model model) {
 		
 			String[] arr = {"a","b","c","d","e"};
@@ -40,7 +40,7 @@ public class HomeController {
 			model.addAttribute("todayCount", todayVisitorCount);
 			model.addAttribute("currentVisitors", currentVisitors);
 			
-		return "homeEx";
+		return "home";
 	}
 	
 	@GetMapping("/customer/mypage")
