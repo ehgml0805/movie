@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import goodee.e1i6.movie.service.CouponService;
+import goodee.e1i6.movie.service.EventService;
+import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.service.VisitorService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
@@ -22,6 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	@Autowired VisitorService visitorService;
 	@Autowired CouponService couponService; 
+	@Autowired EventService eventService; 
+	@Autowired LoginService loginService;
+	
 	
 	@GetMapping("/home")
 	public String getHome(HttpServletRequest request, Model model) {
@@ -56,8 +61,18 @@ public class HomeController {
 		String customerId= c.getCustomerId();
 		log.debug(TeamColor.KDH + customerId +"<==고객아이디 ");
 		
+		//내정보 불러오기 
+		List<Map<String, Object>> customerOne=loginService.getSelectCustomer(customerId);
+		model.addAttribute("co", customerOne);
+		log.debug(TeamColor.KDH + customerOne);
+		log.debug(TeamColor.KDH + customerOne.get(0).get("customerId")   +"<===??");
+		
+		//내 쿠폰 목록 
 		List<Map<String, Object>> clist = couponService.selectMyCouponList(session, customerId);
 		model.addAttribute("clist", clist);
+		//내가 참여한 이벤트 목록 
+		List<Map<String, Object>> elist = eventService.selectEventListById(customerId);
+		model.addAttribute("elist", elist);
 		
 		return "customer/mypage";
 	}

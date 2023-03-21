@@ -86,7 +86,7 @@
 	
 	<!-- 회원정보one -->
 	<select id="SelectCustomerOne"
-			parameterType = "goodee.e1i6.movie.vo.Customer"
+			parameterType = "String"
 			resultType="java.util.Map">
 		SELECT 
 			c.customer_id customerId
@@ -96,6 +96,7 @@
 			, c.customer_address customerAddress
 			, c.customer_birthday customerBirthday
 			, c.customer_gender customerGender
+			, c.customer_grade customerGrade
 			, c.customer_phone customerPhone	
 			, c.customer_email customerEmail	
 			, c.last_login lastLogin

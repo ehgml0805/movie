@@ -28,4 +28,7 @@ public interface EventMapper {
 	int insertEvent(Event event);
 	List<Event> selectEndEventList(Map<String, Object>paraMap);
 	List<Event> selectEventList(Map<String, Object>paraMap);
+	
+	//내가 참여한 이벤트 목록 조회 
+	List<Map<String, Object>> selectEventListById(String customerId);
 }

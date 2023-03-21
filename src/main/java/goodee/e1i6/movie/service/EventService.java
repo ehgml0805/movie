@@ -40,6 +40,11 @@ public class EventService {
 	@Autowired private EmailService emailService;
 	@Autowired private JavaMailSender javaMailSender;
 	
+	// 내가 참여한 이벤트 리스트 
+	public List<Map<String, Object>> selectEventListById(String customerId){
+		return eventMapper.selectEventListById(customerId);
+	}
+	
 	//스포일러 신고 업데이트
 	public int spoilerReport(int eventCommentKey, String customerId) {
 		return eventCommentMapper.spoilerReport(eventCommentKey, customerId);

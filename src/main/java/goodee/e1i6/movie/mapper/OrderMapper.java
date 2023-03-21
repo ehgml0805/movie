@@ -34,6 +34,7 @@ public interface OrderMapper {
     Integer selectCartCount(String customerId);
 	Integer insertSnackConfirm(SnackconfirmCode s);
 	Integer updateSnackConfirm(SnackconfirmCode s);
+	
 	List<TotalOrder> selectTotalOrderById(String customerId);
 	TotalOrder selectOrderCreatedate(String customerId);
 }

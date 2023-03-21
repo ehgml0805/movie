@@ -2,6 +2,7 @@ package goodee.e1i6.movie.service;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -126,7 +127,7 @@ public class LoginService {
 	}
 	
 	// 한명의 회원정보 불러오기
-	public Map<String, Object> getSelectCustomer(String customerId) {
+	public List<Map<String, Object>> getSelectCustomer(String customerId) {
 		return loginMapper.SelectCustomerOne(customerId);
 	}
 	

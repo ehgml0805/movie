@@ -34,7 +34,7 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	@Autowired CouponService couponService;
-	
+	//바로구
 	@PostMapping("/customer/order/paymentDir")
 	public String paymentdir(HttpSession session,@RequestParam(value="snackKey") int snackKey, Model model, @RequestParam(value= "cartQuantity") int Quantity) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");

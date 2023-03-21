@@ -173,4 +173,26 @@
 		ORDER BY e.event_key DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	
+	<!-- 내가 참여한 이벤트 목록 조회  -->
+	<select id="selectEventListById" resultType="java.util.Map" parameterType="String">
+		
+		SELECT
+			e.event_key eventKey
+			, e.event_title eventTitle
+			, e.event_content eventContent
+			, e.event_start_date eventStartDate
+			, e.event_end_date eventEndDate
+			, e.movie_key movieKey
+			, ei.file_name fileName
+			, ei.file_type fileType
+			, ei.file_size fileSize
+			, ei.origin_name originName
+		FROM event e 
+		INNER JOIN event_img ei ON e.event_key = ei.event_key
+		INNER JOIN event_comment ec ON ec.event_key  = e.event_key 
+		WHERE ec.customer_id = #{customer_id}
+		
+	</select>
 </mapper>
