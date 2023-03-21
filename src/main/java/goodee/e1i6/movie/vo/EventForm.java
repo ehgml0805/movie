@@ -10,7 +10,7 @@ import lombok.Data;
 public class EventForm {
 	private String eventTitle;
 	private String eventContent;
-	private String eventStartDate;
+	private String eventStartDate; 
 	private String eventEndDate;
 	private int movieKey;
 	private List<MultipartFile> eventImgList;
