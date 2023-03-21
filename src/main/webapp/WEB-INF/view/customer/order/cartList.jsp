@@ -156,35 +156,10 @@
 		</c:forEach>
 		<br>
 		
-		<table>
-			<tr>
-				<td> 사용가능 쿠폰 </td>
-				<td> 할인금액 </td>
-				<td> 사용기한 </td>
-			</tr>
-			<tr>
-				<c:forEach var="c" items="${clist}">
-					<c:if test="${ nowTime1 <=c.useByDate}">
-						<form action="" method="post">
-							<td>
-								<input type="checkbox" id="mycouponKey" name="mycouponKey" onclick='getCheckboxValue(event)' readonly="readonly"
-										value="${c.mycouponKey},${c.couponSalePrice}"/> ${c.couponName}
-							</td>
-							<td>${c.couponSalePrice}</td>
-							<td>${c.useByDate}</td>
-						</form>	
-					</c:if>
-				</c:forEach>
-			</tr>
-		</table>
-		
-		
 		<c:if test="${!empty list}">
 			<fieldset style="text-align: center;">
-				<input type="hidden" id="besum" value="${sum}">
 				<h4>
-					총 가격 : ₩  <input type="tel" name="sum" id="sum" style="border: none;"
-					value="<fmt:formatNumber value="${contentNotice}" pattern="###,###"/>">
+					총 가격 : ₩  <fmt:formatNumber value="${sum}" pattern="#,###"/>
 				</h4>
 				
 			</fieldset>
@@ -232,49 +207,6 @@
 			})
 		</script>
 	</c:forEach>
-	
-	<script type="text/javascript">
-		var result = parseInt($('#besum').val(),10);
-		$(document).ready(function() {
-	        $('#sum').val(result);
-	    });
-		function getCheckboxValue(event)  {
-
-		  if(event.target.checked)  {
-			  
-			  var str = $('#mycouponKey').val();
-		    	console.log(str)
-		    	
-		    	var salePrice = str.slice(2);
-		    	console.log(salePrice +'<==배열에서 할인금액 자르기')
-		    	
-		   		var intSalePrice=parseInt(salePrice,10);
-		    	console.log(intSalePrice +'<==할인금액 int 변환')
-		        //alert($('#mycouponKey').val());
-		    	
-				var bcsum= parseInt($('#besum').val(),10);
-				console.log(bcsum+"<==쿠폰 적용 전")
-				
-				result=Number(bcsum - intSalePrice);
-				console.log(result+"<==쿠폰 적용 후")
-				
-				$(document).ready(function() {
-			        $('#sum').val(result);
-			    });
-		    
-		    result = event.target.value;
-		  }else {
-				var bcsum= parseInt($('#besum').val(),10);
-				$(document).ready(function() {
-			        $('#sum').val(bcsum);
-			    });
-		  }
-		  
-		}
-	
-	
-	
-	</script>
 
 </body>
 </html>

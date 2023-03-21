@@ -50,35 +50,60 @@
 		<hr style="height: 5px; background-color:black;">
 		<br><br>
 		<form action="${pageContext.request.contextPath}/customer/order/paymentCart" method="post" id="payment">
-				<hr style="height: 3px; background-color:black;">
-					<table width="100%">
+			<hr style="height: 3px; background-color:black;">
+				<table width="100%">
+				<tr>
+					<td>상품이름</td>
+					<td>상품사진</td>
+					<td>가격</td>
+					<td>수량</td>
+				</tr>
+				<tr><td colspan=4><hr></td></tr>
 					<tr>
-						<td>상품이름</td>
-						<td>상품사진</td>
-						<td>가격</td>
-						<td>수량</td>
+						<c:forEach var="c" items="${list}">
+							<td>${c.snackName}</td>
+							<td><img width='200px' height="200px" src="${pageContext.request.contextPath}/snackImg/${c.fileName}.${c.fileType}"></td>
+							<td>₩ <fmt:formatNumber value="${c.snackPrice*c.cartQuantity}" pattern="#,###"/></td>
+							<td>${c.cartQuantity}</td>
+						</c:forEach>
 					</tr>
-					<tr><td colspan=4><hr></td></tr>
-						<tr>
-							<c:forEach var="c" items="${list}">
-								<td>${c.snackName}</td>
-								<td><img width='200px' height="200px" src="${pageContext.request.contextPath}/snackImg/${c.fileName}.${c.fileType}"></td>
-								<td>₩ <fmt:formatNumber value="${c.snackPrice*c.cartQuantity}" pattern="#,###"/></td>
-								<td>${c.cartQuantity}</td>
-							</c:forEach>
-						</tr>
-					<tr><td colspan=4><hr></td></tr>
-					</table>
+				<tr><td colspan=4><hr></td></tr>
+				</table>
+				<hr style="height: 3px; background-color:black;">
+				<table width="100%">
+					<tr>
+						<td> 사용가능 쿠폰 </td>
+						<td> 할인금액 </td>
+						<td> 사용기한 </td>
+					</tr>
+					<tr><td colspan=3><hr></td></tr>
+					<tr>
+						<c:forEach var="c" items="${clist}">
+							<c:if test="${ nowTime1 <=c.useByDate}">
+								<td>
+									<input type="checkbox" id="mycouponKey" name="mycouponKey" onclick='getCheckboxValue(event)' readonly="readonly"
+											value="${c.mycouponKey}" data-price="${c.couponSalePrice}"/> ${c.couponName}
+								</td>
+								<td>${c.couponSalePrice}</td>
+								<td>${c.useByDate}</td>
+							</c:if>
+						</c:forEach>
+					</tr>
+				</table>
 				
-			<br><br>
-			<br><br>
+				
+			<br>	
 			<fieldset>
 				<legend>결제 정보</legend>
 				<hr style="height: 3px; background-color:black;">
+				<input type="hidden" id="besum" value="${sum}">
 					<table width="100%">
 						<tr>
 							<td>총 상품가격</td>
-							<td>₩ <fmt:formatNumber value="${sum}" pattern="#,###"/></td>
+							<td>
+								₩ <input type="tel" name="sum" id="sum" style="border: none;"
+										value="<fmt:formatNumber value="${contentNotice}" pattern="###,###"/>">
+							</td>
 						</tr>
 					
 						<tr><td colspan=2><hr></td></tr>
@@ -93,8 +118,49 @@
 		</form>
 	</div>
 
-
+	<script type="text/javascript">
+		$(document).on('click', "input[type='checkbox']", function(){
+		    if(this.checked) {
+		        const checkboxes = $("input[type='checkbox']");
+		        for(let ind = 0; ind < checkboxes.length; ind++){
+		            checkboxes[ind].checked = false;
+		        }
+		        this.checked = true;
+		    } else {
+		        this.checked = false;
+		    }
+		});
 	
+		var result = parseInt($('#besum').val(),10);
+		$(document).ready(function() {
+	        $('#sum').val(result);
+	    });
+		function getCheckboxValue(event)  {
+
+		  if(event.target.checked)  {
+		    	
+				var bcsum= parseInt($('#besum').val(),10);
+				console.log(bcsum+"<==쿠폰 적용 전")
+				
+				result=Number(bcsum - $('#mycouponKey').attr('data-price'));
+				console.log(result+"<==쿠폰 적용 후")
+				
+				$(document).ready(function() {
+			        $('#sum').val(result);
+			    });
+		    
+		    result = event.target.value;
+		    
+		  }else {
+				var bcsum= parseInt($('#besum').val(),10);
+				$(document).ready(function() {
+			        $('#sum').val(bcsum);
+			    });
+		  }
+		}
+		
+		
+	</script>
 	
 </body>
 </html>
