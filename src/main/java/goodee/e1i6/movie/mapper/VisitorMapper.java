@@ -9,6 +9,8 @@ import goodee.e1i6.movie.vo.Visitor;
 
 @Mapper
 public interface VisitorMapper {
+	// 년도별 방문자 수
+	List<Map<String, Object>> selectYearVisitorCount(int year);
 	// 월별 방문자 수
 	List<Map<String, Object>> selectMonthVisitorCount(int year);	// 일일 방문자 수정
 	int updateVisitor(Visitor visitor);

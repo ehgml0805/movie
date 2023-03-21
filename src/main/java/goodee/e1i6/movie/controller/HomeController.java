@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.VisitorService;
 import goodee.e1i6.movie.teamColor.TeamColor;
-import goodee.e1i6.movie.vo.Coupon;
 import goodee.e1i6.movie.vo.Customer;
+import goodee.e1i6.movie.vo.Visitor;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
@@ -23,7 +23,7 @@ public class HomeController {
 	@Autowired VisitorService visitorService;
 	@Autowired CouponService couponService; 
 	
-	@GetMapping("/homeEx")
+	@GetMapping("/home")
 	public String getHome(HttpServletRequest request, Model model) {
 		
 			String[] arr = {"a","b","c","d","e"};
@@ -34,13 +34,20 @@ public class HomeController {
 					//System.out.println(seatNumber);					
 				}
 			}
-			Integer currentVisitors = (Integer) request.getServletContext().getAttribute("currentVisitors");
+			
+			Visitor visitor = new Visitor();
 			int todayVisitorCount = visitorService.getTodayVisitorCount();
+        	if (todayVisitorCount == 0) {
+        		// 오늘 웹페이지에 첫 방문객일 경우 
+        		visitorService.addVisitor(visitor);
+        	} else {
+        		// 아닐 경우 update
+        		visitorService.modifyVisitor(visitor);
+        	}
+
+			model.addAttribute("todayCount", todayVisitorCount);			
 			
-			model.addAttribute("todayCount", todayVisitorCount);
-			model.addAttribute("currentVisitors", currentVisitors);
-			
-		return "homeEx";
+		return "home";
 	}
 	
 	@GetMapping("/customer/mypage")

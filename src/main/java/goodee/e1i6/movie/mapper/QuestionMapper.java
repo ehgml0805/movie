@@ -8,10 +8,13 @@ import org.apache.ibatis.annotations.Mapper;
 import goodee.e1i6.movie.vo.Question;
 import goodee.e1i6.movie.vo.QuestionAnswer;
 import goodee.e1i6.movie.vo.QuestionCategory;
+import goodee.e1i6.movie.vo.Theater;
 
 @Mapper
 public interface QuestionMapper {
 
+	// 지역선택 후 극장목록(rest)
+	List<Theater> selectTheaterNameListByRegion(String theaterRegion);
 	// 답변 삭제(관리자)
 	int deleteQuestionAnswer(int questionKey);
 	// 답변 등록(관리자)

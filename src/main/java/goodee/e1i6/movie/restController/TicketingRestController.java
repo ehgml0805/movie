@@ -57,10 +57,10 @@ public class TicketingRestController {
 	}
 	
 	// 빠른 예매 - 극장 리스트
-	@GetMapping("/ticketing/theaterList")
-	public List<Theater> getTheaterNameListByRegion(@RequestParam String theaterRegion) {
+	@GetMapping("/ticketing/theaterNameListByRegion")
+	public List<Theater> getTheaterNameListByRegion(@RequestParam String theaterRegion, @RequestParam String startDate, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
 		log.debug(TeamColor.CHOI + "GET TheaterNameListByRegion");
-		return theaterService.geTheaterNameListByRegion(theaterRegion);
+		return theaterService.geTheaterNameListByRegion(theaterRegion, startDate, movieKey);
 	}
 	
 	// 빠른 예매 - 영화 상세 정보(이미지 출력용)
@@ -75,6 +75,7 @@ public class TicketingRestController {
 	public List<Map<String, Object>> getRegionListByMovie(@RequestParam(value = "movieKey", defaultValue = "0") int movieKey
 															, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
 		log.debug(TeamColor.CHOI + "GET RegionListByMovie");
+		log.debug(TeamColor.CHOI + movieKey);
 		return theaterService.getRegionListByMovie(movieKey, startDate);
 	}
 	

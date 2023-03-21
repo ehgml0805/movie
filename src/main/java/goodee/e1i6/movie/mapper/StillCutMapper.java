@@ -22,7 +22,7 @@ public interface StillCutMapper {
 	int insertStillCutByCrawling(StillCut stillCut);
 	
 	// 영화 이미지 상세정보 출력
-		StillCut selectStillCutOne(int stillCutKey);
+	StillCut selectStillCutOne(int stillCutKey);
 	
 	// 빠른 예매 시 영화 포스터 불러오기
 	StillCut selectStillCutByTicketing(int movieKey);

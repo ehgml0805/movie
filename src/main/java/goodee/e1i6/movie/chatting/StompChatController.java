@@ -29,4 +29,11 @@ public class StompChatController {
     public void message(ChatMessageDTO message) {
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
+    
+    @MessageMapping(value = "/chat/end")
+    public void end(ChatMessageDTO message) {
+        message.setMessage(message.getWriter() + "님이 퇴장하셨습니다.");
+        
+        template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
+    }
 }

@@ -12,11 +12,17 @@ import goodee.e1i6.movie.mapper.QuestionMapper;
 import goodee.e1i6.movie.vo.Question;
 import goodee.e1i6.movie.vo.QuestionAnswer;
 import goodee.e1i6.movie.vo.QuestionCategory;
+import goodee.e1i6.movie.vo.Theater;
 
 @Service
 @Transactional
 public class QuestionService {
 	@Autowired private QuestionMapper questionMapper;
+	
+	// 지역선택 후 극장목록
+	public List<Theater> getTheaterNameListByRegion(String theaterRegion) {
+		return questionMapper.selectTheaterNameListByRegion(theaterRegion);
+	}
 	
 	// 내문의사항 삭제
 	public int removeQuestionAnswer(int questionKey) {

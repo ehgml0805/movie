@@ -67,8 +67,13 @@ public class TheaterService {
 	*/
 	
 	// 빠른 예매(해당 지역의 극장 목록)
-	public List<Theater> geTheaterNameListByRegion(String theaterRegion) {
-		return theaterMapper.selectTheaterNameListByRegion(theaterRegion);
+	public List<Theater> geTheaterNameListByRegion(String theaterRegion, String startDate, int movieKey) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("theaterRegion", theaterRegion);
+		paramMap.put("startDate", startDate);
+		paramMap.put("movieKey", movieKey);
+		
+		return theaterMapper.selectTheaterNameListByRegion(paramMap);
 	}
 	
 	// 빠른 예매(지역순)

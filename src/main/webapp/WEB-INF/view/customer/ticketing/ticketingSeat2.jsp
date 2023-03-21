@@ -130,9 +130,9 @@
 	</div>
 	
 	<!-- 결제 선택 -->
-	<form action="/ticketing/ticketingList" method="post" id="form-post-List">
+	<form action="${pageContext.request.contextPath}/ticketing/ticketingPay" method="get" id="form-post-List">
 	   	<input type="hidden" id="seatKey" name="seatKey" value="" />
-	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
+	   	<input type="hidden" id="movieKey" name="movieKey" value="${scheduleOne.movieKey}" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}" />
 	   	<input type="hidden" id="ck" name="ck" value="" />
@@ -198,7 +198,7 @@
 					</table>
 				</div>
 		   	</div>
-		   	<button class="payBtn" type="button" disabled="disabled">결제 선택</button>
+		   	<button class="payBtn" type="submit" disabled="disabled">결제 선택</button>
 	   	</div>
     </form>
 </body>
@@ -250,21 +250,41 @@
 		
 		// 성인 + 버튼
 		upBtnAdult.addEventListener('click', function(){
+			// 결제 선택 안되게 ck 값 없애주기
+			$('#ck').val(0);
+			$('.payBtn').attr("disabled", true);
+			
 			let q = parseInt(adultQuantity.textContent);
 			totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
 			if(totalQuantity < 8) {
 				adultQuantity.textContent = q+1;
 				adultCount.textContent = "성인 " + parseInt(adultQuantity.textContent); 
+				$('#totalNow').val(parseInt($('#totalNow').val())+1);
 			} else {
 				alert('인원선택은 총 8명까지 가능합니다.')
 			}
 	    });
-		// 성인 -버튼
+		// 성인 - 버튼
 		downBtnAdult.addEventListener('click', function(){
+			// 선택한 좌석 개수가 현재 인원(성인+청소년)보다 크거나 같다면 모두 취소 
+	         if($('#seatKey').val() != '') {
+	            const seatArr = $('#seatKey').val().split(',');
+	            
+	            if(seatArr.length >= parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent)) {
+	               const result = window.confirm("선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?");
+	               if(result) {
+	                  location.reload();
+	               } else {
+	                  return;
+	               }                           
+	            }
+	         }
+			
 			let q = parseInt(adultQuantity.textContent);
 			if(adultQuantity.textContent > 0) {
 				adultQuantity.textContent = q-1;	
 				adultCount.textContent = "성인 " + parseInt(adultQuantity.textContent);
+				$('#totalNow').val(parseInt($('#totalNow').val())-1);
 			}
 			if(adultQuantity.textContent == 0) {
 				adultCount.textContent = "";
@@ -273,21 +293,41 @@
 		
 		// 청소년 + 버튼
 		upBtnTeenager.addEventListener('click', function(){
+			// 결제 선택 안되게 ck 값 없애주기
+			$('#ck').val(0);
+			$('.payBtn').attr("disabled", true);
+			
 			let q = parseInt(teenagerQuantity.textContent);
 			totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
 			if(totalQuantity < 8) {
 				teenagerQuantity.textContent = q+1;
 				teenagerCount.textContent = "청소년 " + parseInt(teenagerQuantity.textContent);
+				$('#totalNow').val(parseInt($('#totalNow').val())+1);
 			} else {
 				alert('인원선택은 총 8명까지 가능합니다.')
 			}
 	    });
-		// 청소년 -버튼
+		// 청소년 - 버튼
 		downBtnTeenager.addEventListener('click', function(){
+			// 선택한 좌석 개수가 현재 인원(성인+청소년)보다 크거나 같다면 모두 취소 
+	         if($('#seatKey').val() != '') {
+	            const seatArr = $('#seatKey').val().split(',');
+	            
+	            if(seatArr.length >= parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent)) {
+	               const result = window.confirm("선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?");
+	               if(result) {
+	                  location.reload();
+	               } else {
+	                  return;
+	               }                           
+	            }
+	         }
+			
 			let q = parseInt(teenagerQuantity.textContent);
 			if(teenagerQuantity.textContent > 0) {
 				teenagerQuantity.textContent = q-1;
 				teenagerCount.textContent = "청소년 " + parseInt(teenagerQuantity.textContent);
+				$('#totalNow').val(parseInt($('#totalNow').val())-1);
 			}
 			if(teenagerQuantity.textContent == 0) {
 				teenagerCount.textContent = "";
@@ -297,137 +337,232 @@
 		
 		// 좌석에 마우스를 올릴 시
 		$('.choice-seat').hover(function() {
-			totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
-			if(totalNow != 0 && totalNow >= 2){
-				$(this).css('background-color','red');
-				
-				let parent = $(this).parent();
-				let lastButton = parent.children().last();
-				// alert(lastButton);
-				if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
-					let button2 = $(this).prev(); // 해당 버튼 기준 왼쪽 버튼
+			totalNow = $('#totalNow').val();
+			if($(this).hasClass('active') == false){
+				if(totalNow != 0 && totalNow >= 2){
+					$(this).css('background-color','red');
 					
-					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-						button2.css('background-color','red');
-					} else { 								  // 예매된 좌석
-						button2.css('background-color','');
-					}
-				} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면
-					let button2 = $(this).next();
-					let prevBtn = $(this).prev();
-					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-						button2.css('background-color','red');
-					} else {								  // 예매된 좌석
-						prevBtn.css('background-color','red');
-					}
-				}				
-			} else if(totalNow != 0) {
-				$(this).css('background-color','red');
-			}
+					let parent = $(this).parent();
+					let lastButton = parent.children().last();
+					// alert(lastButton);
+					if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
+						let button2 = $(this).prev(); // 해당 버튼 기준 왼쪽 버튼
+						
+						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+							button2.css('background-color','red');
+						} else { 								  // 예매된 좌석
+							button2.css('background-color','');
+						}
+					} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면
+						let button2 = $(this).next();
+						let prevBtn = $(this).prev();
+						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+							button2.css('background-color','red');
+						} else {								  // 예매된 좌석
+							prevBtn.css('background-color','red');
+						}
+					}				
+				} else if(totalNow != 0) {
+					$(this).css('background-color','red');
+				}
+			}	
 		}, function(){
-			totalNow = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);		
-			if(totalNow != 0 && totalNow >= 2){
-				$(this).css('background-color','white');
-				
-				let parent = $(this).parent();
-				let lastButton = parent.children().last();
-				// alert(lastButton);
-				if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
-					let button2 = $(this).prev();
-				
-					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-						button2.css('background-color','white');	
-					} else {								  // 예매 된 좌석
-						button2.css('background-color','');
-					}
-				} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면			
-					let button2 = $(this).next();
-					let prevBtn = $(this).prev();
-				
-					if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-						button2.css('background-color','white');
-					} else {								  // 예매 된 좌석
-						button2.css('background-color','');
-						prevBtn.css('background-color','white');
-					}
-				}				
-			} else if(totalNow != 0) {
-				$(this).css('background-color','white');
+			totalNow = $('#totalNow').val();
+			
+			if($(this).hasClass('active') == false){
+				if(totalNow != 0 && totalNow >= 2){
+					$(this).css('background-color','white');
+					
+					let parent = $(this).parent();
+					let lastButton = parent.children().last();
+					// alert(lastButton);
+					if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
+						let button2 = $(this).prev();
+					
+						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+							button2.css('background-color','white');	
+						} else {								  // 예매 된 좌석
+							button2.css('background-color','');
+						}
+					} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면			
+						let button2 = $(this).next();
+						let prevBtn = $(this).prev();
+					
+						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
+							button2.css('background-color','white');
+						} else {								  // 예매 된 좌석
+							button2.css('background-color','');
+							prevBtn.css('background-color','white');
+						}
+					}				
+				} else if(totalNow != 0) {
+					$(this).css('background-color','white');
+				}
 			}
 		});
 		var seatKey = new Array();
 		// 좌석 선택 시
 		$(document).on('click', '.choice-seat', function() {
-			
-			if($('#ck').val() == 1){
-				alert('좌석 선택이 완료되었습니다.');
-			} else {
-					// 좌석 키 값 저장, 선택된 좌석 위치 색상 바꿔주기
-					totalNow = $('#totalNow').val(parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent));
-					
-					// 총 인원 수 값 가져오기
-					alert('totalNow : ' + totalNow)
-					
-					if(totalNow.val() != 0 && totalNow.val() >= 2){
-						// 총 인원수에서 선택된 인원 수 빼주기
-						totalNow.val(totalNow.val()-2);
+			if($(this).hasClass('active') == false){
+				if($('#ck').val() == 1){
+					alert('좌석 선택이 완료되었습니다.');
+				} else {
+						// 좌석 키 값 저장, 선택된 좌석 위치 색상 바꿔주기
 						
-						// 좌석 키 값 저장
-						seatKey.push($(this).val());
+						// 총 인원 수 값 가져오기
+						totalNow = $('#totalNow').val();
+						alert('totalNow : ' + totalNow);
 						
-						
-						// 좌석 색깔 바꿔주기
-						$(this).css('background-color','red');
-						
-						// 행의 마지막 버튼 불러오기
-						let parent = $(this).parent();
-						let lastButton = parent.children().last();
-						// alert(lastButton);
-						
-						if($(this).val() == lastButton.val()){
-							let button2 = $(this).prev();
-							
-							// 좌석 색깔 바꿔주기
-							button2.css('background-color','red');
+						if(totalNow == 0){
+							alert('인원을 선택해주세요.');
+						} else if (totalNow != 0 && totalNow >= 2){
+							// 총 인원수에서 선택된 인원 수 빼주기
+							$('#totalNow').val(parseInt($('#totalNow').val())-2);
+							totalNow = parseInt(totalNow) - 2;
 							
 							// 좌석 키 값 저장
-							seatKey.push(button2.val());
-							
-						} else if($(this).val() != lastButton.val()) {				
-							let button2 = $(this).next();
+							seatKey.push($(this).val());
 							
 							// 좌석 색깔 바꿔주기
-							button2.css('background-color','red');
+							$(this).css('background-color','red');
+							
+							// 좌석 클래스 active로 설정
+							$(this).addClass("active");
+							
+							// 행의 마지막 버튼 불러오기
+							let parent = $(this).parent();
+							let lastButton = parent.children().last();
+							// alert(lastButton);
+							
+							if($(this).val() == lastButton.val()){
+								let button2 = $(this).prev();
+								
+								// 좌석 색깔 바꿔주기
+								button2.css('background-color','red');
+								
+								// 좌석 클래스 active로 설정
+								button2.addClass("active");
+								
+								// 좌석 키 값 저장
+								seatKey.push(button2.val());
+								
+							} else if($(this).val() != lastButton.val()) {				
+								let button2 = $(this).next();
+								
+								// 좌석 색깔 바꿔주기
+								button2.css('background-color','red');
+								
+								// 좌석 클래스 active로 설정
+								button2.addClass("active");
+								
+								// 좌석 키 값 저장
+								seatKey.push(button2.val());
+							}					
+							
+							if(totalNow == 0){
+								$('#ck').val(1);
+								if($('#ck').val() == 1){
+									$('.payBtn').attr("disabled", false);
+								}
+							}
+						} else if(totalNow != 0) {
+							// 총 인원수에서 선택된 인원 수 빼주기
+							$('#totalNow').val(parseInt($('#totalNow').val())-1);
+							totalNow = parseInt(totalNow) - 1;
+							
+							// 좌석 색깔 바꿔주기
+							$(this).css('background-color','red');
+							
+							// 좌석 클래스 active로 설정
+							$(this).addClass("active");
 							
 							// 좌석 키 값 저장
-							seatKey.push(button2.val());
-						}					
-						
-						if(totalNow.val() == 0){
+							seatKey.push($(this).val());
+							
 							$('#ck').val(1);
 							if($('#ck').val() == 1){
 								$('.payBtn').attr("disabled", false);
 							}
 						}
-					} else if(totalNow != 0) {
-						// 총 인원수에서 선택된 인원 수 빼주기
-						totalNow = totalNow-1;
+						$('#seatKey').val(seatKey);
+						alert(seatKey);
+						// 가격 출력
+				}
+			} else if($(this).hasClass('active') == true) {
+				/* 좌석 선택 취소 */
+				alert('좌석 선택 취소');
+				// active 클래스를 없애주기
+				
+				// 결제 선택 안되게 ck 값 없애주기
+				$('#ck').val(0);
+				$('.payBtn').attr("disabled", true);
+				
+				// 총 인원 수 값 가져오기
+				totalNow = $('#totalNow').val();
+				alert('totalNow : ' + totalNow);
+				
+				/* if (totalNow != 0 && totalNow >= 2){
+					// 총 인원수에서 선택된 인원 수 더해주기
+					$('#totalNow').val(parseInt($('#totalNow').val()) + 2);
+					totalNow = parseInt(totalNow) + 1;
+					
+					// 좌석 키 값 제거
+					seatKey.splice($.inArray($(this).val(), seatKey),1);
+					
+					// 좌석 색깔 바꿔주기
+					$(this).css('background-color','white');
+					
+					// 좌석 클래스 active 제거
+					$(this).removeClass("active");
+					
+					// 행의 마지막 버튼 불러오기
+					let parent = $(this).parent();
+					let lastButton = parent.children().last();
+					// alert(lastButton);
+					
+					if($(this).val() == lastButton.val()){
+						let button2 = $(this).prev();
 						
 						// 좌석 색깔 바꿔주기
-						$(this).css('background-color','red');
+						button2.css('background-color','white');
 						
-						// 좌석 키 값 저장
-						seatKey.push($(this).val());
+						// 좌석 클래스 active 제거
+						button2.removeClass("active");
 						
-						$('#ck').val(1);
-						if($('#ck').val() == 1){
-							$('.payBtn').attr("disabled", false);
-						}
-					}
-					$('#seatKey').val(seatKey);
-					alert(seatKey);
-					// 가격 출력
-			}
+						// 좌석 키 값 제거
+						seatKey.splice($.inArray($(this).val(), seatKey),1);
+						
+					} else if($(this).val() != lastButton.val()) {				
+						let button2 = $(this).next();
+						
+						// 좌석 색깔 바꿔주기
+						button2.css('background-color','white');
+						
+						// 좌석 클래스 active 제거
+						button2.removeClass("active");
+						
+						// 좌석 키 값 제거
+						seatKey.splice($.inArray($(this).val(), seatKey),1);
+					}					
+				} else if(totalNow == 0) { */
+					// 총 인원수에서 선택된 인원 수 더해주기
+					$('#totalNow').val(parseInt($('#totalNow').val()) + 1);
+					totalNow = parseInt(totalNow) + 1;
+					alert('totalNow : ' + totalNow);
+					
+					// 좌석 색깔 바꿔주기
+					$(this).css('background-color','white');
+					
+					// 좌석 클래스 active 제거
+					$(this).removeClass("active");
+					
+					// 좌석 키 값 제거
+					seatKey.splice($.inArray($(this).val(), seatKey),1);
+				}
+				$('#seatKey').val(seatKey);
+				alert(seatKey);
+				// 가격 출력
+			//}
 		});
 	});
 </script>

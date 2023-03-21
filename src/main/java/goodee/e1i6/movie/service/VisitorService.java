@@ -17,6 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class VisitorService {
 	@Autowired private VisitorMapper visitorMapper;
+	// 연도별 전체 방문자 수
+	public List<Map<String, Object>> getYearVisitorCount(int year) {
+	    return visitorMapper.selectYearVisitorCount(year);
+	}
 	// 월별 방문자 수 
     public List<Map<String, Object>> getMonthlyVisitorCount(int year) {
         return visitorMapper.selectMonthVisitorCount(year);
