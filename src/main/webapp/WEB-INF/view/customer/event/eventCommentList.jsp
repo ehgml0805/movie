@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<c:forEach var="e" items="${eventOneList}" begin="0" end="0">
@@ -15,7 +16,7 @@
 			이벤트 기간 ${e.eventStartDate} ~ ${e.eventEndDate}
 		</div>
 	</c:forEach>
-	<table border="1">
+	<table class="table">
 		<c:if test="${currentPage == 1}">
 			<tr>
 				<th>&nbsp;</th>

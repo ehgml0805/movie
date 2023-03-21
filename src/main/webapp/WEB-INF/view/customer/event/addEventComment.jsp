@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이벤트 댓글 등록</title>
 </head>
 <body>
 	<form method="post" action="${pageContext.request.contextPath}/event/addEventComment">

@@ -10,11 +10,13 @@
   		position: absolute;
 	  	left: 45%;
 	  	cursor: pointer;
+	  	display: none;
 	}
 	#end-event-tooltip {
  		position: absolute;
   		left: 55%;
   		cursor: pointer;
+  		display: none;
 	}
 </style>
 <div id="header">
