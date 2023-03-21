@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.ReviewService;
 import goodee.e1i6.movie.service.StillCutService;
+import goodee.e1i6.movie.service.WishlistService;
 import goodee.e1i6.movie.teamColor.TeamColor;
+import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.MovieForm;
 import goodee.e1i6.movie.vo.Review;
 import goodee.e1i6.movie.vo.StillCut;
@@ -28,6 +31,7 @@ public class MovieController {
 	@Autowired MovieService movieService;
 	@Autowired StillCutService stillCutService;
 	@Autowired ReviewService reviewService; 
+	@Autowired WishlistService wishlistService;
 	
 	// 삭제
 	@GetMapping("/employee/movie/removeMovie")
@@ -138,11 +142,21 @@ public class MovieController {
 	
 	// 영화 목록 출력
 	@GetMapping("/movie/movieList")
-	public String getMovieList(Model model, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
+	public String getMovieList(Model model, HttpSession session
+							, @RequestParam(value = "startDate", defaultValue = "") String startDate
+							, @RequestParam(value = "customerId", defaultValue = "") String customerId) {
 		// log.debug(TeamColor.JYW + "GET movieList");
 		
 		ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 		model.addAttribute("movieList", movieList);
+		
+		if(session.getAttribute("loginCustomer") != null) { // 로그인 아이디가 있으면 내가 찜한영화 확인가능
+			Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+			customerId = loginCustomer.getCustomerId();
+		}
+		List<Map<String, Object>> wishlistCount = wishlistService.getWishlistById(customerId);
+		model.addAttribute("wishlistCount", wishlistCount);
+		model.addAttribute("customerId", customerId);
 		
 		return "/customer/movie/movieList";
 	}

@@ -17,24 +17,35 @@ import lombok.extern.slf4j.Slf4j;
 public class WishlistRestController {
 	@Autowired WishlistService wishlistService;
 	
-	// 영화 찜 하기
-	@GetMapping("/customer/wishlist/addWishlist")
+	// 이미 찜한 영화인지 체크
+	@GetMapping("/customer/wishlist/wishlistCheck")
 	public int addWishlistByMovie(HttpSession session, @RequestParam(value="movieKey") int movieKey) {
-		log.debug(TeamColor.YIB + "add Wishlist--");
+		log.debug(TeamColor.YIB + "WishlistCheck--");
 		log.debug(TeamColor.YIB + movieKey + " : movieKey");
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
 		String customerId = loginCustomer.getCustomerId();
-		return wishlistService.addWishlistByMovie(customerId, movieKey);
+		
+		int check = wishlistService.getWishlistCheckById(customerId, movieKey);
+		log.debug(TeamColor.YIB + check + " : check");
+		// 이미 찜 했으면 찜 해제
+		if(check == 1) {
+			log.debug(TeamColor.YIB + "찜 해제--");
+			int result = wishlistService.removeWishlistByMovie(customerId, movieKey);
+			log.debug(TeamColor.YIB + result + "result");
+			if (result == 1) {
+				result = 10; // 10 = 찜 해제
+			}
+			return result;
+		}
+		// 찜 안되어 있으면 찜 하기
+		log.debug(TeamColor.YIB + "찜 add--");
+		int result = wishlistService.addWishlistByMovie(customerId, movieKey);
+		log.debug(TeamColor.YIB + result + "result");
+		if (result == 1) {
+			result = 20; // 20 = 찜 완료
+		}
+		return result;
 	}
 	
-	// 영화 찜 해제
-	@GetMapping("/customer/wishlist/removeWishlist")
-	public int removeWishlistByMovie(HttpSession session, @RequestParam(value="movieKey") int movieKey) {
-		log.debug(TeamColor.YIB + "remove Wishlist--");
-		log.debug(TeamColor.YIB + movieKey + " : movieKey");
-		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
-		String customerId = loginCustomer.getCustomerId();
-		return wishlistService.removeWishlistByMovie(customerId, movieKey);
-	}
 	
 }

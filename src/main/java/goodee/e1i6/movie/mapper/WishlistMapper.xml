@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.WishlistMapper">
 
+	<!-- 찜한 영화인지 체크 -->
+	<select id="selectWishlistCheckById" parameterType="goodee.e1i6.movie.vo.Wishlist" resultType="int">
+		SELECT COUNT(*) ck
+		FROM wishlist
+		WHERE movie_key = #{movieKey} AND customer_id = #{customerId}
+	</select>
+
+	<!-- 영화별 찜 리스트 확인 -->
+	<select id="selectWishlistById" parameterType="String" resultType="java.util.Map">
+		SELECT 
+			m.movie_key movieKey
+			, COUNT(wi.customer_id) allCount
+			, COUNT(case when wi.customer_id = #{customerId} then 1 end) idCount
+		FROM movie m
+			LEFT JOIN wishlist wi ON m.movie_key = wi.movie_key
+		GROUP BY m.movie_key
+		ORDER BY m.reservation_rate DESC
+	</select>
+
 	<!-- 영화 찜하기 -->
 	<insert id="insertWishlist" parameterType="goodee.e1i6.movie.vo.Wishlist">
 		INSERT INTO wishlist (
@@ -13,9 +32,9 @@
 		)
 	</insert>
 	
-	<!-- 공지사항 삭제 -->
+	<!-- 영화 찜 삭제 -->
 	<delete id="deleteWistlist" parameterType="goodee.e1i6.movie.vo.Wishlist">
 		DELETE FROM wishlist
-		WHERE notice_key = #{noticeKey} AND customer_id = #{customerId}
+		WHERE movie_key = #{movieKey} AND customer_id = #{customerId}
 	</delete>
 </mapper>
