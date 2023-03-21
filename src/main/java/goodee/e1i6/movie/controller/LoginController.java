@@ -271,6 +271,9 @@ public class LoginController {
 	
 	}
 	
+	// 스케쥴러를 이용한 회원 등급 update
+	
+	
 	
 	
 	
