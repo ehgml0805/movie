@@ -85,36 +85,36 @@
 												${row}
 												<c:if test="${s.active eq 'Y'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
+														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
 													</c:if>
 												</c:if>
 												<c:if test="${s.active eq 'N'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
+														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
 													</c:if>
 												</c:if>
 											</c:when>
 											<c:otherwise>
 												<c:if test="${s.active eq 'Y'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
+														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
 													</c:if>
 												</c:if>				
 												<c:if test="${s.active eq 'N'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
+														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
 													</c:if>
 												</c:if>				
 											</c:otherwise>
@@ -340,99 +340,57 @@
 		// 좌석에 마우스를 올릴 시
 		$('.choice-seat').hover(function() {
 			totalNow = $('#totalNow').val();
-			if($(this).hasClass('active') == false){
-				if(totalNow != 0 && totalNow >= 2){
+			if($(this).hasClass('active') == false && $(this).attr('data-active') == 'Y' && $(this).attr('data-useable') == 'Y'){ //버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
+				if(totalNow >= 2){
 					$(this).css('background-color','red');
 					
-					let parent = $(this).parent();
-					let lastButton = parent.children().last();
-					// alert(lastButton);
-					if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
-						let button2 = $(this).prev(); // 해당 버튼 기준 왼쪽 버튼
-						
-						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-							button2.css('background-color','red');
-						} else { 								  // 예매된 좌석
-							button2.css('background-color','');
-						}
-					} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면
-						let button2 = $(this).next();
-						let prevBtn = $(this).prev();
-						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-							if(button2.hasClass('active')) {
-								prevBtn.css('background-color','red');
-							} else {
-								button2.css('background-color','red');								
-							}
-						} else {								  // 예매된 좌석
-							prevBtn.css('background-color','red');
-						}
-					}				
-				} else if(totalNow != 0) {
+					let nextBtn = $(this).next();
+					let prevBtn = $(this).prev();
+					if (nextBtn.hasClass('active') == false && nextBtn.attr('data-active') == 'Y' && nextBtn.attr('data-useable') == 'Y') {	// 옆 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
+						nextBtn.css('background-color','red');								
+					} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
+						prevBtn.css('background-color','red');
+					}			
+				} else if(totalNow == 1) {
 					$(this).css('background-color','red');
 				}
 			}	
-		}, function(){
+		}, function(){ // 좌석에 마우스 땔 때
 			totalNow = $('#totalNow').val();
 			
-			if($(this).hasClass('active') == false){
-				if(totalNow != 0 && totalNow >= 2){
-					if($(this).next().hasClass('active')){
-						$(this).prev().css('background-color','white');
-						$(this).css('background-color','white');
-					} else {
-						$(this).css('background-color','white');						
-					}
-					
-					let parent = $(this).parent();
-					let lastButton = parent.children().last();
-					// alert(lastButton);
-					if($(this).val() == lastButton.val()){ // 행의 마지막 버튼이라면
-						let button2 = $(this).prev();
-					
-						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-							button2.css('background-color','white');	
-						} else {								  // 예매 된 좌석
-							button2.css('background-color','');
-						}
-					} else if($(this).val() != lastButton.val()) { // 행의 마지막 버튼이 아니라면			
-						let button2 = $(this).next();
-						let prevBtn = $(this).prev();
-					
-						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-							if(button2.hasClass('active') == false){
-								button2.css('background-color','white');								
-							}
-						} else {								  // 예매 된 좌석
-							button2.css('background-color','');
-							prevBtn.css('background-color','white');
-						}
+			if($(this).hasClass('active') == false && $(this).attr('data-active') == 'Y' && $(this).attr('data-useable') == 'Y'){ //버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
+				if(totalNow >= 2){
+					$(this).css('background-color','white');
+						
+					let nextBtn = $(this).next();
+					let prevBtn = $(this).prev();
+					if (nextBtn.hasClass('active') == false && nextBtn.attr('data-active') == 'Y' && nextBtn.attr('data-useable') == 'Y') {	// 옆 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
+						nextBtn.css('background-color','white');								
+					} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
+						prevBtn.css('background-color','white');
 					}				
-				} else if(totalNow != 0) {
+				} else if(totalNow == 1) {
 					$(this).css('background-color','white');
 				}
 			}
 		});
+		
 		var seatKey = new Array();
 		var seatNumber = new Array();
 		// 좌석 선택 시
 		$(document).on('click', '.choice-seat', function() {
-			if($(this).hasClass('active') == false){
+			if($(this).hasClass('active') == false && $(this).attr('data-active') == 'Y' && $(this).attr('data-useable') == 'Y'){
 				if($('#ck').val() == 1){
 					alert('좌석 선택이 완료되었습니다.');
 				} else {
-						// 좌석 키 값 저장, 선택된 좌석 위치 색상 바꿔주기
+						/* 좌석 키 값 저장, 선택된 좌석 위치 색상 바꿔주기 */
 						
 						// 총 인원 수 값 가져오기
 						totalNow = $('#totalNow').val();
-						alert('totalNow : ' + totalNow);
 						
 						if(totalNow == 0){
 							alert('인원을 선택해주세요.');
-						} else if (totalNow != 0 && totalNow >= 2){
-							// 총 인원수에서 선택된 인원 수 빼주기
-							$('#totalNow').val(parseInt($('#totalNow').val())-2);
-							totalNow = parseInt(totalNow) - 2;
+						} else if (totalNow >= 2){		
 							
 							// 좌석 키 값 저장
 							seatKey.push($(this).val());
@@ -443,88 +401,50 @@
 							// 좌석 클래스 active로 설정
 							$(this).addClass("active");
 							
-							// 행의 마지막 버튼 불러오기
-							let parent = $(this).parent();
-							let lastButton = parent.children().last();
-							
 							// 좌석번호 저장
 							seatNumber.push($(this).attr('data-seat'));
-							alert('$(this).val() :'+$(this).val())
-							alert('lastButton.val() :'+lastButton.val())
 							
-							if($(this).val() == lastButton.val()){
-								let button2 = $(this).prev();
-								
+							// 총 인원수에서 선택된 인원 수 빼주기
+							$('#totalNow').val(parseInt($('#totalNow').val())-1);
+							totalNow = parseInt(totalNow) - 1;
+							
+							let nextBtn = $(this).next();
+							let prevBtn = $(this).prev();
+							
+							if (nextBtn.hasClass('active') == false && nextBtn.attr('data-active') == 'Y' && nextBtn.attr('data-useable') == 'Y') {	// 옆 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
 								// 좌석 색깔 바꿔주기
-								button2.css('background-color','red');
+								nextBtn.css('background-color','red');
+								
+								// 좌석 키 값 저장
+								seatKey.push(nextBtn.val());	
 								
 								// 좌석 클래스 active로 설정
-								button2.addClass("active");
-								
-								// 좌석 키 값 저장
-								seatKey.push(button2.val());
+								nextBtn.addClass("active");
 								
 								// 좌석번호 저장
-								seatNumber.push(button2.attr('data-seat'));
+								seatNumber.push(nextBtn.attr('data-seat'));	
 								
-							} else if($(this).val() != lastButton.val()) {				
-								let button2 = $(this).next();
-								let prevBtn = $(this).prev();
+								// 총 인원수에서 선택된 인원 수 빼주기
+								$('#totalNow').val(parseInt($('#totalNow').val())-1);
+								totalNow = parseInt(totalNow) - 1;
 								
+							} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족							
 								// 좌석 색깔 바꿔주기
-								if(button2.attr('data-active') == 'N') {
-									prevBtn.css('background-color','red');
-								} else {
-									button2.css('background-color','red');									
-								}
+								prevBtn.css('background-color','red');
 								
 								// 좌석 키 값 저장
-								if(button2.attr('data-seat') == null) { // 옆에 공백 버튼 일때
-									$(this).prev().addClass("active");
-									seatKey.push($(this).prev().val());	
-								} else {
-									if(button2.attr('data-active') == 'N') {
-										// 좌석 클래스 active로 설정
-										prevBtn.addClass("active");
-										seatKey.push(prevBtn.val());																													
-									} else {
-										// 좌석 클래스 active로 설정
-										button2.addClass("active");
-										seatKey.push(button2.val());																			
-									}
-								}								
+								seatKey.push(prevBtn.val());
+								
+								// 좌석 클래스 active로 설정
+								prevBtn.addClass("active");
 								
 								// 좌석번호 저장
-								if(button2.attr('data-seat') == null) { // 옆에 공백 버튼 일때
-									seatNumber.push($(this).prev().attr('data-seat'));	
-								} else {
-									if($('#i').val() == '1') {
-										if(button2.hasClass('active')) {
-											seatNumber.push($(this).prev().attr('data-seat'));		
-											prevBtn.addClass("active");
-										} else {
-											if(button2.attr('data-active') == 'N') {
-												seatNumber.push(prevBtn.attr('data-seat'));
-												prevBtn.addClass("active");
-											} else {
-												seatNumber.push(button2.attr('data-seat'));	
-												button2.addClass("active");
-											}
-										}										
-									} else {
-										$('#i').val('1');
-										if(button2.attr('data-active') == 'N') {
-											seatNumber.push(prevBtn.attr('data-seat'));
-											prevBtn.addClass("active");
-										} else {
-											seatNumber.push(button2.attr('data-seat'));	
-											button2.addClass("active");
-										}
-									}
-									
-								}
+								seatNumber.push(prevBtn.attr('data-seat'));
 								
-							}					
+								// 총 인원수에서 선택된 인원 수 빼주기
+								$('#totalNow').val(parseInt($('#totalNow').val())-1);
+								totalNow = parseInt(totalNow) - 1;						
+							}																
 							
 							if(totalNow == 0){
 								$('#ck').val(1);
@@ -532,7 +452,7 @@
 									$('.payBtn').attr("disabled", false);
 								}
 							}
-						} else if(totalNow != 0) {
+						} else if(totalNow == 1) {
 							// 총 인원수에서 선택된 인원 수 빼주기
 							$('#totalNow').val(parseInt($('#totalNow').val())-1);
 							totalNow = parseInt(totalNow) - 1;
@@ -554,14 +474,15 @@
 								$('.payBtn').attr("disabled", false);
 							}
 						}
+						
 						$('#seatKey').val(seatKey);
-						alert(seatKey);
+						// alert(seatKey);
 						$('#seatNumber').val(seatNumber);
 						// 가격 출력
 				}
 			} else if($(this).hasClass('active') == true) {
 				/* 좌석 선택 취소 */
-				alert('좌석 선택 취소');
+				alert('지정한 좌석 선택을 취소하였습니다.');
 				// active 클래스를 없애주기
 				
 				// 결제 선택 안되게 ck 값 없애주기
@@ -570,74 +491,28 @@
 				
 				// 총 인원 수 값 가져오기
 				totalNow = $('#totalNow').val();
-				alert('totalNow : ' + totalNow);
+				// alert('totalNow : ' + totalNow);
 				
-				/* if (totalNow != 0 && totalNow >= 2){
-					// 총 인원수에서 선택된 인원 수 더해주기
-					$('#totalNow').val(parseInt($('#totalNow').val()) + 2);
-					totalNow = parseInt(totalNow) + 1;
-					
-					// 좌석 키 값 제거
-					seatKey.splice($.inArray($(this).val(), seatKey),1);
-					
-					// 좌석 색깔 바꿔주기
-					$(this).css('background-color','white');
-					
-					// 좌석 클래스 active 제거
-					$(this).removeClass("active");
-					
-					// 행의 마지막 버튼 불러오기
-					let parent = $(this).parent();
-					let lastButton = parent.children().last();
-					// alert(lastButton);
-					
-					if($(this).val() == lastButton.val()){
-						let button2 = $(this).prev();
-						
-						// 좌석 색깔 바꿔주기
-						button2.css('background-color','white');
-						
-						// 좌석 클래스 active 제거
-						button2.removeClass("active");
-						
-						// 좌석 키 값 제거
-						seatKey.splice($.inArray($(this).val(), seatKey),1);
-						
-					} else if($(this).val() != lastButton.val()) {				
-						let button2 = $(this).next();
-						
-						// 좌석 색깔 바꿔주기
-						button2.css('background-color','white');
-						
-						// 좌석 클래스 active 제거
-						button2.removeClass("active");
-						
-						// 좌석 키 값 제거
-						seatKey.splice($.inArray($(this).val(), seatKey),1);
-					}					
-				} else if(totalNow == 0) { */
-					// 총 인원수에서 선택된 인원 수 더해주기
-					$('#totalNow').val(parseInt($('#totalNow').val()) + 1);
-					totalNow = parseInt(totalNow) + 1;
-					alert('totalNow : ' + totalNow);
-					
-					// 좌석 색깔 바꿔주기
-					$(this).css('background-color','white');
-					
-					// 좌석 클래스 active 제거
-					$(this).removeClass("active");
-					
-					// 좌석 키 값 제거
-					seatKey.splice($.inArray($(this).val(), seatKey),1);
-					
-					// 좌석 번호 제거
-					seatNumber.splice($.inArray($(this).attr('data-seat'), seatNumber), 1);
-				}
-				$('#seatKey').val(seatKey);
-				$('#seatNumber').val(seatNumber);
-				$('#seatNo').text($('#seatNumber').val())
+				// 총 인원수에서 선택된 인원 수 더해주기
+				$('#totalNow').val(parseInt($('#totalNow').val()) + 1);
+				totalNow = parseInt(totalNow) + 1;
+				// alert('totalNow : ' + totalNow);
 				
-			//}
+				// 좌석 색깔 바꿔주기
+				$(this).css('background-color','white');
+				
+				// 좌석 클래스 active 제거
+				$(this).removeClass("active");
+				
+				// 좌석 키 값 제거
+				seatKey.splice($.inArray($(this).val(), seatKey),1);
+				
+				// 좌석 번호 제거
+				seatNumber.splice($.inArray($(this).attr('data-seat'), seatNumber), 1);
+			}
+			$('#seatKey').val(seatKey);
+			$('#seatNumber').val(seatNumber);
+			$('#seatNo').text($('#seatNumber').val())			
 		});
 	});
 </script>

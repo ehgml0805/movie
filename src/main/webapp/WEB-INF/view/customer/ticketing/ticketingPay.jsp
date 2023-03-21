@@ -21,57 +21,104 @@
             </div>
 		</div>	
 	
-	
-		<!-- 쿠폰 선택 -->
-		<div class="col-lg-8 col-sm-8 bg-dark" style="color:white;">&nbsp;STEP 1.</div>
-		<div class="col-lg-8 col-sm-8">&nbsp;할인쿠폰</div>
-		<table>
-			<tr>
-				<td>쿠폰 이름 </td>
-				<td>할인 금액 </td>
-				<td>사용기한 </td>
-			</tr>
-			<c:forEach var="c" items="${myCouponList}">		
-				<tr>
-					<td>
-						<input type="radio" name="coupon" value="${c.couponKey}">
-						${c.couponName}
-					</td>
-					<td>${c.couponSalePrice}원</td>
-					<td>~ ${c.useByDate}</td>
-				</tr>
-			</c:forEach>			
-		</table>
-		<!-- 포인트 선택 -->
-		<div class="col-lg-8 col-sm-8 bg-dark" style="color:white;">&nbsp;STEP 2.</div>
-		<div class="col-lg-8 col-sm-8">&nbsp;포인트</div>
-		<table>
-			<tr>
-				<td>
-					 보유 포인트 <input type="number" name="mypoint" value="${point}" readonly="readonly">원
-				</td>
-				<td>
-					 사용할 포인트 <input type="number" name="point" value="">원
-				</td>
-			</tr>
-		</table>
-		<!-- 결제 수단 선택 -->
-		<div class="col-lg-8 col-sm-8 bg-dark" style="color:white;">&nbsp;STEP 3.</div>
-		<div class="col-lg-8 col-sm-8">&nbsp;결제수단</div>
-		<div>
-			<input type="radio" name="kakaoPay" checked="checked"> 카카오페이
+		<div class="container row col-lg-12 col-sm-12">
+			<div class="col-lg-8 col-sm-8">
+				<!-- 쿠폰 선택 -->
+				<div class="bg-dark" style="color:white;">&nbsp;STEP 1.</div>
+				<div>&nbsp;할인쿠폰</div>
+				<table>
+					<tr>
+						<td>쿠폰 이름 </td>
+						<td>할인 금액 </td>
+						<td>사용기한 </td>
+					</tr>
+					<c:forEach var="c" items="${myCouponList}">		
+						<tr>
+							<td>
+								<input type="radio" name="coupon" value="${c.couponKey}">
+								${c.couponName}
+							</td>
+							<td>${c.couponSalePrice}원</td>
+							<td>~ ${c.useByDate}</td>
+						</tr>
+					</c:forEach>			
+				</table>
+				<!-- 포인트 선택 -->
+				<div class="bg-dark" style="color:white;">&nbsp;STEP 2.</div>
+				<div>&nbsp;포인트</div>
+				<table>
+					<tr>
+						<td>
+							 보유 포인트 <input type="number" name="mypoint" value="${point}" readonly="readonly">원
+						</td>
+						<td>
+							 사용할 포인트 <input type="number" name="point" value="">원
+						</td>
+					</tr>
+				</table>
+				<!-- 결제 수단 선택 -->
+				<div class="bg-dark" style="color:white;">&nbsp;STEP 3.</div>
+				<div>&nbsp;결제수단</div>
+				<div>
+					<input type="radio" name="kakaoPay" checked="checked"> 카카오페이
+				</div>
+			</div>
+			<div class="col-lg-4 col-sm-4">
+				<div class="summary_box total_box">
+					<div class="payment_header">결제하실 금액</div>
+					<div class="payment_footer">
+						<div class="result">
+							<span class="num" id="totalPrice"></span>
+							<span class="won">원</span>
+						</div>
+					</div>
+				</div>
+				<div class="summary_box discount_box">
+					<div class="payment_header">할인내역</div>
+					<div class="payment_footer">
+						<div class="label">
+							<span>총 할인금액</span>
+						</div>
+						<div class="result">
+							<span class="num" id="discountPrice"></span>
+							<span class="won">원</span>
+						</div>
+					</div>
+				</div>
+				<div class="summary_box payment_box">
+					<div class="payment_header">결제내역</div>
+					<div class="payment_body" id="payment_list">
+						<dl>
+							<dt>신용카드</dt>
+							<dd>
+								<span class="num"></span>
+								<span class="won">원</span>
+							</dd>
+						</dl>
+					</div>
+					<div class="payment_footer">
+						<div class="laber">
+							<span>남은 결제금액</span>
+						</div>
+						<div class="result">
+							<span class="num"></span>
+							<span class="won">원</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- 예매 정보 상태 -->
 	<div class="container d-flex bg-dark" style="color:white;">
 	   	<div class="row col-lg-12 col-sm-12">
-	   		<div class="movie-img col-lg-3 col-sm-3">
+	   		<div class="movie-img col-lg-4 col-sm-4">
 				<div class="choice-list" id="choiceMovieList-0">
 					<img id="picture" alt="no-picture" src="${stillCut.fileName}" style="width:120px; height:171px;">
                     <p id="picture-name">${scheduleOne.movieTitle}</p>
 				</div>
 			</div>	
-			<div class="col-lg-3 col-sm-3">
+			<div class="col-lg-4 col-sm-4">
 				<table>
 					<tr>
 						<td>극장</td>
@@ -94,7 +141,7 @@
 					</tr>
 				</table>
 			</div>
-			<div class="col-lg-3 col-sm-3">
+			<div class="col-lg-4 col-sm-4">
 				<table>
 					<tr>
 						<td>좌석명</td>
@@ -103,18 +150,6 @@
 					<tr>
 						<td>좌석번호</td>
 						<td><span id="seatNo"></span></td>
-					</tr>
-				</table>
-			</div>
-			<div class="col-lg-3 col-sm-3">
-				<table>
-					<tr>
-						<td>일반</td>
-						<td><span id="price"></span></td>
-					</tr>
-					<tr>
-						<td>총금액</td>
-						<td><span id="totalPrice"></span></td>
 					</tr>
 				</table>
 			</div>
