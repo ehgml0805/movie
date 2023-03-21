@@ -421,6 +421,7 @@
 			            }
 			            
 						$('#theaterRegion').html(html);
+						$('#theaterName').html('');
 					},
 					error : function() {
 						alert('error')
@@ -432,14 +433,13 @@
     		$(document).on('click', '.region', function() {
     		    $.ajax({
     		        type: 'GET',
-    		        url: '${pageContext.request.contextPath}/ticketing/theaterList',
-    		        data: { theaterRegion: $(this).val() },
+    		        url: '${pageContext.request.contextPath}/ticketing/theaterNameListByRegion',
+    		        data: { theaterRegion: $(this).val() , startDate : $('#day').val(), movieKey : $('#movieKey').val()},
     		        dataType: 'json',
     		        success: function(data) {
     		        	// $('#theaterKey').val(data[0].theaterKey);
     		            var html = "";
     		            for (var i = 0; i < data.length; i++) {
-   		            	 
     		            	if($('#movieKey').val() !== '0') {
 	    		            	if(data[i].startDate !== undefined) {
 		    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
@@ -449,7 +449,6 @@
     		            	} else if($('#movieKey').val() === '0') {
     		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
     		            	}
-    		            	
     		            	//html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
     		            }
     		            $('#theaterName').html(html);
@@ -510,7 +509,7 @@
     			$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					data : {movieKey : $(this).val(), startDate : $('#day').val()},
+					data : {movieKey : $('#movieKey').val(), startDate : $('#day').val()},
 					success : function(data) {						
 						let html = '';
 			            for (let i=0; i < data.length; i++) {

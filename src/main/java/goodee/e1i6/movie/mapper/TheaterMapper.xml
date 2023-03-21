@@ -13,7 +13,7 @@
 	<select id="selectRegionListByMovie" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
 			t.theater_region theaterRegion
-			, COUNT(DISTINCT theater_name) theaterCount
+			, COUNT(DISTINCT (if(start_date IS NOT NULL,t.theater_name,NULL)))	 theaterCount
 		FROM theater t
 			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
 			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key <if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if> AND DATE(start_date) = #{startDate}
@@ -41,7 +41,8 @@
 			, start_date startDate
 		FROM theater t
 			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
-			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key
+			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key AND DATE(start_date) = #{startDate} 
+					<if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if>
 		WHERE theater_region = #{theaterRegion}
 		GROUP BY t.theater_key
 	</select>
