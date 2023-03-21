@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.TicketingMapper">
+	<!-- 예매 내역 수정 -->
+	<update id="updateTicketing">
+		UPDATE ticketing
+		SET schedule_key = #{scheduleKey}
+			, customer_id = #{customerId}
+			, mycoupon_key = #{mycouponKey}
+			, total_price = #{totalPrice}
+			, discount_price = #{discountPrice}
+			, ticketing_status = #{ticketingStatus}
+		WHERE ticketing_key = #{ticketing_key}
+	</update>
+	
+	<!-- 예매 내역 추가 -->
+	<insert id="insertTicketing" parameterType="goodee.e1i6.movie.vo.Ticketing">
+		INSERT INTO ticketing (
+			schedule_key
+			, customer_id
+			, mycoupon_key
+			, total_price
+			, discount_price
+			, ticketing_status
+		) VALUES (
+			#{scheduleKey}
+			, #{customerId}
+			, #{mycouponKey}
+			, #{totalPrice}
+			, #{discountPrice}
+			, #{ticketingStatus}
+		)
+	</insert>
+	
+	<!-- 예매 상세정보 -->
+	
+	<!-- 예매 내역 출력 -->
+	<select id="selectTicketingList" parameterType="String" resultType="java.util.Map">
+		SELECT
+			t.ticketing_key
+			, t.schedule_key
+			, t.customer_id
+			, t.mycoupon_key
+			, t.total_price
+			, t.discount_price
+			, t.ticketing_status
+			, t.createdate
+			, ts.seat_key
+			, ts.price
+			, s.seat_number
+			, ss.movie_key
+			, ss.start_date
+			, ss.end_date
+			, ss.preview
+			, m.movie_title
+			, m.grade
+			, sc.file_name
+			, c.customer_name
+			, c.customer_phone
+			, c.customer_point
+			, c.customer_email
+			, c.customer_grade
+		FROM ticketing t 
+			INNER JOIN ticketing_seat ts ON t.ticketing_key = ts.ticketing_key
+			INNER JOIN seat s ON ts.seat_key = s.seat_key
+			INNER JOIN screening_schedule ss ON ss.schedule_key = t.schedule_key
+			INNER JOIN movie m ON ss.movie_key = m.movie_key
+			INNER JOIN still_cut sc ON ss.movie_key = sc.movie_key
+			INNER JOIN customer c ON c.customer_id = t.customer_id
+		WHERE sc.poster = 'Y' <if test="customerId != null">AND t.customer_id = #{customerId}</if>
+	</select>
+</mapper>

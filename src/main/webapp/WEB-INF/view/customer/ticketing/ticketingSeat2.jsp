@@ -130,9 +130,9 @@
 	</div>
 	
 	<!-- 결제 선택 -->
-	<form action="/ticketing/ticketingList" method="post" id="form-post-List">
+	<form action="${pageContext.request.contextPath}/ticketing/ticketingPay" method="get" id="form-post-List">
 	   	<input type="hidden" id="seatKey" name="seatKey" value="" />
-	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
+	   	<input type="hidden" id="movieKey" name="movieKey" value="${scheduleOne.movieKey}" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}" />
 	   	<input type="hidden" id="ck" name="ck" value="" />
@@ -198,7 +198,7 @@
 					</table>
 				</div>
 		   	</div>
-		   	<button class="payBtn" type="button" disabled="disabled">결제 선택</button>
+		   	<button class="payBtn" type="submit" disabled="disabled">결제 선택</button>
 	   	</div>
     </form>
 </body>

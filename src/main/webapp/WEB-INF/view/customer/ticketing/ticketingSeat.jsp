@@ -85,15 +85,15 @@
 												${row}
 												<c:if test="${s.active eq 'Y'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}">${seatNumber}</button>
+														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;">1</button>
+														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
 													</c:if>
 												</c:if>
 												<c:if test="${s.active eq 'N'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" disabled="disabled">X</button>
+														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
 														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
@@ -103,7 +103,7 @@
 											<c:otherwise>
 												<c:if test="${s.active eq 'Y'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}" value="${s.seatKey}">${seatNumber}</button>
+														<button class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
 														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
@@ -111,7 +111,7 @@
 												</c:if>				
 												<c:if test="${s.active eq 'N'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}" value="${s.seatKey}" disabled="disabled">X</button>
+														<button class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
 														<button style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
@@ -130,17 +130,19 @@
 	</div>
 	
 	<!-- 결제 선택 -->
-	<form action="/ticketing/ticketingList" method="post" id="form-post-List">
+	<form action="${pageContext.request.contextPath}/ticketing/ticketingPay" method="get" id="form-post-List">
 	   	<input type="hidden" id="seatKey" name="seatKey" value="" />
-	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
+	   	<input type="hidden" id="movieKey" name="movieKey" value="${scheduleOne.movieKey}" />
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}" />
 	   	<input type="hidden" id="ck" name="ck" value="" />
 	   	<input type="hidden" id="totalNow" name="totalNow" value="0" />
+	   	<input type="hidden" id="seatNumber" name="seatNumber" value=""> 
 	   	<input type="hidden" name="showTypeNo" value="" />
 	   	<input type="hidden" name="screenNo" value="" />
 	   	<input type="hidden" name="regionNo" value="" />
 	   	<input type="hidden" name="showScheduleNo" value="" />
+	   	<input type="hidden" id="i" value="" />
 	   	
 	   	<div class="container d-flex bg-dark" style="color:white;">
 		   	<div class="row col-lg-12 col-sm-12">
@@ -198,7 +200,7 @@
 					</table>
 				</div>
 		   	</div>
-		   	<button class="payBtn" type="button" disabled="disabled">결제 선택</button>
+		   	<button class="payBtn" type="submit" disabled="disabled">결제 선택</button>
 	   	</div>
     </form>
 </body>
@@ -357,7 +359,11 @@
 						let button2 = $(this).next();
 						let prevBtn = $(this).prev();
 						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-							button2.css('background-color','red');
+							if(button2.hasClass('active')) {
+								prevBtn.css('background-color','red');
+							} else {
+								button2.css('background-color','red');								
+							}
 						} else {								  // 예매된 좌석
 							prevBtn.css('background-color','red');
 						}
@@ -371,7 +377,12 @@
 			
 			if($(this).hasClass('active') == false){
 				if(totalNow != 0 && totalNow >= 2){
-					$(this).css('background-color','white');
+					if($(this).next().hasClass('active')){
+						$(this).prev().css('background-color','white');
+						$(this).css('background-color','white');
+					} else {
+						$(this).css('background-color','white');						
+					}
 					
 					let parent = $(this).parent();
 					let lastButton = parent.children().last();
@@ -389,7 +400,9 @@
 						let prevBtn = $(this).prev();
 					
 						if (button2.attr('data-active') == 'Y') { // 예매 안된 좌석
-							button2.css('background-color','white');
+							if(button2.hasClass('active') == false){
+								button2.css('background-color','white');								
+							}
 						} else {								  // 예매 된 좌석
 							button2.css('background-color','');
 							prevBtn.css('background-color','white');
@@ -401,6 +414,7 @@
 			}
 		});
 		var seatKey = new Array();
+		var seatNumber = new Array();
 		// 좌석 선택 시
 		$(document).on('click', '.choice-seat', function() {
 			if($(this).hasClass('active') == false){
@@ -432,7 +446,11 @@
 							// 행의 마지막 버튼 불러오기
 							let parent = $(this).parent();
 							let lastButton = parent.children().last();
-							// alert(lastButton);
+							
+							// 좌석번호 저장
+							seatNumber.push($(this).attr('data-seat'));
+							alert('$(this).val() :'+$(this).val())
+							alert('lastButton.val() :'+lastButton.val())
 							
 							if($(this).val() == lastButton.val()){
 								let button2 = $(this).prev();
@@ -446,17 +464,43 @@
 								// 좌석 키 값 저장
 								seatKey.push(button2.val());
 								
+								// 좌석번호 저장
+								seatNumber.push(button2.attr('data-seat'));
+								
 							} else if($(this).val() != lastButton.val()) {				
 								let button2 = $(this).next();
 								
 								// 좌석 색깔 바꿔주기
 								button2.css('background-color','red');
 								
-								// 좌석 클래스 active로 설정
-								button2.addClass("active");
-								
 								// 좌석 키 값 저장
-								seatKey.push(button2.val());
+								if(button2.attr('data-seat') == null) { // 옆에 공백 버튼 일때
+									$(this).prev().addClass("active");
+									seatKey.push($(this).prev().val());	
+								} else {
+									// 좌석 클래스 active로 설정
+									button2.addClass("active");
+									seatKey.push(button2.val());									
+								}								
+								
+								// 좌석번호 저장
+								if(button2.attr('data-seat') == null) { // 옆에 공백 버튼 일때
+									seatNumber.push($(this).prev().attr('data-seat'));	
+								} else {
+									
+									if($('#i').val() == '1') {
+										if(button2.hasClass('active')) {
+											seatNumber.push($(this).prev().attr('data-seat'));																			
+										} else {
+											seatNumber.push(button2.attr('data-seat'));
+										}										
+									} else {
+										$('#i').val('1')
+										seatNumber.push(button2.attr('data-seat'));
+									}
+									
+								}
+								
 							}					
 							
 							if(totalNow == 0){
@@ -479,6 +523,9 @@
 							// 좌석 키 값 저장
 							seatKey.push($(this).val());
 							
+							// 좌석번호 저장
+							seatNumber.push($(this).attr('data-seat'));
+							
 							$('#ck').val(1);
 							if($('#ck').val() == 1){
 								$('.payBtn').attr("disabled", false);
@@ -486,6 +533,7 @@
 						}
 						$('#seatKey').val(seatKey);
 						alert(seatKey);
+						$('#seatNumber').val(seatNumber);
 						// 가격 출력
 				}
 			} else if($(this).hasClass('active') == true) {
@@ -558,10 +606,14 @@
 					
 					// 좌석 키 값 제거
 					seatKey.splice($.inArray($(this).val(), seatKey),1);
+					
+					// 좌석 번호 제거
+					seatNumber.splice($.inArray($(this).attr('data-seat'), seatNumber), 1);
 				}
 				$('#seatKey').val(seatKey);
-				alert(seatKey);
-				// 가격 출력
+				$('#seatNumber').val(seatNumber);
+				$('#seatNo').text($('#seatNumber').val())
+				
 			//}
 		});
 	});

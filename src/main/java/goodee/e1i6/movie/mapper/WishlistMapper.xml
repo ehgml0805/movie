@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.WishlistMapper">
+
+	<!-- 영화 찜하기 -->
+	<insert id="insertWishlist" parameterType="goodee.e1i6.movie.vo.Wishlist">
+		INSERT INTO wishlist (
+			customer_id
+			, movie_key
+		) VALUES (
+			#{customerId}
+			, #{movieKey}
+		)
+	</insert>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteWistlist" parameterType="goodee.e1i6.movie.vo.Wishlist">
+		DELETE FROM wishlist
+		WHERE notice_key = #{noticeKey} AND customer_id = #{customerId}
+	</delete>
+</mapper>
