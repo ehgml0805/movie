@@ -469,34 +469,57 @@
 								
 							} else if($(this).val() != lastButton.val()) {				
 								let button2 = $(this).next();
+								let prevBtn = $(this).prev();
 								
 								// 좌석 색깔 바꿔주기
-								button2.css('background-color','red');
+								if(button2.attr('data-active') == 'N') {
+									prevBtn.css('background-color','red');
+								} else {
+									button2.css('background-color','red');									
+								}
 								
 								// 좌석 키 값 저장
 								if(button2.attr('data-seat') == null) { // 옆에 공백 버튼 일때
 									$(this).prev().addClass("active");
 									seatKey.push($(this).prev().val());	
 								} else {
-									// 좌석 클래스 active로 설정
-									button2.addClass("active");
-									seatKey.push(button2.val());									
+									if(button2.attr('data-active') == 'N') {
+										// 좌석 클래스 active로 설정
+										prevBtn.addClass("active");
+										seatKey.push(prevBtn.val());																													
+									} else {
+										// 좌석 클래스 active로 설정
+										button2.addClass("active");
+										seatKey.push(button2.val());																			
+									}
 								}								
 								
 								// 좌석번호 저장
 								if(button2.attr('data-seat') == null) { // 옆에 공백 버튼 일때
 									seatNumber.push($(this).prev().attr('data-seat'));	
 								} else {
-									
 									if($('#i').val() == '1') {
 										if(button2.hasClass('active')) {
-											seatNumber.push($(this).prev().attr('data-seat'));																			
+											seatNumber.push($(this).prev().attr('data-seat'));		
+											prevBtn.addClass("active");
 										} else {
-											seatNumber.push(button2.attr('data-seat'));
+											if(button2.attr('data-active') == 'N') {
+												seatNumber.push(prevBtn.attr('data-seat'));
+												prevBtn.addClass("active");
+											} else {
+												seatNumber.push(button2.attr('data-seat'));	
+												button2.addClass("active");
+											}
 										}										
 									} else {
-										$('#i').val('1')
-										seatNumber.push(button2.attr('data-seat'));
+										$('#i').val('1');
+										if(button2.attr('data-active') == 'N') {
+											seatNumber.push(prevBtn.attr('data-seat'));
+											prevBtn.addClass("active");
+										} else {
+											seatNumber.push(button2.attr('data-seat'));	
+											button2.addClass("active");
+										}
 									}
 									
 								}
