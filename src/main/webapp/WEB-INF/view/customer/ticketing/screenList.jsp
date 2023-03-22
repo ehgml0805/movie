@@ -94,8 +94,9 @@
 		   	<div class="row col-lg-12 col-sm-12">
 		   		<div class="movie-img col-lg-3 col-sm-3">
 					<div class="choice-list" id="choiceMovieList-0">
-						<img id="picture" alt="no-picture" src="" style="width:120px; height:171px;">
-	                    <p id="picture-name">영화를 클릭하세요</p>
+						<div id="picture-box"></div>
+						<!-- <img id="picture" alt="" src="" style="width:120px; height:171px;"> -->
+	                    <p id="picture-name">영화 선택</p>
 					</div>
 				</div>	
 				<div class="col-lg-3 col-sm-3">
@@ -300,8 +301,9 @@
         								let startDate = startDate_[1].slice(0, 5);
         								let endDate_ = list[i].endDate.split("T");
         								let endDate = endDate_[1].slice(0, 5);
-        								html += "<button class='schedule-button'>"+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";
-        							}
+        								html += "<button class='schedule-button' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
+												+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";        							
+									}
         							$('#schedule').html(html);
         						}
         						, error:function(){
@@ -384,8 +386,12 @@
         					$('#movieKey').val(list[0].movieKey);
         					// alert(movieCode);
         					if(movieCode != 0){
+        						html = "<img id='picture' alt='#' src='#' style='width:120px; height:171px;'>";
+        						$('#picture-box').html(html);
         						$('#picture').attr('src', fileName);
         					} else {
+        						html = "<img id='picture' alt='#' src='#' style='width:120px; height:171px;'>";
+        						$('#picture-box').html(html);
         						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
         					}    	
     					}
@@ -417,8 +423,12 @@
     					$('#movieKey').val(list[0].movieKey);
     					// alert('movieKey: '+$('#movieKey').val());
     					if(movieCode != 0){
+    						html = "<img id='picture' alt='#' src='#' style='width:120px; height:171px;'>";
+    						$('#picture-box').html(html);
     						$('#picture').attr('src', fileName);
     					} else {
+    						html = "<img id='picture' alt='#' src='#' style='width:120px; height:171px;'>";
+    						$('#picture-box').html(html);
     						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
     					} 
     					
@@ -441,8 +451,9 @@
         								let startDate = startDate_[1].slice(0, 5);
         								let endDate_ = list[i].endDate.split("T");
         								let endDate = endDate_[1].slice(0, 5);
-        								html += "<button class='schedule-button'>"+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";
-        							}
+        								html += "<button class='schedule-button' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
+												+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";        							
+									}
         							$('#schedule').html(html);
         						}
         						, error:function(){
@@ -581,7 +592,8 @@
     								let startDate = startDate_[1].slice(0, 5);
     								let endDate_ = list[i].endDate.split("T");
     								let endDate = endDate_[1].slice(0, 5);
-    								html += "<button class='schedule-button'>"+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";
+    								html += "<button class='schedule-button' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
+											+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";        															
     							}
     							$('#schedule').html(html);
     						}
@@ -650,14 +662,14 @@
     		$(document).on('click', '.schedule-button', function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
     			
-    			let day = $('#day').val();
+    			/* let day = $('#day').val();
     			let time = day + " " + $(this).text().slice(0, 5) +":00";
     			let movieKey = $('#movieKey').val();
-    			let startDate = "";
+    			let startDate = ""; */
     			// alert(time);
     			
     			// 샹영 스케줄 키 값 받아오기    			
-    			$.ajax({
+    			/* $.ajax({
     				url : '${pageContext.request.contextPath}/ticketing/screeningScheduleOneByTicketing',
     				type : 'GET',
     				data : {movieKey : movieKey, time : time}, 
@@ -671,7 +683,40 @@
 					error : function() {
 						alert('screeningScheduleOneByTicketing error')
 					}
+    			}); */
+    			$('#scheduleKey').val($(this).attr('data-schedulekey'));
+    			$('#movieKey').val($(this).attr('data-moviekey'));
+    			let movieKey = $('#movieKey').val();
+    			
+    			//  이미지 출력
+    			$.ajax({
+    				url :'${pageContext.request.contextPath}/ticketing/movieOne'
+    				, type :'get'
+    				, data : {movieKey: movieKey}
+    				, success:function(list){
+    					// alert(list);
+    					let fileName = list[0].fileName;
+    					let movieCode = list[0].movieCode;
+    					let movieTitle = list[0].movieTitle;
+    					// alert('movieTitle : ' + movieTitle);
+    					$('#picture-name').html(movieTitle);
+    					$('#movieKey').val(list[0].movieKey);
+    					// alert('movieKey: '+$('#movieKey').val());
+    					if(movieCode != 0){
+    						html = "<img id='picture' alt='#' src='#' style='width:120px; height:171px;'>";
+    						$('#picture-box').html(html);
+    						$('#picture').attr('src', fileName);
+    					} else {
+    						html = "<img id='picture' alt='#' src='#' style='width:120px; height:171px;'>";
+    						$('#picture-box').html(html);
+    						$('#picture').attr('src', '${pageContext.request.contextPath}/stillCut-upload/'+fileName);
+    					} 
+    				}
     			});
+    			$('#screening-date').html($('#day').val());
+    			$('#screening-time').html('&nbsp;'+$(this).attr('data-starttime'));
+    			$('#screenroom-name').html($(this).attr('data-screenroomname'));
+    			$('#theater-name').html($(this).attr('data-theatername'));
     			
    				$('.seatBtn').attr("disabled", false); // 좌석선택 버튼 활성화
     		});
