@@ -24,35 +24,37 @@
 		<div class="container row col-lg-12 col-sm-12">
 			<div class="col-lg-8 col-sm-8">
 				<!-- 쿠폰 선택 -->
-				<div class="bg-dark" style="color:white;">&nbsp;STEP 1.</div>
-				<div>&nbsp;할인쿠폰</div>
-				<table>
-					<tr>
-						<td>쿠폰 이름 </td>
-						<td>할인 금액 </td>
-						<td>사용기한 </td>
-					</tr>
-					<c:forEach var="c" items="${myCouponList}">		
+				<div class="bg-dark" style="color:white;">&nbsp;STEP 1.<button type="button" id="myCouponRetry">다시하기</button></div>
+				<div id="myCouponList">
+					<div>&nbsp;할인쿠폰</div>				
+					<table>
 						<tr>
-							<td>
-								<input type="radio" class="coupon" name="coupon" value="${c.couponKey}" data-price="${c.couponSalePrice}">
-								${c.couponName}
-							</td>
-							<td>${c.couponSalePrice}원</td>
-							<td>~ ${c.useByDate}</td>
+							<td>쿠폰 이름 </td>
+							<td>할인 금액 </td>
+							<td>사용기한 </td>
 						</tr>
-					</c:forEach>			
-				</table>
+						<c:forEach var="c" items="${myCouponList}">		
+							<tr>
+								<td>
+									<input type="radio" class="coupon" name="coupon" value="${c.couponKey}" data-price="${c.couponSalePrice}">
+									${c.couponName}
+								</td>
+								<td>${c.couponSalePrice}원</td>
+								<td>~ ${c.useByDate}</td>
+							</tr>
+						</c:forEach>			
+					</table>
+				</div>
 				<!-- 포인트 선택 -->
 				<div class="bg-dark" style="color:white;">&nbsp;STEP 2.</div>
 				<div>&nbsp;포인트</div>
 				<table>
 					<tr>
 						<td>
-							 보유 포인트 <input type="number" name="mypoint" value="${point}" readonly="readonly">원
+							 보유 포인트 <input type="number" id="mypoint" name="mypoint" value="${point}" readonly="readonly">원
 						</td>
 						<td>
-							 사용할 포인트 <input type="number" id="point" name="point" value="" oninput="pointValue(this.value)">원
+							 사용할 포인트 <input type="number" id="point" name="point" value="">원
 						</td>
 					</tr>
 				</table>
@@ -65,7 +67,7 @@
 			</div>
 			<div class="col-lg-4 col-sm-4">
 				<div class="summary_box total_box">
-					<div class="payment_header">결제하실 금액</div>
+					<div class="payment_header" id="payment">결제하실 금액</div>
 					<div class="payment_footer">
 						<div class="result">
 							<span class="num" id="totalPrice">${totalPrice}</span>
@@ -93,7 +95,7 @@
 						<dl>
 							<dt>카카오페이</dt>
 							<dd>
-								<span class="num"></span>
+								<span class="num" id="kakaoPrice"></span>
 								<span class="won">원</span>
 							</dd>
 						</dl>
@@ -103,7 +105,7 @@
 							<span>남은 결제금액</span>
 						</div>
 						<div class="result">
-							<span class="num"></span>
+							<span class="num" id="remainPrice"></span>
 							<span class="won">원</span>
 						</div>
 					</div>
@@ -169,32 +171,81 @@
 </body>
 <script>
 	$(function(){
-		// 페이지 시작 전 기본 셋팅
-		/* $(document).ready(function(){
-			// 포인트 선택 시
-			function pointFunction(){
-				$('#discountPrice').val(paresInt($('#discountPrice').val())+paresInt($('#point').val()));
-			};
-		}); */
+		let totalPrice = parseInt($('#totalPrice').text());
+		let couponPrice = '0'; // 쿠폰 가격
+		let pointVal = '0'; // 사용할 보인트
+		let discountPrice = '0'; // 총 할인가격
 		
 		// 쿠폰 선택 시
 		$(document).on('click', '.coupon', function(){
-			$('#discountPrice').html($(this).attr('data-price'));
-		});
-		
-		// 포인트 선택 시
-		/* $('#point').oninput =  */
-		function pointValue(value){
-			$('#point').val(value);
-		}
-		
-		$(document).on('click', '#point', function(){
-			$('#point').val($(this).val());
+			couponPrice = $('.coupon:checked').attr('data-price'); // 쿠폰 적용 가격
+			discountPrice = parseInt(pointVal) + parseInt(couponPrice); // 총 할인가격
 			
-			$('#point').onchange = function pointFunction(){
-					$('#discountPrice').val(paresInt($('#discountPrice').val())+paresInt($('#point').val()));
-			};
+			// 총 할인금액
+			$('#discountPrice').text(discountPrice);
+			$('#kakaoPrice').text(totalPrice - discountPrice);
+			$('#remainPrice').text(totalPrice - discountPrice);
 		});
+		
+		$('#point').on('blur', function() {
+			if(parseInt($('#mypoint').val()) < parseInt($(this).val())) {
+				alert('보유 포인트를 초과했습니다.');
+				$(this).val('');
+			}
+			if(parseInt($('#mypoint').val()) < 0) {
+				$(this).val('');
+			}
+			
+			pointVal = ($('#point').val() === '') ? '0' : $(this).val(); // 사용할 포인트
+			discountPrice = parseInt(pointVal) + parseInt(couponPrice); // 총 할인가격
+			
+			// 총 할인금액
+			$('#discountPrice').text(discountPrice);		
+			$('#kakaoPrice').text(totalPrice - discountPrice);
+			$('#remainPrice').text(totalPrice - discountPrice);
+		});
+		
+		// 다시하기 ajax
+		$('#myCouponRetry').click(function() {
+			$.ajax({
+				url : '${pageContext.request.contextPath}/customer/ticketing/mycouponeList'
+				, type : 'GET'
+				, success : function() {
+					let html = `
+					<div>&nbsp;할인쿠폰</div>				
+					<table>
+						<tr>
+							<td>쿠폰 이름 </td>
+							<td>할인 금액 </td>
+							<td>사용기한 </td>
+						</tr>
+						<c:forEach var="c" items="${myCouponList}">		
+							<tr>
+								<td>
+									<input type="radio" class="coupon" name="coupon" value="${c.couponKey}" data-price="${c.couponSalePrice}">
+									${c.couponName}
+								</td>
+								<td>${c.couponSalePrice}원</td>
+								<td>~ ${c.useByDate}</td>
+							</tr>
+						</c:forEach>			
+					</table>`;
+					
+					$('#myCouponList').html(html);
+					
+					// 쿠폰 적용
+					couponPrice = ($('.coupon:checked').attr('data-price') == undefined) ? '0' : $('.coupon:checked').attr('data-price'); // 쿠폰 적용 가격
+					discountPrice = parseInt(pointVal) + parseInt(couponPrice); // 총 할인가격
+					// 총 할인금액
+					$('#discountPrice').text(discountPrice);
+					$('#kakaoPrice').text(totalPrice - discountPrice);
+					$('#remainPrice').text(totalPrice - discountPrice);
+				}
+				, error : function() {
+					alert('error')
+				}
+			});
+		})
 	});
 </script>
 </html>

@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.ScreeningScheduleService;
 import goodee.e1i6.movie.service.TheaterService;
 import goodee.e1i6.movie.teamColor.TeamColor;
+import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.Theater;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,6 +27,7 @@ public class TicketingRestController {
 	@Autowired TheaterService theaterService;
 	@Autowired MovieService movieService;
 	@Autowired ScreeningScheduleService screeningScheduleService;
+	@Autowired CouponService couponService;
 	
 	// 빠른 예매 - 상영 스케줄 키 값 받아오기
 	@GetMapping("/ticketing/screeningScheduleOneByTicketing")
@@ -95,6 +101,15 @@ public class TicketingRestController {
 																, @RequestParam(value = "date", defaultValue = "") String date){
 		log.debug(TeamColor.JYW + "GET ScreeningScheduleList");
 		return screeningScheduleService.getScreeningScheduleListByDate(movieKey, theaterKey, date);
+	}
+	
+	// 결제하기 - 다시하기버튼
+	@GetMapping("/customer/ticketing/mycouponeList")
+	public List<Map<String, Object>> getMycouponeList(HttpSession session, Model model) {
+		// 사용가능한 쿠폰 불러오기
+		Customer customer = (Customer)session.getAttribute("loginCustomer");
+		
+		return couponService.selectMyCouponList(session, customer.getCustomerId());
 	}
 }
 
