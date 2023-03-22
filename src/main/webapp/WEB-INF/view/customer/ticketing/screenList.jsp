@@ -83,6 +83,7 @@
 	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="" />
 	   	<input type="hidden" id="ck" name="ck" value="" />
+	   	<input type="hidden" id="region" value="" />
 	   	<input type="hidden" name="ratingNo" value="" />
 	   	<input type="hidden" name="showTypeNo" value="" />
 	   	<input type="hidden" name="screenNo" value="" />
@@ -229,7 +230,6 @@
 				$('#day').val($(this).val()); // 선택한 날짜를 hidden에 넣어줌
 				
 				// 초기화
-				$('#theaterName').html(""); // 결제서 > 상영관 이름
 				$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
 				
 				// 결제서
@@ -308,6 +308,37 @@
         							alert('screeningScheduleListByDate error');
         						}
         					});	
+    						
+        	    			// 극장, 날짜 선택 후 영화를 눌렀을 때 극장 목록 출력
+        	    			$.ajax({
+        	    		        type: 'GET',
+        	    		        url: '${pageContext.request.contextPath}/ticketing/theaterNameListByRegion',
+        	    		        data: { theaterRegion: $('#region').val() , startDate : $('#day').val(), movieKey : $('#movieKey').val()},
+        	    		        dataType: 'json',
+        	    		        success: function(data) {
+        	    		        	// $('#theaterKey').val(data[0].theaterKey);
+        	    		            var html = "";
+        	    		            for (var i = 0; i < data.length; i++) {
+        	    		            	if($('#movieKey').val() !== '0') {
+        		    		            	if(data[i].startDate !== undefined) {
+        			    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            	} else {
+        			    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            	}    		            		
+        	    		            	} else if($('#movieKey').val() === '0') {
+        	    		            		if(data[i].startDate !== undefined) {
+        		    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            			    		            			
+        	    		            		} else {
+        	    		            			html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            		}
+        	    		            	}
+        	    		            }
+        	    		            $('#theaterName').html(html);
+        	    		        },
+        	    		        error: function() {
+        	    		            alert('theaterList error')
+        	    		        }
+        	    		    });
     					}
     					
 					},
@@ -417,10 +448,42 @@
         						, error:function(){
         							alert('에러');
         						}
-        					});	
+        					});
+    						
+        	    			// 극장, 날짜 선택 후 영화를 눌렀을 때 극장 목록 출력
+        	    			$.ajax({
+        	    		        type: 'GET',
+        	    		        url: '${pageContext.request.contextPath}/ticketing/theaterNameListByRegion',
+        	    		        data: { theaterRegion: $('#region').val() , startDate : $('#day').val(), movieKey : $('#movieKey').val()},
+        	    		        dataType: 'json',
+        	    		        success: function(data) {
+        	    		        	// $('#theaterKey').val(data[0].theaterKey);
+        	    		            var html = "";
+        	    		            for (var i = 0; i < data.length; i++) {
+        	    		            	if($('#movieKey').val() !== '0') {
+        		    		            	if(data[i].startDate !== undefined) {
+        			    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            	} else {
+        			    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            	}    		            		
+        	    		            	} else if($('#movieKey').val() === '0') {
+        	    		            		if(data[i].startDate !== undefined) {
+        		    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            			    		            			
+        	    		            		} else {
+        	    		            			html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            		}
+        	    		            	}
+        	    		            }
+        	    		            $('#theaterName').html(html);
+        	    		        },
+        	    		        error: function() {
+        	    		            alert('theaterList error')
+        	    		        }
+        	    		    });
     					}
     				}
     			});
+				
     		});
     		
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
@@ -450,6 +513,8 @@
     		/*  지역 선택 시 해당 지역 극장 리스트 출력 */
     		$(document).on('click', '.region', function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			let theaterRegion = $(this).val();
+    			$('#region').val(theaterRegion); // 극장 지역 저장
     			
     		    $.ajax({
     		        type: 'GET',
@@ -486,8 +551,7 @@
     		// 극장 선택 시 날짜 기준
     		$(document).on('click', '.theater-button', function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
-    			$('#theater-name').text($(this).text());
-    			
+    			$('#theater-name').text($(this).text()); // 상영관이름 저장
     			// 극장 선택 시 극장 키 값 저장
     			// alert('theaterOneByName 클릭')
     			// alert('theaterName : '+ $(this).text());    			
