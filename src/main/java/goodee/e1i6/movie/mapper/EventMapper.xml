@@ -92,7 +92,7 @@
 			<if test="searchWord != null || searchWord !=''">
 				event_title like CONCAT('%',#{searchWord},'%') 
 			</if>
-			AND NOW() > event_end_date
+			AND CURDATE() > event_end_date
 		</where>
 	</select>
 
@@ -102,7 +102,7 @@
 			<if test="searchWord != null || searchWord !=''">
 				event_title like CONCAT('%',#{searchWord},'%') 
 			</if>
-			 AND event_end_date > NOW()
+			 AND event_end_date >= CURDATE()
 		</where>
 	</select>
 	
@@ -142,7 +142,7 @@
 			<if test="searchWord != null || searchWord !=''">
 				event_title like CONCAT('%',#{searchWord},'%')
 			</if>
-			 AND NOW() > event_end_date
+			 AND CURDATE() > event_end_date
 		</where>
 		GROUP BY e.event_key
 		ORDER BY e.event_key DESC
@@ -167,7 +167,7 @@
 			<if test="searchWord != null || searchWord !=''">
 				event_title like CONCAT('%',#{searchWord},'%')
 			</if>
-			 AND event_end_date > NOW()
+			 AND event_end_date >= CURDATE()
 		</where>
 		GROUP BY e.event_key
 		ORDER BY e.event_key DESC

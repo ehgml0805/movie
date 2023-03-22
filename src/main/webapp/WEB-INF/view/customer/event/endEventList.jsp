@@ -75,31 +75,38 @@
 		background-color: #f2f2f2;
 		font-weight: bold;
 	}
+	    .events-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .event-item {
+        width: 24%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .event-item img {
+        max-width: 100%;
+        height: auto;
+    }
 </style>
 </head>
 <body>
-	<h1>종료된 이벤트 리스트</h1>
-	<table border="1">
-		<tr>
-			<th>이벤트 제목</th>
-			<th>이벤트 시작날짜</th>
-			<th>이벤트 종료날짜</th>
-			<th>당첨자 조회</th>
-		</tr>
+	<h1>종료된 이벤트</h1>
+	<div class="events-container">
 		<c:forEach var="e" items="${list}">
-			<tr>
-				<td>
-					<div>
-						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="200" height="200">
-					</div>
-					<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
-				</td>
-				<td>${e.eventStartDate}</td>
-				<td>${e.eventEndDate}</td>
-				<td><button type="button" id="winnerBtn_${e.eventKey}">당첨자 조회</button></td>
-			</tr>
+			<div class="event-item">
+				<div>
+					<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="200" height="200">
+				</div>
+				<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
+				${e.eventStartDate} ~ ${e.eventEndDate}
+				<button type="button" id="winnerBtn_${e.eventKey}">당첨자 조회</button>
+			</div>
 		</c:forEach>
-	</table>
+	</div>	
 	<form method="get" action="${pageContext.request.contextPath}/event/endEventList">
 		<input type="text" name="searchWord" value="${param.searchWord}">
 		<button type="submit">이벤트 검색</button>

@@ -5,34 +5,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+    .events-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .event-item {
+        width: 24%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+  
+   	.pagination {
+	  	display: flex;
+	  	justify-content: center;
+	}
+	
+	.pagination {
+		margin-top: 20px;
+	}
+	.pagination a {
+		display: inline-block;
+		margin: 0 5px;
+		padding: 5px 10px;
+		background-color: #f2f2f2;
+		border: 1px solid #ddd;
+		color: black;
+		text-decoration: none;
+	}
+	.pagination a.active {
+		background-color: dodgerblue;
+		color: white;
+	}
+	.pagination a.disabled {
+		color: #ddd;
+		pointer-events: none;
+	}
+</style>
 </head>
 <body>
-	<h1>이벤트 리스트</h1>
+	<h1>진행중인 이벤트</h1>
 	<a href="${pageContext.request.contextPath}/employee/event/addEvent">이벤트 등록</a>
-	<table border="1">
-		<tr>
-			<th>이벤트 제목</th>
-			<th>이벤트 시작날짜</th>
-			<th>이벤트 종료날짜</th>
-		</tr>
+	<div class="events-container">
 		<c:forEach var="e" items="${list}">
-			<tr>
-				<td>
-					<div>
-						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="200" height="200">
-					</div>
+			<div class="event-item">
+				<div>
+					<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="250" height="250">
+				</div>
+				<div>
 					<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
-				</td>
-				<td>${e.eventStartDate}</td>
-				<td>${e.eventEndDate}</td>
-			</tr>
+				</div>
+				<div>
+					${e.eventStartDate} ~ ${e.eventEndDate}
+				</div>
+			</div>	
 		</c:forEach>
-	</table>
+	</div>	
 	<form method="get" action="${pageContext.request.contextPath}/event/eventList">
 		<input type="text" name="searchWord" value="${param.searchWord}">
 		<button type="submit">이벤트 검색</button>
 	</form>
-	<div>
+	<div class="pagination">
 		<a href="${pageContext.request.contextPath}/event/eventList?currentPage=1&searchWord=${searchWord}">처음으로</a>		
 		<c:if test="${currentPage > 1}">
 			<a href="${pageContext.request.contextPath}/event/eventList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a>
