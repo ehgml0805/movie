@@ -587,9 +587,10 @@
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
     			
     			let day = $('#day').val();
-    			let time = day + " " + $(this).text().slice(0, 5);
+    			let time = day + " " + $(this).text().slice(0, 5) +":00";
     			let movieKey = $('#movieKey').val();
     			let startDate = "";
+    			// alert(time);
     			
     			// 샹영 스케줄 키 값 받아오기    			
     			$.ajax({

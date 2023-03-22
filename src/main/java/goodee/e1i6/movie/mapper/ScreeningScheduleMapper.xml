@@ -93,7 +93,7 @@
 							ON ss.movie_key = m.movie_key) ss INNER JOIN screenroom sr
 					ON ss.screenroom_key = sr.screenroom_key) ss INNER JOIN theater t	
 			ON ss.theater_key = t.theater_key
-		WHERE ss.movie_key = #{movieKey} AND ss.start_date LIKE '%${time}%'
+		WHERE ss.movie_key = #{movieKey} AND ss.start_date = #{time}
 	</select>
 	
 	<!-- 상영 스케줄 한 개 -->
