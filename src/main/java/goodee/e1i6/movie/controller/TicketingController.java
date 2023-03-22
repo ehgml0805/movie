@@ -66,8 +66,7 @@ public class TicketingController {
 	// 좌석 선택
 	@GetMapping("/ticketing/ticketingSeat")
 	public String ticketingSeat(Model model
-									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
-									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
+									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey) {
 		
 		Map<String, Object> scheduleOne = screeningScheduleService.getScreeningScheduleOne(scheduleKey);
 		model.addAttribute("scheduleOne", scheduleOne);	
@@ -76,7 +75,7 @@ public class TicketingController {
 		List<Seat> seatList = seatService.getSeatListByScreenroom(screenroomKey);
 		model.addAttribute("seatList", seatList);	
 		
-		StillCut stillCut = stillCutService.getStillCutOneByTicketing(movieKey);
+		StillCut stillCut = stillCutService.getStillCutOneByTicketing((Integer)scheduleOne.get("movieKey"));
 		model.addAttribute("stillCut", stillCut);	
 		
 		return "/customer/ticketing/ticketingSeat";
@@ -84,8 +83,7 @@ public class TicketingController {
 	
 	@GetMapping("/ticketing/ticketingSeat2")
 	public String ticketingSeat2(Model model
-									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
-									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
+									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey) {
 		
 		Map<String, Object> scheduleOne = screeningScheduleService.getScreeningScheduleOne(scheduleKey);
 		model.addAttribute("scheduleOne", scheduleOne);	
@@ -94,7 +92,7 @@ public class TicketingController {
 		List<Seat> seatList = seatService.getSeatListByScreenroom(screenroomKey);
 		model.addAttribute("seatList", seatList);	
 		
-		StillCut stillCut = stillCutService.getStillCutOneByTicketing(movieKey);
+		StillCut stillCut = stillCutService.getStillCutOneByTicketing((Integer)scheduleOne.get("movieKey"));
 		model.addAttribute("stillCut", stillCut);	
 		
 		return "/customer/ticketing/ticketingSeat2";
@@ -104,14 +102,40 @@ public class TicketingController {
 	@GetMapping("/ticketing/ticketingPay")
 	public String ticektingPay(Model model, HttpSession session
 									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
-									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey) {
+									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey
+									, @RequestParam(value = "seatKey", defaultValue = "0") int[] seatKey
+									, @RequestParam(value = "seatNumber", defaultValue = "0") String[] seatNumber
+									, @RequestParam(value = "adultNo", defaultValue = "0") int adultNo
+									, @RequestParam(value = "teenagerNo", defaultValue = "0") int teenagerNo
+									, @RequestParam(value = "totalAmount", defaultValue = "0") int totalAmount) {
 		
-		// 예매 정보 상태 불러오기
+		/* 예매 정보 상태 불러오기 */
+		
+		// 영화, 극장, 스케줄 정보
 		Map<String, Object> scheduleOne = screeningScheduleService.getScreeningScheduleOne(scheduleKey);
 		model.addAttribute("scheduleOne", scheduleOne);	
 		
 		StillCut stillCut = stillCutService.getStillCutOneByTicketing(movieKey);
 		model.addAttribute("stillCut", stillCut);	
+		
+		// 인원 정보
+		model.addAttribute("adultNo", adultNo);
+		model.addAttribute("teenagerNo", teenagerNo);
+		
+		// 좌석 정보
+		int[] seatKey_ = new int[seatKey.length];
+		for(int i=0; i<seatKey.length; i++) {
+			seatKey_[i] = seatKey[i];
+		}
+		model.addAttribute("seatKey", seatKey_);
+		String[] seatNumber_ = new String[seatNumber.length];
+		for(int i=0; i<seatNumber.length; i++) {
+			seatNumber_[i] = seatNumber[i];
+		}
+		model.addAttribute("seatNumber", seatNumber_);
+		
+		// 가격 정보
+		model.addAttribute("totalPrice", totalAmount);
 		
 		// 사용가능한 쿠폰 불러오기
 		Customer customer = (Customer)session.getAttribute("loginCustomer");

@@ -35,7 +35,7 @@
 					<c:forEach var="c" items="${myCouponList}">		
 						<tr>
 							<td>
-								<input type="radio" name="coupon" value="${c.couponKey}">
+								<input type="radio" class="coupon" name="coupon" value="${c.couponKey}" data-price="${c.couponSalePrice}">
 								${c.couponName}
 							</td>
 							<td>${c.couponSalePrice}원</td>
@@ -52,7 +52,7 @@
 							 보유 포인트 <input type="number" name="mypoint" value="${point}" readonly="readonly">원
 						</td>
 						<td>
-							 사용할 포인트 <input type="number" name="point" value="">원
+							 사용할 포인트 <input type="number" id="point" name="point" value="" oninput="pointValue(this.value)">원
 						</td>
 					</tr>
 				</table>
@@ -68,11 +68,12 @@
 					<div class="payment_header">결제하실 금액</div>
 					<div class="payment_footer">
 						<div class="result">
-							<span class="num" id="totalPrice"></span>
+							<span class="num" id="totalPrice">${totalPrice}</span>
 							<span class="won">원</span>
 						</div>
 					</div>
 				</div>
+				<br>
 				<div class="summary_box discount_box">
 					<div class="payment_header">할인내역</div>
 					<div class="payment_footer">
@@ -85,11 +86,12 @@
 						</div>
 					</div>
 				</div>
+				<br>
 				<div class="summary_box payment_box">
 					<div class="payment_header">결제내역</div>
 					<div class="payment_body" id="payment_list">
 						<dl>
-							<dt>신용카드</dt>
+							<dt>카카오페이</dt>
 							<dd>
 								<span class="num"></span>
 								<span class="won">원</span>
@@ -135,8 +137,12 @@
 					<tr>
 						<td>인원</td>
 						<td>
-							<span id="adult-count"></span>
-							<span id="teenager-count"></span>
+							<c:if test="${adultNo ne 0}">
+								<span id="adult-count">일반 ${adultNo}명&nbsp;</span>
+							</c:if>
+							<c:if test="${teenagerNo ne 0}">
+								<span id="teenager-count">청소년 ${teenagerNo}명</span>
+							</c:if>
 						</td>
 					</tr>
 				</table>
@@ -145,11 +151,15 @@
 				<table>
 					<tr>
 						<td>좌석명</td>
-						<td><span id="seatName"></span></td>
+						<td><span id="seatName">일반석</span></td>
 					</tr>
 					<tr>
 						<td>좌석번호</td>
-						<td><span id="seatNo"></span></td>
+						<td>
+							<c:forEach var="s" begin="0" end="${fn:length(seatNumber)}" step="1">
+								<span id="seatNo">${seatNumber[s]}</span>
+							</c:forEach>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -157,4 +167,34 @@
 	   	<button class="payBtn" type="button" disabled="disabled">결제하기</button>
    	</div>
 </body>
+<script>
+	$(function(){
+		// 페이지 시작 전 기본 셋팅
+		/* $(document).ready(function(){
+			// 포인트 선택 시
+			function pointFunction(){
+				$('#discountPrice').val(paresInt($('#discountPrice').val())+paresInt($('#point').val()));
+			};
+		}); */
+		
+		// 쿠폰 선택 시
+		$(document).on('click', '.coupon', function(){
+			$('#discountPrice').html($(this).attr('data-price'));
+		});
+		
+		// 포인트 선택 시
+		/* $('#point').oninput =  */
+		function pointValue(value){
+			$('#point').val(value);
+		}
+		
+		$(document).on('click', '#point', function(){
+			$('#point').val($(this).val());
+			
+			$('#point').onchange = function pointFunction(){
+					$('#discountPrice').val(paresInt($('#discountPrice').val())+paresInt($('#point').val()));
+			};
+		});
+	});
+</script>
 </html>
