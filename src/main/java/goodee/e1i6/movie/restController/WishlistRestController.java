@@ -31,21 +31,20 @@ public class WishlistRestController {
 		if(check == 1) {
 			log.debug(TeamColor.YIB + "찜 해제--");
 			int result = wishlistService.removeWishlistByMovie(customerId, movieKey);
-			log.debug(TeamColor.YIB + result + "result");
+			log.debug(TeamColor.YIB + result + " : result");
 			if (result == 1) {
 				result = 10; // 10 = 찜 해제
 			}
 			return result;
 		}
 		// 찜 안되어 있으면 찜 하기
-		log.debug(TeamColor.YIB + "찜 add--");
+		log.debug(TeamColor.YIB + "찜 하기--");
 		int result = wishlistService.addWishlistByMovie(customerId, movieKey);
-		log.debug(TeamColor.YIB + result + "result");
+		log.debug(TeamColor.YIB + result + " : result");
 		if (result == 1) {
 			result = 20; // 20 = 찜 완료
 		}
 		return result;
 	}
-	
 	
 }
