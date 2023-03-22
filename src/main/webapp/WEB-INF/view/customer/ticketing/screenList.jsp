@@ -31,7 +31,7 @@
 		<div class="container movie-container left-one">
 			<h1>영화</h1>
 			<div class="movie-name">
-				<button class="movie-name-button" type="button">전체</button>
+				<button class="movie-name-button" id="movie-all" type="button">전체</button>
 			</div>
 			<div id="movieList">
 				<c:forEach var="m" items="${movieList}">
@@ -105,7 +105,7 @@
 						</tr>
 						<tr>
 							<td>일시</td>
-							<td><span id="startday"></span><span id="time"></span></td>
+							<td><span id="screening-date"></span><span id="screening-time"></span></td>
 						</tr>
 						<tr>
 							<td>상영관</td>
@@ -153,6 +153,7 @@
 			const startDate = new Date();
 			let year = startDate.getFullYear();
 			let month = startDate.getMonth();
+			let day = startDate.getDate();
 			$('div.date').text(year+"년 "+(Number(month)+1)+"월");
 			$('#day').val(year+"-"+(Number(month)+1)+"-"+startDate.getDate());
 			$('#movieKey').val(0);			
@@ -227,12 +228,21 @@
 				$('div.date').text(year+"년 "+(Number(month))+"월");
 				$('#day').val($(this).val()); // 선택한 날짜를 hidden에 넣어줌
 				
+				// 초기화
+				$('#theaterName').html(""); // 결제서 > 상영관 이름
+				$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+				
+				// 결제서
+				$('#theater-name').text(""); // 결제서 극장
+				$('#screening-date').text($(this).val() + " "); // 결제서 일시 > 날짜
+				$('#screening-time').text(""); // 결제서 일시 > 시간
+				$('#screenroom-name').text(""); // 결제서 상영관
+				
 				// 예매 가능한 영화 목록 출력
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/movieListByDate',
 					type : 'GET',
-					data : {startDate : $(this).val()
-							, movieKey : $('#movieKey').val()},
+					data : {startDate : $(this).val(), movieKey : $('#movieKey').val()},
 					success : function (data) {
 						
 						let html = "";
@@ -310,7 +320,7 @@
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
-					data : {startDate : $(this).val()},
+					data : {startDate : $(this).val(), movieKey : $('#movieKey').val()},
 					success : function(data) {
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
@@ -355,6 +365,12 @@
   	      	
     		// 영화 선택 시
     		$(document).on('click', '.movie-button', function() {
+				// 결제서
+				$('#theater-name').text(""); // 결제서 극장
+				$('#screening-time').text(""); // 결제서 일시 > 시간
+				$('#screenroom-name').text(""); // 결제서 상영관
+				$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+				
     			//  이미지 출력
     			$.ajax({
     				url :'${pageContext.request.contextPath}/ticketing/movieOne'
@@ -409,6 +425,8 @@
     		
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
     		$(document).on('click', '.movie-button' ,function() {
+    			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
@@ -431,6 +449,8 @@
     		
     		/*  지역 선택 시 해당 지역 극장 리스트 출력 */
     		$(document).on('click', '.region', function() {
+    			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			
     		    $.ajax({
     		        type: 'GET',
     		        url: '${pageContext.request.contextPath}/ticketing/theaterNameListByRegion',
@@ -447,7 +467,11 @@
 		    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
 	    		            	}    		            		
     		            	} else if($('#movieKey').val() === '0') {
-    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
+    		            		if(data[i].startDate !== undefined) {
+	    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            			    		            			
+    		            		} else {
+    		            			html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+    		            		}
     		            	}
     		            	//html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
     		            }
@@ -461,6 +485,8 @@
     		
     		// 극장 선택 시 날짜 기준
     		$(document).on('click', '.theater-button', function() {
+    			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			$('#theater-name').text($(this).text());
     			
     			// 극장 선택 시 극장 키 값 저장
     			// alert('theaterOneByName 클릭')
@@ -558,29 +584,33 @@
     		
     		// 상영 스케줄 선택 시 좌석 선택 가능
     		$(document).on('click', '.schedule-button', function() {
-    			// alert('schedule-button 클릭');
+    			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			
     			let day = $('#day').val();
     			let time = day + " " + $(this).text().slice(0, 5);
     			let movieKey = $('#movieKey').val();
-    			// alert(time);
+    			let startDate = "";
+    			
     			// 샹영 스케줄 키 값 받아오기    			
     			$.ajax({
     				url : '${pageContext.request.contextPath}/ticketing/screeningScheduleOneByTicketing',
     				type : 'GET',
     				data : {movieKey : movieKey, time : time}, 
     				success : function(data){
-    					// alert(data.scheduleKey);
     					let scheduleKey = data.scheduleKey
-    					// alert('scheduleKey : ' + scheduleKey);
     					$('#scheduleKey').val(scheduleKey);
+    					$('#screening-date').text(data.screeningDate + " "); // 결제서 일시 > 날짜
+    					$('#screening-time').text(data.screeningTime); // 결제서 일시 > 시간
+    					$('#screenroom-name').text(data.screenroomName); // 결제서 상영관
     				},
 					error : function() {
 						alert('screeningScheduleOneByTicketing error')
 					}
     			});
     			
-    			$('.seatBtn').attr("disabled", false);
+   				$('.seatBtn').attr("disabled", false); // 좌석선택 버튼 활성화
     		});
+    		
 		})
     </script>
 </body>

@@ -46,6 +46,8 @@
 			, Date(ss.start_date) date
 			, CONVERT_TZ(ss.start_date, '+00:00', '+09:00') startDate
 			, CONVERT_TZ(ss.end_date, '+00:00', '+09:00') endDate
+			, DATE_FORMAT(ss.start_date, '%Y-%m-%d') screeningDate
+			, TIME_FORMAT(ss.start_date, '%H:%i') screeningTime
 			, ss.preview preview
 			, ss.price price
 			, ss.movie_title movieTitle
