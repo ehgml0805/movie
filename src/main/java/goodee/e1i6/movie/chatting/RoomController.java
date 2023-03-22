@@ -41,19 +41,17 @@ public class RoomController {
         	mv.addObject("list", repository.findAllRooms());
         	mv.addObject("id", loginCustomer.getCustomerId());
         	mv.setViewName("customer/chatting/rooms");
-            //return mv;
         } else if(session.getAttribute("loginEmployee") != null) {
         	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
         	mv.addObject("list", repository.findAllRooms());
             mv.addObject("id", loginEmployee.getEmployeeId());
             mv.setViewName("employee/chatting/rooms");
-            //return mv;
         }
         return mv;
 
     }
 
-    //채팅방 개설
+    //채팅방 생성
     @PostMapping(value = "/room")
     public String create(@RequestParam String name, RedirectAttributes re) {
 
@@ -71,12 +69,15 @@ public class RoomController {
         	Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
         	model.addAttribute("room", repository.findRoomById(roomId));
             model.addAttribute("loginId", loginCustomer.getCustomerId());
+            model.addAttribute("loginName", loginCustomer.getCustomerName());
+            return "customer/chatting/room";
         } else if(session.getAttribute("loginEmployee") != null) {
         	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
         	model.addAttribute("room", repository.findRoomById(roomId));
             model.addAttribute("loginId", loginEmployee.getEmployeeId());
+            return "employee/chatting/room";
         }
+        return "login/loginCustomer";
         
-        return "customer/chatting/room";
     }
 }

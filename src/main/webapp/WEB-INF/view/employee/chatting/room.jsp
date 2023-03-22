@@ -5,7 +5,7 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>empRooms</title>
+<title></title>
 <style>
 *{
 	box-sizing:border-box;
@@ -237,33 +237,116 @@ main footer button{
 </style>
 </head>
 <body>
-	<div class="container">
-	<c:if test="${empty list}">채팅요청 없음.</c:if>
-	    <div>
-	        <ul>
-	         <c:forEach var="l" items="${list}">
-	            <li><a href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></li>
-	         </c:forEach>
-	        </ul>
-	    </div>
-	</div>
 <div id="container">
 	<aside>
 		<header>
 			<h2>문의목록</h2>
 		</header>
 		<ul>
-			<c:if test="${empty list}"><li>채팅요청 없음.</li></c:if>
-			<c:forEach var="l" items="${list}">
-				<li>
-					<img src="" alt="">
-					<div>
-						<h2><a href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></h2>
-					</div>
-				</li>
-			</c:forEach>
+			<li>
+				<img src="" alt="">
+				<div>
+					<h2>${room.name}</h2>
+				</div>
+			</li>
 		</ul>
 	</aside>
+	<main>
+		<header>
+			<img src="" alt="">
+			<div>
+				<h2>${room.name}님의 문의</h2>
+			</div>
+		</header>
+		<ul id="chatArea"></ul>
+		<footer>
+			<textarea id='msg' placeholder="Type your message"></textarea>
+			<button id="button_send">Send</button>
+			<button id="chat_end">나가기</button>
+		</footer>
+	</main>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+	$(document).ready(function(){
+	
+		var roomName = "${room.name}"; // 채팅방을 만든 고객 아이디
+	    var roomId = "${room.roomId}"; // UUID
+	    var username = "${loginId}"; // 로그인한 아이디
+	
+	    console.log(roomName + ", " + roomId + ", " + username + " : roomName, roomId, username");
+	
+	    var now = new Date();
+	    var hour = String(now.getHours()).padStart(2,"0");
+	    var minutes = String(now.getMinutes()).padStart(2,"0");
+	    var year = now.getFullYear();
+	    var month = now.getMonth();
+	    var date = now.getDate();
+	    
+	    var sockJs = new SockJS("/movie/stomp/chat");
+	    //1. SockJS를 내부에 들고있는 stomp를 내어줌
+	    var stomp = Stomp.over(sockJs);
+	
+	    //2. connection이 맺어지면 실행
+	    stomp.connect({}, function (){
+	       console.log("STOMP Connection")
+	
+	       //4. subscribe(path, callback)으로 메세지를 받을 수 있음
+	       stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+	           var content = JSON.parse(chat.body);
+	           var writer = content.writer; // 글작성자
+	           var message = content.message;
+	           var str = '';
+	
+	           if(writer === username) { // 로그인한 아이디와 같으면(내채팅)
+	        	   console.log("내채팅")
+	        	   str = "<li class='me'>";
+	               str += "<div class='entete'>";
+	               str += "<span class='status blue'></span>";
+		           str += "<h2>" + writer + "</h2>&nbsp";
+		           str += "<h3>" + hour + ":" + minutes + ", " + year + "-" + month + "-" + date + "</h3></div>";
+		           str += "<div class='triangle'></div>";
+		           str += "<div class='msg'>" + message + "</div></li>";
+	               $("#chatArea").append(str);
+	           }
+	           else {
+	        	   console.log("상대채팅")
+	        	   str = "<li class='you'>";
+	               str += "<div class='entete'>";
+	               str += "<span class='status green'></span>";
+		           str += "<h2>" + writer + "</h2>&nbsp";
+		           str += "<h3>" + hour + ":" + minutes + ", " + year + "-" + month + "-" + date + "</h3></div>";
+		           str += "<div class='triangle'></div>";
+		           str += "<div class='msg'>" + message + "</div></li>";
+	               $("#chatArea").append(str);
+	           }
+	
+	       });
+	
+	       //3. send(path, header, message)로 메세지를 보낼 수 있음
+	       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+	    });
+	
+	    $("#button_send").on("click", function(e){
+	        var msg = document.getElementById("msg");
+	
+	        console.log(username + ":" + msg.value);
+	        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
+	        msg.value = '';
+	    });
+	    // 나가기버튼 클릭시
+	    $("#chat_end").on("click", function(){
+	    	var result = confirm("대화방을 나가시겠습니까?");
+	    	
+	    	if(result == true) {
+	    		stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
+	    		$(location).attr("href", "rooms")
+	    	} 
+	    });
+	    
+	});
+</script>
 </body>
 </html>
