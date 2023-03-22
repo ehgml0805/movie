@@ -138,9 +138,9 @@
 	   	<input type="hidden" id="ck" name="ck" value="" />
 	   	<input type="hidden" id="totalNow" name="totalNow" value="0" />
 	   	<input type="hidden" id="seatNumber" name="seatNumber" value=""> 
-	   	<input type="hidden" name="showTypeNo" value="" />
-	   	<input type="hidden" name="screenNo" value="" />
-	   	<input type="hidden" name="regionNo" value="" />
+	   	<input type="hidden" id="adultNo" name="adultNo" value="0" />
+	   	<input type="hidden" id="teenagerNo" name="teenagerNo" value="0" />
+	   	<input type="hidden" id="totalAmount" name="totalAmount" value="" />
 	   	<input type="hidden" name="showScheduleNo" value="" />
 	   	<input type="hidden" id="i" value="" />
 	   	
@@ -190,7 +190,7 @@
 				<div class="col-lg-3 col-sm-3">
 					<table>
 						<tr>
-							<td>일반</td>
+							<td id="kind"></td>
 							<td><span id="price"></span></td>
 						</tr>
 						<tr>
@@ -408,6 +408,13 @@
 							$('#totalNow').val(parseInt($('#totalNow').val())-1);
 							totalNow = parseInt(totalNow) - 1;
 							
+							// 가격 출력 전 성인, 청소년 인원 수 파악
+							if(parseInt(adultQuantity.textContent) != 0 && parseInt(adultQuantity.textContent) != parseInt($('#adultNo').val())){
+								$('#adultNo').val(parseInt($('#adultNo').val())+1);
+							} else if(parseInt(teenagerQuantity.textContent) != 0 && parseInt(teenagerQuantity.textContent) != parseInt($('#teenagerNo').val())) {
+								$('#teenagerNo').val(parseInt($('#teenagerNo').val())+1);
+							}
+							
 							let nextBtn = $(this).next();
 							let prevBtn = $(this).prev();
 							
@@ -428,6 +435,13 @@
 								$('#totalNow').val(parseInt($('#totalNow').val())-1);
 								totalNow = parseInt(totalNow) - 1;
 								
+								// 가격 출력 전 성인, 청소년 인원 수 파악
+								if(parseInt(adultQuantity.textContent) != 0 && parseInt(adultQuantity.textContent) != parseInt($('#adultNo').val())){
+									$('#adultNo').val(parseInt($('#adultNo').val())+1);
+								} else if(parseInt(teenagerQuantity.textContent) != 0 && parseInt(teenagerQuantity.textContent) != parseInt($('#teenagerNo').val())) {
+									$('#teenagerNo').val(parseInt($('#teenagerNo').val())+1);
+								}
+								
 							} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족							
 								// 좌석 색깔 바꿔주기
 								prevBtn.css('background-color','red');
@@ -443,9 +457,19 @@
 								
 								// 총 인원수에서 선택된 인원 수 빼주기
 								$('#totalNow').val(parseInt($('#totalNow').val())-1);
-								totalNow = parseInt(totalNow) - 1;						
-							}																
+								totalNow = parseInt(totalNow) - 1;
+								
+								// 가격 출력 전 성인, 청소년 인원 수 파악
+								if(parseInt(adultQuantity.textContent) != 0 && parseInt(adultQuantity.textContent) != parseInt($('#adultNo').val())){
+									$('#adultNo').val(parseInt($('#adultNo').val())+1);
+								} else if(parseInt(teenagerQuantity.textContent) != 0 && parseInt(teenagerQuantity.textContent) != parseInt($('#teenagerNo').val())) {
+									$('#teenagerNo').val(parseInt($('#teenagerNo').val())+1);
+								}
+							}	
+							// 좌석 이름 출력
+							$('#seatName').text('일반석');
 							
+							// 결제 선택 버튼 활성화
 							if(totalNow == 0){
 								$('#ck').val(1);
 								if($('#ck').val() == 1){
@@ -469,16 +493,26 @@
 							// 좌석번호 저장
 							seatNumber.push($(this).attr('data-seat'));
 							
+							// 가격 출력 전 성인, 청소년 인원 수 파악
+							if(parseInt(adultQuantity.textContent) != 0 && parseInt(adultQuantity.textContent) != parseInt($('#adultNo').val())){
+								$('#adultNo').val(parseInt($('#adultNo').val())+1);
+							} else if(parseInt(teenagerQuantity.textContent) != 0 && parseInt(teenagerQuantity.textContent) != parseInt($('#teenagerNo').val())) {
+								$('#teenagerNo').val(parseInt($('#teenagerNo').val())+1);
+							}
+							
+							// 좌석 이름 출력
+							$('#seatName').text('일반석');
+							
+							// 결제 버튼 활성화
 							$('#ck').val(1);
 							if($('#ck').val() == 1){
 								$('.payBtn').attr("disabled", false);
-							}
+							}													
 						}
 						
 						$('#seatKey').val(seatKey);
 						// alert(seatKey);
 						$('#seatNumber').val(seatNumber);
-						// 가격 출력
 				}
 			} else if($(this).hasClass('active') == true) {
 				/* 좌석 선택 취소 */
@@ -508,8 +542,49 @@
 				seatKey.splice($.inArray($(this).val(), seatKey),1);
 				
 				// 좌석 번호 제거
-				seatNumber.splice($.inArray($(this).attr('data-seat'), seatNumber), 1);
+				seatNumber.splice($.inArray($(this).attr('data-seat'), seatNumber), 1);	 
+				
+				// 가격 출력 전 성인, 청소년 인원 수 파악
+				if(parseInt($('#adultNo').val()) != 0 && parseInt(adultQuantity.textContent) >= parseInt($('#adultNo').val())){
+					$('#adultNo').val(parseInt($('#adultNo').val())-1);
+				} else if(parseInt($('#teenagerNo').val()) != 0 && parseInt(teenagerQuantity.textContent) >= parseInt($('#teenagerNo').val())) {
+					$('#teenagerNo').val(parseInt($('#teenagerNo').val())-1);
+				}
+				
+				// 좌석 이름 출력
+				if($('#adultNo').val() == 0 && $('#teenagerNo').val() == 0){
+					$('#seatName').text('');
+					$('#kind').html('');
+					$('#price').html('');
+				}
 			}
+			
+			// 가격 출력
+			let adultNo = $('#adultNo').val();
+			let teenagerNo =  $('#teenagerNo').val();
+			
+			if(adultNo != 0 && teenagerNo != 0){
+				$('#kind').html('일반' + '<br>');
+				$('#price').html('15000원 x' + adultNo + '<br>');
+				$('#kind').html($('#kind').html() + '청소년');
+				$('#price').html($('#price').html() + '13000원 x' + teenagerNo);
+			} else if(adultNo != 0 && teenagerNo == 0){
+				$('#kind').html('일반');
+				$('#price').html('15000원 x' + adultNo);
+			} else if(adultNo == 0 && teenagerNo != 0){
+				$('#kind').html('청소년');
+				$('#price').html('13000원 x' + teenagerNo);
+			}
+			let adultPrice = adultNo*15000;
+			let teenagerPrice = teenagerNo*13000;
+			let totalPrice = adultPrice + teenagerPrice;
+			$('#totalAmount').val(totalPrice);
+			if(adultNo == 0 && teenagerNo == 0){
+				$('#totalPrice').text('');
+			} else {
+				$('#totalPrice').text(totalPrice + '원');
+			}
+			
 			$('#seatKey').val(seatKey);
 			$('#seatNumber').val(seatNumber);
 			$('#seatNo').text($('#seatNumber').val())			
