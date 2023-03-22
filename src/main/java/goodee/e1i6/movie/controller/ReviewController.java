@@ -51,33 +51,33 @@ public class ReviewController {
 		return "redirect:/movie/movieOne?&movieKey="+movieKey;
 	}
 	//리뷰 신고 - 스포일러
-		@GetMapping("/customer/review/spoilerReport")
-		public String spoilerReport( @RequestParam(value="customerId") String customerId
-									, @RequestParam(value = "ticketingKey") int ticketingKey
-									, @RequestParam(value="movieKey") int movieKey) {
-			int row=reviewService.spoilerReport(ticketingKey, customerId);
-			if(row==1) {
-				log.debug(TeamColor.KDH+ row +"<==1: 스포일러 신고 성공");
+	@GetMapping("/customer/review/spoilerReport")
+	public String spoilerReport( @RequestParam(value="customerId") String customerId
+								, @RequestParam(value = "ticketingKey") int ticketingKey
+								, @RequestParam(value="movieKey") int movieKey) {
+		int row=reviewService.spoilerReport(ticketingKey, customerId);
+		if(row==1) {
+			log.debug(TeamColor.KDH+ row +"<==1: 스포일러 신고 성공");
+		
+		}else {
+			log.debug(TeamColor.KDH+ row +"<==0: 스포일러 신고 실패");
 			
-			}else {
-				log.debug(TeamColor.KDH+ row +"<==0: 스포일러 신고 실패");
-				
-			}
-
-			List<Review> rlist= reviewService.selectReviewList(1, 1, movieKey);
-			for(Review r: rlist) { 
-				int spoilerReport =(int) r.getSpoilerReport();
-				log.debug(TeamColor.KDH + spoilerReport + "<==스포일러 신고 횟수");
-				if(spoilerReport==10) { 
-					int reportCategoryKey=2; 
-					int row3=blackListService.spoilerBlackList(customerId, reportCategoryKey); 
-					log.debug(TeamColor.KDH+ row3 + "<==블랙리스트 추가 성공");
-				 } 
-				 
-			 }
-			
-			return "redirect:/movie/movieOne?&movieKey="+movieKey;
 		}
+
+		List<Review> rlist= reviewService.selectReviewList(1, 1, movieKey);
+		for(Review r: rlist) { 
+			int spoilerReport =(int) r.getSpoilerReport();
+			log.debug(TeamColor.KDH + spoilerReport + "<==스포일러 신고 횟수");
+			if(spoilerReport==10) { 
+				int reportCategoryKey=2; 
+				int row3=blackListService.spoilerBlackList(customerId, reportCategoryKey); 
+				log.debug(TeamColor.KDH+ row3 + "<==블랙리스트 추가 성공");
+			 } 
+			 
+		 }
+		
+		return "redirect:/movie/movieOne?&movieKey="+movieKey;
+	}
 	
 	//리뷰작성
 	@PostMapping("/customer/review/addReview")
