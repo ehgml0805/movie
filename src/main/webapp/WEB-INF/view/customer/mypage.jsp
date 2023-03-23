@@ -20,7 +20,7 @@
 		<c:import url="/WEB-INF/inc/menu.jsp">
 		</c:import>
 	</div>
-	<div class="container" style="margin-top: 50px; ">
+	<div class="container">
 		<div class="card">
   			<div class="card-body" style="width: 980px;">
 				<div class="row">
