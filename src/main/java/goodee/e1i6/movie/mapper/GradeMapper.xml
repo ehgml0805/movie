@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.GradeMapper">
+
+
+	<!-- vip 매달 고객등급 갱신 -->
+	<update id="updateVip" parameterType ="goodee.e1i6.movie.vo.Customer">
+		
+	UPDATE customer
+	SET customer_grade = 'vip'
+	WHERE customer_id in (SELECT  customer_id
+    FROM ticketing
+    GROUP BY `createdate`
+	 		,customer_id HAVING sum(`total_price`)>100000 )
+
+	</update>
+
+	<!-- gold 매달 고객등급 갱신 -->
+	<update id="updateGold" parameterType ="goodee.e1i6.movie.vo.Customer">
+		
+	UPDATE customer
+	SET customer_grade = 'gold'
+	WHERE customer_id in (SELECT  customer_id
+    FROM ticketing
+    GROUP BY `createdate`
+	 		,customer_id HAVING sum(`total_price`)>=50000 )
+
+	</update>
+	
+	<!-- silver 매달 고객등급 갱신 -->
+	<update id="updateSilver" parameterType ="goodee.e1i6.movie.vo.Customer">
+		
+	UPDATE customer
+	SET customer_grade = 'silver'
+	WHERE customer_id in (SELECT  customer_id
+    FROM ticketing
+    GROUP BY `createdate`
+	 		,  customer_id HAVING 50000 > sum(`total_price`))
+
+	</update>	
+
+
+</mapper>

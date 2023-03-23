@@ -166,7 +166,7 @@
 				</table>
 			</div>
 	   	</div>
-	   	<button class="payBtn" type="button" disabled="disabled">결제하기</button>
+	   	<button id="kakaopay" class="payBtn" type="button">결제하기</button>
    	</div>
 </body>
 <script>
@@ -175,6 +175,8 @@
 		let couponPrice = '0'; // 쿠폰 가격
 		let pointVal = '0'; // 사용할 보인트
 		let discountPrice = '0'; // 총 할인가격
+		$('#kakaoPrice').text(totalPrice);
+		$('#remainPrice').text(totalPrice);
 		
 		// 쿠폰 선택 시
 		$(document).on('click', '.coupon', function(){
@@ -246,6 +248,22 @@
 				}
 			});
 		})
+		
+		$('#kakaopay').click(function(){
+			$.ajax({
+				url:'${pageContext.request.contextPath}/kakaopay',
+				type : "GET",
+				success:function(data){
+					var box = data.next_redirect_pc_url;
+					location.href = box;
+				},
+				error:function(error){
+					alert("error");
+				}
+			});
+		});
+
+
 	});
 </script>
 </html>
