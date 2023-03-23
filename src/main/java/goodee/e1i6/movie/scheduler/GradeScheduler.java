@@ -27,19 +27,19 @@ public class GradeScheduler {
 	 * }
 	 */
 	//매월 마지막날에 자동실행 (L = 매월 마지막날)
-	@Scheduled( cron = "0 1 * * * *")
+	@Scheduled( cron = "0 0 0 L * *")
 	public void updateVip() {
 		int row = gradeService.updateVip();
 		log.debug(TeamColor.KSH + row + "고객 등급이 갱신되었습니다.");
 	
 	}
-	@Scheduled( cron = "0 1 * * * *")
+	@Scheduled( cron = "0 0 0 L * *")
 	public void updateGold() {
 		int row = gradeService.updateGold();
 		log.debug(TeamColor.KSH + row + "고객 등급이 갱신되었습니다.");
 
 	}
-	@Scheduled( cron = "0 1 * * * *")
+	@Scheduled( cron = "0 0 0 L * *")
 	public void updateSilver() {
 		int row = gradeService.updateSilver();
 		log.debug(TeamColor.KSH + row + "고객 등급이 갱신되었습니다.");

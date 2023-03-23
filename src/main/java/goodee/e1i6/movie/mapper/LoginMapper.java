@@ -29,6 +29,7 @@ public interface LoginMapper {
 	// 회원수정
 	int updateCustomer(Customer customer);
 	
+	
 	// 회원가입 아이디 중복
 	public String selectCustomerId(String customerId);
 	

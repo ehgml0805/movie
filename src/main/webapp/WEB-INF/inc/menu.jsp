@@ -61,7 +61,7 @@
 				<ul class="navbar-nav">
 					<c:if test="${empty loginCustomer}">
 						<li class="nav-item"><a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">로그인</a></li>
-						<li class="nav-item"><a href="/customer/signUp" class="nav-link">회원가입</a></li>
+						<li class="nav-item"><a href="/movie/login/addCustomer" class="nav-link">회원가입</a></li>
 					</c:if>
 					<c:if test="${not empty loginCustomer}">
 						<li class="nav-item"><a href="${pageContext.request.contextPath}/login/logout" class="nav-link">로그아웃</a></li>
