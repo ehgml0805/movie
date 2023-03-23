@@ -32,7 +32,6 @@
 		<h1>${loginEmployee.employeeName}님 반갑습니다</h1>
 		
 	</c:if>
-	<div>현재 방문자 수: ${currentVisitors}</div>
 	<div>오늘 총 방문자 수: ${todayCount}</div>
 	안녕하세요. 홈 입니다.
 </body>

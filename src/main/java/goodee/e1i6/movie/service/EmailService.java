@@ -24,7 +24,7 @@ public class EmailService {
 		message.setTo(recipientAddress);
 		message.setSubject("시사회 이벤트에 당첨되셨습니다!");
 		String uuid = UUID.randomUUID().toString().substring(0, 16);
-		message.setText("축하합니다 당신은 시사회 이벤트에 당첨되었습니다 극장에가서 코드와 신분증을 제시해주세요" + uuid);
+		message.setText("축하합니다 당신은 시사회 이벤트에 당첨되었습니다 극장에가서 코드와 신분증을 제시해주세요 " + uuid);
 		javaMailSender.send(message);
 	}
 }

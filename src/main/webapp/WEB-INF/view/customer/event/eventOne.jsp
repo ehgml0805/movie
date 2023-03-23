@@ -20,7 +20,18 @@
  		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   		cursor: pointer;
 	}
+	.eventOne {
+		text-align: center;
+		margin-top: 50px;
+	}
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/resources/js/movie/movieFn.js"></script>
+<link rel="stylesheet" href="/resources/css/navbar.css" />
+<link rel="stylesheet" href="/resources/css/common.css" />
+<link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	const eventKey = ${eventKey};
@@ -91,9 +102,11 @@
 </script>
 </head>
 <body>
-	<div class="text-center">
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	<div class="eventOne">
 		<c:forEach var="e" items="${eventOneList}" begin="0" end="0">
-			<h1>${e.eventTitle}</h1>
+			<h2>${e.eventTitle}</h2>
 			<div>
 				이벤트 기간 ${e.eventStartDate} ~ ${e.eventEndDate}
 			</div>
