@@ -59,6 +59,7 @@ public class HomeController {
 	public String myPage(HttpSession session,Model model) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
 		String customerId= c.getCustomerId();
+		model.addAttribute("customerId", customerId);
 		log.debug(TeamColor.KDH + customerId +"<==고객아이디 ");
 		
 		//내정보 불러오기 

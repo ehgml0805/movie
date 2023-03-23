@@ -6,12 +6,34 @@
 <meta charset="UTF-8">
 <title>마이 페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<!-- Bootstrap CSS -->
+	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
     
     <!-- Style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
+<!--제이쿼리 및 ajax -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- 회원정보 수정하기 jsp -->
+<script>
+
+$(document).ready(function(){	
+	function modifyCustomer(){
+		
+		$.ajax({
+			method: 'GET'
+	        , url: '${pageContext.request.contextPath}/login/modifyCustomer'
+	        , dataType : 'html'
+	        , success: function(data) {
+	        	console.log('실행')
+	        	$("#modifyCustomer").html(data);
+	          }
+		  });	
+		}
+	});
+</script>
 </head>
+
 <body>
 	<div>
 		<c:import url="/WEB-INF/inc/menu.jsp">
@@ -108,12 +130,17 @@
 					</div>
 					
 					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-						고객 정보 수정 
+						<div id="modifyCustomer">
+						
+						
+						
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 <script src="${pageContext.request.contextPath}/bootstrap/nav/js/jquery-3.3.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/nav/js/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/nav/js/bootstrap.min.js"></script>
