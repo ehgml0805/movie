@@ -11,15 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <style type="text/css">
-    	.find-btn{
-			text-align: center;
-		}
-		.find-btn1{
-	display :inline-block;
-}
-    
-    </style>
 </head>
 <body>
 	<!-- 제목 -->
@@ -33,11 +24,11 @@
 	
 	<!-- 인원/좌석 선택 -->
 	<div class="container">
-		<div class="bg-dark" style="text-align:center;"><span class="text-white">인원/좌석</span></div>
+		<div class="bg-dark" style="text-align:center; width:100%;"><span class="text-white">인원/좌석</span></div>
 		<!-- 인원 선택 / 극장, 시간 정보 -->
-		<div class="container d-flex col-1g-12 col-sm-12">
+		<div class="container d-flex col-1g-12 col-sm-12 person_screen">
 			<!-- 인원 선택 -->
-			<div class="col-1g-6 col-sm-6">
+			<div class="col-1g-6 col-sm-6 section-numberofpeople" style="background-color: gray;">
 				<div class="d-flex">
 					<div class="ms-5">
 					<span class="me-3">성인</span>
@@ -91,39 +82,39 @@
 										<c:when test="${exRow ne row}">
 											</div>
 												<div class="seatRow-${row}"	>
-												${row}
+												<button style="background-color:white; width:20px; height:30px; padding:0; margin:0; display:inline-block;">${row}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 												<c:if test="${s.active eq 'Y'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
+														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; width:20px; height:30px; padding:0; margin:0; display:inline-block;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; width:20px; height:30px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
 													</c:if>
 												</c:if>
 												<c:if test="${s.active eq 'N'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
+														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; width:20px; height:30px; padding:0; margin:0; display:inline-block;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; width:20px; height:30px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
 													</c:if>
 												</c:if>
 											</c:when>
 											<c:otherwise>
 												<c:if test="${s.active eq 'Y'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
+														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; width:20px; height:30px; padding:0; margin:0; display:inline-block;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; width:20px; height:30px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
 													</c:if>
 												</c:if>				
 												<c:if test="${s.active eq 'N'}">
 													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
+														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="width:20px; height:30px; padding:0; margin:0; display:inline-block;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
 													</c:if>
 													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
+														<button data-useable="N" style="background-color:white; width:20px; height:30px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
 													</c:if>
 												</c:if>				
 											</c:otherwise>
