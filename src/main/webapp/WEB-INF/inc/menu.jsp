@@ -8,16 +8,47 @@
 	
 	#event-tooltip {
   		position: absolute;
-	  	left: 45%;
+	  	left: 42%;
 	  	cursor: pointer;
 	  	display: none;
+	  	padding-right: 15px;
 	}
 	#end-event-tooltip {
  		position: absolute;
-  		left: 55%;
+  		left: 52%;
   		cursor: pointer;
   		display: none;
 	}
+	
+	#customer-center-link:hover {
+		cursor: default;
+	}
+	
+	#notice-tooltip {
+  		position: absolute;
+	  	left: 55%;
+	  	cursor: pointer;
+	  	display: none;
+  	  	z-index: 1;
+  	  	padding-right: 15px;
+	}
+	#faq-tooltip {
+ 		position: absolute;
+  		left: 61%;
+  		cursor: pointer;
+  		display: none;
+	  	z-index: 1;
+	  	padding-right: 30px;
+	}
+	#question-tooltip {
+ 		position: absolute;
+  		left: 64%;
+  		cursor: pointer;
+  		display: none;
+	  	z-index: 1;
+	  	padding-right: 10px;
+	}
+	
 </style>
 <div id="header">
 	<div class="container">
@@ -26,7 +57,6 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a href="#" class="nav-link">VIP LOUNGE</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">멤버십</a></li>
-					<li class="nav-item"><a href="/supports" class="nav-link">고객센터</a></li>
 				</ul>
 				<ul class="navbar-nav">
 					<c:if test="${empty loginCustomer}">
@@ -47,7 +77,6 @@
 					<li class="nav-item">
 					<a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-sitemap.png"></a>
 					</li>
-	
 					<li class="nav-item dropdown"><a class="nav-link" href="#"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false"> <img
@@ -77,7 +106,13 @@
 		    	        <div id="end-event-tooltip" data-url="${pageContext.request.contextPath}/event/endEventList">종료된 이벤트</div>
 				    </div>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/snack/snackHome">스토어</a></li>
-		
+					<li class="nav-item">
+					<div class="nav-item-container2">
+						<a href="#" class="nav-link" id="customer-center-link">고객센터</a>
+				      	<div id="notice-tooltip" data-url="${pageContext.request.contextPath}/customer/notice/noticeList">공지사항</div>
+		    	        <div id="faq-tooltip" data-url="${pageContext.request.contextPath}/faq/faqList">FAQ</div>
+		    	        <div id="question-tooltip" data-url="${pageContext.request.contextPath}/customer/question/questionList">1:1문의</div>
+					</div>
 				</ul>
 			</div>
 			<div class="collapse navbar-collapse justify-content-end">
@@ -101,6 +136,13 @@
 	const navItemContainer = eventLink.closest(".nav-item-container");
 	const endEventTooltip = document.getElementById("end-event-tooltip");
 
+	const customerCenterLink = document.getElementById("customer-center-link");
+	const noticeTooltip = document.getElementById("notice-tooltip");
+	const faqTooltip = document.getElementById("faq-tooltip");
+	const questionTooltip = document.getElementById("question-tooltip");
+	const navItemContainer2 = customerCenterLink.closest(".nav-item-container2");
+	
+	// event
 	navItemContainer.addEventListener("mouseenter", () => {
   		eventTooltip.style.display = "block";
   		endEventTooltip.style.display = "block";
@@ -119,6 +161,34 @@
 	
 	endEventTooltip.addEventListener("click", () => {
   		const url = endEventTooltip.getAttribute("data-url");
+  		window.location.href = url;
+	});
+	
+	// 고객센터
+	navItemContainer2.addEventListener("mouseenter", () => {
+		noticeTooltip.style.display = "block";
+		faqTooltip.style.display = "block";
+		questionTooltip.style.display = "block";
+	});
+	
+	navItemContainer2.addEventListener("mouseleave", () => {
+		noticeTooltip.style.display = "none";
+		faqTooltip.style.display = "none";
+		questionTooltip.style.display = "none";
+	});
+	
+	noticeTooltip.addEventListener("click", () => {
+  		const url = noticeTooltip.getAttribute("data-url");
+  		window.location.href = url;
+	});
+	
+	faqTooltip.addEventListener("click", () => {
+  		const url = faqTooltip.getAttribute("data-url");
+  		window.location.href = url;
+	});
+	
+	questionTooltip.addEventListener("click", () => {
+  		const url = questionTooltip.getAttribute("data-url");
   		window.location.href = url;
 	});
 </script>

@@ -20,17 +20,25 @@
 	    background: silver;
   	}  	
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="/resources/js/movie/movieFn.js"></script>
+<link rel="stylesheet" href="/resources/css/navbar.css" />
+<link rel="stylesheet" href="/resources/css/common.css" />
+<link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<a href="${pageContext.request.contextPath}/employee/faq/addFaq">FAQ 등록</a>
-	
 	<div class="supports col-9">
 		<div class="row">
 			<div class="offset ms-4 col-7 p-0" style="margin-left: 20px;">
 				<div class="mt-5 mb-3">
-					<h1>자주 묻는 질문</h1>
+					<h3>자주 묻는 질문</h3>
 				</div>	
 				<!-- 질문 검색 -->
 				<div class="rounded row p-1 mb-3">
