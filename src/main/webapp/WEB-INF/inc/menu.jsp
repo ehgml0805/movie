@@ -93,7 +93,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+			<div class="collapse navbar-collapse justify-content-center" id="navbarNav" style="margin-bottom: 50px;">
 				<ul class="navbar-nav ">
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/movie/movieList">영화</a></li>
 					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/ticket/ticketing">예매</a></li>
