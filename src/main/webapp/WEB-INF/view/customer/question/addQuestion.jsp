@@ -3,11 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title></title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/movie/movieFn.js"></script>
+<link rel="stylesheet" href="/resources/css/navbar.css" />
+<link rel="stylesheet" href="/resources/css/common.css" />
+<link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<h2>문의사항</h2>
 	<ul>
 		<li>
@@ -31,7 +39,6 @@
 						<option value="부산/대구/경상">부산/대구/경상</option>
 						<option value="광주/전라">광주/전라</option>
 						<option value="강원">강원</option>
-						<option value="제주">제주</option>
 					</select>
 					<select name="theaterName" id="theaterName">
 						<option value="1">극장선택</option>

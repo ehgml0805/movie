@@ -5,8 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>noticeOne</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/movie/movieFn.js"></script>
+<link rel="stylesheet" href="/resources/css/navbar.css" />
+<link rel="stylesheet" href="/resources/css/common.css" />
+<link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<h1>공지사항</h1>
 	<h3>${map.noticeTitle}</h3>
 	<div>

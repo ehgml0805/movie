@@ -6,18 +6,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Room</title>
-	<li class="you">
-				<div class="entete">
-					<span class="status green"></span>
-					<h2>Vincent</h2>
-					<h3>10:12AM, Today</h3>
-				</div>
-				<div class="triangle"></div>
-				<div class="message">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-				</div>
-			</li>
 </head>
+	<body>
+		<div class="container">
+		    <div class="col-6">
+		        <h2>${room.name}</h2>
+		        <button id="chat_end">나가기</button>
+		    </div>
+		    <div>
+		        <div id="msgArea" class="col"></div>
+		        <div class="col-6">
+		            <div class="input-group mb-3">
+		                <input type="text" id="msg" class="form-control">
+		                <div class="input-group-append">
+		                    <button class="btn btn-outline-secondary" type="button" id="button_send">전송</button>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-6"></div>
+		</div>
+	</body>
+	
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script>
@@ -87,24 +97,4 @@
 		    
 		});
 	</script>
-<body>
-	<div class="container">
-	    <div class="col-6">
-	        <h2>${room.name}</h2>
-	        <button id="chat_end">나가기</button>
-	    </div>
-	    <div>
-	        <div id="msgArea" class="col"></div>
-	        <div class="col-6">
-	            <div class="input-group mb-3">
-	                <input type="text" id="msg" class="form-control">
-	                <div class="input-group-append">
-	                    <button class="btn btn-outline-secondary" type="button" id="button_send">전송</button>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="col-6"></div>
-	</div>
-</body>
 </html>

@@ -11,7 +11,7 @@
 	box-sizing:border-box;
 }
 body{
-	background-color:#abd9e9;
+	background-color:#777777;
 	font-family:Arial;
 }
 #container{
@@ -277,7 +277,8 @@ main footer button{
 	    var username = "${loginId}"; // 로그인한 아이디
 	
 	    console.log(roomName + ", " + roomId + ", " + username + " : roomName, roomId, username");
-	
+		
+	    // 오늘 날짜 시간 구하기
 	    var now = new Date();
 	    var hour = String(now.getHours()).padStart(2,"0");
 	    var minutes = String(now.getMinutes()).padStart(2,"0");
@@ -310,6 +311,7 @@ main footer button{
 		           str += "<div class='triangle'></div>";
 		           str += "<div class='msg'>" + message + "</div></li>";
 	               $("#chatArea").append(str);
+	               $("#chatArea").stop().animate({ scrollTop: $("#chatArea")[0].scrollHeight}, 1000);   
 	           }
 	           else {
 	        	   console.log("상대채팅")
@@ -321,6 +323,7 @@ main footer button{
 		           str += "<div class='triangle'></div>";
 		           str += "<div class='msg'>" + message + "</div></li>";
 	               $("#chatArea").append(str);
+	               $("#chatArea").stop().animate({ scrollTop: $("#chatArea")[0].scrollHeight}, 1000);   
 	           }
 	
 	       });

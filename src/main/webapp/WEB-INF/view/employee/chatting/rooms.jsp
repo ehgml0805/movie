@@ -11,7 +11,7 @@
 	box-sizing:border-box;
 }
 body{
-	background-color:#abd9e9;
+	background-color:#777777;
 	font-family:Arial;
 }
 #container{
@@ -237,16 +237,6 @@ main footer button{
 </style>
 </head>
 <body>
-	<div class="container">
-	<c:if test="${empty list}">채팅요청 없음.</c:if>
-	    <div>
-	        <ul>
-	         <c:forEach var="l" items="${list}">
-	            <li><a href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></li>
-	         </c:forEach>
-	        </ul>
-	    </div>
-	</div>
 <div id="container">
 	<aside>
 		<header>
