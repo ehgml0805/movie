@@ -12,11 +12,11 @@
 <link rel="stylesheet" href="/resources/css/navbar.css" />
 <link rel="stylesheet" href="/resources/css/common.css" />
 <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
+<body class="animsition">
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	
 	<div class="text-center mt-5"><h1>공지사항</h1></div>
 	<div class="container mt-5 border">
 		<div class="row">
