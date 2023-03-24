@@ -4,163 +4,200 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>MEET PLAY SHARE, E1I6</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <style>
+    	.date-active {
+    		border-bottom : 2px solid #503396;
+    		background-color: #f7f8f9;
+    	}
+    	
+        .gray {
+            background-color: #666;
+        }
+        .content {
+		    width: 300px;  /* div의 너비 */
+		    height: 430px; /* div의 높이 */
+		    overflow: auto; /* 스크롤바를 자동으로 생성 */
+		}
+		.btn {
+		  border-radius: 0;
+		}
+		.btn:active, .btn:focus {
+			outline:none !important;
+			box-shadow:none !important;
+		}
+		.schedule-hover:hover {
+		  background-color: #eee;
+		}
+    </style>
 </head>
 <body>
-	<div class="container" style="width:1250px;">
-		<div class="row mb-3">
-			<div class="col">
-                <h2>빠른 예매</h2>
-            </div>
-		</div>	
-	</div>
-	<!-- 날짜 -->
-	<div class="container">
-		<div class="date"></div>
-		<button class="prevBtn">이전</button>
-		<span class="container" id="calendar"></span>
-	    <button class="nextBtn">다음</button>
-    </div>
-	<div class="container d-flex">
-		<!-- 영화 -->
-		<div class="container movie-container left-one">
-			<h1>영화</h1>
-			<div class="movie-name">
-				<button class="movie-name-button" id="movie-all" type="button">전체</button>
-			</div>
-			<div id="movieList">
-				<c:forEach var="m" items="${movieList}">
-					<div class="movie-list">
-						<c:if test="${m.startDate eq null}">
-							<button type="button" disabled="disabled">
-								<span>${m.grade}</span>
-								<span>${m.movieTitle}</span>						
-							</button>
-						</c:if>
-						<c:if test="${m.startDate ne null}">
-							<button class="movie-button" type="button" value="${m.movieKey}">
-								<span>${m.grade}</span>
-								<span class="txt">${m.movieTitle}</span>						
-							</button>
-						</c:if>
-					</div>					
-				</c:forEach>
-			</div>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	
+	<div class="container px-5">
+		<h2 class="mt-4 mb-4 fw-bold">빠른예매</h2>
+		<!-- 날짜 -->
+		<div class="mb-3">
+			<span class="date p-2 border rounded-pill"></span>
 		</div>
-		<!-- 극장 -->
-		<div class="container">
-			<h1>극장</h1>
-			<div id="theater">
-				<div class="row">
-					<div id="theaterRegion" class="col-6">
-						<c:forEach var="r" items="${theaterRegionList}">
-							<div>
-								<button class="region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
+		<div class="border-bottom border-dark"></div>
+		<div class="container border" style="border-top-color: black;">
+			<div class="d-flex justify-content-evenly border-bottom">
+				<button class="btn prevBtn fw-bold">&lt;</button>
+				<span class="d-flex" id="calendar"></span>
+			    <button class="btn nextBtn fw-bold">&gt;</button>
+			</div>
+			<div class="container d-flex row pe-0">
+				<!-- 영화 -->
+				<div class="container movie-container left-one border-bottom col content">
+					<h4 class="p-1 mt-2">영화</h4>
+					<div id="movieList">
+						<c:forEach var="m" items="${movieList}">
+							<div class="movie-list">
+								<c:if test="${m.startDate eq null}">
+									<button class="btn text-start" type="button" disabled="disabled">
+										<span>${m.grade}</span>
+										<span>${m.movieTitle}</span>						
+									</button>
+								</c:if>
+								<c:if test="${m.startDate ne null}">
+									<button class="btn movie-button fw-bold text-start" type="button" value="${m.movieKey}">
+										<span>${m.grade}</span>
+										<span class="txt">${m.movieTitle}</span>						
+									</button>
+								</c:if>
+							</div>					
+						</c:forEach>
+					</div>
+				</div>
+				<!-- 극장 -->
+				<div class="container border-bottom border-start col content">
+					<h4 class="p-1 mt-2">극장</h4>
+					<div id="theater">
+						<div class="row">
+							<div id="theaterRegion" class="col">
+								<c:forEach var="r" items="${theaterRegionList}">
+									<div>
+										<button class="btn region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>
+									</div>
+								</c:forEach>	
 							</div>
-						</c:forEach>	
+							<div class="col border-start" id="theaterName" style="height: 300px"></div>
+						</div>
 					</div>
-					<div class="col-6" id="theaterName"></div>
+				</div>
+				<!-- 상영시간표 -->
+				<div class="container border-bottom border-start col content">
+					<h4 class="p-1 mt-2">상영시간표</h4>
+					<div id="schedule"></div>
 				</div>
 			</div>
+			<br>
+		    <form action="${pageContext.request.contextPath}/ticketing/ticketingSeat" method="get" id="form-post-List">
+			   	<input type="hidden" id="day" name="day" value="" />
+			   	<input type="hidden" id="movieKey" name="movieKey" value="" />
+			   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
+			   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="" />
+			   	<input type="hidden" id="ck" name="ck" value="" />
+			   	<input type="hidden" id="region" value="" />
+			   	<input type="hidden" name="ratingNo" value="" />
+			   	<input type="hidden" name="showTypeNo" value="" />
+			   	<input type="hidden" name="screenNo" value="" />
+			   	<input type="hidden" name="regionNo" value="" />
+			   	<input type="hidden" name="showScheduleNo" value="" />
+			   	
+			   	<div class="container d-flex bg-dark" style="color:white;">
+				   	<div class="row col-lg-12 col-sm-12">
+				   		<div class="movie-img col-lg-3 col-sm-3">
+							<div class="choice-list" id="choiceMovieList-0">
+								<div id="picture-box"></div>
+								<!-- <img id="picture" alt="" src="" style="width:120px; height:171px;"> -->
+			                    <p id="picture-name">영화 선택</p>
+							</div>
+						</div>	
+						<div class="col-lg-3 col-sm-3">
+							<table>
+								<tr>
+									<td>극장</td>
+									<td><span id="theater-name"></span></td>
+								</tr>
+								<tr>
+									<td>일시</td>
+									<td><span id="screening-date"></span><span id="screening-time"></span></td>
+								</tr>
+								<tr>
+									<td>상영관</td>
+									<td><span id="screenroom-name"></span></td>
+								</tr>
+								<tr>
+									<td>인원</td>
+									<td><span id="party"></span></td>
+								</tr>
+							</table>
+						</div>
+						<div class="col-lg-3 col-sm-3">
+							<table>
+								<tr>
+									<td>좌석명</td>
+									<td><span id="seatName"></span></td>
+								</tr>
+								<tr>
+									<td>좌석번호</td>
+									<td><span id="seatNo"></span></td>
+								</tr>
+							</table>
+						</div>
+						<div class="col-lg-3 col-sm-3">
+							<table>
+								<tr>
+									<td>일반</td>
+									<td><span id="price"></span></td>
+								</tr>
+								<tr>
+									<td>총금액</td>
+									<td><span id="totalPrice"></span></td>
+								</tr>
+							</table>
+						</div>
+				   	</div>
+				   	<button class="seatBtn" type="submit" disabled="disabled">좌석 선택</button>
+			   	</div>
+		    </form>
 		</div>
-		<!-- 상영시간표 -->
-		<div class="container">
-			<h1>상영시간표</h1>
-			<div id="schedule">
-			
-			</div>
-		</div>
-	</div>
-	<br>
-    <form action="${pageContext.request.contextPath}/ticketing/ticketingSeat" method="get" id="form-post-List">
-	   	<input type="hidden" id="day" name="day" value="" />
-	   	<input type="hidden" id="movieKey" name="movieKey" value="" />
-	   	<input type="hidden" id="theaterKey" name="theaterKey" value="" />
-	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="" />
-	   	<input type="hidden" id="ck" name="ck" value="" />
-	   	<input type="hidden" id="region" value="" />
-	   	<input type="hidden" name="ratingNo" value="" />
-	   	<input type="hidden" name="showTypeNo" value="" />
-	   	<input type="hidden" name="screenNo" value="" />
-	   	<input type="hidden" name="regionNo" value="" />
-	   	<input type="hidden" name="showScheduleNo" value="" />
-	   	
-	   	<div class="container d-flex bg-dark" style="color:white;">
-		   	<div class="row col-lg-12 col-sm-12">
-		   		<div class="movie-img col-lg-3 col-sm-3">
-					<div class="choice-list" id="choiceMovieList-0">
-						<div id="picture-box"></div>
-						<!-- <img id="picture" alt="" src="" style="width:120px; height:171px;"> -->
-	                    <p id="picture-name">영화 선택</p>
-					</div>
-				</div>	
-				<div class="col-lg-3 col-sm-3">
-					<table>
-						<tr>
-							<td>극장</td>
-							<td><span id="theater-name"></span></td>
-						</tr>
-						<tr>
-							<td>일시</td>
-							<td><span id="screening-date"></span><span id="screening-time"></span></td>
-						</tr>
-						<tr>
-							<td>상영관</td>
-							<td><span id="screenroom-name"></span></td>
-						</tr>
-						<tr>
-							<td>인원</td>
-							<td><span id="party"></span></td>
-						</tr>
-					</table>
-				</div>
-				<div class="col-lg-3 col-sm-3">
-					<table>
-						<tr>
-							<td>좌석명</td>
-							<td><span id="seatName"></span></td>
-						</tr>
-						<tr>
-							<td>좌석번호</td>
-							<td><span id="seatNo"></span></td>
-						</tr>
-					</table>
-				</div>
-				<div class="col-lg-3 col-sm-3">
-					<table>
-						<tr>
-							<td>일반</td>
-							<td><span id="price"></span></td>
-						</tr>
-						<tr>
-							<td>총금액</td>
-							<td><span id="totalPrice"></span></td>
-						</tr>
-					</table>
-				</div>
-		   	</div>
-		   	<button class="seatBtn" type="submit" disabled="disabled">좌석 선택</button>
-	   	</div>
-    </form>
+    </div>
     
     <script>
 		$(function() {
+			// $('#calendar > span:first-child > button').addClass('date-active');
+			
+			$(document).on('click', '.date-button', function() {
+				$('.date-button').removeClass('date-active');	
+				$(this).addClass('date-active');	
+			})
+			
+			$(document).on('click', '.btn:not(.date-button, .prevBtn, .nextBtn, .schedule-hover)', function() {
+			    $('.btn').parent().removeClass('gray');
+			    $(this).parent().addClass('gray');
+			    $('.btn').removeClass('text-white');
+			    $(this).addClass('text-white');			    
+			});
 			
 			// 시작 날짜 (오늘 날짜 기준)
 			const startDate = new Date();
 			let year = startDate.getFullYear();
 			let month = startDate.getMonth();
 			let day = startDate.getDate();
-			$('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			$('span.date').text(year+"년 "+(Number(month)+1)+"월");
 			$('#day').val(year+"-"+(Number(month)+1)+"-"+startDate.getDate());
 			$('#movieKey').val(0);			
-			$('#theaterKey').val(0);		
-			
+			$('#theaterKey').val(0);
+
 			// 끝 날짜 (2주일치)
 			const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 13);
 			
@@ -181,8 +218,10 @@
 			    const dateString = date.toISOString().slice(0, 10);
 			    const dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()];
 			    button.value = dateString;
-			    button.innerHTML = date.getDate() + " " + dayOfWeek;
+			    button.innerHTML = date.getDate() + " • " + dayOfWeek;
+			    if(date.getDate() == day) {button.classList.add('date-active');}
 			    button.classList.add('date-button');
+			    button.classList.add('btn');
 			    buttonList.push(button);
 			  }
 			
@@ -203,7 +242,7 @@
 			  const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
 			  year = newStartDate.getFullYear();
 			  month = newStartDate.getMonth();
-			  $('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			  $('span.date').text(year+"년 "+(Number(month)+1)+"월");
 			  startDate.setTime(newStartDate.getTime());
 			  endDate.setTime(newEndDate.getTime());
 			  renderCalendar(startDate, endDate);
@@ -216,7 +255,7 @@
 			  const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
 			  year = newStartDate.getFullYear();
 			  month = newStartDate.getMonth();
-			  $('div.date').text(year+"년 "+(Number(month)+1)+"월");
+			  $('span.date').text(year+"년 "+(Number(month)+1)+"월");
 			  startDate.setTime(newStartDate.getTime());
 			  endDate.setTime(newEndDate.getTime());
 			  renderCalendar(startDate, endDate);
@@ -227,7 +266,7 @@
 				// 날짜 버튼 클릭 시 년도와 월 변환
 				year = $(this).val().slice(0, 4);
 				month = $(this).val().slice(6, 7);
-				$('div.date').text(year+"년 "+(Number(month))+"월");
+				$('span.date').text(year+"년 "+(Number(month))+"월");
 				$('#day').val($(this).val()); // 선택한 날짜를 hidden에 넣어줌
 				
 				// 초기화
@@ -250,17 +289,16 @@
 						for(let i = 0; i < data.length; i++) {
 							html +=	"<div class='movie-list'>"
 						 	if(data[i].startDate === undefined) {
-								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<button class='movie-button btn text-start' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}
 						 	if(data[i].startDate !== undefined) {
-								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<button class='movie-button btn fw-bold text-start' type='button' value='"+ data[i].movieKey + "'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}
 							html += "</div>";
-							
 							/*
 							let moviekey = data[i].movieKey;
 							let grade = data[i].grade;
@@ -301,8 +339,10 @@
         								let startDate = startDate_[1].slice(0, 5);
         								let endDate_ = list[i].endDate.split("T");
         								let endDate = endDate_[1].slice(0, 5);
-        								html += "<button class='schedule-button' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
-												+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";        							
+        								
+        								
+        								html += "<button class='schedule-hover border-bottom w-100 p-3 schedule-button btn' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
+										+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6 fw-bold'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border fw-bold text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        							
 									}
         							$('#schedule').html(html);
         						}
@@ -323,15 +363,23 @@
         	    		            for (var i = 0; i < data.length; i++) {
         	    		            	if($('#movieKey').val() !== '0') {
         		    		            	if(data[i].startDate !== undefined) {
-        			    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            		html += "<div>"
+        			    		                html += "<button class='theater-button btn' type='button'>" + data[i].theaterName + "</button><br>";
+        		    		            		html += "</div>"
         		    		            	} else {
-        			    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            		html += "<div>"
+        			    		                html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        		    		            		html += "</div>"
         		    		            	}    		            		
         	    		            	} else if($('#movieKey').val() === '0') {
         	    		            		if(data[i].startDate !== undefined) {
-        		    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            			    		            			
+        	    		            			html += "<div>"
+        		    		            		html += "<button class='theater-button btn' type='button'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "</div>"
         	    		            		} else {
-        	    		            			html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "<div>"
+        	    		            			html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "</div>"
         	    		            		}
         	    		            	}
         	    		            }
@@ -357,7 +405,7 @@
 					success : function(data) {
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
-			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                html += "<div><button class='region btn' value='" + data[i].theaterRegion + "' type='button'>" 
 			                		+ data[i].theaterRegion + "(" + data[i].theaterCount + ")" + "</button></div>";
 			            }
 			            
@@ -451,8 +499,8 @@
         								let startDate = startDate_[1].slice(0, 5);
         								let endDate_ = list[i].endDate.split("T");
         								let endDate = endDate_[1].slice(0, 5);
-        								html += "<button class='schedule-button' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
-												+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";        							
+        								html += "<button class='schedule-hover border-bottom w-100 p-3 schedule-button btn' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
+										+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6 fw-bold'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border fw-bold text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        							
 									}
         							$('#schedule').html(html);
         						}
@@ -473,15 +521,23 @@
         	    		            for (var i = 0; i < data.length; i++) {
         	    		            	if($('#movieKey').val() !== '0') {
         		    		            	if(data[i].startDate !== undefined) {
-        			    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            		html += "<div>"
+        			    		                html += "<button class='theater-button btn' type='button'>" + data[i].theaterName + "</button><br>";
+        		    		            		html += "</div>"
         		    		            	} else {
-        			    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
+        		    		            		html += "<div>"
+        			    		                html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        		    		            		html += "</div>"
         		    		            	}    		            		
         	    		            	} else if($('#movieKey').val() === '0') {
         	    		            		if(data[i].startDate !== undefined) {
-        		    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            			    		            			
+        	    		            			html += "<div>"
+        		    		            		html += "<button class='theater-button btn' type='button'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "</div>"
         	    		            		} else {
-        	    		            			html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "<div>"
+        	    		            			html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "</div>"
         	    		            		}
         	    		            	}
         	    		            }
@@ -508,7 +564,7 @@
 					success : function(data) {
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
-			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                html += "<div><button class='region btn' value='" + data[i].theaterRegion + "' type='button'>" 
 			                		+ data[i].theaterRegion + "(" + data[i].theaterCount + ")" + "</button></div>";
 			            }
 			            
@@ -538,15 +594,23 @@
     		            for (var i = 0; i < data.length; i++) {
     		            	if($('#movieKey').val() !== '0') {
 	    		            	if(data[i].startDate !== undefined) {
-		    		                html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            		
+	    		            		html += "<div>"
+		    		                html += "<button class='theater-button btn' type='button'>" + data[i].theaterName + "</button><br>";
+	    		            		html += "</div>"
 	    		            	} else {
-		    		                html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";    		            		
+	    		            		html += "<div>"
+		    		                html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+	    		            		html += "</div>"
 	    		            	}    		            		
     		            	} else if($('#movieKey').val() === '0') {
     		            		if(data[i].startDate !== undefined) {
-	    		            		html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";    		            			    		            			
+    		            			html += "<div>"
+	    		            		html += "<button class='theater-button btn' type='button'>" + data[i].theaterName + "</button><br>";    	
+    		            			html += "</div>"
     		            		} else {
-    		            			html += "<button type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+    		            			html += "<div>"
+    		            			html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+    		            			html += "</div>"
     		            		}
     		            	}
     		            	//html += "<button class='theater-button' type='button'>" + data[i].theaterName + "</button><br>";
@@ -592,8 +656,8 @@
     								let startDate = startDate_[1].slice(0, 5);
     								let endDate_ = list[i].endDate.split("T");
     								let endDate = endDate_[1].slice(0, 5);
-    								html += "<button class='schedule-button' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
-											+startDate+"~"+endDate+list[i].movieTitle+list[i].seatCount+list[i].screenroomName+list[i].theaterName+"</button><br>";        															
+    								html += "<button class='schedule-hover border-bottom w-100 p-3 schedule-button btn' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
+											+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6 fw-bold'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border fw-bold text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        															
     							}
     							$('#schedule').html(html);
     						}
@@ -615,7 +679,7 @@
 					success : function(data) {						
 						let html = '';
 			            for (let i=0; i < data.length; i++) {
-			                html += "<div><button class='region' value='" + data[i].theaterRegion + "' type='button'>" 
+			                html += "<div><button class='region btn' value='" + data[i].theaterRegion + "' type='button'>" 
 			                		+ data[i].theaterRegion + "(" + data[i].theaterCount + ")" + "</button></div>";
 			            }			            
 						$('#theaterRegion').html(html);
@@ -636,12 +700,12 @@
 						for(let i = 0; i < data.length; i++) {
 							html +=	"<div class='movie-list'>"
 						 	if(data[i].startDate === undefined) {
-								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<button class='movie-button btn text-start' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}
 						 	if(data[i].startDate !== undefined) {
-								html += "<button class='movie-button' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<button class='movie-button btn text-start' type='button' value='"+ data[i].movieKey + "'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}
