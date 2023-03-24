@@ -33,7 +33,7 @@
 				<tr>
 					<td><img src="${pageContext.request.contextPath}/customer-upload/${ec.fileName}" width="50" height="50"></td>
 					<td class="comment">${ec.customerId}</td>
-					<c:if test="${ec.insultReport>=5 }">
+					<c:if test="${ec.insultReport<5 }">
 						<td>${ec.eventCommentContent}</td>
 					</c:if>
 					<td>${ec.createdate}</td>

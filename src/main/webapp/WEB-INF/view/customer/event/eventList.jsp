@@ -60,23 +60,25 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	<h3>진행중인 이벤트</h3>
-	<a href="${pageContext.request.contextPath}/employee/event/addEvent">이벤트 등록</a>
-	<div class="events-container">
-		<c:forEach var="e" items="${list}">
-			<div class="event-item">
-				<div>
-					<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="250" height="250">
-				</div>
-				<div>
-					<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
-				</div>
-				<div>
-					${e.eventStartDate} ~ ${e.eventEndDate}
-				</div>
-			</div>	
-		</c:forEach>
-	</div>	
+	<div class="container">		
+		<h3>진행중인 이벤트</h3>
+		<a href="${pageContext.request.contextPath}/employee/event/addEvent">이벤트 등록</a>
+		<div class="events-container">
+			<c:forEach var="e" items="${list}">
+				<div class="event-item">
+					<div>
+						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="220" height="220">
+					</div>
+					<div>
+						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
+					</div>
+					<div>
+						${e.eventStartDate} ~ ${e.eventEndDate}
+					</div>
+				</div>	
+			</c:forEach>
+		</div>
+	</div>		
 	<div class="pagination">
 		<a href="${pageContext.request.contextPath}/event/eventList?currentPage=1&searchWord=${searchWord}">처음으로</a>		
 		<c:if test="${currentPage > 1}">
@@ -96,5 +98,17 @@
 			<button type="submit">이벤트 검색</button>
 		</form>
 	</div>	
+	<!-- 고객 센터 -->
+	<div class="container mt-5">
+    	<h3>공지사항</h3>
+    	<h5>자주 묻는 질문</h5>
+    	<div class="row mt-3">
+        	<div class="col-md-12">
+            	<a href="#" class="btn btn-primary">
+                	<i class="fas fa-headset"></i> 1:1 Inquiry
+            	</a>
+        	</div>
+    	</div>
+	</div>
 </body>
 </html>
