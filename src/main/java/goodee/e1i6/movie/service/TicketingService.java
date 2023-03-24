@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import goodee.e1i6.movie.mapper.TicketingMapper;
 import goodee.e1i6.movie.vo.Ticketing;
+import goodee.e1i6.movie.vo.TicketingSeat;
 
 @Transactional
 @Service
@@ -23,6 +24,10 @@ public class TicketingService {
 	// 예매 추가
 	public int addTicketing(Ticketing ticekting){
 		return ticketingMapper.insertTicketing(ticekting);
+	};
+	
+	public int addTicketingSeat(TicketingSeat ticektingSeat){
+		return ticketingMapper.insertTicketingSeat(ticektingSeat);
 	};
 	
 	// 예매 내역 목록

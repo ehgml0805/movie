@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import goodee.e1i6.movie.vo.Ticketing;
+import goodee.e1i6.movie.vo.TicketingSeat;
 
 @Mapper
 public interface TicketingMapper {
@@ -15,6 +16,8 @@ public interface TicketingMapper {
 	
 	// 예매 추가
 	int insertTicketing(Ticketing ticekting);
+	
+	int insertTicketingSeat(TicketingSeat ticektingSeat);
 	
 	// 예매 상세정보
 	Map<String, Object> selectTicketingOne();
