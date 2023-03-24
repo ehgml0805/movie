@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.e1i6.movie.mapper.PointMapper">
+	
+	
+	
+	<!-- 포인트 적립하기  -->
+	<insert id="insertPointAccumulat">
+		
+		INSERT INTO point_accumulate 
+						(point_category , `key` , customer_id , `point` , createdate)
+		VALUES 
+			(#{category} , #{key}, #{customerId}, #{point} , NOW()); 
+	
+	</insert>
+	
+	
+	<!-- 포인트 적립 목록 -->
+	<select id="pointAccumulateList" resultType="goodee.e1i6.movie.vo.PointAccumulate">
+	
+		SELECT point_accumulate_key pointAccumulateKey
+				, point_category pointCategory
+				,`key` `key`
+				,customer_id customerId
+				,`point` `point`
+				,createdate createdate
+		FROM point_accumulate
+		WHERE customer_id =  #{customerId}
+	</select>
+	
+	<!-- 포인트 사용 목록 -->
+	<select id="pointRedeemList" resultType="goodee.e1i6.movie.vo.PointRedeem">
+	
+		SELECT point_redeem_key pointRedeemKey
+				, point_category pointCategory
+				,`key` `key`
+				,customer_id customerId
+				,`point` `point`
+				,createdate createdate
+		FROM point_redeem 
+		WHERE customer_id = #{customerId}
+	
+	</select>
+
+
+
+
+</mapper>

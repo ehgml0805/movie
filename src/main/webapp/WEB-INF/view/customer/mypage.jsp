@@ -22,7 +22,7 @@
 	</div>
 	<div class="container">
 		<div class="card">
-  			<div class="card-body" style="width: 980px;">
+  			<div class="card-body">
 				<div class="row">
 					<div class="col-4">
 						<img src="${pageContext.request.contextPath}/customer-upload/${co.get(0).fileName}" width="100%" height="100%">
@@ -49,26 +49,26 @@
 			<div class="d-flex align-items-start">
 				<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 					<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
-						role="tab" aria-controls="v-pills-home" aria-selected="true" style="width: 175px; text-align: left;">나의 예매내역</button>
+						role="tab" aria-controls="v-pills-home" aria-selected="true" style="width: 200px; text-align: left; font-weight: bold;">나의 예매내역</button>
 						
 					<button class="nav-link" id="v-pills-coupon-tab" data-bs-toggle="pill" data-bs-target="#v-pills-coupon"
-						type="button" role="tab" aria-controls="v-pills-coupon" style="width: 175px; text-align: left;"
+						type="button" role="tab" aria-controls="v-pills-coupon" style="width: 200px; text-align: left; font-weight: bold;"
 						aria-selected="false">관람권/할인쿠폰 관리</button>
 						
 					<button class="nav-link" id="v-pills-point-tab" data-bs-toggle="pill" data-bs-target="#v-pills-point"
-						type="button" role="tab" aria-controls="v-pills-point" style="width: 175px; text-align: left;"
+						type="button" role="tab" aria-controls="v-pills-point" style="width: 200px; text-align: left; font-weight: bold;"
 						aria-selected="false">Point 관리</button>
 						
 					<button class="nav-link" id="v-pills-event-tab" data-bs-toggle="pill" data-bs-target="#v-pills-event"
-						type="button" role="tab" aria-controls="v-pills-event" style="width: 175px; text-align: left;"
+						type="button" role="tab" aria-controls="v-pills-event" style="width: 200px; text-align: left; font-weight: bold;"
 						aria-selected="false">이벤트 참여내역</button>
 						
 					<button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-						type="button" role="tab" aria-controls="v-pills-profile" style="width: 175px; text-align: left;"
+						type="button" role="tab" aria-controls="v-pills-profile" style="width: 200px; text-align: left; font-weight: bold;"
 						aria-selected="false">회원정보</button>
 						
 					<button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help"
-						type="button" role="tab" aria-controls="v-pills-help" style="width: 175px; text-align: left;"
+						type="button" role="tab" aria-controls="v-pills-help" style="width: 200px; text-align: left; font-weight: bold;"
 						aria-selected="false">나의 문의내역</button>
 				</div>
 		
@@ -78,7 +78,7 @@
 					</div>
 					
 					<div class="tab-pane fade" id="v-pills-coupon" role="tabpanel" aria-labelledby="v-pills-coupon-tab">
-						<table class="table table-striped table-hover" style="width: 900px;">
+						<table class="table table-striped table-hover" style="width: 920px;">
 							<thead>
 								<tr>
 									<th scope="col">쿠폰명</th>
@@ -91,6 +91,9 @@
 							<tbody>
 								<tr>
 									<c:forEach var="c" items="${clist }">
+										<c:if test="${status.index%5==0}"> <!-- td가 계속 반복해서 떠서 5개의 인덱스가 생기면 줄바꿈 -->
+											</tr><tr>
+										</c:if>
 										<td>${c.couponName }</td>
 										<td>${c.state }</td>
 										<td>${c.couponSalePrice }</td>
@@ -103,12 +106,37 @@
 					</div>
 					
 					<div class="tab-pane fade" id="v-pills-point" role="tabpanel" aria-labelledby="v-pills-point-tab">
-						 나의 포인트 내역 뽑기 
-						</div>
+						 <table class="table " style="width: 920px;">
+							<thead>
+								<tr>
+									<th scope="col">카테고리</th>
+									<th scope="col" style="color: blue;">포인트</th>
+									<th scope="col">적립일</th>
+									<th scope="col">카테고리</th>
+									<th scope="col" style="color: red;">포인트</th>
+									<th scope="col">사용일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<c:forEach var="pa" items="${PA }">
+										<td>${pa.pointCategory }</td>
+										<td style="color: blue;">${pa.point }</td>
+										<td>${pa.createdate }</td>
+									</c:forEach>
+									<c:forEach var="pr" items="${PR }">
+										<td>${pr.pointCategory }</td>
+										<td style="color: red;">${pr.point }</td>
+										<td>${pr.createdate }</td>
+									</c:forEach>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 					
 					<div class="tab-pane fade" id="v-pills-event" role="tabpanel" aria-labelledby="v-pills-event-tab">
 						<h4>참여한 이벤트 내역 </h4>
-						<table class="table " style="width: 900px;">
+						<table class="table " style="width: 920px;">
 							<thead>
 								<tr>
 									<th scope="col">이벤트</td>
@@ -133,7 +161,7 @@
 					
 					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 						<form method ="post" action ="${pageContext.request.contextPath}/login/modifyCustomer" >
-								<table class="table" style="width: 900px;">  
+								<table class="table" style="width: 920px;">  
 									<tr>
 										<th>프로필 사진</th>
 										<td>
@@ -182,14 +210,14 @@
 										<th>성별</th>
 										<c:if test="${loginCustomer.customerGender =='M'}">
 											<td>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type ="radio" id ="customerGender" name="customerGender" value="M" checked class="form-check-input">남자
-												&nbsp; <input type ="radio" id ="customerGender" name="customerGender" value="F" class="form-check-label">여자
+												<input type ="radio" id ="customerGender" name="customerGender" value="M" checked >남자
+												<input type ="radio" id ="customerGender" name="customerGender" value="F" >여자
 											</td>
 										</c:if>
 										<c:if test="${loginCustomer.customerGender =='F'}">
 											<td>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type ="radio" id ="customerGender" name="customerGender" value="M" class="form-check-label">남자
-												&nbsp; <input type ="radio" id ="customerGender" name="customerGender" value="F" checked class="form-check-input">여자
+												<input type ="radio" id ="customerGender" name="customerGender" value="M" >남자
+												<input type ="radio" id ="customerGender" name="customerGender" value="F" checked >여자
 											</td>
 										</c:if>
 									</tr>
@@ -197,11 +225,7 @@
 										<th>휴대폰 번호</th>
 										<td>
 											<input type ="tel" id ="customerPhone" name="customerPhone" placeholder="000-0000-0000" value="${loginCustomer.customerPhone}"
-												pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-						     					required
-						     					minlength="13"
-												maxlength="13"
-												class="form-control">
+												pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required minlength="13" maxlength="13" class="form-control">
 										</td>
 									</tr>
 									<!-- 카카오 회원은 email을 수정할 수 없다 -->
