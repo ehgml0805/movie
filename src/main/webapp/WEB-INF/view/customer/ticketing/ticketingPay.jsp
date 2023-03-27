@@ -177,7 +177,6 @@
 			</div>
 	   	</div>
 	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}">
-	   	<input type="hidden" id="customerId" name="customerId" value="${customerId}">
 	   	<input type="hidden" id="totalAmount" name="totalAmount" value="${totalPrice}">
 	   	<input type="hidden" id="discountAmount" name="discountAmount" value="0">
 	   	<input type="hidden" id="kakaoAmount" name="kakaoAmount" value="0">
@@ -193,6 +192,9 @@
 		let discountPrice = '0'; // 총 할인가격
 		$('#kakaoPrice').text(totalPrice);
 		$('#remainPrice').text(totalPrice);
+		
+		// input에 저장해주기
+		$('#kakaoAmount').val(totalPrice);
 		
 		// 쿠폰 선택 시
 		$(document).on('click', '.coupon', function(){
@@ -283,9 +285,8 @@
 			if($('.coupon:checked').val() != undefined){
 				mycouponKey = $('.coupon:checked').val();
 			}
-			let customerId = $('#customerId').val();
-			let totalPrice = $('#totalAmount').val();
-			let discountPrice = 0;
+			totalPrice = $('#totalAmount').val();
+			discountPrice = 0;
 			if($('#discountAmount').val() != 0){
 				discountPrice = $('#discountAmount').val();
 			}
@@ -299,21 +300,22 @@
 			});
 			let movieTitle = $('#movieTitle').val();
 			
-			alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' customerId : ' + customerId + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle);
+			alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle);
 			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/kakaopay',
 				type : "GET",
+				traditional : true, // ajax 배열 넘기기 옵션!
 				data: {
 				    scheduleKey: scheduleKey,
 				    mycouponKey: mycouponKey,
-				    customerId: customerId,
 				    totalPrice: totalPrice,
 				    discountPrice: discountPrice,
 				    kakaoPrice : kakaoPrice,
 				    seatKey: seatKey,
 				    movieTitle : movieTitle
 				},
+				dataType: 'json',		
 				success:function(data){
 					var box = data.next_redirect_pc_url;
 					location.href = box;

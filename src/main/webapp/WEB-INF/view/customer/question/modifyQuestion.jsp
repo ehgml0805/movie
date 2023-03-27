@@ -16,28 +16,31 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	<h2>문의사항 수정</h2>
-	<form method="post" action="${pageContext.request.contextPath}/customer/question/modifyQuestion">
-		<input type="hidden" name="questionKey" value="${questionKey}">
-		<table>
-			<tr>
-				<td>지역 / 극장</td>
-				<td>${theaterRegion} / ${theaterName}</td>
-			</tr>
-			<tr>
-				<td>문의유형</td>
-				<td>${questionCategory}</td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="questionTitle" id="questionTitle" value="${questionTitle}"></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea name="questionContent" id="questionContent">${questionContent}</textarea></td>
-			</tr>
-		</table>
-		<button type="submit">수정</button>
-	</form>
+	
+	<div class="container mt-3" style="width: 70%;">
+		<h2 class="text-center">문의사항 수정</h2><br>
+		<form method="post" action="${pageContext.request.contextPath}/customer/question/modifyQuestion">
+			<input type="hidden" name="questionKey" value="${questionKey}">
+			<table class="table text-center">
+				<tr>
+					<td>지역 / 극장</td>
+					<td>${theaterRegion} / ${theaterName}</td>
+				</tr>
+				<tr>
+					<td>문의유형</td>
+					<td>${questionCategory}</td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="questionTitle" id="questionTitle" value="${questionTitle}" class="text-center form-control"></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td><textarea rows="5" name="questionContent" id="questionContent" class="text-center form-control">${questionContent}</textarea></td>
+				</tr>
+			</table>
+			<button type="submit" class="form-control">수정</button>
+		</form>
+	</div>
 </body>
 </html>

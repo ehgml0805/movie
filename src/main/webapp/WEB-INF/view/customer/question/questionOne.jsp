@@ -16,39 +16,47 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	<h2>문의사항</h2>
-	<!-- 답변 없으면 수정가능 -->
-	<c:if test="${map.questionAnswer == null}">
-		<a href="${pageContext.request.contextPath}/customer/question/modifyQuestion?questionKey=${map.questionKey}&theaterRegion=${map.theaterRegion}&theaterName=${map.theaterName}&questionCategory=${map.questionCategory}&questionTitle=${map.questionTitle}&questionContent=${map.questionContent}">수정</a>
-	</c:if>
-	<table border="1">
-		<tr>
-			<td>지역/극장</td>
-			<td>${map.theaterRegion} / ${map.theaterName}</td>
-		</tr>
-		<tr>
-			<td>문의유형</td>
-			<td>${map.questionCategory}</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td>${map.questionTitle}</td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			<td>${map.questionContent}</td>
-		</tr>
-		<c:if test="${map.questionAnswer != null}">
-			<tr>
-				<td colspan="2">답변내용 ${map.createdate}</td>
-			</tr>
-			<tr>
-				<td>답변</td>
-				<td>${map.questionAnswer}</td>
-			</tr>
-		</c:if>
-	</table>
 	
+	<div class="container mt-3" style="width: 70%;">
+		<h2 class="text-center">문의사항</h2><br>
+		<!-- 답변 없으면 수정가능 -->
+		<c:if test="${map.questionAnswer == null}">
+			<div style="text-align:right;">
+				<a href="${pageContext.request.contextPath}/customer/question/modifyQuestion?questionKey=${map.questionKey}&theaterRegion=${map.theaterRegion}&theaterName=${map.theaterName}&questionCategory=${map.questionCategory}&questionTitle=${map.questionTitle}&questionContent=${map.questionContent}">수정</a>
+			</div>
+		</c:if>
+		<table class="table text-center">
+			<tr>
+				<td>지역/극장</td>
+				<td>${map.theaterRegion} / ${map.theaterName}</td>
+			</tr>
+			<tr>
+				<td>문의유형</td>
+				<td>${map.questionCategory}</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td>${map.questionTitle}</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea rows="5" cols="100" readonly="readonly" class="text-center form-control">${map.questionContent}</textarea>
+				</td>
+			</tr>
+			<c:if test="${map.questionAnswer != null}">
+				<tr>
+					<td colspan="2">답변내용 <small>답변일 : ${map.createdate}</small></td>
+				</tr>
+				<tr>
+					<td>답변</td>
+					<td>
+						<textarea rows="5" cols="100" readonly="readonly" class="text-center form-control">${map.questionAnswer}</textarea>
+					</td>
+				</tr>
+			</c:if>
+		</table>
+	</div>
 	
 </body>
 </html>

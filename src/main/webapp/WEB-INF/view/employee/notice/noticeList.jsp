@@ -37,7 +37,7 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg text-center">
-						<!-- Main start -->
+					<!-- Main start -->
 						<h2>공지사항 관리</h2><br>
 						<div class="text-right">
 							<a href="${pageContext.request.contextPath}/employee/notice/addNotice">공지등록</a>

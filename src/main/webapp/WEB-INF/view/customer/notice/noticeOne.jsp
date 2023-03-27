@@ -16,15 +16,18 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	<h1>공지사항</h1>
-	<h3>${map.noticeTitle}</h3>
-	<div>
-		<small>등록일 ${map.createdate}</small>
+	
+	<div class="container mt-3 text-center" style="width: 70%;">
+		<h1 class="text-center">공지사항</h1><br><br>
+		<h3>${map.noticeTitle}</h3>
+		<div style="text-align:right;">
+			<small>등록일 ${map.createdate}</small>
+		</div>
+		<hr>
+		<c:if test="${map.fileName ne null}">
+			<div><img src="${pageContext.request.contextPath}/notice-upload/${map.fileName}"></div>
+		</c:if>
+		<div>${map.noticeContent}</div>
 	</div>
-	<hr>
-	<c:if test="${map.fileName ne null}">
-		<div><img src="${pageContext.request.contextPath}/notice-upload/${map.fileName}"></div>
-	</c:if>
-	<div>${map.noticeContent}</div>
 </body>
 </html>
