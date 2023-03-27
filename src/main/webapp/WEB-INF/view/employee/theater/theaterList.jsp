@@ -5,31 +5,78 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>theaterList</title>
-		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+		<!-- employeeHead -->
+		<c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
 	</head>
 	<body>
-		<h1>극장 리스트</h1>
-		<a href="${pageContext.request.contextPath}/employee/theater/addTheater">극장등록</a>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>극장코드</th>
-					<th>극장지역</th>
-					<th>극장명</th>
-					<th>극장주소</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="t" items="${theaterList}">
-					<tr>
-						<td>${t.theaterKey}</td>
-						<td>${t.theaterRegion}</td>
-						<td><a href="${pageContext.request.contextPath}/employee/theater/theaterOne?theaterKey=${t.theaterKey}">${t.theaterName}</a></td>
-						<td>${t.theaterAddress}</td>
-					</tr>
-				</c:forEach>
-			</tbody>		
-			</table>
+	
+		<!-- 네비바 -->
+		<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+		
+		<!-- breadcrumb -->
+		<div class="container">
+			<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+				<a href="${pageContext.request.contextPath}/home" class="stext-109 cl8 hov-cl1 trans-04">
+					Home
+					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a>
+	
+				<a href="${pageContext.request.contextPath}/employeeHome" class="stext-109 cl8 hov-cl1 trans-04">
+					Admin Home
+					<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+				</a>
+	
+				<span class="stext-109 cl4">
+					theaterList
+				</span>
+			</div>
+		</div>
+		
+		<!-- Content page -->
+		<section class="bg0 p-t-70 p-b-20">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-lg-9 p-b-80">
+						<div class="p-r-45 p-r-0-lg text-center">
+							<!-- Main start -->
+							<h2>극장 관리</h2><br>
+							<div class="text-right">
+								<a href="${pageContext.request.contextPath}/employee/theater/addTheater">극장등록</a>
+							</div>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>극장코드</th>
+										<th>극장지역</th>
+										<th>극장명</th>
+										<th>극장주소</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="t" items="${theaterList}">
+										<tr>
+											<td>${t.theaterKey}</td>
+											<td>${t.theaterRegion}</td>
+											<td><a href="${pageContext.request.contextPath}/employee/theater/theaterOne?theaterKey=${t.theaterKey}">${t.theaterName}</a></td>
+											<td>${t.theaterAddress}</td>
+										</tr>
+									</c:forEach>
+								</tbody>		
+							</table>
+						<!-- Main End -->
+						</div>
+					</div>
+					
+					<!-- 관리자 메뉴 -->
+					<c:import url="/WEB-INF/inc/employeeMenu.jsp"></c:import>
+					
+				</div>
+			</div>
+		</section>	
+	
+		<!-- footer -->
+		<c:import url="/WEB-INF/inc/employeeFooter.jsp"></c:import>
+	
 		<script>
 			$(function(){
 				let msg = '${msg}';

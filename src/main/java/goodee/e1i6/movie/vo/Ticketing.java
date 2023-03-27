@@ -5,10 +5,11 @@ import lombok.Data;
 @Data
 public class Ticketing {
 	private int ticketingKey;
-	private String seatNumber;
 	private int scheduleKey;
 	private String customerId;
 	private int mycouponKey;
+	private int totalPrice;
+	private int discountPrice;
 	private String ticketingStatus;
 	private String createdate;
 }

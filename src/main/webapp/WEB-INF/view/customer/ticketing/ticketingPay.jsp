@@ -11,8 +11,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+  	<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+
 	<!-- 제목 -->
 	<div class="container col-lg-12 col-sm-12" style="width:1250px;">
 		<div class="row mb-3">
@@ -24,7 +33,7 @@
 		<div class="container row col-lg-12 col-sm-12">
 			<div class="col-lg-8 col-sm-8">
 				<!-- 쿠폰 선택 -->
-				<div class="bg-dark" style="color:white;">&nbsp;STEP 1.<button type="button" id="myCouponRetry">다시하기</button></div>
+				<div class="bg-dark" style="color:white;">&nbsp;STEP 1.<button type="button" id="myCouponRetry" style="color:white; float:right;">다시하기</button></div>
 				<div id="myCouponList">
 					<div>&nbsp;할인쿠폰</div>				
 					<table>
@@ -160,13 +169,19 @@
 						<td>
 							<c:forEach var="s" begin="0" end="${fn:length(seatNumber)}" step="1">
 								<span id="seatNo">${seatNumber[s]}</span>
+								<input type="hidden" class="seatKey" name="seatKey" value="${seatKey[s]}">
 							</c:forEach>
 						</td>
 					</tr>
 				</table>
 			</div>
 	   	</div>
-	   	<button id="kakaopay" class="payBtn" type="button">결제하기</button>
+	   	<input type="hidden" id="scheduleKey" name="scheduleKey" value="${scheduleOne.scheduleKey}">
+	   	<input type="hidden" id="totalAmount" name="totalAmount" value="${totalPrice}">
+	   	<input type="hidden" id="discountAmount" name="discountAmount" value="0">
+	   	<input type="hidden" id="kakaoAmount" name="kakaoAmount" value="0">
+	   	<input type="hidden" id="movieTitle" name="movieTitle" value="${scheduleOne.movieTitle}">
+	   	<button id="kakaopay" class="payBtn" type="button" style="background-color:#3F0099; color:white; width:200px; height:200px;">결제하기</button>
    	</div>
 </body>
 <script>
@@ -178,6 +193,9 @@
 		$('#kakaoPrice').text(totalPrice);
 		$('#remainPrice').text(totalPrice);
 		
+		// input에 저장해주기
+		$('#kakaoAmount').val(totalPrice);
+		
 		// 쿠폰 선택 시
 		$(document).on('click', '.coupon', function(){
 			couponPrice = $('.coupon:checked').attr('data-price'); // 쿠폰 적용 가격
@@ -187,6 +205,10 @@
 			$('#discountPrice').text(discountPrice);
 			$('#kakaoPrice').text(totalPrice - discountPrice);
 			$('#remainPrice').text(totalPrice - discountPrice);
+			
+			// input에 저장해주기
+			$('#discountAmount').val(discountPrice);
+			$('#kakaoAmount').val(totalPrice - discountPrice);
 		});
 		
 		$('#point').on('blur', function() {
@@ -205,6 +227,10 @@
 			$('#discountPrice').text(discountPrice);		
 			$('#kakaoPrice').text(totalPrice - discountPrice);
 			$('#remainPrice').text(totalPrice - discountPrice);
+			
+			// input에 저장해주기
+			$('#discountAmount').val(discountPrice);
+			$('#kakaoAmount').val(totalPrice - discountPrice);
 		});
 		
 		// 다시하기 ajax
@@ -242,6 +268,10 @@
 					$('#discountPrice').text(discountPrice);
 					$('#kakaoPrice').text(totalPrice - discountPrice);
 					$('#remainPrice').text(totalPrice - discountPrice);
+					
+					// input에 저장해주기
+					$('#discountAmount').val(discountPrice);
+					$('#kakaoAmount').val(totalPrice - discountPrice);
 				}
 				, error : function() {
 					alert('error')
@@ -250,19 +280,51 @@
 		})
 		
 		$('#kakaopay').click(function(){
+			let scheduleKey = $('#scheduleKey').val();
+			let mycouponKey = 0;
+			if($('.coupon:checked').val() != undefined){
+				mycouponKey = $('.coupon:checked').val();
+			}
+			totalPrice = $('#totalAmount').val();
+			discountPrice = 0;
+			if($('#discountAmount').val() != 0){
+				discountPrice = $('#discountAmount').val();
+			}
+			let kakaoPrice = 0;
+			if($('#kakaoAmount').val() != 0){
+				kakaoPrice = $('#kakaoAmount').val();
+			}
+			var seatKey = new Array();
+			$('.seatKey').each(function() {
+				seatKey.push($(this).val());
+			});
+			let movieTitle = $('#movieTitle').val();
+			
+			alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle);
+			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/kakaopay',
 				type : "GET",
+				traditional : true, // ajax 배열 넘기기 옵션!
+				data: {
+				    scheduleKey: scheduleKey,
+				    mycouponKey: mycouponKey,
+				    totalPrice: totalPrice,
+				    discountPrice: discountPrice,
+				    kakaoPrice : kakaoPrice,
+				    seatKey: seatKey,
+				    movieTitle : movieTitle
+				},
+				dataType: 'json',		
 				success:function(data){
 					var box = data.next_redirect_pc_url;
 					location.href = box;
 				},
 				error:function(error){
-					alert("error");
+					alert("카카오페이 에러");
 				}
 			});
 		});
-
 
 	});
 </script>

@@ -140,7 +140,7 @@ public class TicketingController {
 		// 사용가능한 쿠폰 불러오기
 		Customer customer = (Customer)session.getAttribute("loginCustomer");
 		List<Map<String, Object>> myCouponList = couponService.selectMyCouponList(session, customer.getCustomerId());
-		model.addAttribute("myCouponList", myCouponList);	
+		model.addAttribute("myCouponList", myCouponList);
 		
 		// 사용 가능한 포인트 불러오기
 		int point = customer.getCustomerPoint();

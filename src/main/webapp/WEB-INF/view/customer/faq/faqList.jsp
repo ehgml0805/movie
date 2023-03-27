@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ LIST</title>
-<style>
+<style>  
 	.content {
 		display: none;
 		width: 90%;
@@ -19,6 +19,32 @@
   	.title:hover {
 	    background: silver;
   	}  	
+  	
+  	   	.pagination {
+	  	display: flex;
+	  	justify-content: center;
+	}
+	
+	.pagination {
+		margin-top: 30px;
+	}
+	.pagination a {
+		display: inline-block;
+		margin: 0 5px;
+		padding: 5px 10px;
+		background-color: #f2f2f2;
+		border: 1px solid #ddd;
+		color: black;
+		text-decoration: none;
+	}
+	.pagination a.active {
+		background-color: dodgerblue;
+		color: white;
+	}
+	.pagination a.disabled {
+		color: #ddd;
+		pointer-events: none;
+	}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -49,7 +75,7 @@
 						</div> 
 					</form>
 				</div>				
-				<table class="table">
+				<table class="table centered-table">
 					<tr>
 						<th>자주 묻는 질문</th>
 						<th>수정</th>
@@ -70,7 +96,7 @@
 				</table>
 			</div>
 		</div>
-	</div>			
+	</div>		
 	<script>
 		$(document).ready(function() {
 			$(".title").click(function(){
@@ -85,7 +111,7 @@
 		});
 	</script>
 	<!-- 페이징 -->
-	<div>
+	<div class="pagination">
 		<a href="${pageContext.request.contextPath}/faq/faqList?currentPage=1&searchWord=${searchWord}">처음으로</a>		
 		<c:if test="${currentPage > 1}">
 			<a href="${pageContext.request.contextPath}/faq/faqList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a>

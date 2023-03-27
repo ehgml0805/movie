@@ -91,6 +91,10 @@
         width: 24%;
         box-sizing: border-box;
         margin-bottom: 20px;
+        margin-left: 1%;
+        border-radius: 10px;
+  		overflow: hidden;
+	  	border: 1px solid #ccc;
     }
 	.pagination {
 		margin-top: 30px;
@@ -123,21 +127,23 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	<h3>종료된 이벤트</h3>
-	<div class="events-container">
-		<c:forEach var="e" items="${list}">
-			<div class="event-item">
-				<div>
-					<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="250" height="250">
+	<div class="container">		
+		<h3>종료된 이벤트</h3>
+		<div class="events-container">
+			<c:forEach var="e" items="${list}">
+				<div class="event-item">
+					<div>
+						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="280" height="280">
+					</div>
+					<div>
+						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
+					</div>			
+					<div>${e.eventStartDate} ~ ${e.eventEndDate}</div>
+					<button type="button" id="winnerBtn_${e.eventKey}">당첨자 조회</button>
 				</div>
-				<div>
-					<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
-				</div>			
-				<div>${e.eventStartDate} ~ ${e.eventEndDate}</div>
-				<button type="button" id="winnerBtn_${e.eventKey}">당첨자 조회</button>
-			</div>
-		</c:forEach>
-	</div>	
+			</c:forEach>
+		</div>
+	</div>		
 	<div class="pagination">
 		<a href="${pageContext.request.contextPath}/event/endEventList?currentPage=1&searchWord=${searchWord}">처음으로</a>		
 		<c:if test="${currentPage > 1}">

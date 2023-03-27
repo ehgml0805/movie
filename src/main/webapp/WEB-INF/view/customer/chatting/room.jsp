@@ -5,13 +5,13 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <style>
 *{
 	box-sizing:border-box;
 }
 body{
-	background-color:#abd9e9;
+	background-color:#777777;
 	font-family:Arial;
 }
 #container{
@@ -239,6 +239,9 @@ main footer button{
 <body>
 <div id="container">
 	<aside>
+		<header>
+			<h2>문의목록</h2>
+		</header>
 		<ul>
 			<li>
 				<img src="" alt="">
@@ -252,7 +255,7 @@ main footer button{
 		<header>
 			<img src="" alt="">
 			<div>
-				<h2>${loginName}(${loginId})님의 문의</h2>
+				<h2>${room.name}님의 문의</h2>
 			</div>
 		</header>
 		<ul id="chatArea"></ul>
@@ -274,7 +277,15 @@ main footer button{
 	    var username = "${loginId}"; // 로그인한 아이디
 	
 	    console.log(roomName + ", " + roomId + ", " + username + " : roomName, roomId, username");
-	
+		
+	    // 오늘 날짜 시간 구하기
+	    var now = new Date();
+	    var hour = String(now.getHours()).padStart(2,"0");
+	    var minutes = String(now.getMinutes()).padStart(2,"0");
+	    var year = now.getFullYear();
+	    var month = now.getMonth();
+	    var date = now.getDate();
+	    
 	    var sockJs = new SockJS("/movie/stomp/chat");
 	    //1. SockJS를 내부에 들고있는 stomp를 내어줌
 	    var stomp = Stomp.over(sockJs);
@@ -286,8 +297,7 @@ main footer button{
 	       //4. subscribe(path, callback)으로 메세지를 받을 수 있음
 	       stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
 	           var content = JSON.parse(chat.body);
-	
-	           var writer = content.writer;
+	           var writer = content.writer; // 글작성자
 	           var message = content.message;
 	           var str = '';
 	
@@ -296,24 +306,24 @@ main footer button{
 	        	   str = "<li class='me'>";
 	               str += "<div class='entete'>";
 	               str += "<span class='status blue'></span>";
-		           str += "<h2>" + writer + "</h2>";
-		           str += "<h3>10:12AM, Today</h3>";
-		           str += "</div>";
+		           str += "<h2>" + writer + "</h2>&nbsp";
+		           str += "<h3>" + hour + ":" + minutes + ", " + year + "-" + month + "-" + date + "</h3></div>";
 		           str += "<div class='triangle'></div>";
 		           str += "<div class='msg'>" + message + "</div></li>";
 	               $("#chatArea").append(str);
+	               $("#chatArea").stop().animate({ scrollTop: $("#chatArea")[0].scrollHeight}, 1000);   
 	           }
 	           else {
 	        	   console.log("상대채팅")
 	        	   str = "<li class='you'>";
 	               str += "<div class='entete'>";
 	               str += "<span class='status green'></span>";
-		           str += "<h2>" + writer + "</h2>";
-		           str += "<h3>10:12AM, Today</h3>";
-		           str += "</div>";
+		           str += "<h2>" + writer + "</h2>&nbsp";
+		           str += "<h3>" + hour + ":" + minutes + ", " + year + "-" + month + "-" + date + "</h3></div>";
 		           str += "<div class='triangle'></div>";
 		           str += "<div class='msg'>" + message + "</div></li>";
 	               $("#chatArea").append(str);
+	               $("#chatArea").stop().animate({ scrollTop: $("#chatArea")[0].scrollHeight}, 1000);   
 	           }
 	
 	       });

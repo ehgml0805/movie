@@ -5,55 +5,55 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<title>Insert title here</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <style type="text/css">
-    	.find-btn{
-			text-align: center;
-		}
-		.find-btn1{
-	display :inline-block;
-}
     
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ticketingList.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+  	<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	
 	<!-- 제목 -->
 	<div class="container" style="width:1250px;">
-		<div class="row mb-3">
+		<div class="row mb-3" style="width:1250px;">
 			<div class="col">
-                <h2>빠른 예매</h2>
+                <h2 style="width:1250px; margin:0">빠른 예매</h2>
             </div>
 		</div>	
-	</div>
-	
-	<!-- 인원/좌석 선택 -->
-	<div class="container">
-		<div class="bg-dark" style="text-align:center;"><span class="text-white">인원/좌석</span></div>
+		
+		<!-- 인원/좌석 선택 -->
+		<div class="bg-dark" style="width:1250px; text-align:center;"><span class="text-white">인원/좌석</span></div>
 		<!-- 인원 선택 / 극장, 시간 정보 -->
-		<div class="container d-flex col-1g-12 col-sm-12">
+		<div class="d-flex col-1g-12 col-sm-12 person_screen" style="width:1250px; height:80px; background-color:#EAEAEA;">
 			<!-- 인원 선택 -->
-			<div class="col-1g-6 col-sm-6">
+			<div class="col-1g-6 col-sm-6 section-numberofpeople">
 				<div class="d-flex">
-					<div class="ms-5">
+					<div class="ms-5" style="padding-top:10px;">
 					<span class="me-3">성인</span>
-						<div class="btn-group border" role="group" aria-label="Basic example">
+						<div class="btn-group border" role="group" aria-label="Basic example" style="width:40px; height:40px; padding:0; margin:0;">
 							<button type="button" class="btn btn-light btn-adult-down">-</button>
 							 <!-- <input type="number" class="adult-quantity w-25 text-center" name="adult-quantity" value="0"/> -->
-							<button type="button" class="btn border-left border-right adult-quantity">0</button>
+							<button type="button" class="btn btn-light border-left border-right adult-quantity">0</button>
 							<button type="button" class="btn btn-light btn-adult-up">+</button>
 						</div>
-					</div>
-					<div class="ms-5">
+					</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="ms-5" style="padding-top:10px;">
 						<span class="me-3">청소년</span>
-						<div class="btn-group border" role="group" aria-label="Basic example">
+						<div class="btn-group border" role="group" aria-label="Basic example" style="width:40px; height:40px; padding:0; margin:0;">
 							<button type="button" class="btn btn-light btn-teenager-down">-</button>
 							<!-- <input type="number" class="teenager-quantity w-25 text-center" name="teenager-quantity" value="0"/> -->
-							<button type="button" class="btn border-left border-right teenager-quantity">0</button>
+							<button type="button" class="btn btn-light border-left border-right teenager-quantity">0</button>
 							<button type="button" class="btn btn-light btn-teenager-up">+</button>
 						</div>
 					</div>
@@ -62,77 +62,75 @@
 			<!-- 극장, 시간 정보 -->
 			<div class="col-1g-6 col-sm-6">
 				<div><span id="theater">${scheduleOne.theaterName}</span> | <span id="screenroom">${scheduleOne.screenroomName}</span> | 남은 좌석 <span id="leftSeat" style="color:red;"></span>/<span id="totalSeat">${scheduleOne.seatCount}</span> </div>
-				<div class="time">${scheduleOne.date} ${scheduleOne.startDate} ~ ${scheduleOne.endDate}</div>
+				<div class="time" style="font-size:20px; font-weight: bold;">${scheduleOne.date} ${scheduleOne.startDate} ~ ${scheduleOne.endDate}</div>
 			</div>
 		</div>
 		
 		<!-- 좌석 선택 -->
-		<div class="container seat-view">
-			<div class="seat">
-				<img src="${pageContext.request.contextPath}/resources/images/btn/img-theater-screen.png" alt="screen-seat" class="screen-seat">
-				<div class="seat-wrapper">
-					<div class="toggle-seat" id="seat-layout">
-						<section>
-                        	<div id="show-seat">
-								<c:forEach var="s" items="${seatList}" varStatus="status">
-									<c:set var="in" value="${status.index}"/>
-									
-									<c:set var="exSeat" value="${seatList[in-1].seatNumber}"/>
-									<c:set var="seat" value="${s.seatNumber}"/>
-									
-									<c:set var="exRow" value="${fn:substring(exSeat,0,1)}" />
-									<c:set var="row" value="${fn:substring(seat,0,1)}" />
-									
-									<c:set var="seatNo" value="${s.seatNumber}"/>
-									<c:set var = "length" value = "${fn:length(seatNo)}"/>
-									<c:set var="seatNumber" value="${fn:substring(seatNo,1,length)}" />
-												
-									<c:choose>
-										<c:when test="${exRow ne row}">
-											</div>
-												<div class="seatRow-${row}"	>
-												${row}
-												<c:if test="${s.active eq 'Y'}">
-													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
-													</c:if>
-													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
-													</c:if>
+		<div class="seat seat-view">
+			<img src="${pageContext.request.contextPath}/resources/images/btn/img-theater-screen.png" alt="screen-seat" class="screen-seat" style="margin-left:270px;">
+			<div class="seat-wrapper" style="margin-left:270px;">
+				<div class="toggle-seat" id="seat-layout">
+					<section>
+                       	<div id="show-seat" style="margin-top:100px;">
+							<c:forEach var="s" items="${seatList}" varStatus="status">
+								<c:set var="in" value="${status.index}"/>
+								
+								<c:set var="exSeat" value="${seatList[in-1].seatNumber}"/>
+								<c:set var="seat" value="${s.seatNumber}"/>
+								
+								<c:set var="exRow" value="${fn:substring(exSeat,0,1)}" />
+								<c:set var="row" value="${fn:substring(seat,0,1)}" />
+								
+								<c:set var="seatNo" value="${s.seatNumber}"/>
+								<c:set var = "length" value = "${fn:length(seatNo)}"/>
+								<c:set var="seatNumber" value="${fn:substring(seatNo,1,length)}" />
+											
+								<c:choose>
+									<c:when test="${exRow ne row}">
+										</div>
+											<div class="seatRow-${row}" style="margin-left:50px;">
+											<button style="background-color:white; font-size:12px; font-weight:bold; width:20px; height:18px; padding:0; margin:0; display:inline-block;">${row}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<c:if test="${s.active eq 'Y'}">
+												<c:if test="${s.useable eq 'Y'}">
+													<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
 												</c:if>
-												<c:if test="${s.active eq 'N'}">
-													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
-													</c:if>
-													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
-													</c:if>
+												<c:if test="${s.useable eq 'N'}">
+													<button data-useable="N" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
 												</c:if>
-											</c:when>
-											<c:otherwise>
-												<c:if test="${s.active eq 'Y'}">
-													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
-													</c:if>
-													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
-													</c:if>
-												</c:if>				
-												<c:if test="${s.active eq 'N'}">
-													<c:if test="${s.useable eq 'Y'}">
-														<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="postion:absolute; width:30px; height:30px; top:52px; left:106px;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
-													</c:if>
-													<c:if test="${s.useable eq 'N'}">
-														<button data-useable="N" style="background-color:white; postion:absolute; width:30px; height:30px; top:52px; left:106px; visibility: hidden;"></button>
-													</c:if>
-												</c:if>				
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</div>
+											</c:if>
+											<c:if test="${s.active eq 'N'}">
+												<c:if test="${s.useable eq 'Y'}">
+													<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px; color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" value="${s.seatKey}" data-active="${s.active}"  data-seat="${s.seatNumber}" disabled="disabled">X</button>
+												</c:if>
+												<c:if test="${s.useable eq 'N'}">
+													<button data-useable="N" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
+												</c:if>
+											</c:if>
+										</c:when>
+										<c:otherwise>
+											<c:if test="${s.active eq 'Y'}">
+												<c:if test="${s.useable eq 'Y'}">
+													<button data-useable="Y" class="choice-seat" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
+												</c:if>
+												<c:if test="${s.useable eq 'N'}">
+													<button data-useable="N" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
+												</c:if>
+											</c:if>				
+											<c:if test="${s.active eq 'N'}">
+												<c:if test="${s.useable eq 'Y'}">
+													<button data-useable="Y" class="choice-seat btn btn-secondary p-0" id="seat${s.seatKey}" style="font-size:12px;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" data-active="${s.active}"  data-seat="${s.seatNumber}"value="${s.seatKey}" disabled="disabled">X</button>
+												</c:if>
+												<c:if test="${s.useable eq 'N'}">
+													<button data-useable="N" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; visibility: hidden; padding:0; margin:0; display:inline-block;"></button>
+												</c:if>
+											</c:if>				
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
 							</div>
-						</section>	
-					</div>
+						</div>
+					</section>	
 				</div>
 			</div>
 		</div>
@@ -153,7 +151,7 @@
 	   	<input type="hidden" name="showScheduleNo" value="" />
 	   	<input type="hidden" id="i" value="" />
 	   	
-	   	<div class="container d-flex bg-dark" style="color:white;">
+	   	<div class="container d-flex bg-dark" style="width:1250px; color:white;">
 		   	<div class="row col-lg-12 col-sm-12">
 		   		<div class="movie-img col-lg-3 col-sm-3">
 					<div class="choice-list" id="choiceMovieList-0">
@@ -351,17 +349,17 @@
 			totalNow = $('#totalNow').val();
 			if($(this).hasClass('active') == false && $(this).attr('data-active') == 'Y' && $(this).attr('data-useable') == 'Y'){ //버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
 				if(totalNow >= 2){
-					$(this).css('background-color','red');
+					$(this).css('background-color','#3F0099');
 					
 					let nextBtn = $(this).next();
 					let prevBtn = $(this).prev();
 					if (nextBtn.hasClass('active') == false && nextBtn.attr('data-active') == 'Y' && nextBtn.attr('data-useable') == 'Y') {	// 옆 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
-						nextBtn.css('background-color','red');								
+						nextBtn.css('background-color','#3F0099');								
 					} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
-						prevBtn.css('background-color','red');
+						prevBtn.css('background-color','#3F0099');
 					}			
 				} else if(totalNow == 1) {
-					$(this).css('background-color','red');
+					$(this).css('background-color','#3F0099');
 				}
 			}	
 		}, function(){ // 좌석에 마우스 땔 때
@@ -369,17 +367,17 @@
 			
 			if($(this).hasClass('active') == false && $(this).attr('data-active') == 'Y' && $(this).attr('data-useable') == 'Y'){ //버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
 				if(totalNow >= 2){
-					$(this).css('background-color','white');
+					$(this).css('background-color','#5D5D5D');
 						
 					let nextBtn = $(this).next();
 					let prevBtn = $(this).prev();
 					if (nextBtn.hasClass('active') == false && nextBtn.attr('data-active') == 'Y' && nextBtn.attr('data-useable') == 'Y') {	// 옆 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
-						nextBtn.css('background-color','white');								
+						nextBtn.css('background-color','#5D5D5D');								
 					} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
-						prevBtn.css('background-color','white');
+						prevBtn.css('background-color','#5D5D5D');
 					}				
 				} else if(totalNow == 1) {
-					$(this).css('background-color','white');
+					$(this).css('background-color','#5D5D5D');
 				}
 			}
 		});
@@ -405,7 +403,7 @@
 							seatKey.push($(this).val());
 							
 							// 좌석 색깔 바꿔주기
-							$(this).css('background-color','red');
+							$(this).css('background-color','#3F0099');
 							
 							// 좌석 클래스 active로 설정
 							$(this).addClass("active");
@@ -429,7 +427,7 @@
 							
 							if (nextBtn.hasClass('active') == false && nextBtn.attr('data-active') == 'Y' && nextBtn.attr('data-useable') == 'Y') {	// 옆 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족
 								// 좌석 색깔 바꿔주기
-								nextBtn.css('background-color','red');
+								nextBtn.css('background-color','#3F0099');
 								
 								// 좌석 키 값 저장
 								seatKey.push(nextBtn.val());	
@@ -453,7 +451,7 @@
 								
 							} else if(prevBtn.hasClass('active') == false && prevBtn.attr('data-active') == 'Y' && prevBtn.attr('data-useable') == 'Y') {	 // 앞 버튼이 모든 조건(예매 안되고 사용가능한 좌석이고 선택 안 된 좌석) 만족							
 								// 좌석 색깔 바꿔주기
-								prevBtn.css('background-color','red');
+								prevBtn.css('background-color','#3F0099');
 								
 								// 좌석 키 값 저장
 								seatKey.push(prevBtn.val());
@@ -491,7 +489,7 @@
 							totalNow = parseInt(totalNow) - 1;
 							
 							// 좌석 색깔 바꿔주기
-							$(this).css('background-color','red');
+							$(this).css('background-color','#3F0099');
 							
 							// 좌석 클래스 active로 설정
 							$(this).addClass("active");
@@ -542,7 +540,7 @@
 				// alert('totalNow : ' + totalNow);
 				
 				// 좌석 색깔 바꿔주기
-				$(this).css('background-color','white');
+				$(this).css('background-color','#5D5D5D');
 				
 				// 좌석 클래스 active 제거
 				$(this).removeClass("active");
