@@ -91,6 +91,10 @@
         width: 24%;
         box-sizing: border-box;
         margin-bottom: 20px;
+        margin-left: 1%;
+        border-radius: 10px;
+  		overflow: hidden;
+	  	border: 1px solid #ccc;
     }
 	.pagination {
 		margin-top: 30px;
@@ -129,7 +133,7 @@
 			<c:forEach var="e" items="${list}">
 				<div class="event-item">
 					<div>
-						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="250" height="250">
+						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="280" height="280">
 					</div>
 					<div>
 						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>

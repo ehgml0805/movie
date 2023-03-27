@@ -60,7 +60,7 @@
 	        <div class="col-md-6">
 	            <div class="row">
 	                <div class="card" style="width: 600px; height: 250px;">
-	                    <a href="${pageContext.request.contextPath}/snack/snackHome">
+	                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
 	                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
 	                    </a>
 	                </div>
@@ -69,7 +69,7 @@
 	                <!-- Small card 1 -->
 	                <div class="col-md-6">
 	                    <div class="card" style="width: 19rem;">
-	                    	<a href="${pageContext.request.contextPath}/snack/snackHome">
+	                    	<a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=2">
 	                        	<img src="${pageContext.request.contextPath}/event-upload/슬램덩크FULL콤보.png" style="width: 19rem; height: 120px;">
 	                        </a>
 	                        <div class="card-body">
@@ -80,7 +80,7 @@
 	                <!-- Small card 2 -->
 	                <div class="col-md-6">
 	                    <div class="card" style="width: 19rem;">
-                   	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeList">
+                   	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=4">
 	                        	<img src="${pageContext.request.contextPath}/event-upload/메박오리지널티켓.jpg" style="width: 18rem; height: 190px;">
 	                    	</a>
 	                    </div>
@@ -90,7 +90,7 @@
 	        <!-- Large card -->
 	        <div class="col-md-6">
 	            <div class="card" style="width: 395px; height: 500px;">
-           	 		<a href="${pageContext.request.contextPath}/event/eventList">
+           	 		<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=40&movieKey=1">
 	                	<img src="${pageContext.request.contextPath}/event-upload/스즈메 시사회.jpg" style="width: 392px; height: 480px;">
 	            	</a>
 	            </div>

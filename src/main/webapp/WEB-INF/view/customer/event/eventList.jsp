@@ -23,6 +23,9 @@
         box-sizing: border-box;
         margin-bottom: 20px;
         margin-left: 1%;
+        border-radius: 10px;
+  		overflow: hidden;
+	  	border: 1px solid #ccc;
     }
   
    	.pagination {
@@ -67,7 +70,7 @@
 			<c:forEach var="e" items="${list}">
 				<div class="event-item">
 					<div>
-						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="220" height="220">
+						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="280" height="280">
 					</div>
 					<div>
 						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
@@ -98,17 +101,5 @@
 			<button type="submit">이벤트 검색</button>
 		</form>
 	</div>	
-	<!-- 고객 센터 -->
-	<div class="container mt-5">
-    	<h3>공지사항</h3>
-    	<h5>자주 묻는 질문</h5>
-    	<div class="row mt-3">
-        	<div class="col-md-12">
-            	<a href="#" class="btn btn-primary">
-                	<i class="fas fa-headset"></i> 1:1 Inquiry
-            	</a>
-        	</div>
-    	</div>
-	</div>
 </body>
 </html>
