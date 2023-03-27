@@ -18,6 +18,7 @@ public class Customer {
 	private int customerPoint;
 	private String customerEmail;
 	private String blacklist;
+	private String active;
 	private String customerGrade;
 	private String lastLogin;
 	private String createdate;
