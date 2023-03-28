@@ -5,7 +5,65 @@
 <head>
 <meta charset="UTF-8">
 <title>addEvent</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+	body {
+    	font-family: 'Roboto', sans-serif;
+    	background-color: #f4f4f4;
+	    margin: 0;
+	    padding: 0;
+  	}
+
+  	h1 {
+    	text-align: center;
+    	color: #333;
+    	margin-top: 30px;
+    	margin-bottom: 40px;
+  	}
+
+  	form {
+    	max-width: 600px;
+    	margin: 0 auto;
+    	padding: 20px;
+    	background-color: #fff;
+    	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  	}
+
+  	div {
+    	margin-bottom: 20px;
+  	}
+
+  	input[type="text"], textarea, input[type="date"], select {
+	    width: 100%;
+	    padding: 10px;
+	    font-size: 16px;
+	    border: 1px solid #ccc;
+	    box-sizing: border-box;
+  	}
+
+  	textarea {
+    	resize: none;
+  	}
+
+  	button {
+	    background-color: #bbb;
+	    border: none;
+	    color: white;
+	    padding: 10px 20px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+	    transition-duration: 0.4s;
+  	}
+
+  	button:hover {
+    	background-color: #999;
+  	}
+</style>
 <script>
 	$(document).ready(function(){
 		$('#addImg').click(function() {
@@ -81,7 +139,7 @@
 				<!-- 이미지 input 태그가 추가될 영역 -->
 			</div>
 		</div>
-		<div>
+		<div style="text-align: center;">
 			<button type="button" id="addEvent">등록</button>
 		</div>
 	</form>

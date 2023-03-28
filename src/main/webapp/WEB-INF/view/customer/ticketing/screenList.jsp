@@ -65,13 +65,13 @@
 						<c:forEach var="m" items="${movieList}">
 							<div class="movie-list">
 								<c:if test="${m.startDate eq null}">
-									<button class="btn text-start" type="button" disabled="disabled">
+									<button class="btn text-start" type="button" disabled="disabled" style="opacity:0.3">
 										<span>${m.grade}</span>
 										<span>${m.movieTitle}</span>						
 									</button>
 								</c:if>
 								<c:if test="${m.startDate ne null}">
-									<button class="btn movie-button fw-bold text-start" type="button" value="${m.movieKey}">
+									<button class="btn movie-button text-start" type="button" value="${m.movieKey}">
 										<span>${m.grade}</span>
 										<span class="txt">${m.movieTitle}</span>						
 									</button>
@@ -170,7 +170,7 @@
 							</table>
 						</div>
 				   	</div>
-				   	<button class="seatBtn" type="submit" disabled="disabled">좌석 선택</button>
+			   		<button class="seatBtn p-3" type="submit" disabled="disabled" style="background-color:#3F0099; color:white;">좌석 선택</button>
 			   	</div>
 		    </form>
 		</div>
@@ -293,12 +293,12 @@
 						for(let i = 0; i < data.length; i++) {
 							html +=	"<div class='movie-list'>"
 						 	if(data[i].startDate === undefined) {
-								html += "<button class='movie-button btn text-start' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<button class='movie-button btn text-start' type='button' style='opacity:0.3' value='"+ data[i].movieKey + "' disabled='disabled'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}
 						 	if(data[i].startDate !== undefined) {
-								html += "<button class='movie-button btn fw-bold text-start' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<button class='movie-button btn text-start' style='opacity:0.3' type='button' value='"+ data[i].movieKey + "'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}
@@ -346,7 +346,7 @@
         								
         								
         								html += "<button class='schedule-hover border-bottom w-100 p-3 schedule-button btn' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
-										+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6 fw-bold'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border fw-bold text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        							
+										+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        							
 									}
         							$('#schedule').html(html);
         						}
@@ -372,7 +372,7 @@
         		    		            		html += "</div>"
         		    		            	} else {
         		    		            		html += "<div>"
-        			    		                html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        			    		                html += "<button class='btn' type='button' style='opacity:0.3' disabled='disabled'>" + data[i].theaterName + "</button><br>";
         		    		            		html += "</div>"
         		    		            	}    		            		
         	    		            	} else if($('#movieKey').val() === '0') {
@@ -382,7 +382,7 @@
         	    		            			html += "</div>"
         	    		            		} else {
         	    		            			html += "<div>"
-        	    		            			html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "<button class='btn' type='button' style='opacity:0.3' disabled='disabled'>" + data[i].theaterName + "</button><br>";
         	    		            			html += "</div>"
         	    		            		}
         	    		            	}
@@ -504,7 +504,7 @@
         								let endDate_ = list[i].endDate.split("T");
         								let endDate = endDate_[1].slice(0, 5);
         								html += "<button class='schedule-hover border-bottom w-100 p-3 schedule-button btn' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
-										+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6 fw-bold'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border fw-bold text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        							
+										+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        							
 									}
         							$('#schedule').html(html);
         						}
@@ -530,7 +530,7 @@
         		    		            		html += "</div>"
         		    		            	} else {
         		    		            		html += "<div>"
-        			    		                html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        			    		                html += "<button class='btn' type='button' style='opacity:0.3' disabled='disabled'>" + data[i].theaterName + "</button><br>";
         		    		            		html += "</div>"
         		    		            	}    		            		
         	    		            	} else if($('#movieKey').val() === '0') {
@@ -540,7 +540,7 @@
         	    		            			html += "</div>"
         	    		            		} else {
         	    		            			html += "<div>"
-        	    		            			html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+        	    		            			html += "<button class='btn' type='button' style='opacity:0.3' disabled='disabled'>" + data[i].theaterName + "</button><br>";
         	    		            			html += "</div>"
         	    		            		}
         	    		            	}
@@ -603,7 +603,7 @@
 	    		            		html += "</div>"
 	    		            	} else {
 	    		            		html += "<div>"
-		    		                html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+		    		                html += "<button class='btn' type='button' style='opacity:0.3' disabled='disabled'>" + data[i].theaterName + "</button><br>";
 	    		            		html += "</div>"
 	    		            	}    		            		
     		            	} else if($('#movieKey').val() === '0') {
@@ -613,7 +613,7 @@
     		            			html += "</div>"
     		            		} else {
     		            			html += "<div>"
-    		            			html += "<button class='btn' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
+    		            			html += "<button class='btn' style='opacity:0.3' type='button' disabled='disabled'>" + data[i].theaterName + "</button><br>";
     		            			html += "</div>"
     		            		}
     		            	}
@@ -661,7 +661,7 @@
     								let endDate_ = list[i].endDate.split("T");
     								let endDate = endDate_[1].slice(0, 5);
     								html += "<button class='schedule-hover border-bottom w-100 p-3 schedule-button btn' data-schedulekey="+list[i].scheduleKey+" data-moviekey="+list[i].movieKey+" data-starttime="+startDate+" data-screenroomname="+list[i].screenroomName+" data-theatername="+list[i].theaterName+">"
-											+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6 fw-bold'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border fw-bold text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        															
+											+"<div class='row'><div class='col'><div class='fw-bold'>"+startDate+"</div><div style='font-size: 12px'>~"+endDate+"</div></div><div class='col-6'>"+list[i].movieTitle+"</div><div class='col text-end'><div style='font-size: 12px'>"+list[i].screenroomName+"</div><div style='font-size: 12px'>"+list[i].theaterName+"</div><div class='border text-center' style='font-size: 12px;'><span style='color: #01738b'>"+list[i].seatCount+"</span>"+"/"+list[i].seatCount+"</div></div></button>";        															
     							}
     							$('#schedule').html(html);
     						}
@@ -704,7 +704,7 @@
 						for(let i = 0; i < data.length; i++) {
 							html +=	"<div class='movie-list'>"
 						 	if(data[i].startDate === undefined) {
-								html += "<button class='movie-button btn text-start' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
+								html += "<button class='movie-button btn text-start' style='opacity:0.3' type='button' value='"+ data[i].movieKey + "' disabled='disabled'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}

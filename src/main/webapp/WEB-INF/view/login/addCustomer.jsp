@@ -30,6 +30,8 @@
 </head>
 
 <body>
+<!-- 네비바 -->
+		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
 	<h1>회원가입</h1>
 	<div>
 		<input type="text" id="id">

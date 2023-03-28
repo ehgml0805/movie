@@ -113,7 +113,7 @@
 		</c:forEach>
 		<c:forEach var="e" items="${eventOneList}">
 			<div>
-				<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="1000" height="500">
+				<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="800" height="500">
 			</div>
 		</c:forEach>
 		<c:forEach var="e" items="${eventOneList}" begin="0" end="0">

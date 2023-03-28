@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <title>FAQ LIST</title>
 <style>  
+	.table-container {
+  		display: flex;
+  		justify-content: center;
+  		align-items: center;
+  		width: 70%;
+  		margin-left: 15%;
+	}
+	.centered-table {
+ 		margin-left: auto;
+ 		margin-right: auto;
+	}
 	.content {
 		display: none;
 		width: 90%;
@@ -20,9 +31,9 @@
 	    background: silver;
   	}  	
   	
-  	   	.pagination {
-	  	display: flex;
-	  	justify-content: center;
+	.pagination {
+  		display: flex;
+  		justify-content: center;
 	}
 	
 	.pagination {
@@ -45,6 +56,19 @@
 		color: #ddd;
 		pointer-events: none;
 	}
+	.search {
+		margin-top: 30px;
+		text-align: center;
+	}
+	.search input[name="searchWord"],
+	.search button[type="submit"] {
+  		border: 1px solid #ccc;
+	  	border-radius: 5px;
+	  	padding: 5px 10px;
+	  	margin: 0 5px; /* add some margin to separate the input and button */
+	  	display: inline-block; /* set both elements to display inline-block */
+	  	vertical-align: middle; /* vertically center both elements */
+	}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -60,43 +84,37 @@
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<a href="${pageContext.request.contextPath}/employee/faq/addFaq">FAQ 등록</a>
-	<div class="supports col-9">
-		<div class="row">
-			<div class="offset ms-4 col-7 p-0" style="margin-left: 20px;">
-				<div class="mt-5 mb-3">
-					<h3>자주 묻는 질문</h3>
-				</div>	
-				<!-- 질문 검색 -->
-				<div class="rounded row p-1 mb-3">
-					<form method="get" action="${pageContext.request.contextPath}/faq/faqList">
-						<div class="col">	
-							<input type="text" name="searchWord" value="${param.searchWord}">
-							<button type="submit">질문 검색</button>
-						</div> 
-					</form>
-				</div>				
-				<table class="table centered-table">
-					<tr>
-						<th>자주 묻는 질문</th>
-						<th>수정</th>
-						<th>삭제</th>
-					</tr>
-					<c:forEach var="f" items="${faqList}">
-						<tr>
-							<td>
-								<div class="box">
-									<span class="title" style="cursor:pointer;">Q. ${f.faqQuestion}</span>
-									<div class="content" style="display:none">A. ${f.faqAnswer}</div>
-								</div>
-							</td>
-							<td><a href="${pageContext.request.contextPath}/employee/faq/modifyFaq?faqKey=${f.faqKey}&faqQuestion=${f.faqQuestion}&faqAnswer=${f.faqAnswer}">수정</a></td>
-							<td><a href="${pageContext.request.contextPath}/employee/faq/removeFaq?faqKey=${f.faqKey}">삭제</a></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</div>
-	</div>		
+	<h3 class="text-center">자주 묻는 질문</h3>			
+	<!-- 질문 검색 -->
+	<div class="search">
+		<form method="get" action="${pageContext.request.contextPath}/faq/faqList">
+			<div class="col">	
+				<input type="text" name="searchWord" value="${param.searchWord}">
+				<button type="submit">질문 검색</button>
+			</div> 
+		</form>
+	</div>
+	<div class="table-container">
+		<table class="table centered-table">
+			<tr>
+				<th>자주 묻는 질문</th>
+				<th>수정</th>
+				<th>삭제</th>
+			</tr>
+			<c:forEach var="f" items="${faqList}">
+				<tr>
+					<td>
+						<div class="box">
+							<span class="title" style="cursor:pointer;">Q. ${f.faqQuestion}</span>
+							<div class="content" style="display:none">A. ${f.faqAnswer}</div>
+						</div>
+					</td>
+					<td><a href="${pageContext.request.contextPath}/employee/faq/modifyFaq?faqKey=${f.faqKey}&faqQuestion=${f.faqQuestion}&faqAnswer=${f.faqAnswer}">수정</a></td>
+					<td><a href="${pageContext.request.contextPath}/employee/faq/removeFaq?faqKey=${f.faqKey}">삭제</a></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>					
 	<script>
 		$(document).ready(function() {
 			$(".title").click(function(){
