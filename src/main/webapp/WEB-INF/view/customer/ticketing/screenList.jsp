@@ -170,9 +170,7 @@
 							</table>
 						</div>
 				   	</div>
-				   	<div style="position: relative;">
-				   		<button class="seatBtn p-5 rounded-3" type="submit" disabled="disabled" style="position: absolute; left:-100px; top:10px; background-color:#3F0099; color:white;">좌석 선택</button>
-				   	</div>
+			   		<button class="seatBtn p-3" type="submit" disabled="disabled" style="background-color:#3F0099; color:white;">좌석 선택</button>
 			   	</div>
 		    </form>
 		</div>

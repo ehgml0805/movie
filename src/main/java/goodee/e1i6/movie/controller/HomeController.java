@@ -1,5 +1,6 @@
 package goodee.e1i6.movie.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.EventService;
 import goodee.e1i6.movie.service.LoginService;
+import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.PointService;
 import goodee.e1i6.movie.service.VisitorService;
+import goodee.e1i6.movie.service.WishlistService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.PointAccumulate;
@@ -31,20 +34,13 @@ public class HomeController {
 	@Autowired EventService eventService; 
 	@Autowired LoginService loginService;
 	@Autowired PointService pointService;
-	
+	@Autowired MovieService movieService;
+	@Autowired WishlistService wishlistService;
 	
 	@GetMapping("/home")
-	public String getHome(HttpServletRequest request, Model model) {
-		
-			String[] arr = {"a","b","c","d","e"};
-			
-			for(int i = 0; i < arr.length; i++) {
-				for(int j = 1; j < 13; j++) {
-					String seatNumber = arr[i] + (j);			
-					//System.out.println(seatNumber);					
-				}
-			}
-			
+	public String getHome(HttpServletRequest request, Model model
+							, HttpSession session
+							, @RequestParam(value = "startDate", defaultValue = "") String startDate) {
 			Visitor visitor = new Visitor();
 			int todayVisitorCount = visitorService.getTodayVisitorCount();
         	if (todayVisitorCount == 0) {
@@ -54,11 +50,24 @@ public class HomeController {
         		// 아닐 경우 update
         		visitorService.modifyVisitor(visitor);
         	}
-
-			model.addAttribute("todayCount", todayVisitorCount);			
+			model.addAttribute("todayCount", todayVisitorCount);
+			
+			
+			Customer customer = (Customer)session.getAttribute("loginCustomer");
+			String customerId = "";
+			if (customer != null) {
+				customerId = customer.getCustomerId();				
+			}
+			
+			// 영화 목록
+			ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
+			List<Map<String, Object>> wishlistCount = wishlistService.getWishlistById(customerId);
+			model.addAttribute("movieList", movieList);
+			model.addAttribute("wishlistCount", wishlistCount);
 			
 		return "home";
 	}
+	
 	//마이페이지 
 	@GetMapping("/customer/mypage")
 	public String myPage(HttpSession session,Model model
