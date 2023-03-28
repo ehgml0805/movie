@@ -88,14 +88,19 @@
     }
 
     .event-item {
-        width: 24%;
+        width: 19%;
         box-sizing: border-box;
         margin-bottom: 20px;
-        margin-left: 1%;
+        margin-left: 5%;
         border-radius: 10px;
   		overflow: hidden;
 	  	border: 1px solid #ccc;
     }
+  
+	.event-item img {
+	  width: 100%;
+	  object-fit: cover;
+	}
 	.pagination {
 		margin-top: 30px;
 		justify-content: center;
@@ -122,6 +127,15 @@
 		margin-top: 30px;
 		text-align: center;
 	}
+	.search input[name="searchWord"],
+	.search button[type="submit"] {
+  		border: 1px solid #ccc;
+	  	border-radius: 5px;
+	  	padding: 5px 10px;
+	  	margin: 0 5px; /* add some margin to separate the input and button */
+	  	display: inline-block; /* set both elements to display inline-block */
+	  	vertical-align: middle; /* vertically center both elements */
+	}
 </style>
 </head>
 <body>
@@ -133,7 +147,7 @@
 			<c:forEach var="e" items="${list}">
 				<div class="event-item">
 					<div>
-						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="280" height="280">
+						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" height="310">
 					</div>
 					<div>
 						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
