@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="tags.jsp" %>
+	  	<meta charset="utf-8">
+   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+ 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	  	
 <style>
 	#event-link:hover {
 		cursor: default;
@@ -66,6 +73,9 @@
 					<c:if test="${not empty loginCustomer}">
 						<li class="nav-item"><a href="${pageContext.request.contextPath}/login/logout" class="nav-link">로그아웃</a></li>
 					</c:if>
+					<c:if test="${not empty loginEmployee}">
+						<li class="nav-item"><a href="${pageContext.request.contextPath}/login/logout" class="nav-link">로그아웃</a></li>
+					</c:if>
 					<li class="nav-item"><a href="" class="nav-link">빠른예매</a></li>
 				</ul>
 			</div>
@@ -75,18 +85,18 @@
 			<div class="collapse navbar-collapse justify-content-start">
 				<ul class="navbar-nav util-list">
 					<li class="nav-item">
-					<a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-sitemap.png"></a>
+					<a class="nav-link" href="#"><img src="#"></a>
 					</li>
 					<li class="nav-item dropdown"><a class="nav-link" href="#"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
 						aria-expanded="false"> <img
-							src="${pageContext.request.contextPath}/resources/images/nav/ico-search.png">
+							src="#">
 					</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="">
 							<div class="search-box p-3">
 								<form action="">
 		     		 				<input class="form-control" type="search" name="keyword" value="" placeholder="영화를 검색하세요!" aria-label="Search">
-		      						<button class="btn btn-sm" type="button"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-search.png"></button>
+		      						<button class="btn btn-sm" type="button"><img src="#"></button>
 		    					</form>
 							</div>
 						</ul>
@@ -117,9 +127,9 @@
 			</div>
 			<div class="collapse navbar-collapse justify-content-end">
 				<ul class="navbar-nav util-list">
-					<li class="nav-item"><a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-schedule.png"></a></li>
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-mymega.png"></a></li>
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/order/cartList"><img src="${pageContext.request.contextPath}/resources/images/nav/ico-cart.png"></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><img src="#"></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><img src="#"></a></li>
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/order/cartList"><img src="#"></a></li>
 				</ul>
 			</div>
 		</nav>

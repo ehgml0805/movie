@@ -28,6 +28,7 @@
 			, customer_point customerPoint
 			, customer_email customerEmail
 			, customer_phone customerPhone
+			, active active
 			
 		FROM customer
 		WHERE customer_id = #{customerId} AND customer_pw = PASSWORD(#{customerPw})
@@ -56,10 +57,10 @@
 		parameterType ="goodee.e1i6.movie.vo.Customer">
 		INSERT INTO customer 
 			(customer_id, oauth, customer_pw, customer_name, customer_address
-			, customer_birthday, customer_gender, customer_phone, customer_email, last_login, createdate)
+			, customer_birthday, customer_gender, customer_phone, customer_email, active, last_login, createdate)
 			
 		VALUES (#{customerId}, #{oauth}, PASSWORD(#{customerPw}), #{customerName},  #{customerAddress}
-			, #{customerBirthday}, #{customerGender}, #{customerPhone}, #{customerEmail}, NOW(), NOW())
+			, #{customerBirthday}, #{customerGender}, #{customerPhone}, #{customerEmail}, active, NOW(), NOW())
 					
 	</insert>
 	

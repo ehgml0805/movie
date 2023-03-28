@@ -5,45 +5,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	  	<meta charset="utf-8">
-   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
- 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-	  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	  	<script type="text/javascript" src="/resources/js/movie/movieFn.js"></script>
-	  	<link rel="stylesheet" href="/resources/css/navbar.css" />
-	  	<link rel="stylesheet" href="/resources/css/common.css" />
-	  	<link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
-	  	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/icons/favicon.png"/>
+
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/bootstrap/css/bootstrap.min.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/iconic/css/material-design-iconic-font.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/iconic/css/material-design-iconic-font.min.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/fonts/linearicons-v1.0.0/icon-font.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/linearicons-v1.0.0/icon-font.min.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/animate/animate.css">
 		<!--===============================================================================================-->   
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/css-hamburgers/hamburgers.min.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/animsition/css/animsition.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/animsition/css/animsition.min.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/select2/select2.min.css">
 		<!--===============================================================================================-->   
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/daterangepicker/daterangepicker.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/daterangepicker/daterangepicker.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/slick/slick.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/slick/slick.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/MagnificPopup/magnific-popup.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/MagnificPopup/magnific-popup.css">
 		<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vendor/perfect-scrollbar/perfect-scrollbar.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/perfect-scrollbar/perfect-scrollbar.css">
 		<!--===============================================================================================-->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/css/util.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/css/main.css">
-		<!--===============================================================================================-->
 <title>Insert title here</title>
 </head>
 <body>
