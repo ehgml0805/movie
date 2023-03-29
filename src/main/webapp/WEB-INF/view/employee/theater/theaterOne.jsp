@@ -4,59 +4,71 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
-		<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+ 		<meta name="viewport" content="width=device-width, initial-scale=1">
+ 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 부트스트랩4-->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> <!-- 부트스트랩 JavaScript 파일 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<h1>극장상세</h1>
-		<form id="form">	
-			<button type="button" id="modifyBtn">수정</button>
-			<input type="hidden" name="theaterKey" value="${theaterOne.theaterKey}">
-			<button type="button" id="removeBtn">삭제</button>
-		</form>
-		<a href="${pageContext.request.contextPath}/employee/screenroom/addScreenroom?theaterKey=${theaterOne.theaterKey}">상영관 등록 -> AJAX</a>
-		<div id="modify">
-			<table border="1">
+		<!-- 네비바 -->
+		<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+		<div class="container w-75">
+			<h1>극장상세</h1>
+			<form id="form" class="d-flex justify-content-end">	
+				<button class="btn btn-light" type="button" id="modifyBtn">수정</button>
+				<input class="form-control" type="hidden" name="theaterKey" value="${theaterOne.theaterKey}">
+				<button class="btn btn-light" type="button" id="removeBtn">삭제</button>
+			</form>
+			<a class="btn btn-light" href="${pageContext.request.contextPath}/employee/screenroom/addScreenroom?theaterKey=${theaterOne.theaterKey}">상영관 등록</a>
+			<div id="modify">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>극장코드</th>
+							<th>극장지역</th>
+							<th>극장명</th>
+							<th>극장주소</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>${theaterOne.theaterKey}</td>
+							<td>${theaterOne.theaterRegion}</td>
+							<td>${theaterOne.theaterName}</td>
+							<td>${theaterOne.theaterAddress}</td>
+						</tr>
+					</tbody>		
+				</table>
+				<h1>극장정보</h1>
+				<div>${theaterOne.theaterInfo}</div>
+				<div>${theaterOne.theaterTicketingInfo}</div>
+			</div>
+			<br/>
+			<h1>상영관 목록</h1>
+			<table class="table">
 				<thead>
 					<tr>
-						<th>극장코드</th>
-						<th>극장지역</th>
-						<th>극장명</th>
-						<th>극장주소</th>
+						<th>상영관코드</th>
+						<th>상영관명</th>
+						<th>좌석수</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>${theaterOne.theaterKey}</td>
-						<td>${theaterOne.theaterRegion}</td>
-						<td>${theaterOne.theaterName}</td>
-						<td>${theaterOne.theaterAddress}</td>
-					</tr>
+					<c:forEach var="s" items="${screenroomList}">
+						<tr>
+							<td>${s.screenroomKey}</td>
+							<td><a href="${pageContext.request.contextPath}/employee/screenroom/screenroomOne?screenroomKey=${s.screenroomKey}">${s.screenroomName}</a></td>
+							<td>${s.seatCount}</td>
+						</tr>
+					</c:forEach>
 				</tbody>		
 			</table>
-			<div>${theaterOne.theaterInfo}</div>
-			<div>${theaterOne.theaterTicketingInfo}</div>
 		</div>
-		<br/>
-		<h1>상영관 목록</h1>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>상영관코드</th>
-					<th>상영관명</th>
-					<th>좌석수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="s" items="${screenroomList}">
-					<tr>
-						<td>${s.screenroomKey}</td>
-						<td><a href="${pageContext.request.contextPath}/employee/screenroom/screenroomOne?screenroomKey=${s.screenroomKey}">${s.screenroomName}</a></td>
-						<td>${s.seatCount}</td>
-					</tr>
-				</c:forEach>
-			</tbody>		
-		</table>
 		<script>
 			$(function() {
 				let msg = '${msg}';
