@@ -15,16 +15,17 @@
 	
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<div class="modal-header">
-				<img src="${pageContext.request.contextPath}/img/megabox-logo2.png" width="460" height="80">
-				<h5 class="modal-title" id="addCustomerFormModalLabel"></h5>
+			<div class="modal-header" >
+				
+				<h5 class="modal-title" id="addCustomerFormModalLabel"  >회원가입</h5>
 				<button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 				<div class="modal-body">
+					
 					<div class="mb-3">
 						ID중복검사
 						<input type="text" id="id" class="col-form-label" >
-						<input type="button" value="중복체크" id="ckBtn" class="btn btn-primary">
+						<input type="button" value="중복체크" id="ckBtn" >
 					</div>
 					<div>${errorMsg}</div>
 					<form action="${pageContext.request.contextPath}/login/addCustomer" method="post" id="addCustomerForm" enctype="multipart/form-data">

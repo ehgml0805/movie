@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="tags.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ticketingList.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
-<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
 
 <style>
 	#event-link:hover {
@@ -83,12 +79,11 @@
 			<div class="collapse navbar-collapse justify-content-start">
 				<ul class="navbar-nav util-list">
 					<li class="nav-item">
-					<a class="nav-link" href="#"><img src="#"></a>
+					<a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/img/icons8-menu-32.png"></a>
 					</li>
 					<li class="nav-item dropdown"><a class="nav-link" href="#"
 						id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"> <img
-							src="#">
+						aria-expanded="false"> <img src="${pageContext.request.contextPath}/img/icons8-search-32.png">
 					</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="">
 							<div class="search-box p-3">
@@ -123,18 +118,29 @@
 					</div>
 				</ul>
 			</div>
-			<div class="collapse navbar-collapse justify-content-end">
-				<ul class="navbar-nav util-list">
-					<li class="nav-item"><a class="nav-link" href="#"><img src="#"></a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><img src="#"></a></li>
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/order/cartList"><img src="#"></a></li>
-				</ul>
-			</div>
+			<c:if test="${not empty loginCustomer}">
+				<div class="collapse navbar-collapse justify-content-end">
+					<ul class="navbar-nav util-list">
+						<li class="nav-item"><a class="nav-link" href="#"><img src="${pageContext.request.contextPath}/img/icons8-two-tickets-32.png"></a></li>
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage"><img src="${pageContext.request.contextPath}/img/icons8-customer-32.png"></a></li>
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/customer/order/cartList"><img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png"></a></li>
+					</ul>
+				</div>
+			</c:if>
+			<c:if test="${empty loginCustomer}">
+				<div class="collapse navbar-collapse justify-content-end">
+					<ul class="navbar-nav util-list">
+						<li class="nav-item"><a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form"><img src="${pageContext.request.contextPath}/img/icons8-two-tickets-32.png"></a></li>
+						<li class="nav-item"><a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form"><img src="${pageContext.request.contextPath}/img/icons8-customer-32.png"></a></li>
+						<li class="nav-item"><a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form"><img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png"></a></li>
+					</ul>
+				</div>
+			</c:if>
 		</nav>
 	</div>
 </div>
 <!-- 로그인 모달 -->
-<c:if test="${empty lgoinCustomer }">
+<c:if test="${empty loginCustomer }">
 	<%@include file="loginFormModal.jsp"%>
 	<%@include file="addCustomerModal.jsp"%>
 </c:if>
