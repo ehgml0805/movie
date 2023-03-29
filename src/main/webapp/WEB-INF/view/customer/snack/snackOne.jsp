@@ -13,52 +13,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/owl.carousel.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
+ 	 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     
-    <!-- Style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
-    	<style type="text/css">
-	html, main {
-	    height: 100%
-	}
-	
-	#wrap {
-	    min-height: 100%;
-	    position: relative;
-	    padding-bottom: 60px;
-	}
-	
-	footer {
-	    bottom: 0;
-	}* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	}
-	.wrap {
-		position: relative;
-		
-		margin: 0 auto;
-	}
-	
-	.magnifier {
-		width: 350px;
-		height: 250px;
-		position: absolute;
-		
-		box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 0 3px 3px rgba(0, 0, 0, 0.25);
-		display: none;
-	}
-	
-	.target {
-		display: block;
-		width: 100%;
-	}
-	
-	<!--하단 footer 고정-->
-	</style>	
 </head>
 <body>
 	<div>
@@ -91,7 +49,8 @@
 								<option value="3">3</option>
 								<option value="4">4</option>
 								<option value="5">5</option>
-						</select>		
+						</select>
+						<br>
 						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/order/paymentDir'">바로구매</button>
 						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/snack/insertCart'">장바구니에 담기</button>
 						<br><br>

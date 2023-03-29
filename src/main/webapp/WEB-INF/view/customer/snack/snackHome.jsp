@@ -3,41 +3,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title></title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
-    
-    <!-- Style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
+	  	<meta charset="utf-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1">
+ 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 부트스트랩4-->
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> <!-- 부트스트랩 JavaScript 파일 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<title>MEET PLAY SHARE, E1I6</title>
+		<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
  
 </head>
 <body>
 	<div>
-		<c:import url="/WEB-INF/inc/menu.jsp">
-		</c:import>
+		<!-- 네비바 -->
+		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
 	</div>
+	
 	<div><img src="${pageContext.request.contextPath}/img/snackhome.png"></div>
 	<div class="container">
 		
 		<ul class="nav nav-tabs" id="postTab" style="font-weight: bold; margin-top: 40px;" >
-			<li class="nav-item"><a data-toggle="tab" href="#tab1" class="nav-link active"  style="color: black;" >베스트</a></li>
+			<li class="nav-item"><a data-toggle="tab" href="#tab1" class="nav-link"  style="color: black;" >베스트</a></li>
 			<li class="nav-item"><a data-toggle="tab" href="#tab2" class="nav-link"  style="color: black;">관람권</a></li>
 			<li class="nav-item"><a data-toggle="tab" href="#tab3" class="nav-link"  style="color: black;">콤보</a></li>
-			<li class="nav-item"><a data-toggle="tab" href="#tab4" class="nav-link"  style="color: black;">팝콘</a></li>
+			<li class="nav-item"><a data-toggle="tab" href="#tab4" class="nav-link active"  style="color: black;">팝콘</a></li>
 			<li class="nav-item"><a data-toggle="tab" href="#tab5" class="nav-link"  style="color: black;">스낵</a></li>
 			<li class="nav-item"><a data-toggle="tab" href="#tab6" class="nav-link"  style="color: black;">음료</a></li>
 		</ul>
 		<div class="tab-content" id="postTabContent" style="margin-top: 40px;">
-			<div id="tab1" class="tab-pane fade show active"> 
+			<div id="tab1" class="tab-pane fade"> 
 				<table>
 					<tr>
 				 	<c:forEach var="b" items="${best}" varStatus="s">
@@ -72,7 +71,7 @@
 			 		</tr>
 			 	</table>	
 			</div>
-			<div id="tab3" class="tab-pane fade">
+			<div id="tab3" class="tab-pane fade ">
 				<table>
 					<tr>
 				 	<c:forEach var="b" items="${snack2}" varStatus="s">
@@ -88,7 +87,7 @@
 			 		</tr>
 			 	</table>	
 			</div>
-			<div id="tab4" class="tab-pane fade">  
+			<div id="tab4" class="tab-pane fade show active">  
 		  		<table>
 					<tr>
 				 	<c:forEach var="b" items="${snack3}" varStatus="s">
