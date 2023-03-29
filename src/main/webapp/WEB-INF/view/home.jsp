@@ -73,9 +73,11 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body  >
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
+		
+		
 		
 		<%-- <div>오늘 총 방문자 수: ${todayCount}</div> --%>
 		<!-- 영화 목록 -->
