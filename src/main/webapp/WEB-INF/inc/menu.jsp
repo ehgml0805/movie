@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="tags.jsp" %>
-	  	<meta charset="utf-8">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ticketingList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
+<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
 
 <style>
 	#event-link:hover {
