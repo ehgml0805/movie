@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -27,7 +27,7 @@ public class KakaoRestController {
 	@Autowired KaKaoService kaKaoService;
 	
 	// 카카오페이 결제 요청
-    @GetMapping("/kakaopay")
+    @PostMapping("/kakaopay")
     public KakaopayReady readyToKakaoPay(Model model, HttpSession session
 											, @RequestParam(value = "scheduleKey", required = true) int scheduleKey
 											, @RequestParam(value = "mycouponKey", required = true) int mycouponKey
@@ -63,7 +63,6 @@ public class KakaoRestController {
     	log.debug(TeamColor.JYW + "seatKey.length : " + seatKey.length);
     	paramMap.put("kakaoPrice", kakaoPrice);
     	log.debug(TeamColor.JYW + "kakaoPrice : " + kakaoPrice);
-    	
     	
         return kaKaoService.kakaopayReady(paramMap);
     }

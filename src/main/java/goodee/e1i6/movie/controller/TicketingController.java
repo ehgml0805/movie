@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.CouponService;
+import goodee.e1i6.movie.service.KaKaoService;
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.ScreeningScheduleService;
 import goodee.e1i6.movie.service.SeatService;
 import goodee.e1i6.movie.service.StillCutService;
 import goodee.e1i6.movie.service.TheaterService;
+import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
 import goodee.e1i6.movie.vo.Seat;
 import goodee.e1i6.movie.vo.StillCut;
 import goodee.e1i6.movie.vo.Ticketing;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class TicketingController {
 	@Autowired MovieService movieService;
@@ -31,6 +35,7 @@ public class TicketingController {
 	@Autowired StillCutService stillCutService;
 	@Autowired SeatService seatService;
 	@Autowired CouponService couponService;
+	@Autowired KaKaoService kaKaoService;
 	
 	// 영화, 극장, 날짜 선택
 	@GetMapping("/ticketing/screenList")
@@ -174,5 +179,15 @@ public class TicketingController {
 		return "/customer/ticketing/ticketingPay";
 	}
 	
-	
+	// 카카오페이 결제 승인 시
+	@GetMapping("/ticketing/kakaopaySuccess")
+    public String kakaopaySuccess(Model model, HttpSession session
+    							, @RequestParam(value = "pg_token", required = true) String pg_token) {
+    	log.debug(TeamColor.JYW + "kakaopaySuccess GET ");
+    	log.debug(TeamColor.JYW + "kakaopaySuccess pg_token : " + pg_token);
+    	
+    	model.addAttribute("info", kaKaoService.KakaopayApprove(pg_token, session));
+    	
+    	return "/customer/ticketing/kakaopaySuccess";
+    }
 }

@@ -304,7 +304,7 @@
 			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/kakaopay',
-				type : "GET",
+				type : "POST",
 				traditional : true, // ajax 배열 넘기기 옵션!
 				data: {
 				    scheduleKey: scheduleKey,
