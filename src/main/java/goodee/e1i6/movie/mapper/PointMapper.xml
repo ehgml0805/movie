@@ -2,10 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.e1i6.movie.mapper.PointMapper">
 	
-	
+	<!-- 포인트 사용하기 -->
+	<insert id="insertPointRedeem" parameterType="goodee.e1i6.movie.vo.PointRedeem">
+		INSERT INTO point_redeem (
+			point_category
+			, `key`
+			, customer_id
+			, point
+		) VALUES (
+			#{pointCategory}
+			, #{key}
+			, #{customerId}
+			, #{point}
+		);
+	</insert>
 	
 	<!-- 포인트 적립하기  -->
-	<insert id="insertPointAccumulat">
+	<insert id="insertPointAccumulate">
 		
 		INSERT INTO point_accumulate 
 						(point_category , `key` , customer_id , `point` , createdate)

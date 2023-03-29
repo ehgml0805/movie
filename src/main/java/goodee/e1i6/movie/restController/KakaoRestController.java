@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import goodee.e1i6.movie.service.KaKaoService;
 import goodee.e1i6.movie.teamColor.TeamColor;
@@ -21,8 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-//세션에 저장된 겂을 사용할때 쓰는 어노테이션, session에서 없으면 model까지 훑어서 찾아냄.
-@SessionAttributes({"tid","ticketing"})
 public class KakaoRestController {
 	@Autowired KaKaoService kaKaoService;
 	
@@ -34,8 +31,9 @@ public class KakaoRestController {
 											, @RequestParam(value = "totalPrice", required = true) int totalPrice
 											, @RequestParam(value = "discountPrice", required = true) int discountPrice
 											, @RequestParam(value = "kakaoPrice", required = true) int kakaoPrice
-											, @RequestParam(value = "seatKey", required = true) String[] seatKey
-											, @RequestParam(value = "movieTitle", required = true) String movieTitle) {
+											, @RequestParam(value = "seatKey", required = true) int[] seatKey
+											, @RequestParam(value = "movieTitle", required = true) String movieTitle
+											, @RequestParam(value = "usePoint", required = true) int usePoint) {
     	log.debug(TeamColor.JYW + "GET kakaoPay");
     	
     	Customer customer = (Customer)session.getAttribute("loginCustomer");
@@ -46,13 +44,17 @@ public class KakaoRestController {
     	ticketing.setTotalPrice(totalPrice);
     	ticketing.setDiscountPrice(discountPrice);
     	
-    	// ticketing정보를 모델에 저장
-    	model.addAttribute("ticketing",ticketing);
+    	// ticketing정보를 세션에 저장
+    	session.setAttribute("ticketing", ticketing);
     	log.debug(TeamColor.JYW + "ticketing :" + ticketing);
     	
-    	// seatKey정보를 모델에 저장
-    	model.addAttribute("seatKey",seatKey);
+    	// seatKey정보를 세션에 저장
+    	session.setAttribute("seatKey", seatKey);
     	log.debug(TeamColor.JYW + "seatKey : " + seatKey);
+    	
+    	// usePoint정보를 세션에 저장
+    	session.setAttribute("usePoint", usePoint);
+    	log.debug(TeamColor.JYW + "usePoint : " + usePoint);
     	
     	Map<String, Object> paramMap = new HashMap<String, Object>();
     	paramMap.put("customerId", customer.getCustomerId());
