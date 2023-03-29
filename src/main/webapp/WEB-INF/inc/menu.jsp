@@ -2,12 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="tags.jsp" %>
 	  	<meta charset="utf-8">
-   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
- 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-	  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	  	
+
+
 <style>
 	#event-link:hover {
 		cursor: default;
@@ -138,7 +134,9 @@
 <!-- 로그인 모달 -->
 <c:if test="${empty lgoinCustomer }">
 	<%@include file="loginFormModal.jsp"%>
+	<%@include file="addCustomerModal.jsp"%>
 </c:if>
+
 
 <script>
 	const eventLink = document.getElementById("event-link");
