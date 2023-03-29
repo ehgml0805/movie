@@ -171,11 +171,27 @@
 		        <div class="col-md-6">
 		            <div class="row">
 		                <div class="card" style="width: 600px; height: 250px;">
-		                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
-		                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
-		                    </a>
-		                </div>
-		            </div>
+	           	 			<div class="carousel slide" data-bs-ride="carousel" style="width: 580px; height: 240px;">
+      	 			      		<div class="carousel-inner">
+        							<div class="carousel-item active">
+					                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
+					                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
+					                    </a>
+			                		</div>
+	                		        <div class="carousel-item">
+          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=5">
+          	 								<img src="${pageContext.request.contextPath}/event-upload/u멤버십2.jpg" style="width: 580px; height: 240px;">
+          								</a>
+        							</div>
+	                		        <div class="carousel-item">
+          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=6">
+          	 								<img src="${pageContext.request.contextPath}/event-upload/해피투게더2.jpg" style="width: 580px; height: 240px;">
+          								</a>
+        							</div>			           
+		               			</div> 
+		            		</div>
+		            	</div>
+		            </div>		
 		            <div class="row mt-4">
 		                <!-- Small card 1 -->
 		                <div class="col-md-6">
