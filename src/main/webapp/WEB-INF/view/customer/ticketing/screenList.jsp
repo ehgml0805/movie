@@ -37,10 +37,10 @@
     </style>
 </head>
 <body>
-	<%-- 
+	
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	 --%>
+	
 	<div class="container px-5">
 		<h2 class="mt-4 mb-4 fw-bold">빠른예매</h2>
 		<!-- 날짜 -->
