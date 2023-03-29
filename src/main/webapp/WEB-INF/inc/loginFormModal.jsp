@@ -20,7 +20,7 @@
 			</div>
 				<div class="modal-body">
 					<form action="${pageContext.request.contextPath}/login/loginCustomer" method="post" id="cloginForm">
-						
+
 						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">ID</label>
 							<input type="text" name="customerId" id="customerId" class="form-control" placeholder="아이디를 입력하세요.">
@@ -74,29 +74,6 @@
 		$('#cloginForm').submit();
 	});
 	
-   $(document).ready(function() {
-	      $('#ckBtn').click(function(){
-	         $.ajax({
-	            url:'idck'
-	            , type:'get'
-	            , data : {customerId:$('#id').val()}
-	            , success:function(model){ // model : 'YES' / 'NO'
-	               if(model=='YES') {
-	                  // 사용가능한 아이디
-	                  $('#customerId').val($('#id').val());
-	               } else {
-	                  // 사용중인 아이디
-	                  alert($('#id').val()+'는 사용중인 아이디입니다');
-	               }
-	            }
-	         });
-	      });   
-	   });
-	   
-	   $('#addBtn').click(function(){
-			console.log("form action 전송");
-			
-		})
 
 
 

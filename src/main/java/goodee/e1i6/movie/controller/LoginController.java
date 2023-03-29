@@ -248,7 +248,7 @@ public class LoginController {
 		
 		loginService.addCustomer(customerForm, path);
 		
-		return "redirect:/login/loginCustomer";
+		return "redirect:/home";
 		
 	}
 	
