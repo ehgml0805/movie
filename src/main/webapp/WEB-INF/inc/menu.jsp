@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="tags.jsp" %>
-<<<<<<< HEAD
 
 <style>
 	#event-link:hover {
@@ -52,12 +51,12 @@
 	}
 	
 </style>
-=======
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ticketingList.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
->>>>>>> branch 'main' of https://github.com/ehgml0805/movie.git
+
 <div id="header">
 	<div class="container">
 		<nav class="navbar navbar-expand-lg navbar-light bg-top p-0" id="navbar-top">
