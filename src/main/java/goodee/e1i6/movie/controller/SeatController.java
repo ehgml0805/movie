@@ -29,6 +29,6 @@ public class SeatController {
 		log.debug(TeamColor.CHOI + "POST addSeat");
 		log.debug(TeamColor.CHOI + screenroomKey + x + y);
 		seatService.addSeat(screenroomKey, x, y);
-		return "";
+		return "redirect:/employee/screenroom/screenroomOne?screenroomKey=" + screenroomKey;
 	}	
 }
