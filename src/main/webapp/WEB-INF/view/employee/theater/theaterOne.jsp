@@ -50,6 +50,8 @@
 			</div>
 			<br/>
 			<h1>상영관 목록</h1>
+			<!-- 상영관 등록 모달 버튼 -->
+			<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTheaterModal">상영관 등록</button>
 			<table class="table">
 				<thead>
 					<tr>
@@ -69,6 +71,32 @@
 				</tbody>		
 			</table>
 		</div>
+		
+		<!-- 상영관 등록 모달 -->
+		<div class="modal fade" id="addTheaterModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">상영관 등록</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form action="${pageContext.request.contextPath}/employee/screenroom/addScreenroom" method="post">
+							<input type="hidden" name="theaterKey" value="${theaterOne.theaterKey}">
+							<table class="table">
+								<tr>
+									<th>상영관명</th>
+									<td><input class="form-control" type="text" name="screenroomName"></td>
+								</tr>
+							</table>
+							<button class="btn btn-light" type="submit">등록</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	
 		<script>
 			$(function() {
 				let msg = '${msg}';

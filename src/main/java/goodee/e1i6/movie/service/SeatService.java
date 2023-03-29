@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import goodee.e1i6.movie.mapper.ScreenroomMapper;
 import goodee.e1i6.movie.mapper.SeatMapper;
+import goodee.e1i6.movie.vo.Screenroom;
 import goodee.e1i6.movie.vo.Seat;
 
 @Service
 @Transactional
 public class SeatService {
 	@Autowired SeatMapper seatMapper;
+	@Autowired ScreenroomMapper screenroomMapper;
 	
 	// (임시) 좌석 추가
 	public int addSeat(int screenroomKey, int x, int y) {
@@ -38,6 +41,12 @@ public class SeatService {
 		for(Map<String, Object> seat : seatList) {
 			row = seatMapper.insertSeat(seat);
 		}
+		
+		Screenroom screenroom = new Screenroom();
+		screenroom.setScreenroomKey(screenroomKey);
+		screenroom.setSeatCount(x*y);
+		
+		row = screenroomMapper.updateSeatCount(screenroom);
 		
 		return row;
 	}

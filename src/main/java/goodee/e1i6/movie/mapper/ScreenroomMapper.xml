@@ -61,4 +61,8 @@
 			, 0
 		)	
 	</insert>
+	
+	<update id="updateSeatCount" parameterType="goodee.e1i6.movie.vo.Screenroom">
+		UPDATE screenroom SET seat_count = #{seatCount} WHERE screenroom_key = #{screenroomKey}
+	</update>
 </mapper>
