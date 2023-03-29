@@ -69,10 +69,21 @@
   		border: 1px solid #ccc;
 	  	border-radius: 5px;
 	  	padding: 5px 10px;
-	  	margin: 0 5px; /* add some margin to separate the input and button */
-	  	display: inline-block; /* set both elements to display inline-block */
-	  	vertical-align: middle; /* vertically center both elements */
+	  	margin: 0 5px; 
+	  	display: inline-block; 
+	  	vertical-align: middle; 
 	}
+	a.title {
+  		color: black;
+  		text-decoration: none;
+  		font-weight: 550;
+	}
+
+	a.title:hover {
+  		color: black;
+  		text-decoration: underline;
+	}
+	
 </style>
 </head>
 <body>
@@ -85,10 +96,12 @@
 			<c:forEach var="e" items="${list}">
 				<div class="event-item">
 					<div>
-						<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" height="310">
+						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">
+							<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" height="310">
+						</a>
 					</div>
 					<div>
-						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}">${e.eventTitle}</a>
+						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
 					</div>
 					<div>
 						${e.eventStartDate} ~ ${e.eventEndDate}
