@@ -10,10 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
-  	<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
-    
     <style>
     	.date-active {
     		border-bottom : 2px solid #503396;
@@ -41,9 +37,10 @@
     </style>
 </head>
 <body>
+	<%-- 
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	
+	 --%>
 	<div class="container px-5">
 		<h2 class="mt-4 mb-4 fw-bold">빠른예매</h2>
 		<!-- 날짜 -->
@@ -170,7 +167,7 @@
 							</table>
 						</div>
 				   	</div>
-			   		<button class="seatBtn p-3" type="submit" disabled="disabled" style="background-color:#3F0099; color:white;">좌석 선택</button>
+			   		<button class="seatBtn" type="submit" disabled="disabled" style="background-color:#3F0099; color:white;">좌석 선택</button>
 			   	</div>
 		    </form>
 		</div>
@@ -288,7 +285,6 @@
 					type : 'GET',
 					data : {startDate : $(this).val(), movieKey : $('#movieKey').val()},
 					success : function (data) {
-						
 						let html = "";
 						for(let i = 0; i < data.length; i++) {
 							html +=	"<div class='movie-list'>"
@@ -298,7 +294,7 @@
 								html += "</button>"						 		
 						 	}
 						 	if(data[i].startDate !== undefined) {
-								html += "<button class='movie-button btn text-start' style='opacity:0.3' type='button' value='"+ data[i].movieKey + "'>"
+								html += "<button class='movie-button btn text-start' type='button' value='"+ data[i].movieKey + "'>"
 								html += "<span>" + data[i].grade + "</span><span class='txt'> " + data[i].movieTitle + "</span>"
 								html += "</button>"						 		
 						 	}

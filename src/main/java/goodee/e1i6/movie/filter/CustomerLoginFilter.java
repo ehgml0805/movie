@@ -22,7 +22,7 @@ public class CustomerLoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
-		log.debug(TeamColor.JYW+"EmpLoginFilter");
+		log.debug(TeamColor.JYW+"Customer Filter");
 		
 		if(request instanceof HttpServletRequest) {
 			HttpServletRequest req = (HttpServletRequest)request;
