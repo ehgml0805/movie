@@ -28,17 +28,17 @@ Primary use:  Company
 /*------------------------------------------------------------------
 [TYPOGRAPHY]
 
-Body            : 16px/1.6 '', Arial, sans-serif;
-Title           : 18px/1.6 '', Arial, sans-serif;
-Paragrap        : 18px/1.6 '', Arial, sans-serif;
-Input, textarea : 14px/1.6 '', Arial, sans-serif;
+Body            : 16px/1.6 '', S-CoreDream-3Light;
+Title           : 18px/1.6 '', S-CoreDream-3Light;
+Paragrap        : 18px/1.6 '', S-CoreDream-3Light;
+Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 -------------------------------------------------------------------*/
 
 
 
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
-
+/* 
 @font-face {
   font-family: Poppins-Regular;
   src: url('../fonts/Poppins/Poppins-Regular.ttf'); 
@@ -65,7 +65,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 @font-face {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   src: url('../fonts/Poppins/Poppins-Bold.ttf'); 
 }
 
@@ -75,7 +75,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 
-/*---------------------------------------------*/
+---------------------------------------------
 @font-face {
   font-family: PlayfairDisplay-Regular;
   src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf'); 
@@ -86,7 +86,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf'); 
 }
 
-/*---------------------------------------------*/
+---------------------------------------------
 @font-face {
   font-family: Montserrat-Regular;
   src: url('../fonts/Montserrat/Montserrat-Regular.ttf'); 
@@ -97,7 +97,73 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   src: url('../fonts/Montserrat/Montserrat-Bold.ttf'); 
 }
 
+ */
+ @font-face {
+ font-family: 'NanumBarunGothic';
+ font-style: normal;
+ font-weight: 400;
+ src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+ src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+}
 
+@font-face {
+ font-family: 'NanumBarunGothic';
+ font-style: normal;
+ font-weight: 700;
+ src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+ src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype')
+}
+
+@font-face {
+ font-family: 'NanumBarunGothic';
+ font-style: normal;
+ font-weight: 300;
+ src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+ src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
+}
+
+.nanumbarungothic * {
+ font-family: 'NanumBarunGothic', sans-serif;
+}
+@font-face {
+    font-family: 'OAGothic-ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/OAGothic-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'HSSaemaul-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/HSSaemaul-Regular.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: 500;
+     font-style: normal;
+}
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 /*//////////////////////////////////////////////////////////////////
 [ RS PLUGIN ]*/
 
@@ -112,9 +178,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*------------------------------------------------------------------
 [ Slick2 ]*/
 .slick-slide {outline: none !important;}
-
-
-
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -230,7 +293,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 /*---------------------------------------------*/
 .left-top-bar {
-  font-family: Poppins-Regular;
+  font-family: S-CoreDream-3Light;
   font-size: 12px;
   line-height: 1.8;
   color: #b2b2b2;
@@ -239,7 +302,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 /*---------------------------------------------*/
 .right-top-bar a {
-  font-family: Poppins-Regular;
+  font-family: S-CoreDream-3Light;
   font-size: 12px;
   line-height: 1.8;
 
@@ -358,6 +421,17 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   display: flex;
   align-items: center;
 }
+.main-menu-white {
+  list-style-type: none;
+  margin: 0;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+}
 
 .main-menu > li {
   display: block;
@@ -365,11 +439,33 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   padding: 20px 10px 20px 0px;
   margin: 0px 4px 0px 14px;
 }
+.main-menu-white > li {
+  display: block;
+  position: relative;
+  padding: 20px 10px 20px 0px;
+  margin: 0px 4px 0px 14px;
+}
 
 .main-menu > li > a {
-  font-family: Poppins-Medium;
-  font-size: 14px;
-  color: #333;
+  font-family : NanumSquareNeo-Variable, 돋움, sans-serif;
+  font-size: 15px;
+  color: black;
+  letter-spacing: 0;
+  line-height: 1.5;
+  font-weight: 1000;
+  padding: 5px 0px;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+.main-menu-white > li > a {
+  font-family : NanumSquareNeo-Variable, 돋움, sans-serif;
+  font-size: 15px;
+  color: white;
+  letter-spacing: 0;
+  line-height: 1.5;
+  font-weight: 1000;
   padding: 5px 0px;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
@@ -422,7 +518,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .sub-menu a {
-  font-family: Poppins-Regular;
+  font-family: S-CoreDream-3Light,Dotum,'돋움',sans-serif;
   font-size: 14px;
   line-height: 1.5;
   color: #555;
@@ -492,7 +588,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*---------------------------------------------*/
 .icon-header-noti::after {
   content: attr(data-notify);
-  font-family: Poppins-Regular;
+  font-family: S-CoreDream-3Light;
   font-size: 12px;
   color: #fff;
   line-height: 15px;
@@ -560,7 +656,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 /*---------------------------------------------*/
 .wrap-search-header input {
-  font-family: Poppins-ExtraLight;
+  font-family: S-CoreDream-3Light;
   font-size: 50px;
   line-height: 1.2;
   color: #333;
@@ -736,7 +832,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .main-menu-m > li > a {
-  font-family: Poppins-Medium;
+  font-family: S-CoreDream-3Light;
   font-size: 14px;
   color: white;
   line-height: 2.8;
@@ -790,7 +886,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .sub-menu-m a {
-  font-family: Poppins-Regular;
+  font-family: S-CoreDream-3Light;
   font-size: 14px;
   color: #666;
   line-height: 2.5;
@@ -994,7 +1090,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 .header-cart-item-img::after {
   content: '\e870';
-  font-family: Linearicons-Free;
+  font-family: S-CoreDream-3Light;
   font-size: 16px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1651,7 +1747,7 @@ button.mfp-close {
 
 .swal-button {
   background-color: #717fe0;
-  font-family: Poppins-Regular;
+  font-family: S-CoreDream-3Light;
   font-size: 16px;
   color: white;
   text-transform: uppercase;
@@ -1672,7 +1768,7 @@ button.mfp-close {
 }
 
 .swal-title {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   color: #333333;
   font-size: 18px;
   line-height: 1.5;
@@ -1961,7 +2057,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .table-shopping-cart .table_head th {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 13px;
   color: #555;
   text-transform: uppercase;
@@ -2268,7 +2364,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .mtext-103 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 18px;
   line-height: 1.333333;
   text-transform: uppercase;
@@ -2305,7 +2401,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .mtext-109 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 20px;
   line-height: 1.3;
   text-transform: uppercase;
@@ -2318,19 +2414,19 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .mtext-111 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 25px;
   line-height: 1.2;
 }
 
 .mtext-112 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 22px;
   line-height: 1.333333;
 }
 
 .mtext-113 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 22px;
   line-height: 1.333333;
   text-transform: uppercase;
@@ -2346,51 +2442,51 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .ltext-102 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 28px;
   line-height: 1.1;
 }
 
 .ltext-103 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 36px;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .ltext-104 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 60px;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
 .ltext-105 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 50px;
   line-height: 1.1;
 }
 
 .ltext-106 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 36px;
   line-height: 1.2;
 }
 
 .ltext-107 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 30px;
   line-height: 1.1;
 }
 
 .ltext-108 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 26px;
   line-height: 1.3846;
 }
 
 .ltext-109 {
-  font-family: Poppins-Bold;
+  font-family: S-CoreDream-3Light;
   font-size: 36px;
   line-height: 1.2;
 }

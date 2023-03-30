@@ -47,7 +47,7 @@
 <body>
 	<div>
 		<!-- 네비바 -->
-		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
+		<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import> 
 	</div>
 	
 	<div><img src="${pageContext.request.contextPath}/img/snackhome.png"></div>

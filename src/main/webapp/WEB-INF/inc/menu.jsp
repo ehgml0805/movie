@@ -6,12 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources2/images/icons/favicon.png"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/iconic/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/linearicons-v1.0.0/icon-font.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/css-hamburgers/hamburgers.min.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/css/main.css">
+	
 <!--===============================================================================================-->
 </head>
 
@@ -19,6 +20,7 @@
 	a{
 		text-decoration-line : none;
 	}
+	
 	#event-link:hover {
 		cursor: default;
 	}
@@ -68,56 +70,54 @@
 	
 </style>
 <header class="header-v2">
-	<div class="how-shadow1" style="background-color: white">
+	<div class="how-shadow1" style="background-color: #222135">
 		<nav class="limiter-menu-desktop container">
 			
 	
 			<!-- Menu desktop -->
-			<div class="menu-desktop">
-				<ul class="main-menu">
+			<div class="menu-desktop" >
+				<ul class="main-menu-white">
 					<li>
-						<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-						
-					</li>
-					<li>
-						<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-						
-					</li>
-	
-					<li class="label1" data-label1="예매1위">
-						<a href="${pageContext.request.contextPath}/movie/movieList" style="font-size:17px">영화</a>
-					</li>
-	
+                  		<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
+	                  
+	               </li>
+	               <li>
+	                	<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
+	                  
+	               </li>
 					
 	
 					<li>
-						<a href="${pageContext.request.contextPath}/ticketing/screenList" style="font-size:17px">예매</a>
+						<a href="${pageContext.request.contextPath}/movie/movieList" style="font-size:18px; ">영화&nbsp;&nbsp;</a>
+					</li>
+					<li>
+						<a href="${pageContext.request.contextPath}/ticketing/screenList" style="font-size:18px">예매&nbsp;&nbsp;</a>
 					</li>
 	
 					<li>
-						<a href="${pageContext.request.contextPath}/theater/theaterList" style="font-size:17px">극장</a>
+						<a href="${pageContext.request.contextPath}/theater/theaterList" style="font-size:18px">극장&nbsp;&nbsp;</a>
 					</li>
 	
 					<li>
-						<a href="${pageContext.request.contextPath}/home" style="font-size:22px">
+						<a href="${pageContext.request.contextPath}/home" style="font-size:18px">
 							<!-- Logo desktop -->
-							<img src="${pageContext.request.contextPath}/img/E1I6box.png" alt="IMG-LOGO" width="100" >
+							<img src="${pageContext.request.contextPath}/img/img_bg_logo.png" alt="IMG-LOGO" width="140" >
 						</a>
 					</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/event/eventList" style="font-size:17px">이벤트</a>
-						<ul class="sub-menu">
+						<a href="${pageContext.request.contextPath}/event/eventList" style="font-size:18px">&nbsp;&nbsp;이벤트</a>
+						<ul class="sub-menu" style="z-index: 999;">
 							<li><a href="${pageContext.request.contextPath}/event/eventList">진행중인 이벤트</a></li>
 							<li><a href="${pageContext.request.contextPath}/event/endEventList">종료된 이벤트</a></li>
 							
 						</ul>
 					</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/snack/snackHome" style="font-size:17px">스토어</a>
+						<a href="${pageContext.request.contextPath}/snack/snackHome" style="font-size:18px">&nbsp;&nbsp;스토어</a>
 					</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/faq/faqList" style="font-size:17px"	>고객센터</a>
-						<ul class="sub-menu">
+						<a href="${pageContext.request.contextPath}/faq/faqList" style="font-size:18px"	>&nbsp;&nbsp;고객센터</a>
+						<ul class="sub-menu" style="z-index: 999;">
 							<li><a href="${pageContext.request.contextPath}/faq/faqList">자주묻는 질문</a></li>
 							<li><a href="${pageContext.request.contextPath}/customer/question/questionList">Q&A</a></li>
 							
@@ -131,17 +131,17 @@
 			<c:if test="${not empty loginCustomer}">
 				<div class="wrap-icon-header flex-w flex-r-m">
 					<a href ="${pageContext.request.contextPath}/customer/mypage" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 ">
-						<img src="${pageContext.request.contextPath}/img/icons8-customer-32.png">
+						<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">
 					</a>
 					<a href="${pageContext.request.contextPath}/customer/order/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22  ">
-						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
+						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
 					</a>	
 					<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
-						<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-30.png">
+						<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-white-32.png">
 					</a>
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
-							<i class="zmdi zmdi-menu"></i>
+							<img src="${pageContext.request.contextPath}/img/icons8-hamburger-menu-white-32.png">
 						</div>
 					</div>
 				</div>
@@ -151,19 +151,11 @@
 			<c:if test="${empty loginCustomer}">
 				<div class="wrap-icon-header flex-w flex-r-m">
 					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
-						<img src="${pageContext.request.contextPath}/img/icons8-customer-32.png">
+						<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">
 					</a>
 					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
-						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
+						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
 					</a>
-					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
-						<img src="${pageContext.request.contextPath}/img/icons8-two-tickets-32.png">
-					</a>
-					<div class="flex-c-m h-full p-lr-19">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
-							<i class="zmdi zmdi-menu"></i>
-						</div>
-					</div>
 					
 				</div>
 			</c:if>

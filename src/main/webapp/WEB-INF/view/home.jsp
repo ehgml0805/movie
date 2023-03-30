@@ -72,8 +72,12 @@
 			.heart {
 				color: red;
 			}
+			
+			
+
 		</style>
-	</head>
+		
+	</head >
 	<body  >
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
@@ -100,7 +104,7 @@
 										<c:choose>
 											<c:when test="${m.movieCode ne '0'}">
 												<div>
-													<a
+													<a 
 														href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}">
 														<img class="poster w-100 h-100" alt="영화이미지" src="${m.fileName}">
 													</a>
@@ -108,7 +112,7 @@
 											</c:when>
 											<c:otherwise>
 												<div>
-													<a
+													<a 
 														href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}">
 														<img class="poster w-100 h-100" alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}">
 													</a>
@@ -119,7 +123,7 @@
 										<!-- 영화 정보 -->
 										<div class="card-body pt-0">
 											<div>
-												<h4 class="movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
+												<h4 class="nanumgothic movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
 											</div>
 											<!-- 영화 찜 카운트 -->
 											<div class="d-flex justify-content-between mt-3">
