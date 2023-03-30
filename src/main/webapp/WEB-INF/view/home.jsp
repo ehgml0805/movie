@@ -143,6 +143,28 @@
 												</div>
 											</c:otherwise>
 										</c:choose>
+<<<<<<< HEAD
+=======
+			
+										<!-- 영화 정보 -->
+										<div class="card-body pt-0">
+											<div>
+												<h4 class="nanumgothic movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
+											</div>
+											<!-- 영화 찜 카운트 -->
+											<div class="d-flex justify-content-between mt-3">
+												<c:if test="${wishlistCount[status.index].idCount == 0}">
+													<button class="btn wishBtn border" id="btn-${status.index}"
+														value="${m.movieKey}" type="button"><span>♡</span> ${wishlistCount[status.index].allCount}</button>
+												</c:if>
+												<c:if test="${wishlistCount[status.index].idCount == 1}">
+													<button class="btn wishBtn border" id="btn-${status.index}"
+														value="${m.movieKey}" type="button"><span class="heart">♥</span> ${wishlistCount[status.index].allCount}</button>
+												</c:if>
+												<a class="btn d-block" style="background-color: #503396; color: white; width: 150px" href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매</a>
+											</div>
+										</div>
+>>>>>>> branch 'main' of https://github.com/ehgml0805/movie.git
 									</c:if>
 								</div>
 								<!-- 영화 정보 -->

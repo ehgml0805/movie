@@ -2,6 +2,8 @@ package goodee.e1i6.movie.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +60,7 @@ public class FaqController {
 	
 	// Faq 리스트
 	@GetMapping("/faq/faqList")
-	public String faqList (Model model 
+	public String faqList (Model model, HttpSession session 
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
 		    , @RequestParam(value="searchWord", defaultValue = "") String searchWord) {
@@ -73,6 +75,10 @@ public class FaqController {
 	
 		if (endPage > lastPage) {
 		    endPage = lastPage;
+		}
+		
+		if(session.getAttribute("loginEmployee") != null) {
+			model.addAttribute("loginEmployee", session.getAttribute("loginEmployee"));
 		}
 		
 		model.addAttribute("faqList", faqList);

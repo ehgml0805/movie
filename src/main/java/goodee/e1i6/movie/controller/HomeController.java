@@ -64,6 +64,7 @@ public class HomeController {
 			List<Map<String, Object>> wishlistCount = wishlistService.getWishlistById(customerId);
 			model.addAttribute("movieList", movieList);
 			model.addAttribute("wishlistCount", wishlistCount);
+			model.addAttribute("customerId", customerId);
 			
 		return "home";
 	}
