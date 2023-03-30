@@ -20,27 +20,6 @@
 	<title>MEET PLAY SHARE, E1I6</title>
 		<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
- <style>
-    .snack-container {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .snack-item {
-        width: auto;
-        box-sizing: border-box;
-        margin-bottom: 20px;
-        margin-left: 5%;
-        border-radius: 10px;
-  		overflow: hidden;
-	  	border: 1px solid #ccc;
-    }
-  
-	.snack-item img {
-	  width: 100%;
-	  object-fit: cover;
-	}
-</style>
 
 </head>
 
@@ -66,19 +45,23 @@
 				
 				<table>
 					<tr>
-					<div class="snack-container">
+					<div>
 					 	<c:forEach var="b" items="${best}" varStatus="s">
 					 		<c:if test = "${s.index != 0; s.index%3==0}">
 					 			</tr><tr>
 					 		</c:if>
 					 		<td>
-					 			<div class="snack-item"> 
+					 			<div> 
 					 				<a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 					 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a>
-					 				<hr>
-					 				<div style="text-align: center;">
-					 					${b.snackName} <fmt:formatNumber value="${b.snackPrice }"/>원 
+					 				<div style="text-align: center; font-weight: bold; font-size: 15px;">
+					 					${b.snackName}
 					 				</div>
+					 				<div style="text-align: center; font-size: 24px;">
+						 				<font color="#503396">
+											 <fmt:formatNumber value="${b.snackPrice }"/>원 		
+										</font>	
+									</div>		 				
 					 			</div>
 					 		</td>
 					 	</c:forEach>
@@ -96,7 +79,14 @@
 				 		<td>
 				 			<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 				 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a></div><br>
-				 			<div style="text-align: center;">${b.snackName} <fmt:formatNumber value="${b.snackPrice }"/>원 </div>
+				 			<div style="text-align: center; font-weight: bold; font-size: 15px;">
+					 					${b.snackName}
+			 				</div>
+			 				<div style="text-align: center; font-size: 24px;">
+				 				<font color="#503396">
+									 <fmt:formatNumber value="${b.snackPrice }"/>원 		
+								</font>	
+							</div>		 	
 				 			<c:if test="${loginEmp != null }">
 					 			<a> 삭제 </a>
 				 			</c:if>
@@ -115,7 +105,14 @@
 				 		<td>
 				 			<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 				 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a></div><br>
-				 			<div style="text-align: center;">${b.snackName} <fmt:formatNumber value="${b.snackPrice }"/>원 </div>
+				 			<div style="text-align: center; font-weight: bold; font-size: 15px;">
+					 					${b.snackName}
+			 				</div>
+			 				<div style="text-align: center; font-size: 24px;">
+				 				<font color="#503396">
+									 <fmt:formatNumber value="${b.snackPrice }"/>원 		
+								</font>	
+							</div>	
 				 		</td>
 				 	</c:forEach>
 			 		</tr>
@@ -131,7 +128,14 @@
 				 		<td>
 				 			<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 				 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a></div><br>
-				 			<div style="text-align: center;">${b.snackName} <fmt:formatNumber value="${b.snackPrice }"/>원 </div>
+				 			<div style="text-align: center; font-weight: bold; font-size: 15px;">
+					 					${b.snackName}
+			 				</div>
+			 				<div style="text-align: center; font-size: 24px;">
+				 				<font color="#503396">
+									 <fmt:formatNumber value="${b.snackPrice }"/>원 		
+								</font>	
+							</div>	
 				 		</td>
 				 	</c:forEach>
 			 		</tr>
@@ -147,7 +151,14 @@
 				 		<td>
 				 			<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 				 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a></div><br>
-				 			<div style="text-align: center;">${b.snackName} <fmt:formatNumber value="${b.snackPrice }"/>원 </div>
+				 			<div style="text-align: center; font-weight: bold; font-size: 15px;">
+					 					${b.snackName}
+			 				</div>
+			 				<div style="text-align: center; font-size: 24px;">
+				 				<font color="#503396">
+									 <fmt:formatNumber value="${b.snackPrice }"/>원 		
+								</font>	
+							</div>	
 				 		</td>
 				 	</c:forEach>
 			 		</tr>
@@ -163,7 +174,14 @@
 				 		<td>
 				 			<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
 				 				<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="370" height="370"></a></div><br>
-				 			<div style="text-align: center;">${b.snackName} <fmt:formatNumber value="${b.snackPrice }"/>원 </div>
+				 			<div style="text-align: center; font-weight: bold; font-size: 15px;">
+					 					${b.snackName}
+			 				</div>
+			 				<div style="text-align: center; font-size: 24px;">
+				 				<font color="#503396">
+									 <fmt:formatNumber value="${b.snackPrice }"/>원 		
+								</font>	
+							</div>	
 				 		</td>
 				 	</c:forEach>
 			 		</tr>
@@ -171,6 +189,10 @@
 			</div>
 	
 		</div>
+	</div>
+	<div>
+		<!-- footer -->
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 	</div>
 	<script src="${pageContext.request.contextPath}/bootstrap/nav/js/jquery-3.3.1.min.js"></script>
     	<script src="${pageContext.request.contextPath}/bootstrap/nav/js/popper.min.js"></script>

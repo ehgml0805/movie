@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title></title>
-<meta>
-    <!-- Bootstrap CSS -->
- 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    
+  	<meta charset="utf-8">
+	<title>MEET PLAY SHARE, E1I6</title>
+	<!-- 제이쿼리 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
 	<div>
@@ -26,17 +26,22 @@
 				</div>
 			</div>
 			<div class="col-7">
-				<h2>${s.snackName}</h2>
+				<h2 style="margin-bottom: 40px;">${s.snackName}</h2>
 				<hr>
-				<br>
 				<h5>${s.snackContent}</h5>
 				<hr>
-				<h5>₩ <fmt:formatNumber value="${s.snackPrice}" pattern="#,###"/> </h5>
+				<input type="hidden" id="snackPrice" value="${s.snackPrice}"> 
+				<h5> 
+					<input type="text" id="inputValue" style="color:#352461; "
+							value="<fmt:formatNumber value="${s.snackPrice}" pattern="###,###"/> 원" readonly="readonly" > 
+				</h5>
+				<br>
+				<span>판매수량  1회 5개 구매가능</span>
 				<br>
 				<c:if test="${s.soldOut=='N'}">
 					<form name="form" method="post">
 						<input type="hidden" name="snackKey" value="${s.snackKey}">
-						<select name="cartQuantity" class="form-select">
+						<select name="cartQuantity" id="cartQuantity" class="form-select" style="width: 160px;">
 								<option value="1">1</option>
 								<option value="2">2</option>
 								<option value="3">3</option>
@@ -44,8 +49,8 @@
 								<option value="5">5</option>
 						</select>
 						<br>
-						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/order/paymentDir'">바로구매</button>
-						<button class="btn btn-outline-dark" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/snack/insertCart'">장바구니에 담기</button>
+						<button class="btn btn-outline-* btn-lg" style="border-color: #503396; border-width: 1px; color: #503396;" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/snack/insertCart'">장바구니에 담기</button>
+						<button class="btn btn-outline-secondary btn-lg" style="background-color: #503396;; color: white;" type="submit" onclick="javascript: form.action='${pageContext.request.contextPath}/customer/order/paymentDir'">바로구매</button>
 						<br><br>
 					</form>
 				</c:if>
@@ -76,12 +81,46 @@
 								<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="200" height="200">
 							</a></div>
 							<div>${b.snackName}</div>
-							<div>₩ <fmt:formatNumber value="${b.snackPrice}" pattern="#,###"/> </div>
+							 <fmt:formatNumber value="${b.snackPrice}" pattern="#,###"/>원
 						</td>
 					</c:forEach>
 				</tr>
 			</table>
 		</div>
-	</div> <script src="${pageContext.request.contextPath}/bootstrap/main3.js"></script>
+	</div> 
+	<script>
+	$(document).ready(function(){
+		  $("#cartQuantity").change(function(){
+		    // Value값 가져오기
+		   	var val= $("#cartQuantity").val()
+		    val = $("#cartQuantity :selected").val();
+		    console.log(val+'<==val')
+		    
+		    /* Text값 가져오기
+		    var text = $("#cartQuantity :selected").text();
+		    console.log(text+'<==text')
+		    // Index가져오기
+		    var index = $("#cartQuantity :selected").index();
+		    console.log(index+'<==index')
+		    
+		    $("#value").val(val);
+		    $("#text").val(text);
+		    */
+		    
+		    
+		    var snackPrice= $("#snackPrice").val();
+		  	
+		    $(document).ready(function() {
+		        $('#inputValue').val((val * snackPrice).toLocaleString("ko-KR")+' 원').css("color","#352461");
+		    });
+		  
+		    
+		  });
+		  
+		});
+  	
+  	
+		
+	</script>	
 </body>
 </html>
