@@ -20,7 +20,7 @@
 			<tr>
 				<td>영화 선택</td>
 				<td>
-					<select name="movieList">
+					<select name="movieKey">
 						<c:forEach var="m" items="${movieList}">
 							<option value="${m.movieKey}">${m.movieTitle}</option>
 						</c:forEach>						
@@ -40,7 +40,7 @@
 			<tr>
 				<td>상영관 선택</td>
 				<td>
-					<select id="screenroomList" name="screenroomList">
+					<select id="screenroomKey" name="screenroomKey">
 					</select>
 				</td>
 			</tr>
@@ -54,6 +54,15 @@
 				<td>종료 시간 : </td>
 				<td>
 					<input type="datetime-local" name="endDate">
+				</td>
+			</tr>
+			<tr>
+				<td>시사회 여부 : </td>
+				<td>
+					<select name="preview">
+						<option value="N">일반 상영</option>
+						<option value="Y">시사회</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -87,7 +96,7 @@
 						html += data[i].screenroomKey+'>'+data[i].screenroomName
 						html += '</option>'
 					}
-					$('#screenroomList').html(html);
+					$('#screenroomKey').html(html);
 				},
 				error:function(error){
 					alert("에러");
@@ -117,7 +126,7 @@
 						html += data[i].screenroomKey+'>'+data[i].screenroomName
 						html += '</option>'
 					}
-					$('#screenroomList').html(html);
+					$('#screenroomKey').html(html);
 				},
 				error:function(error){
 					alert("에러");

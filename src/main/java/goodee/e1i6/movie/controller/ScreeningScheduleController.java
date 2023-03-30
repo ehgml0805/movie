@@ -69,8 +69,10 @@ public class ScreeningScheduleController {
 		return "/employee/screeningSchedule/addScreeningSchedule";
 	}
 	@PostMapping("/employee/screeningSchedule/addScreeningSchedule")
-	public String addScreeningScheduleList(Model model, ScreeningSchedule screeningSchedule) {
+	public String addScreeningSchedule(Model model, ScreeningSchedule screeningSchedule) {
 		int row = screeningScheduleService.addScreeningSchedule(screeningSchedule);
+		log.debug(TeamColor.JYW + "ADD ScreeningSchedule");
+		log.debug(TeamColor.JYW + "screeningSchedule : " + screeningSchedule);
 		
 		// row != 0 이면 입력성공
 		if(row == 0) {

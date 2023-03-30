@@ -40,6 +40,8 @@ public class ScreeningScheduleService {
 	
 	// 상영 스케줄 입력
 	public int addScreeningSchedule(ScreeningSchedule screeningSchedule) {
+		log.debug(TeamColor.JYW+"screeningSchedule : "+screeningSchedule);
+		
 		String startDate = screeningSchedule.getStartDate();
 		String[] startDate_ = startDate.split("T");
 		startDate = startDate_[0]+" "+startDate_[1]+":00";
