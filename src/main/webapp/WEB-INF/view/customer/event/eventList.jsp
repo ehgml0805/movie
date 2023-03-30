@@ -52,6 +52,7 @@
         border-radius: 10px;
   		overflow: hidden;
 	  	border: 1px solid #ccc;
+	  	padding: 10px;
     }
   
 	.event-item img {
@@ -126,10 +127,10 @@
 							<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" height="310">
 						</a>
 					</div>
-					<div>
+					<div class="text-center">
 						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
 					</div>
-					<div>
+					<div class="text-center">
 						${e.eventStartDate} ~ ${e.eventEndDate}
 					</div>
 				</div>	

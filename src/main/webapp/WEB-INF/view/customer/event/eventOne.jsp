@@ -9,14 +9,13 @@
 	#more-btn {
   		display: block;
   		margin: 0 auto;
-  		width: 75%;
+  		width: 70%;
   		height: 35px;
   		background-color: #fff;
   		color: #999;
-  		font-size: 20px;
+  		font-size: 17px;
   		text-align: center;
-  		border: 1px solid #d3d3d3;
-  		border-radius: 10px;
+  		border: 1px solid #CCC;
  		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   		cursor: pointer;
 	}
@@ -33,6 +32,31 @@
 <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<link rel="icon" type="image/png" href="../resources2/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/css/util.css">
+<link rel="stylesheet" type="text/css" href="../resources2/css/main.css">
+<!--===============================================================================================-->
 <script>
 	const eventKey = ${eventKey};
 	const movieKey = ${movieKey};
@@ -113,7 +137,7 @@
 		</c:forEach>
 		<c:forEach var="e" items="${eventOneList}">
 			<div>
-				<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}" width="800" height="500">
+				<img src="${pageContext.request.contextPath}/event-upload/${e.fileName}">
 			</div>
 		</c:forEach>
 		<c:forEach var="e" items="${eventOneList}" begin="0" end="0">
@@ -122,9 +146,9 @@
 			</div>
 		</c:forEach>
 		<br>
+		<h5>댓글 (${eventCommentCount})</h5>
 		<!-- 이벤트 댓글 등록 폼 -->
 		<div id="addComment"></div>
-		<h4>댓글 (${eventCommentCount})</h4>
 	</div>
 	<!-- 이벤트 댓글 리스트 -->
 	<div id="eventCommentList"></div>

@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class ScreenroomController {
 	public String getScreenroomOneForCustomer(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
 		log.debug(TeamColor.CHOI + "GET screenroomOne");
 		
-		Screenroom screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
+		Map<String, Object> screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
 		if(screenroomOne == null) { 
 			return "redirect:/customer/theater/theaterList";
 		}
@@ -43,7 +44,7 @@ public class ScreenroomController {
 	public String getScreenroomOneForEmployee(Model model, @RequestParam(value = "screenroomKey", defaultValue = "0") int screenroomKey) {
 		log.debug(TeamColor.CHOI + "GET screenroomOne");
 		// 상영관 상세 정보
-		Screenroom screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
+		Map<String, Object> screenroomOne = screenroomService.getScreenroomOne(screenroomKey);
 		if(screenroomOne == null) { 
 			return "redirect:/employee/theater/theaterList";
 		}

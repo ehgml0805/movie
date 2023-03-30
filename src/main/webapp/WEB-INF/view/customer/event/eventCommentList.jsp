@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.eventComment {
+		width: 79%;
+		margin-left: 150px;
+	}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -16,36 +22,27 @@
 			이벤트 기간 ${e.eventStartDate} ~ ${e.eventEndDate}
 		</div>
 	</c:forEach>
-	<table class="table">
-		<c:if test="${currentPage == 1}">
-			<tr>
-				<th>&nbsp;</th>
-				<th>아이디</th>
-				<th>내용</th>
-				<th>등록일</th>
-				<th>수정</th>
-				<th>삭제</th>
-				<th>신고</th>
-			</tr>
-		</c:if>	
-		<c:forEach var="ec" items="${EventCommentList}">
-			<c:if test="${ec.eventKey == eventKey}">
-				<tr>
-					<td><img src="${pageContext.request.contextPath}/customer-upload/${ec.fileName}" width="50" height="50"></td>
-					<td class="comment">${ec.customerId}</td>
-					<c:if test="${ec.insultReport<5 }">
-						<td>${ec.eventCommentContent}</td>
-					</c:if>
-					<td>${ec.createdate}</td>
-					<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
-					<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
-					<td>
-						<a href="${pageContext.request.contextPath}/customer/event/insultReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">욕설/비방 신고</a>
-						<a href="${pageContext.request.contextPath}/customer/event/spoilerReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">스포일러 신고</a>
-					</td>
-				</tr>
-			</c:if>	
-		</c:forEach>
-	</table>
+	<div class="eventComment">
+		<table class="table">
+			<c:forEach var="ec" items="${EventCommentList}">
+				<c:if test="${ec.eventKey == eventKey}">
+					<tr>
+						<td><img src="${pageContext.request.contextPath}/customer-upload/${ec.fileName}" width="50" height="50"></td>
+						<td class="comment">${ec.customerId}</td>
+						<c:if test="${ec.insultReport<5 }">
+							<td>${ec.eventCommentContent}</td>
+						</c:if>
+						<td>${ec.createdate}</td>
+						<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
+						<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
+						<td>
+							<a href="${pageContext.request.contextPath}/customer/event/insultReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">욕설/비방 신고</a>
+							<a href="${pageContext.request.contextPath}/customer/event/spoilerReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">스포일러 신고</a>
+						</td>
+					</tr>
+				</c:if>	
+			</c:forEach>
+		</table>
+	</div>	
 </body>
 </html>

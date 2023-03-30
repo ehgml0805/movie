@@ -13,6 +13,7 @@ import goodee.e1i6.movie.mapper.ScreenroomMapper;
 import goodee.e1i6.movie.mapper.SeatMapper;
 import goodee.e1i6.movie.vo.Screenroom;
 import goodee.e1i6.movie.vo.Seat;
+import goodee.e1i6.movie.vo.SeatRest;
 
 @Service
 @Transactional
@@ -54,5 +55,26 @@ public class SeatService {
 	// 좌석 목록 
 	public List<Seat> getSeatListByScreenroom(int screenroomKey) {
 		return seatMapper.selectSeatListByScreenroom(screenroomKey);
+	}
+	
+	// 좌석 수정
+	public int modifySeat(SeatRest seatRest) {
+		int row = 0;
+		
+		int[] seatKeys = seatRest.getSeatKey();
+        String[] useables = seatRest.getUseable();
+        
+        // 업데이트 처리
+        for (int i = 0; i < seatKeys.length; i++) {
+            int seatKey = seatKeys[i];
+            String useable = useables[i];
+            Seat seat = new Seat();
+            seat.setSeatKey(seatKey);
+            seat.setUseable(useable);
+            
+            row = seatMapper.updateSeat(seat);
+        }
+        
+		return row;
 	}
 }
