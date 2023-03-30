@@ -31,11 +31,16 @@
 			.heart {
 				color: red;
 			}
+			.movie-grade {
+			    width: 23px;
+			    height: 23px;
+			    background-size: 23px 23px;
+			}
 	  	</style>
 	</head>
 	<body>
-	<%-- 	<!-- 네비바 -->
-		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> --%>
+	 	<!-- 네비바 -->
+		<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import>
 		<div class="container w-75">
 				<div class="row">
 				<h2 class="mt-4 mb-4">전체영화</h2>
@@ -63,9 +68,27 @@
 							<%-- <div>영화 줄거리 : ${m.movieSummary}</div> --%>
 							
 							<!-- 영화 정보 -->				
-							<div><h4 class="movie-title mt-3">${m.grade} ${m.movieTitle}</h4></div>
 							<div>
-								<span>예매율 : ${m.reservationRate}%</span>
+								<p class="movie-title mt-3">
+									<span class="movie-grade"> 
+										<c:if test="${m.grade eq 'ALL'}">
+											<img class="movie-grade" alt="grade" src="${pageContext.request.contextPath}/img/ALL.png">
+										</c:if> 
+										<c:if test="${m.grade eq '18'}">
+											<img class="movie-grade" alt="grade" src="${pageContext.request.contextPath}/img/18.png">
+										</c:if> 
+										<c:if test="${m.grade eq '15'}">
+											<img class="movie-grade" alt="grade" src="${pageContext.request.contextPath}/img/15.png">
+										</c:if> 
+										<c:if test="${m.grade eq '12'}">
+											<img class="movie-grade" alt="grade" src="${pageContext.request.contextPath}/img/12.png">
+										</c:if> 
+									</span>
+									 ${m.movieTitle}
+								</p>
+							</div>
+							<div>
+								<span>예매율 : ${m.reservationRate}%</span><br>
 								<span>개봉일 : ${m.openingdate}</span>
 							</div>
 							<!-- 영화 찜 카운트 -->
@@ -83,7 +106,10 @@
 				</c:forEach>
 			</div>
 		</div>
-		
+		<div>
+			<!-- footer -->
+			<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+		</div>
 		<script>
 			// 찜 버튼 클릭시
 			var customerId = '${customerId}';
