@@ -74,15 +74,18 @@
    
          <!-- Menu desktop -->
          <div class="menu-desktop">
+        	 <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
+				<img src="${pageContext.request.contextPath}/img/icons8-hamburger-menu-32.png">
+			</div>
             <ul class="main-menu-white">
                <li>
                   <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                   
                </li>
                <li>
-                	<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
-                  
-               </li>
+	                	<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
+	                  
+	               </li>
    
                <li>
 						<a href="${pageContext.request.contextPath}/movie/movieList" style="font-size:18px; ">영화&nbsp;&nbsp;</a>
@@ -137,11 +140,7 @@
                <a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
                   <img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-30.png">
                </a>
-               <div class="flex-c-m h-full p-lr-19">
-					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
-						<img src="${pageContext.request.contextPath}/img/icons8-hamburger-menu-32.png">
-					</div>
-				</div>
+               
             </div>
          </c:if>
          

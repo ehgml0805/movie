@@ -76,13 +76,16 @@
 	
 			<!-- Menu desktop -->
 			<div class="menu-desktop" >
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
+					<img src="${pageContext.request.contextPath}/img/icons8-hamburger-menu-white-32.png">
+				</div>
 				<ul class="main-menu">
 					<li>
                   		<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
 	                  
 	               </li>
 	               <li>
-	                	<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
+	                	<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
 	                  
 	               </li>
 					
@@ -139,21 +142,18 @@
 					<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
 						<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-white-32.png">
 					</a>
-					<div class="flex-c-m h-full p-lr-19">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
-							<img src="${pageContext.request.contextPath}/img/icons8-hamburger-menu-white-32.png">
-						</div>
-					</div>
+					
 				</div>
 			</c:if>
 			
 			<!-- 비 로그인 상태 -->
 			<c:if test="${empty loginCustomer}">
 				<div class="wrap-icon-header flex-w flex-r-m">
-					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
-						<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">
+					<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
+						<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">&nbsp;&nbsp;&nbsp;&nbsp;
 					</a>
-					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
+					
+					<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
 						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
 					</a>
 					
@@ -218,62 +218,7 @@
 						@ CozaStore
 					</span>
 
-					<div class="flex-w flex-sb p-t-36 gallery-lb">
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-01.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-01.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-02.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-02.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-03.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-03.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-04.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-04.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-05.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-05.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-06.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-06.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-07.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-07.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-08.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-08.jpg');"></a>
-						</div>
-
-						<!-- item gallery sidebar -->
-						<div class="wrap-item-gallery m-b-10">
-							<a class="item-gallery bg-img1" href="images/gallery-09.jpg" data-lightbox="gallery" 
-							style="background-image: url('images/gallery-09.jpg');"></a>
-						</div>
-					</div>
-				</div>
+					
 
 				<div class="sidebar-gallery w-full">
 					<span class="mtext-101 cl5">

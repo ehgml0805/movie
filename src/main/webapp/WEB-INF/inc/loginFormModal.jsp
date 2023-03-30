@@ -7,6 +7,12 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
+<style>
+     .white{
+       color: white;
+     }
+
+</style>
 <body>
 	
 	<!-- 로그인 모달 내부 -->
@@ -15,7 +21,9 @@
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="loginFormModalLabel">로그인</h5>
+				<h5 class="modal-title white" id="loginFormModalLabel" >....................</h5>
+				<img src="${pageContext.request.contextPath}/img/new-e1i6box-white.png"width="200" style="margin:0px auto;">
+				
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 				<div class="modal-body">
@@ -30,6 +38,9 @@
 							<input type="password" name="customerPw" id="customerPw" class="form-control" placeholder="비밀번호를 입력하세요.">
 						</div>
 						<br>
+						<div class="mb-3">
+							<button type="button" class="btn btn-primary" id="cloginBt" >로그인</button>
+						</div>
 						<!-- 카카오로그인 -->
 						<div >
 							<a href="https://kauth.kakao.com/oauth/authorize?client_id=ade6ceae84db1bedc786e318204f8ca8
@@ -47,7 +58,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" id="cloginBt">로그인</button>
+							
 						</div>
 					</form>
 				
