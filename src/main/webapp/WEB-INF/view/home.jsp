@@ -72,9 +72,34 @@
 			.heart {
 				color: red;
 			}
+			.event-container {
+  				margin-left: 16%;
+			}
+			.event-bg {
+    			position: relative;
+    			padding-bottom: 10%;
+			}
+			.event-bg::after {
+			    content: "";
+			    position: absolute;
+			    left: 0;
+			    right: 0;
+			    bottom: -10%;
+			    height: 50%;
+			    background: #503396;
+			    z-index: -1;	
+			}
+			.customer {
+				margin-top: 1%;
+			}
+			.separator {
+    			border: 1px solid #CCC;
+    			width: 100%; /* Adjust the width of the separator line */
+    			margin-top: 10%;
+			}
 		</style>
 	</head>
-	<body  >
+	<body>
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
 		
@@ -165,88 +190,94 @@
 			</div>
 		</div>
 		<!-- 이벤트 -->
-		<div class="container mt-4">
-		    <h3>혜택/이벤트</h3>
-		    <div class="row">
-		        <!-- Medium card -->
-		        <div class="col-md-6">
-		            <div class="row">
-		                <div class="card" style="width: 600px; height: 250px;">
-	           	 			<div class="carousel slide" data-bs-ride="carousel" style="width: 580px; height: 240px;">
-      	 			      		<div class="carousel-inner">
-        							<div class="carousel-item active">
-					                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
-					                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
-					                    </a>
-			                		</div>
-	                		        <div class="carousel-item">
-          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=5">
-          	 								<img src="${pageContext.request.contextPath}/event-upload/u멤버십2.jpg" style="width: 580px; height: 240px;">
-          								</a>
-        							</div>
-	                		        <div class="carousel-item">
-          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=6">
-          	 								<img src="${pageContext.request.contextPath}/event-upload/해피투게더2.jpg" style="width: 580px; height: 240px;">
-          								</a>
-        							</div>			           
-		               			</div> 
-		            		</div>
-		            	</div>
-		            </div>		
-		            <div class="row mt-4">
-		                <!-- Small card 1 -->
-		                <div class="col-md-6">
-		                    <div class="card" style="width: 19rem;">
-		                    	<a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=2">
-		                        	<img src="${pageContext.request.contextPath}/event-upload/슬램덩크FULL콤보.png" style="width: 19rem; height: 120px;">
-		                        </a>
-		                        <div class="card-body">
-		                            <h5 class="card-title">슬램덩크 한정판 굿즈 + 팝콘 패키지 출시!</h5>
-		                        </div>
-		                    </div>
-		                </div>
-		                <!-- Small card 2 -->
-		                <div class="col-md-6">
-		                    <div class="card" style="width: 19rem;">
-	                   	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=4">
-		                        	<img src="${pageContext.request.contextPath}/event-upload/메박오리지널티켓.jpg" style="width: 18rem; height: 190px;">
-		                    	</a>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		        <!-- Large card -->
-		        <div class="col-md-6">
-		            <div class="card" style="width: 395px; height: 500px;">
-	           	 		<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=40&movieKey=1">
-		                	<img src="${pageContext.request.contextPath}/event-upload/스즈메 시사회.jpg" style="width: 392px; height: 480px;">
-		            	</a>
-		            </div>
-		        </div>
-		    </div>
+		<div class="event-bg">
+			<div class="container mt-4 event-container">
+			    <h3>혜택/이벤트</h3>
+			    <div class="row">
+			        <!-- Medium card -->
+			        <div class="col-md-6">
+			            <div class="row">
+			                <div class="card" style="width: 600px; height: 250px;">
+		           	 			<div class="carousel slide" data-bs-ride="carousel" style="width: 580px; height: 240px;">
+	      	 			      		<div class="carousel-inner">
+	        							<div class="carousel-item active">
+						                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
+						                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
+						                    </a>
+				                		</div>
+		                		        <div class="carousel-item">
+	          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=5">
+	          	 								<img src="${pageContext.request.contextPath}/event-upload/u멤버십2.jpg" style="width: 580px; height: 240px;">
+	          								</a>
+	        							</div>
+		                		        <div class="carousel-item">
+	          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=6">
+	          	 								<img src="${pageContext.request.contextPath}/event-upload/해피투게더2.jpg" style="width: 580px; height: 240px;">
+	          								</a>
+	        							</div>			           
+			               			</div> 
+			            		</div>
+			            	</div>
+			            </div>		
+			            <div class="row mt-4">
+			                <!-- Small card 1 -->
+			                <div class="col-md-6">
+			                    <div class="card" style="width: 19rem;">
+			                    	<a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=2">
+			                        	<img src="${pageContext.request.contextPath}/event-upload/슬램덩크FULL콤보.png" style="width: 19rem; height: 120px;">
+			                        </a>
+			                        <div class="card-body">
+			                            <h5 class="card-title">슬램덩크 한정판 굿즈 + 팝콘 패키지 출시!</h5>
+			                        </div>
+			                    </div>
+			                </div>
+			                <!-- Small card 2 -->
+			                <div class="col-md-6">
+			                    <div class="card" style="width: 19rem;">
+		                   	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=4">
+			                        	<img src="${pageContext.request.contextPath}/event-upload/메박오리지널티켓.jpg" style="width: 18rem; height: 190px;">
+			                    	</a>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- Large card -->
+			        <div class="col-md-6">
+			            <div class="card" style="width: 395px; height: 500px;">
+		           	 		<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=48&movieKey=1">
+			                	<img src="${pageContext.request.contextPath}/event-upload/스즈메 시사회.jpg" style="width: 392px; height: 480px;">
+			            	</a>
+			            </div>
+			        </div>
+			    </div>
+			</div>
 		</div>
+		<span style=""></span>
+		<hr class="separator">
 		<!-- 고객 센터 -->
-		<div class="container mt-5">
-		    <div class="row mt-3">
-		        <div class="col-md-2">
-		        	<a href="${pageContext.request.contextPath}/faq/faqList" style="text-decoration: none; color: inherit;">
-	           			<i class="bi bi-question-circle" style="font-size: 4rem;"></i>
-		            	<div>자주 묻는 질문</div>
-	           		</a>	
-		        </div>
-		        <div class="col-md-2">
-	       	 		<a href="${pageContext.request.contextPath}/customer/question/questionList" style="text-decoration: none; color: inherit;">
-			            <i class="bi bi-people-fill" style="font-size: 4rem;"></i>
-			            <div>1:1 문의</div>
-			        </a>    
-		        </div>
-   		        <div class="col-md-2">
-	       	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeList" style="text-decoration: none; color: inherit;">
-			            <i class="bi bi-card-list" style="font-size: 4rem;"></i>
-			            <div>공지 사항</div>
-			        </a>    
-		        </div>
-		    </div>
+		<div class="customer">
+			<div class="container mt-5">
+			    <div class="row mt-3">
+			        <div class="col-md-2">
+			        	<a href="${pageContext.request.contextPath}/faq/faqList" style="text-decoration: none; color: inherit;">
+		           			<i class="bi bi-question-circle" style="font-size: 4rem;"></i>
+			            	<div>자주 묻는 질문</div>
+		           		</a>	
+			        </div>
+			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/customer/question/questionList" style="text-decoration: none; color: inherit;">
+				            <i class="bi bi-people-fill" style="font-size: 4rem;"></i>
+				            <div>1:1 문의</div>
+				        </a>    
+			        </div>
+	   		        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeList" style="text-decoration: none; color: inherit;">
+				            <i class="bi bi-card-list" style="font-size: 4rem;"></i>
+				            <div>공지 사항</div>
+				        </a>    
+			        </div>
+			    </div>
+			</div>
 		</div>
 		<script>
 			// 찜 버튼 클릭시
