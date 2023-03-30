@@ -31,7 +31,7 @@
 		FROM snack s 
 		INNER JOIN snack_img i ON s.snack_key = i.snack_key
 		INNER JOIN snack_category c ON s.snack_category_key = c.snack_category_key
-		ORDER BY s.snack_sales DESC LIMIT 0,8
+		ORDER BY s.snack_sales DESC LIMIT 0,5
  	</select>
  	
  	

@@ -13,11 +13,11 @@
 </head>
 <body>
 	<div>
-		<c:import url="/WEB-INF/inc/menu.jsp">
-		</c:import>
+		<!-- 네비바 -->
+		<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import> 
 	</div>
 	<div class="container">
-		<h1>${s.categoryContent}</h1>
+		<h1 style="font-weight: bold; font-size: 30px; margin-top: 40px;">${s.categoryContent}</h1>
 		<hr style="height: 3px; background-color:black;">
 		<div class="row">
 			<div class="col-5">
@@ -32,7 +32,7 @@
 				<hr>
 				<input type="hidden" id="snackPrice" value="${s.snackPrice}"> 
 				<h5> 
-					<input type="text" id="inputValue" style="color:#352461; "
+					<input type="text" id="inputValue" style="color:#351f66; font-size: 30px;"
 							value="<fmt:formatNumber value="${s.snackPrice}" pattern="###,###"/> 원" readonly="readonly" > 
 				</h5>
 				<br>
@@ -68,26 +68,30 @@
 			</div>
 			
 		</div>
-		<br><br><br><br>
+		<hr>
 		<div>
-			<h3 style="font-weight: bold; text-align: center;"  >BestSeller</h3>
-					<br>
+			<h3 style="font-weight: bold; text-align: center;" font-size: 30px; style="margin-bottom: 30px;" >BestSeller</h3>
 			<br>
-			<table width="100%">
-				<tr>
-					<c:forEach var="b" items="${best}">
-						<td>
-							<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
-								<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="200" height="200">
-							</a></div>
-							<div>${b.snackName}</div>
-							 <fmt:formatNumber value="${b.snackPrice}" pattern="#,###"/>원
-						</td>
-					</c:forEach>
-				</tr>
-			</table>
+			<br>
+			<div class="container">
+				<table width="100%">
+					<tr>
+						<c:forEach var="b" items="${best}">
+							<td>
+								<div><a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=${b.snackKey}">
+									<img src="${pageContext.request.contextPath}/snackImg/${b.fileName}.${b.fileType}" width="240" height="240">
+								</a></div>
+								<div>${b.snackName}</div>
+								 <fmt:formatNumber value="${b.snackPrice}" pattern="#,###"/>원
+							</td>
+						</c:forEach>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div> 
+	<!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 	<script>
 	$(document).ready(function(){
 		  $("#cartQuantity").change(function(){
@@ -111,7 +115,7 @@
 		    var snackPrice= $("#snackPrice").val();
 		  	
 		    $(document).ready(function() {
-		        $('#inputValue').val((val * snackPrice).toLocaleString("ko-KR")+' 원').css("color","#352461");
+		        $('#inputValue').val((val * snackPrice).toLocaleString("ko-KR")+' 원').css("color","#351f66");
 		    });
 		  
 		    
