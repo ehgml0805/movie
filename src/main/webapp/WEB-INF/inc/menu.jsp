@@ -6,37 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources2/images/icons/favicon.png"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/animate/animate.css">
-<!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/slick/slick.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/MagnificPopup/magnific-popup.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/css/util.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/css/main.css">
 <!--===============================================================================================-->
 </head>
 
 <style>
+	a{
+		text-decoration-line : none;
+	}
 	#event-link:hover {
 		cursor: default;
 	}
@@ -86,7 +68,7 @@
 	
 </style>
 <header class="header-v2">
-	<div class="wrap-menu-desktop how-shadow1" style="background-color: white">
+	<div class="how-shadow1" style="background-color: white">
 		<nav class="limiter-menu-desktop container">
 			
 	
@@ -109,7 +91,7 @@
 					
 	
 					<li>
-						<a href="${pageContext.request.contextPath}/ticket/ticketing" style="font-size:17px">예매</a>
+						<a href="${pageContext.request.contextPath}/ticketing/screenList" style="font-size:17px">예매</a>
 					</li>
 	
 					<li>
@@ -153,11 +135,10 @@
 					</a>
 					<a href="${pageContext.request.contextPath}/customer/order/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22  ">
 						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
-					</a>
-					<a href="${pageContext.request.contextPath}/customer/mypage" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
-						<img src="${pageContext.request.contextPath}/img/icons8-two-tickets-32.png">
 					</a>	
-					
+					<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
+						<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-30.png">
+					</a>
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
 							<i class="zmdi zmdi-menu"></i>
@@ -175,6 +156,9 @@
 					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
 						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
 					</a>
+					<a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
+						<img src="${pageContext.request.contextPath}/img/icons8-two-tickets-32.png">
+					</a>
 					<div class="flex-c-m h-full p-lr-19">
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-sidebar">
 							<i class="zmdi zmdi-menu"></i>
@@ -186,7 +170,8 @@
 		</nav>
 	</div>	
 </header>
-<!-- Sidebar -->
+
+	<!-- Sidebar -->
 	<aside class="wrap-sidebar js-sidebar">
 		<div class="s-full js-hide-sidebar"></div>
 
@@ -309,8 +294,7 @@
 				</div>
 			</div>
 		</div>
-	</aside>
-	
+	</aside>	
 
 
 
