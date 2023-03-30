@@ -7,9 +7,13 @@
 		<title>theaterList</title>
 		<!-- employeeHead -->
 		<c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+		<style>
+			a {
+				color : #037B94;
+			}
+		</style>
 	</head>
 	<body>
-	
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 		
@@ -43,7 +47,7 @@
 							<div class="text-right">
 								<a href="${pageContext.request.contextPath}/employee/theater/addTheater">극장등록</a>
 							</div>
-							<table class="table">
+							<table class="table table-striped">
 								<thead>
 									<tr>
 										<th>극장코드</th>

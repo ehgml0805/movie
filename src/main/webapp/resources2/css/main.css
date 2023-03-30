@@ -316,7 +316,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .right-top-bar a:hover {
-  color: #6c7ae0;
+  color: #037B94;
 }
 
 
@@ -594,11 +594,14 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 /*---------------------------------------------*/
 .main-menu > li:hover > a {
   text-decoration: none;
-  color: #6c7ae0;
+  color: #037B94;
+}
+a {
+	color : #037B94;
 }
 .main-menu-white > li:hover > a {
   text-decoration: none;
-  color: #6c7ae0;
+  color: #037B94;
 }
 
 .main-menu > li:hover > .sub-menu {
@@ -625,7 +628,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .sub-menu > li:hover > a {
-  color: #6c7ae0;
+  color: #037B94;
   text-decoration: none;
 }
 
@@ -746,7 +749,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .wrap-search-header button:hover {
-  color: #6c7ae0;
+  color: #037B94;
 }
 
 /*---------------------------------------------*/
@@ -805,7 +808,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 
 /*---------------------------------------------*/
 .main-menu > li.active-menu > a {
-  color: #6c7ae0;
+  color: #037B94;
 }
 
 
@@ -1290,7 +1293,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .rs1-select2 .select2-container--default .select2-selection--single .select2-selection__arrow:hover:after {
-  color: #6c7ae0;
+  color: #037B94;
 }
 
 
@@ -1322,12 +1325,12 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .rs1-select2 .select2-container .select2-results__option[aria-selected="true"] {
-  background: #6c7ae0;
+  background: #037B94;
   color: white;
 }
 
 .rs1-select2 .select2-container .select2-results__option--highlighted[aria-selected] {
-  background: #6c7ae0;
+  background: #037B94;
   color: white;
 }
 
@@ -1921,13 +1924,13 @@ button.mfp-close {
 }
 
 .filter-link:hover {
-  color: #6c7ae0;
-  border-bottom: 1px solid #6c7ae0;
+  color: #037B94;
+  border-bottom: 1px solid #037B94;
 }
 
 .filter-link-active {
-  color: #6c7ae0;
-  border-bottom: 1px solid #6c7ae0;
+  color: #037B94;
+  border-bottom: 1px solid #037B94;
 }
 
 @media (max-width: 767px) {
@@ -2966,7 +2969,7 @@ input.num-product::-webkit-inner-spin-button {
 
 /*---------------------------------------------*/
 .js-addedwish-detail {
-  color: #6c7ae0;
+  color: #037B94;
 }
 
 /*---------------------------------------------*/

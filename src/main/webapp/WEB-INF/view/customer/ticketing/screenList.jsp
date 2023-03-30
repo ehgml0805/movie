@@ -82,7 +82,7 @@
 					<h4 class="p-1 mt-2">극장</h4>
 					<div id="theater">
 						<div class="row">
-							<div id="theaterRegion" class="col">
+							<div id="theaterRegion" class="col-7">
 								<c:forEach var="r" items="${theaterRegionList}">
 									<div>
 										<button class="btn region" value="${r.theaterRegion}" type="button">${r.theaterRegion}(${r.count})</button>

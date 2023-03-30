@@ -11,9 +11,9 @@
 			, createdate
 			, COUNT(seat_key) cntSeat
 		FROM screenroom sr
-		JOIN seat s ON sr.screenroom_key = s.screenroom_key AND useable ='Y'
+		LEFT JOIN seat s ON sr.screenroom_key = s.screenroom_key AND useable = 'Y'
 		WHERE theater_key = #{theaterKey}
-		GROUP BY seatCount
+		GROUP BY sr.screenroom_key
 		ORDER BY screenroom_name DESC
 	</select>
 	
@@ -29,7 +29,6 @@
 		FROM screenroom sr
 		JOIN seat s ON sr.screenroom_key = s.screenroom_key AND useable ='Y'
 		WHERE sr.screenroom_key = #{screenroomKey}
-		GROUP BY seatCount
 	</select>
 	
 	<!-- 상영관 삭제 -->

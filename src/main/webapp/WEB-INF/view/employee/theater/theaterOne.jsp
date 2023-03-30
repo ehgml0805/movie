@@ -13,6 +13,11 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> <!-- 부트스트랩 JavaScript 파일 -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<style>
+			a {
+				color : #037B94;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- 네비바 -->
@@ -26,7 +31,7 @@
 			</form>
 			<a class="btn btn-light" href="${pageContext.request.contextPath}/employee/screenroom/addScreenroom?theaterKey=${theaterOne.theaterKey}">상영관 등록</a>
 			<div id="modify">
-				<table class="table">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>극장코드</th>
@@ -52,7 +57,7 @@
 			<h1 class="my-4">상영관 목록</h1>
 			<!-- 상영관 등록 모달 버튼 -->
 			<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTheaterModal">상영관 등록</button>
-			<table class="table">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>상영관코드</th>
