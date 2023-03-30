@@ -303,7 +303,7 @@
 			let movieTitle = $('#movieTitle').val();
 			let usePoint = $('#usePoint').val();
 			
-			alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle + 'usePoint : ' + usePoint);
+			// alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle + 'usePoint : ' + usePoint);
 			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/kakaopay',

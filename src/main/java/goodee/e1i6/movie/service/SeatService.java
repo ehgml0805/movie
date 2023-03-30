@@ -77,4 +77,9 @@ public class SeatService {
         
 		return row;
 	}
+	
+	// 예매 후 좌석 예매 상태 수정
+	public int modifySeatByTicketing(Seat seat) {
+		return seatMapper.updateSeatByTicketing(seat);
+	}
 }

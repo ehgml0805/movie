@@ -28,4 +28,8 @@
 	<update id="updateSeat" parameterType="goodee.e1i6.movie.vo.Seat">
 		UPDATE seat SET useable = #{useable} WHERE seat_key = #{seatKey}
 	</update>
+	
+	<update id="updateSeatByTicketing" parameterType="goodee.e1i6.movie.vo.Seat">
+		UPDATE seat SET active = #{active} WHERE seat_key = #{seatKey}
+	</update>
 </mapper>
