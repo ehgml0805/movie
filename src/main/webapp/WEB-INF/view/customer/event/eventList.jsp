@@ -13,27 +13,6 @@
 <link rel="stylesheet" href="/resources/css/common.css" />
 <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-<link rel="icon" type="image/png" href="../resources2/images/icons/favicon.png"/>
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/vendor/animate/animate.css">
-<!--===============================================================================================-->	
-<link rel="stylesheet" type="text/css" href="../resources2/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../resources2/vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
 <link rel="stylesheet" type="text/css" href="../resources2/css/util.css">
 <link rel="stylesheet" type="text/css" href="../resources2/css/main.css">
 <!--===============================================================================================-->
@@ -128,10 +107,10 @@
 						</a>
 					</div>
 					<div class="text-center">
-						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
+						<ahref="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
 					</div>
 					<div class="text-center">
-						${e.eventStartDate} ~ ${e.eventEndDate}
+						<span style="font-size:12px;">${e.eventStartDate} ~ ${e.eventEndDate}</span>
 					</div>
 				</div>	
 			</c:forEach>

@@ -72,6 +72,7 @@
 			.heart {
 				color: red;
 			}
+
 			.event-container {
   				margin-left: 16%;
 			}
@@ -97,21 +98,15 @@
     			width: 100%; /* Adjust the width of the separator line */
     			margin-top: 10%;
 			}
-		</style>
+		</style>		
 	</head>
 	<body>
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
-		
-		
-		
 		<%-- <div>오늘 총 방문자 수: ${todayCount}</div> --%>
 		<!-- 영화 목록 -->
 		<div class="movie-list">
 			<div class="container">
-				<div class="d-flex justify-content-center">
-					<button class="mt-5"  style="color: white; border-bottom: 2px solid rgba(255,255,255,0.2);">박스오피스</button>
-				</div>
 				<div id="carouselExampleControls" class="carousel slide"
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
@@ -122,54 +117,54 @@
 							</c:if>
 							 <c:if test="${m.active eq 'Y'}">
 							<div class="col-md-3">
-								<div class="ms-0 mt-3" style="width: 100%;">
+								<div class="card mt-3" style="width: 100%; height:100%;">
 									<c:if test="${m.poster eq 'Y'}">
 										<!-- 영화 이미지 -->
 										<c:choose>
 											<c:when test="${m.movieCode ne '0'}">
-												<div >
-													<a
+												<div>
+													<a 
 														href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}">
-														<img class="poster w-100 h-100" alt="영화이미지" src="${m.fileName}" style=" border-radius: 10px;">
+														<img class="poster w-100 h-100" alt="영화이미지" src="${m.fileName}">
 													</a>
 												</div>
 											</c:when>
 											<c:otherwise>
-												<div style="border-radius: 10px;">
-													<a
+												<div>
+													<a 
 														href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}">
 														<img class="poster w-100 h-100" alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}">
 													</a>
 												</div>
 											</c:otherwise>
 										</c:choose>
+			
+										<!-- 영화 정보 -->
+										<div class="card-body pt-0">
+											<div>
+												<h4 class="nanumgothic movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
+											</div>
+											<!-- 영화 찜 카운트 -->
+											<div class="d-flex justify-content-between mt-3">
+												<c:if test="${wishlistCount[status.index].idCount == 0}">
+													<button class="btn wishBtn border" id="btn-${status.index}"
+														value="${m.movieKey}" type="button">
+														<span>♡</span> ${wishlistCount[status.index].allCount}
+													</button>
+												</c:if>
+												<c:if test="${wishlistCount[status.index].idCount == 1}">
+													<button class="btn wishBtn border" id="btn-${status.index}"
+														value="${m.movieKey}" type="button">
+														<span class="heart">♥</span>
+														${wishlistCount[status.index].allCount}
+													</button>
+												</c:if>
+												<a class="btn d-block" style="background-color: #503396; color: white; width: 150px" href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매</a>
+											</div>
+										</div>
 									</c:if>
 								</div>
-								<!-- 영화 정보 -->
-								<div class="mt-3">
-									<%-- 
-									<div>
-										<h4 class="movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
-									</div>
-									 --%>
-									<!-- 영화 찜 카운트 -->
-									<div class="d-flex justify-content-between">
-										<c:if test="${wishlistCount[status.index].idCount == 0}">
-											<button class="btn wishBtn border" style="color: white;" id="btn-${status.index}"
-												value="${m.movieKey}" type="button">
-												<span>♡</span> ${wishlistCount[status.index].allCount}
-											</button>
-										</c:if>
-										<c:if test="${wishlistCount[status.index].idCount == 1}">
-											<button class="btn wishBtn border" style="color: white;" id="btn-${status.index}"
-												value="${m.movieKey}" type="button">
-												<span class="heart">♥</span>
-												${wishlistCount[status.index].allCount}
-											</button>
-										</c:if>
-										<a class="btn d-block" style="background-color: #037B94; color: white; width: 200px" href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매</a>
-									</div>
-								</div>
+								
 							</div>
 							</c:if>
 							<c:if test="${(status.index + 1) % 4 == 0 || status.last}">
@@ -195,7 +190,7 @@
 		<!-- 이벤트 -->
 		<div class="event-bg">
 			<div class="container mt-4 event-container">
-			    <h3>혜택/이벤트</h3>
+			    <h3 style="margin-bottom: 3%;">혜택/이벤트</h3>
 			    <div class="row">
 			        <!-- Medium card -->
 			        <div class="col-md-6">
@@ -204,18 +199,18 @@
 		           	 			<div class="carousel slide" data-bs-ride="carousel" style="width: 580px; height: 240px;">
 	      	 			      		<div class="carousel-inner">
 	        							<div class="carousel-item active">
-						                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
-						                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
-						                    </a>
-				                		</div>
-		                		        <div class="carousel-item">
-	          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=5">
-	          	 								<img src="${pageContext.request.contextPath}/event-upload/u멤버십2.jpg" style="width: 580px; height: 240px;">
-	          								</a>
-	        							</div>
-		                		        <div class="carousel-item">
 	          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=6">
 	          	 								<img src="${pageContext.request.contextPath}/event-upload/해피투게더2.jpg" style="width: 580px; height: 240px;">
+	          								</a>
+				                		</div>
+		                		        <div class="carousel-item">
+	          			                    <a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=3">
+						                 	   <img src="${pageContext.request.contextPath}/event-upload/스즈메패키지.jpg" style="width: 580px; height: 240px;">
+						                    </a>
+	        							</div>
+		                		        <div class="carousel-item">
+          									<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=5">
+	          	 								<img src="${pageContext.request.contextPath}/event-upload/u멤버십2.jpg" style="width: 580px; height: 240px;">
 	          								</a>
 	        							</div>			           
 			               			</div> 
@@ -225,9 +220,9 @@
 			            <div class="row mt-4">
 			                <!-- Small card 1 -->
 			                <div class="col-md-6">
-			                    <div class="card" style="width: 19rem;">
+			                    <div class="card ms-n2" style="width: 19rem;">
 			                    	<a href="${pageContext.request.contextPath}/snack/snackOne?snackKey=2">
-			                        	<img src="${pageContext.request.contextPath}/event-upload/슬램덩크FULL콤보.png" style="width: 19rem; height: 120px;">
+			                        	<img src="${pageContext.request.contextPath}/event-upload/슬램덩크FULL콤보.png" style="width: 19rem; height: 122px;">
 			                        </a>
 			                        <div class="card-body">
 			                            <h5 class="card-title">슬램덩크 한정판 굿즈 + 팝콘 패키지 출시!</h5>
@@ -238,7 +233,7 @@
 			                <div class="col-md-6">
 			                    <div class="card" style="width: 19rem;">
 		                   	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=4">
-			                        	<img src="${pageContext.request.contextPath}/event-upload/메박오리지널티켓.jpg" style="width: 18rem; height: 190px;">
+			                        	<img src="${pageContext.request.contextPath}/event-upload/메박오리지널티켓.jpg" style="width: 18rem; height: 210px;">
 			                    	</a>
 			                    </div>
 			                </div>
@@ -246,16 +241,15 @@
 			        </div>
 			        <!-- Large card -->
 			        <div class="col-md-6">
-			            <div class="card" style="width: 395px; height: 500px;">
+			            <div class="card" style="width: 395px; height: 484px;">
 		           	 		<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=48&movieKey=1">
-			                	<img src="${pageContext.request.contextPath}/event-upload/스즈메 시사회.jpg" style="width: 392px; height: 480px;">
+			                	<img src="${pageContext.request.contextPath}/event-upload/스즈메 시사회.jpg" style="width: 392px; height: 465px;">
 			            	</a>
 			            </div>
 			        </div>
 			    </div>
 			</div>
 		</div>
-		<span style=""></span>
 		<hr class="separator">
 		<!-- 고객 센터 -->
 		<div class="customer">
@@ -263,25 +257,26 @@
 			    <div class="row mt-3">
 			        <div class="col-md-2">
 			        	<a href="${pageContext.request.contextPath}/faq/faqList" style="text-decoration: none; color: inherit;">
-		           			<i class="bi bi-question-circle" style="font-size: 4rem;"></i>
-			            	<div>자주 묻는 질문</div>
+		           			<img src="${pageContext.request.contextPath}/img/FAQ.jpg">
 		           		</a>	
 			        </div>
 			        <div class="col-md-2">
 		       	 		<a href="${pageContext.request.contextPath}/customer/question/questionList" style="text-decoration: none; color: inherit;">
-				            <i class="bi bi-people-fill" style="font-size: 4rem;"></i>
-				            <div>1:1 문의</div>
-				        </a>    
-			        </div>
-	   		        <div class="col-md-2">
-		       	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeList" style="text-decoration: none; color: inherit;">
-				            <i class="bi bi-card-list" style="font-size: 4rem;"></i>
-				            <div>공지 사항</div>
+				            <img src="${pageContext.request.contextPath}/img/1대1문의.jpg">
 				        </a>    
 			        </div>
 			    </div>
 			</div>
 		</div>
+		<div>
+		<!-- footer -->
+			<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+		</div>
+		<script src="${pageContext.request.contextPath}/bootstrap/nav/js/jquery-3.3.1.min.js"></script>
+    	<script src="${pageContext.request.contextPath}/bootstrap/nav/js/popper.min.js"></script>
+  	    <script src="${pageContext.request.contextPath}/bootstrap/nav/js/bootstrap.min.js"></script>
+	    <script src="${pageContext.request.contextPath}/bootstrap/nav/js/jquery.sticky.js"></script>
+	    <script src="${pageContext.request.contextPath}/bootstrap/nav/js/main.js"></script>
 		<script>
 			// 찜 버튼 클릭시
 			var customerId = '${customerId}';

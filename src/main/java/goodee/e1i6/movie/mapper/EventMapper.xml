@@ -45,6 +45,7 @@
 			, preview
 		FROM screening_schedule	
 		WHERE movie_key = #{movieKey}  AND preview = 'Y'
+		AND end_date > CURDATE()
 	</select>
 	
 	<!-- eventMovieList -->
