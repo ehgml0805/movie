@@ -114,7 +114,7 @@ public class TicketingController {
 	
 	// 결제하기
 	@GetMapping("/ticketing/ticketingPay")
-	public String ticektingPay(Model model, HttpSession session
+	public String ticketingPay(Model model, HttpSession session
 									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
 									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey
 									, @RequestParam(value = "seatKey", defaultValue = "0") int[] seatKey
@@ -164,31 +164,32 @@ public class TicketingController {
 	}
 	
 	// 예매 수정
-	@GetMapping("/ticketing/modifyTicekting")
-	public String modifyTicekting(Model model
+	@GetMapping("/ticketing/modifyTicketing")
+	public String modifyTicketing(Model model
 									, @RequestParam(value = "ticketingKey", defaultValue = "0") int ticketingKey) {
 		
 		
-		return "/customer/ticketing/modifyTicekting";
+		return "/customer/ticketing/modifyTicketing";
 	}
-	@PostMapping("/ticketing/modifyTicekting")
-	public String modifyTicekting(Model model
+	@PostMapping("/ticketing/modifyTicketing")
+	public String modifyTicketing(Model model
 									, @RequestParam(value = "ticketing", defaultValue = "") Ticketing ticketing) {
 		
 		
-		return "/customer/ticketing/modifyTicekting";
+		return "/customer/ticketing/modifyTicketing";
 	}
 	
-	// 예매 추가
-	@PostMapping("/ticketing/addTicketing")
-	public String addTicekting(Model model
-									, @RequestParam(value = "ticketing", defaultValue = "0") Ticketing ticketing) {
-			
-			
-		return "/customer/ticketing/ticketingPay";
+	// 나의 예매 목록
+	@GetMapping("/customer/ticketing/ticketingList")
+	public String getTicketingList(Model model, HttpSession session) {
+		Customer customer = (Customer)session.getAttribute("loginCustomer");
+		List<Map<String, Object>> ticketingList = ticketingService.getTicketingList(customer.getCustomerId());
+		model.addAttribute("ticketingList", ticketingList);
+		
+		return "/customer/ticketing/ticketingList";
 	}
 	
-	// 카카오페이 결제 승인 시
+	// 카카오페이 결제 승인 시 예매 내역, 좌석 정보, 포인트 사용 내역 추가, 쿠폰 사용 여부 변경
 	@GetMapping("/ticketing/kakaopaySuccess")
     public String kakaopaySuccess(Model model, HttpSession session
     							, @RequestParam(value = "pg_token", required = true) String pg_token) {
@@ -211,19 +212,20 @@ public class TicketingController {
     	// 1. 예매 내역을 DB ticketing 테이블에 저장
     	int row = ticketingService.addTicketing(ticketing);
     	if (row != 0) {
-    		int seatRow = 0;
+    		int tickeitngSeatRow = 0;
     		int pointRow = 0;
     		int customerRow = 0;
     		int couponRow = 0;
+    		int seatRow = 0;
     		for(int i=0; i<seatKey.length; i++) {
     			int sKey = seatKey[i];
 	    		TicketingSeat ticketingSeat = new TicketingSeat();
 	    		ticketingSeat.setTicketingKey(ticketing.getTicketingKey());
 	    		ticketingSeat.setSeatKey(sKey);
 	    		// 2. 예매 내역을 DB ticketing_seat 테이블에 저장
-	    		seatRow = ticketingService.addTicketingSeat(ticketingSeat);
+	    		tickeitngSeatRow = ticketingService.addTicketingSeat(ticketingSeat);
     		}
-    		if(seatRow != 0) {
+    		if(tickeitngSeatRow != 0) {
     			PointRedeem pointRedeem = new PointRedeem();
     			pointRedeem.setPointCategory("예매");
     			pointRedeem.setKey(ticketing.getTicketingKey());
@@ -245,8 +247,22 @@ public class TicketingController {
     					// 5. 예매 후 쿠폰 사용 여부를 DB mycoupon 테이블에서 수정
     					couponRow = couponService.modifyMycoupon(mycoupon);
     					if(couponRow != 0) {
-	    					msg = "예매가 완료되었습니다.";
-	    					model.addAttribute("msg", msg);
+    						for(int i=0; i<seatKey.length; i++) {
+    							int sKey = seatKey[i];
+    							Seat seat = new Seat();
+    							seat.setSeatKey(sKey);
+    							seat.setActive("N");
+    							// 6. 예매 후 좌석 예약 상태를 DB seat 테이블에서 수정
+    							seatRow = seatService.modifySeatByTicketing(seat);
+    						}
+    						if(seatRow != 0) {
+    							msg = "예매가 완료되었습니다.";
+    	    					model.addAttribute("msg", msg);
+    						} else {
+    							msg = "좌석 정보 상태 변경에 실패하였습니다.";
+    	    					model.addAttribute("msg", msg);
+    						}
+	    					
     					} else {
     						msg = "쿠폰 사용 정보 수정에 실패하였습니다.";
 	    					model.addAttribute("msg", msg);

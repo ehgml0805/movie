@@ -14,4 +14,5 @@ public interface SeatMapper {
 	Seat selectSeatOne(int seatKey);
 	List<Seat> selectSeatListByScreenroom(int screenroomKey);
 	int updateSeat(Seat seat);
+	int updateSeatByTicketing(Seat seat);
 }
