@@ -123,7 +123,12 @@
 		
 	</update>
 
-
+	<!-- 회원정보 포인트 수정 -->
+	<update id="updateCustomerPoint" parameterType="goodee.e1i6.movie.vo.Customer">
+		UPDATE customer
+		SET customer_point = #{customerPoint}			
+		WHERE customer_id = #{customerId}		
+	</update>
 
 
 </mapper>

@@ -14,16 +14,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.KaKaoService;
+import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.service.MovieService;
+import goodee.e1i6.movie.service.PointService;
 import goodee.e1i6.movie.service.ScreeningScheduleService;
 import goodee.e1i6.movie.service.SeatService;
 import goodee.e1i6.movie.service.StillCutService;
 import goodee.e1i6.movie.service.TheaterService;
+import goodee.e1i6.movie.service.TicketingService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
+import goodee.e1i6.movie.vo.Mycoupon;
+import goodee.e1i6.movie.vo.PointRedeem;
 import goodee.e1i6.movie.vo.Seat;
 import goodee.e1i6.movie.vo.StillCut;
 import goodee.e1i6.movie.vo.Ticketing;
+import goodee.e1i6.movie.vo.TicketingSeat;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -36,6 +42,9 @@ public class TicketingController {
 	@Autowired SeatService seatService;
 	@Autowired CouponService couponService;
 	@Autowired KaKaoService kaKaoService;
+	@Autowired TicketingService ticketingService;
+	@Autowired PointService pointService;
+	@Autowired LoginService loginService;
 	
 	// 영화, 극장, 날짜 선택
 	@GetMapping("/ticketing/screenList")
@@ -186,7 +195,78 @@ public class TicketingController {
     	log.debug(TeamColor.JYW + "kakaopaySuccess GET ");
     	log.debug(TeamColor.JYW + "kakaopaySuccess pg_token : " + pg_token);
     	
+    	Ticketing ticketing = (Ticketing)session.getAttribute("ticketing");
+    	int[] seatKey = (int[])session.getAttribute("seatKey");
+    	int usePoint = (int)session.getAttribute("usePoint");
+    	
+    	log.debug(TeamColor.JYW + "kakaopaySuccess ticketing : " + ticketing);
+    	log.debug(TeamColor.JYW + "kakaopaySuccess seatKey : " + seatKey);
+    	log.debug(TeamColor.JYW + "kakaopaySuccess usePoint : " + usePoint);
+    	
     	model.addAttribute("info", kaKaoService.KakaopayApprove(pg_token, session));
+    	
+    	Customer customer = (Customer)session.getAttribute("loginCustomer");
+    	String msg = "";
+    	
+    	// 1. 예매 내역을 DB ticketing 테이블에 저장
+    	int row = ticketingService.addTicketing(ticketing);
+    	if (row != 0) {
+    		int seatRow = 0;
+    		int pointRow = 0;
+    		int customerRow = 0;
+    		int couponRow = 0;
+    		for(int i=0; i<seatKey.length; i++) {
+    			int sKey = seatKey[i];
+	    		TicketingSeat ticketingSeat = new TicketingSeat();
+	    		ticketingSeat.setTicketingKey(ticketing.getTicketingKey());
+	    		ticketingSeat.setSeatKey(sKey);
+	    		// 2. 예매 내역을 DB ticketing_seat 테이블에 저장
+	    		seatRow = ticketingService.addTicketingSeat(ticketingSeat);
+    		}
+    		if(seatRow != 0) {
+    			PointRedeem pointRedeem = new PointRedeem();
+    			pointRedeem.setPointCategory("예매");
+    			pointRedeem.setKey(ticketing.getTicketingKey());
+    			pointRedeem.setCustomerId(ticketing.getCustomerId());
+    			pointRedeem.setPoint(usePoint);
+    			// 3. 예매 후 포인트 내역을 DB point_redeem 테이블에 저장
+    			pointRow = pointService.insertPointRedeem(pointRedeem);
+    			if(pointRow != 0) {
+    				int myPoint = (int)customer.getCustomerPoint();
+    				myPoint = myPoint - usePoint;
+    				Customer paramCustomer = new Customer();
+    				paramCustomer.setCustomerId(customer.getCustomerId());
+    				paramCustomer.setCustomerPoint(myPoint);
+    				// 4. 예매 후 포인트 내역을 DB customer 테이블에 저장
+    				customerRow = loginService.updateCustomerPoint(paramCustomer);
+    				if(customerRow != 0) {
+    					Mycoupon mycoupon = new Mycoupon();
+    					mycoupon.setMycouponKey(ticketing.getMycouponKey());
+    					// 5. 예매 후 쿠폰 사용 여부를 DB mycoupon 테이블에서 수정
+    					couponRow = couponService.modifyMycoupon(mycoupon);
+    					if(couponRow != 0) {
+	    					msg = "예매가 완료되었습니다.";
+	    					model.addAttribute("msg", msg);
+    					} else {
+    						msg = "쿠폰 사용 정보 수정에 실패하였습니다.";
+	    					model.addAttribute("msg", msg);
+    					}
+    				} else {
+    					msg = "회원 정보의 포인트 수정이 실패하였습니다.";
+    					model.addAttribute("msg", msg);
+    				}
+    			} else {
+    				msg = "포인트 사용 내역 저장에 실패하였습니다.";
+					model.addAttribute("msg", msg);
+    			}
+    		} else {
+    			msg = "예매된 좌석 저장에 실패하였습니다.";
+				model.addAttribute("msg", msg);
+    		}
+    	} else {
+    		msg = "예매 내역 저장에 실패하였습니다.";
+			model.addAttribute("msg", msg);
+    	}
     	
     	return "/customer/ticketing/kakaopaySuccess";
     }

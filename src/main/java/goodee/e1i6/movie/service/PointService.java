@@ -17,7 +17,10 @@ import goodee.e1i6.movie.vo.PointRedeem;
 public class PointService {
 	@Autowired PointMapper pointMapper;
 	
-	
+	//포인트 사용 
+	public int insertPointRedeem(PointRedeem pointRedeem) {
+		return pointMapper.insertPointRedeem(pointRedeem);
+	};
 	
 	//포인트 적립 목록 
 	public List<PointRedeem> pointRedeemList(int currentPage, int rowPerPage){

@@ -7,9 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	카카오페이 결제가 정상적으로 완료되었습니다.
-	
-	결제 : ${info}
+	<div>${msg}</div>
+	<div>카카오페이 결제가 정상적으로 완료되었습니다.</div>
+	<div>결제 : ${info}</div>
 </body>
 </html>

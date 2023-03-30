@@ -1,7 +1,6 @@
 package goodee.e1i6.movie.service;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -136,4 +135,8 @@ public class LoginService {
 		return loginMapper.updateCustomer(customer);
 	}
 	
+	// 회원 포인트 수정
+	public int updateCustomerPoint(Customer customer) {
+		return loginMapper.updateCustomerPoint(customer);
+	};
 }

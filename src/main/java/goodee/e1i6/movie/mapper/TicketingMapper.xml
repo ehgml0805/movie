@@ -15,20 +15,24 @@
 	
 	<!-- 예매 내역 추가 -->
 	<insert id="insertTicketing" parameterType="goodee.e1i6.movie.vo.Ticketing">
+		<!-- mariadb에서는 insert전/후 auto_increment값을 입력된 매개변수로 참조 가능 -->
+		<selectKey resultType="int" 
+			keyProperty="ticketingKey" keyColumn="ticketing_key" order="AFTER">
+			<!-- LAST_INSERT_ID()  마지막 auto_increment값 반환하는 함수 -->
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
 		INSERT INTO ticketing (
 			schedule_key
 			, customer_id
 			, mycoupon_key
 			, total_price
 			, discount_price
-			, ticketing_status
 		) VALUES (
 			#{scheduleKey}
 			, #{customerId}
 			, #{mycouponKey}
 			, #{totalPrice}
 			, #{discountPrice}
-			, #{ticketingStatus}
 		)
 	</insert>
 	
@@ -36,11 +40,9 @@
 		INSERT INTO ticketing_seat (
 			seat_key
 			, ticketing_key
-			, price
 		) VALUES (
 			#{seatKey}
 			, #{ticketingKey}
-			, #{price}
 		)
 	</insert>
 	

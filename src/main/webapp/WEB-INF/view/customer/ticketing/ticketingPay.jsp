@@ -45,7 +45,7 @@
 						<c:forEach var="c" items="${myCouponList}">		
 							<tr>
 								<td>
-									<input type="radio" class="coupon" name="coupon" value="${c.couponKey}" data-price="${c.couponSalePrice}">
+									<input type="radio" class="coupon" name="coupon" value="${c.mycouponKey}" data-price="${c.couponSalePrice}">
 									${c.couponName}
 								</td>
 								<td>${c.couponSalePrice}원</td>
@@ -167,7 +167,7 @@
 					<tr>
 						<td>좌석번호</td>
 						<td>
-							<c:forEach var="s" begin="0" end="${fn:length(seatNumber)}" step="1">
+							<c:forEach var="s" begin="0" end="${fn:length(seatNumber)-1}" step="1">
 								<span id="seatNo">${seatNumber[s]}</span>
 								<input type="hidden" class="seatKey" name="seatKey" value="${seatKey[s]}">
 							</c:forEach>
@@ -180,6 +180,7 @@
 	   	<input type="hidden" id="totalAmount" name="totalAmount" value="${totalPrice}">
 	   	<input type="hidden" id="discountAmount" name="discountAmount" value="0">
 	   	<input type="hidden" id="kakaoAmount" name="kakaoAmount" value="0">
+	   	<input type="hidden" id="usePoint" name="usePoint" value="0">
 	   	<input type="hidden" id="movieTitle" name="movieTitle" value="${scheduleOne.movieTitle}">
 	   	<button id="kakaopay" class="payBtn" type="button" style="background-color:#3F0099; color:white; width:200px; height:200px;">결제하기</button>
    	</div>
@@ -229,6 +230,7 @@
 			$('#remainPrice').text(totalPrice - discountPrice);
 			
 			// input에 저장해주기
+			$('#usePoint').val(pointVal);
 			$('#discountAmount').val(discountPrice);
 			$('#kakaoAmount').val(totalPrice - discountPrice);
 		});
@@ -296,11 +298,12 @@
 			}
 			var seatKey = new Array();
 			$('.seatKey').each(function() {
-				seatKey.push($(this).val());
+				seatKey.push(parseInt($(this).val()));
 			});
 			let movieTitle = $('#movieTitle').val();
+			let usePoint = $('#usePoint').val();
 			
-			alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle);
+			alert('scheduleKey : ' + scheduleKey + ' mycouponKey : ' + mycouponKey + ' totalPrice : ' + totalPrice + ' discountPrice : ' + discountPrice + ' kakaoPrice : ' + kakaoPrice + ' seatKey : ' + seatKey + ' movieTitle : ' + movieTitle + 'usePoint : ' + usePoint);
 			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/kakaopay',
@@ -313,7 +316,8 @@
 				    discountPrice: discountPrice,
 				    kakaoPrice : kakaoPrice,
 				    seatKey: seatKey,
-				    movieTitle : movieTitle
+				    movieTitle : movieTitle,
+				    usePoint : usePoint
 				},
 				dataType: 'json',		
 				success:function(data){

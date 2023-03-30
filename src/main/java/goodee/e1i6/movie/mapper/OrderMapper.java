@@ -24,6 +24,7 @@ public interface OrderMapper {
 	Integer insertTotalOrder(TotalOrder t);
 	Integer deleteCartById(String customerId);
 	Integer selectSumGoodsPrice(String customerId);
+	//아이디 별 주문 내역 리스트 
     List<Map<String, Object>> selectOrderListById(String customerId);
     Integer insertOrderByDir(Order o);
     Integer updateSelectAll(String customerId);
