@@ -88,6 +88,7 @@ public class OrderService {
 	public Integer selectSumgoodsPrice(String customerId) {
 		return orderMapper.selectSumGoodsPrice(customerId);
 	}
+	//아이디 별 주문 내역 리스트 
 	public List<Map<String, Object>> selectOrderListByid(String customerId){
 		return orderMapper.selectOrderListById(customerId);
 	}
