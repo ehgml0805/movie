@@ -239,6 +239,12 @@
 			            <div>1:1 문의</div>
 			        </a>    
 		        </div>
+   		        <div class="col-md-2">
+	       	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeList" style="text-decoration: none; color: inherit;">
+			            <i class="bi bi-card-list" style="font-size: 4rem;"></i>
+			            <div>공지 사항</div>
+			        </a>    
+		        </div>
 		    </div>
 		</div>
 		<script>

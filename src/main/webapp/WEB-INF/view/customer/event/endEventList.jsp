@@ -13,6 +13,31 @@
 <link rel="stylesheet" href="/resources/css/common.css" />
 <link rel="icon" href="/resources/images/favicon.ico" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<link rel="icon" type="image/png" href="../resources2/images/icons/favicon.png"/>
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../resources2/css/util.css">
+<link rel="stylesheet" type="text/css" href="../resources2/css/main.css">
+<!--===============================================================================================-->
 <script>
 	$(document).ready(function() {
   		$("button[id^='winnerBtn_']").click(function() {
@@ -82,6 +107,7 @@
     .events-container {
         display: flex;
         flex-wrap: wrap;
+        margin-top: 70px;
     }
 
     .event-item {
@@ -125,11 +151,12 @@
 		text-align: center;
 	}
 	.search input[name="searchWord"],
-	.search button[type="submit"] {
+	.search button[type="submit"],
+	.events-container button[type="button"] {
   		border: 1px solid #ccc;
 	  	border-radius: 5px;
 	  	padding: 5px 10px;
-	  	margin: 0 5px; 
+	  	margin: 1 5px; 
 	  	display: inline-block;
 	  	vertical-align: middle;
 	}
