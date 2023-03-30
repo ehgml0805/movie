@@ -72,8 +72,6 @@
 			.heart {
 				color: red;
 			}
-
-			
 			.event-container {
   				margin-left: 16%;
 			}
@@ -99,16 +97,9 @@
     			width: 100%; /* Adjust the width of the separator line */
     			margin-top: 10%;
 			}
-
 		</style>
-
-		
-	</head >
-	<body  >
-
 	</head>
 	<body>
-
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
 		
@@ -118,6 +109,9 @@
 		<!-- 영화 목록 -->
 		<div class="movie-list">
 			<div class="container">
+				<div class="d-flex justify-content-center">
+					<button class="mt-5"  style="color: white; border-bottom: 2px solid rgba(255,255,255,0.2);">박스오피스</button>
+				</div>
 				<div id="carouselExampleControls" class="carousel slide"
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
@@ -128,54 +122,54 @@
 							</c:if>
 							 <c:if test="${m.active eq 'Y'}">
 							<div class="col-md-3">
-								<div class="card mt-3" style="width: 100%; height:100%;">
+								<div class="ms-0 mt-3" style="width: 100%;">
 									<c:if test="${m.poster eq 'Y'}">
 										<!-- 영화 이미지 -->
 										<c:choose>
 											<c:when test="${m.movieCode ne '0'}">
-												<div>
-													<a 
+												<div >
+													<a
 														href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}">
-														<img class="poster w-100 h-100" alt="영화이미지" src="${m.fileName}">
+														<img class="poster w-100 h-100" alt="영화이미지" src="${m.fileName}" style=" border-radius: 10px;">
 													</a>
 												</div>
 											</c:when>
 											<c:otherwise>
-												<div>
-													<a 
+												<div style="border-radius: 10px;">
+													<a
 														href="${pageContext.request.contextPath}/movie/movieOne?movieKey=${m.movieKey}">
 														<img class="poster w-100 h-100" alt="영화이미지" src="${pageContext.request.contextPath}/stillCut-upload/${m.fileName}">
 													</a>
 												</div>
 											</c:otherwise>
 										</c:choose>
-			
-										<!-- 영화 정보 -->
-										<div class="card-body pt-0">
-											<div>
-												<h4 class="nanumgothic movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
-											</div>
-											<!-- 영화 찜 카운트 -->
-											<div class="d-flex justify-content-between mt-3">
-												<c:if test="${wishlistCount[status.index].idCount == 0}">
-													<button class="btn wishBtn border" id="btn-${status.index}"
-														value="${m.movieKey}" type="button">
-														<span>♡</span> ${wishlistCount[status.index].allCount}
-													</button>
-												</c:if>
-												<c:if test="${wishlistCount[status.index].idCount == 1}">
-													<button class="btn wishBtn border" id="btn-${status.index}"
-														value="${m.movieKey}" type="button">
-														<span class="heart">♥</span>
-														${wishlistCount[status.index].allCount}
-													</button>
-												</c:if>
-												<a class="btn d-block" style="background-color: #503396; color: white; width: 150px" href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매</a>
-											</div>
-										</div>
 									</c:if>
 								</div>
-								
+								<!-- 영화 정보 -->
+								<div class="mt-3">
+									<%-- 
+									<div>
+										<h4 class="movie-title mt-3 card-title">${m.grade} ${m.movieTitle}</h4>
+									</div>
+									 --%>
+									<!-- 영화 찜 카운트 -->
+									<div class="d-flex justify-content-between">
+										<c:if test="${wishlistCount[status.index].idCount == 0}">
+											<button class="btn wishBtn border" style="color: white;" id="btn-${status.index}"
+												value="${m.movieKey}" type="button">
+												<span>♡</span> ${wishlistCount[status.index].allCount}
+											</button>
+										</c:if>
+										<c:if test="${wishlistCount[status.index].idCount == 1}">
+											<button class="btn wishBtn border" style="color: white;" id="btn-${status.index}"
+												value="${m.movieKey}" type="button">
+												<span class="heart">♥</span>
+												${wishlistCount[status.index].allCount}
+											</button>
+										</c:if>
+										<a class="btn d-block" style="background-color: #037B94; color: white; width: 200px" href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매</a>
+									</div>
+								</div>
 							</div>
 							</c:if>
 							<c:if test="${(status.index + 1) % 4 == 0 || status.last}">
