@@ -47,6 +47,11 @@
 			, notice_content noticeContent
 			, createdate
 		FROM notice
+		<where>
+			<if test="searcWord != null || searchWord != ''">
+				notice_title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

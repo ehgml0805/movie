@@ -47,11 +47,12 @@ public class QuestionService {
 		return questionMapper.selectQuestionListCountByAdmin();
 	}
 	// 문의 리스트(관리자)
-	public List<Map<String, Object>> getQuestionListByAdmin(int currentPage, int rowPerPage) {
+	public List<Map<String, Object>> getQuestionListByAdmin(int currentPage, int rowPerPage, String searchWord) {
 		int beginRow = (currentPage -1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
 		return questionMapper.selectQuestionListByAdmin(paramMap);
 	}
 	
@@ -83,12 +84,13 @@ public class QuestionService {
 		return questionMapper.selectQuestionListCount(customerId);
 	}
 	// 내문의 리스트
-	public List<Map<String, Object>> getQuestionList(String customerId, int currentPage, int rowPerPage) {
+	public List<Map<String, Object>> getQuestionList(String customerId, int currentPage, int rowPerPage, String searchWord) {
 		int beginRow = (currentPage -1) * rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("customerId", customerId);
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
 		return questionMapper.selectQuestionList(paramMap);
 	}
 	

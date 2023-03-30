@@ -65,7 +65,8 @@ public class QuestionController {
 	@GetMapping("/employee/question/questionList")
 	public String getQuestionListByAdmin(Model model
 											, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-											, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
+											, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+											, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		log.debug(TeamColor.YIB + "문의사항 리스트(관리자)--");
 		
 		// 마지막페이지
@@ -74,14 +75,26 @@ public class QuestionController {
 		if(questionCount % rowPerPage != 0) {
 			lastPage += 1;
 		}
+		// startPage
+		int startPage = ((currentPage - 1)/rowPerPage) * rowPerPage + 1;
+		// endPage
+		int endPage = startPage + rowPerPage - 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
 		log.debug(TeamColor.YIB + questionCount + " : questionCount");
 		log.debug(TeamColor.YIB + lastPage + " : lastPage");
+		log.debug(TeamColor.YIB + startPage + " : startPage");
+		log.debug(TeamColor.YIB + endPage + " : endPage");
 		
 		// 리스트
-		List<Map<String, Object>> list = questionService.getQuestionListByAdmin(currentPage, rowPerPage);
+		List<Map<String, Object>> list = questionService.getQuestionListByAdmin(currentPage, rowPerPage, searchWord);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("searchWord", searchWord);
 		return "employee/question/questionList";
 	}
 	
@@ -156,7 +169,8 @@ public class QuestionController {
 	@GetMapping("/customer/question/questionList")
 	public String getQuestionList(Model model, HttpSession session
 											, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-											, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
+											, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+											, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		log.debug(TeamColor.YIB + "문의사항 리스트--");
 		// 로그인 아이디
 		Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
@@ -168,14 +182,26 @@ public class QuestionController {
 		if(questionCount % rowPerPage != 0) {
 			lastPage += 1;
 		}
+		// startPage
+		int startPage = ((currentPage - 1)/rowPerPage) * rowPerPage + 1;
+		// endPage
+		int endPage = startPage + rowPerPage - 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
 		log.debug(TeamColor.YIB + questionCount + " : questionCount");
 		log.debug(TeamColor.YIB + lastPage + " : lastPage");
+		log.debug(TeamColor.YIB + startPage + " : startPage");
+		log.debug(TeamColor.YIB + endPage + " : endPage");
 		
 		// 리스트
-		List<Map<String, Object>> list = questionService.getQuestionList(customerId, currentPage, rowPerPage);
+		List<Map<String, Object>> list = questionService.getQuestionList(customerId, currentPage, rowPerPage, searchWord);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("searchWord", searchWord);
 		return "customer/question/questionList";
 	}
 	
