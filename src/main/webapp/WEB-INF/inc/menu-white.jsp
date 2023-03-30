@@ -104,7 +104,7 @@
                </li>
               	<li>
 					<a href="${pageContext.request.contextPath}/event/eventList" style="font-size:18px">&nbsp;&nbsp;이벤트</a>
-					<ul class="sub-menu" style="z-index: 999;">
+					<ul class="sub-menu-white" style="z-index: 999;">
 						<li><a href="${pageContext.request.contextPath}/event/eventList">진행중인 이벤트</a></li>
 						<li><a href="${pageContext.request.contextPath}/event/endEventList">종료된 이벤트</a></li>
 						
