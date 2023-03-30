@@ -18,9 +18,9 @@
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 		<div class="container w-75">
-			<h1>극장상세</h1>
+			<h1 class="mt-5">극장상세</h1>
 			<form id="form" class="d-flex justify-content-end">	
-				<button class="btn btn-light" type="button" id="modifyBtn">수정</button>
+				<button class="btn btn-light me-3" type="button" id="modifyBtn">수정</button>
 				<input class="form-control" type="hidden" name="theaterKey" value="${theaterOne.theaterKey}">
 				<button class="btn btn-light" type="button" id="removeBtn">삭제</button>
 			</form>
@@ -44,12 +44,12 @@
 						</tr>
 					</tbody>		
 				</table>
-				<h1>극장정보</h1>
+				<h1 class="my-4">극장정보</h1>
 				<div>${theaterOne.theaterInfo}</div>
 				<div>${theaterOne.theaterTicketingInfo}</div>
 			</div>
 			<br/>
-			<h1>상영관 목록</h1>
+			<h1 class="my-4">상영관 목록</h1>
 			<!-- 상영관 등록 모달 버튼 -->
 			<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTheaterModal">상영관 등록</button>
 			<table class="table">
@@ -65,7 +65,7 @@
 						<tr>
 							<td>${s.screenroomKey}</td>
 							<td><a href="${pageContext.request.contextPath}/employee/screenroom/screenroomOne?screenroomKey=${s.screenroomKey}">${s.screenroomName}</a></td>
-							<td>${s.seatCount}</td>
+							<td>${s.cntSeat}</td>
 						</tr>
 					</c:forEach>
 				</tbody>		

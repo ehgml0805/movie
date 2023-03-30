@@ -4,25 +4,32 @@
 	<!-- 상영관 목록 -->
 	<select id="selectScreenroomList" parameterType="int" resultType="java.util.Map">
 		SELECT 
-			screenroom_key screenroomKey
+			sr.screenroom_key screenroomKey
 			, theater_key theaterKey
 			, screenroom_name screenroomName
 			, seat_count seatCount
 			, createdate
-		FROM screenroom 
+			, COUNT(seat_key) cntSeat
+		FROM screenroom sr
+		JOIN seat s ON sr.screenroom_key = s.screenroom_key AND useable ='Y'
 		WHERE theater_key = #{theaterKey}
-		ORDER BY screenroom_name DESC	
+		GROUP BY seatCount
+		ORDER BY screenroom_name DESC
 	</select>
 	
 	<!-- 상영관 상세 -->
-	<select id="selectScreenroomOne" parameterType="int" resultType="goodee.e1i6.movie.vo.Screenroom">
+	<select id="selectScreenroomOne" parameterType="int" resultType="java.util.Map">
 		SELECT 
-			screenroom_key screenroomKey
+			sr.screenroom_key screenroomKey
 			, theater_key theaterKey
 			, screenroom_name screenroomName
 			, seat_count seatCount
 			, createdate
-		FROM screenroom WHERE screenroom_key = #{screenroomKey}
+			, COUNT(seat_key) cntSeat
+		FROM screenroom sr
+		JOIN seat s ON sr.screenroom_key = s.screenroom_key AND useable ='Y'
+		WHERE sr.screenroom_key = #{screenroomKey}
+		GROUP BY seatCount
 	</select>
 	
 	<!-- 상영관 삭제 -->

@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,7 +13,7 @@ public interface ScreenroomMapper {
 	int selectCheckedTheaterForDelete(int screenroomKey);
 	int updateScreenroom(Screenroom screenroom);
 	int insertScreenroom(Screenroom screenroom);
-	Screenroom selectScreenroomOne(int screenroomKey);
+	Map<String, Object> selectScreenroomOne(int screenroomKey);
 	List<Screenroom> selectScreenroomList(int theaterKey);
 	int updateSeatCount(Screenroom screenroom);
 }

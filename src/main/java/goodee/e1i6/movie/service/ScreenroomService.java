@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class ScreenroomService {
 	}
 	
 	// 상영관 상세
-	public Screenroom getScreenroomOne(int screenroomKey) {
+	public Map<String, Object> getScreenroomOne(int screenroomKey) {
 		return screenroomMapper.selectScreenroomOne(screenroomKey);
 	}
 	

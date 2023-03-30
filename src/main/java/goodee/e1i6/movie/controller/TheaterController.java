@@ -48,7 +48,7 @@ public class TheaterController {
 		Theater theaterOne = theaterService.getTheaterOne(theaterKey);
 		List<Screenroom> screenroomList = screenroomService.getScreenroomList(theaterKey); // 상영관 목록(이름순)
 		
-		model.addAttribute("screenroomList", screenroomList);
+		model.addAttribute("    ", screenroomList);
 		model.addAttribute("theaterOne", theaterOne);
 		
 		return "/customer/theater/theaterOne";
