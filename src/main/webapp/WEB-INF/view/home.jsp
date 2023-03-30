@@ -72,11 +72,8 @@
 			.heart {
 				color: red;
 			}
-<<<<<<< HEAD
-			
-			
 
-=======
+			
 			.event-container {
   				margin-left: 16%;
 			}
@@ -102,16 +99,16 @@
     			width: 100%; /* Adjust the width of the separator line */
     			margin-top: 10%;
 			}
->>>>>>> branch 'main' of https://github.com/ehgml0805/movie.git
+
 		</style>
-<<<<<<< HEAD
+
 		
 	</head >
 	<body  >
-=======
+
 	</head>
 	<body>
->>>>>>> branch 'main' of https://github.com/ehgml0805/movie.git
+
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
 		

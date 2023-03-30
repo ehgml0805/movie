@@ -74,7 +74,7 @@
    
          <!-- Menu desktop -->
          <div class="menu-desktop">
-            <ul class="main-menu">
+            <ul class="main-menu-white">
                <li>
                   <a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                   
@@ -99,7 +99,7 @@
                <li>
                   <a href="${pageContext.request.contextPath}/home" style="font-size:18px">
                      <!-- Logo desktop -->
-                     <img src="${pageContext.request.contextPath}/img/megabox-logo4.png" alt="IMG-LOGO" width="140" >
+                     <img src="${pageContext.request.contextPath}/img/new-e1i6box-white.png" alt="IMG-LOGO" width="140" >
                   </a>
                </li>
               	<li>

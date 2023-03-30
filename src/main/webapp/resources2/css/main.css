@@ -434,7 +434,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .main-menu > li {
-  display: block;
+  display: white;
   position: relative;
   padding: 20px 10px 20px 0px;
   margin: 0px 4px 0px 14px;
@@ -449,7 +449,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 .main-menu > li > a {
   font-family : NanumSquareNeo-Variable, 돋움, sans-serif;
   font-size: 15px;
-  color: black;
+  color: white;
   letter-spacing: 0;
   line-height: 1.5;
   font-weight: 1000;
@@ -462,7 +462,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 .main-menu-white > li > a {
   font-family : NanumSquareNeo-Variable, 돋움, sans-serif;
   font-size: 15px;
-  color: white;
+  color: black;
   letter-spacing: 0;
   line-height: 1.5;
   font-weight: 1000;
@@ -474,6 +474,10 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 }
 
 .header-v3 .main-menu > li > a {
+  color: #fff;
+}
+
+.header-v3 .main-menu-white > li > a {
   color: #fff;
 }
 
@@ -502,7 +506,17 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
   opacity: 0; 
 }
 
+
 .sub-menu li {
+  position: relative;
+  background-color: transparent;
+
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+.sub-menu-white li {
   position: relative;
   background-color: transparent;
 
@@ -516,6 +530,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
   top:100%;
   left: 0;
 }
+
 
 .sub-menu a {
   font-family: S-CoreDream-3Light,Dotum,'돋움',sans-serif;
@@ -532,6 +547,7 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
 }
+
 
 /*---------------------------------------------*/
 .main-menu > li:hover > a {

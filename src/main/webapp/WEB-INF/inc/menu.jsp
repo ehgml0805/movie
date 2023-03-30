@@ -76,7 +76,7 @@
 	
 			<!-- Menu desktop -->
 			<div class="menu-desktop" >
-				<ul class="main-menu-white">
+				<ul class="main-menu">
 					<li>
                   		<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
 	                  
@@ -101,7 +101,7 @@
 					<li>
 						<a href="${pageContext.request.contextPath}/home" style="font-size:18px">
 							<!-- Logo desktop -->
-							<img src="${pageContext.request.contextPath}/img/img_bg_logo.png" alt="IMG-LOGO" width="140" >
+							<img src="${pageContext.request.contextPath}/img/new-e1i6box.png" alt="IMG-LOGO" width="140" >
 						</a>
 					</li>
 					<li>
