@@ -71,7 +71,7 @@
 			, createdate
 		FROM 
 			theater
-		ORDER BY theater_name
+		ORDER BY theater_region, theater_name
 	</select>
 	
 	<!-- 극장 상세 정보 -->

@@ -3,8 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>상영 스케줄 등록</title>
+	<meta charset="UTF-8">
+	<title>상영 스케줄 등록</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<h2>상영 스케줄 등록</h2>
@@ -13,7 +20,7 @@
 			<tr>
 				<td>영화 선택</td>
 				<td>
-					<select name="movieKey">
+					<select name="movieList">
 						<c:forEach var="m" items="${movieList}">
 							<option value="${m.movieKey}">${m.movieTitle}</option>
 						</c:forEach>						
@@ -23,9 +30,9 @@
 			<tr>
 				<td>극장 선택</td>
 				<td>
-					<select name="theaterKey">
+					<select id="theaterList" name="theaterList">
 						<c:forEach var="t" items="${theaterList}">
-							<option value="${t.theaterKey}">${t.theaterRegion} ${t.theaterName}</option>
+							<option class="theaterKeyOption" value="${t.theaterKey}">${t.theaterRegion} ${t.theaterName}</option>
 						</c:forEach>
 					</select>
 				</td>
@@ -33,10 +40,7 @@
 			<tr>
 				<td>상영관 선택</td>
 				<td>
-					<select name="screenroomKey">
-						<c:forEach var="s" items="${screenroomList}">
-							<option value="${s.screenroomKey}">${s.screenroomName}</option>
-						</c:forEach>
+					<select id="screenroomList" name="screenroomList">
 					</select>
 				</td>
 			</tr>
@@ -59,10 +63,67 @@
 				</td>
 			</tr>
 		</table>
+		<input type="hidden" name="theaterKey" id="theaterKey" value="0">
 		<button type="submit">등록</button>
 	</form>
 </body>
 <script>
-	// ajax로 지역 선택시 극장 출력/ 극장 선택시 상영관 출력 되게 수정
+	$(function(){
+		$(document).ready(function(){
+			$('#theaterKey').val($('#theaterList option:selected').val());
+			let theaterKey = $('#theaterKey').val();
+			$.ajax({
+				url:'${pageContext.request.contextPath}/screenroom/screenroomList',
+				type : "GET",
+				data: {
+					theaterKey: theaterKey
+				},
+				dataType: 'json',		
+				success:function(data){
+					// alert('성공');
+					var html = '';
+					for(let i=0; i<data.length; i++){
+						html += '<option value='
+						html += data[i].screenroomKey+'>'+data[i].screenroomName
+						html += '</option>'
+					}
+					$('#screenroomList').html(html);
+				},
+				error:function(error){
+					alert("에러");
+				}
+			});
+		});
+		
+		// ajax로 지역 선택시 극장 출력/ 극장 선택시 상영관 출력 되게 수정
+		$(document).on('change', '#theaterList', function(){
+			// input에 저장해주기
+			$('#theaterKey').val($(this).val());
+			
+			let theaterKey = $('#theaterKey').val();
+			
+			$.ajax({
+				url:'${pageContext.request.contextPath}/screenroom/screenroomList',
+				type : "GET",
+				data: {
+					theaterKey: theaterKey
+				},
+				dataType: 'json',		
+				success:function(data){
+					// alert('성공');
+					var html = '';
+					for(let i=0; i<data.length; i++){
+						html += '<option value='
+						html += data[i].screenroomKey+'>'+data[i].screenroomName
+						html += '</option>'
+					}
+					$('#screenroomList').html(html);
+				},
+				error:function(error){
+					alert("에러");
+				}
+			});
+		});
+	});
 </script>
 </html>
