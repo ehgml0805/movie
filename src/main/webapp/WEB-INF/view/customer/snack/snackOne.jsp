@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="col-7">
-				<h2 style="margin-bottom: 40px;">${s.snackName}</h2>
+				<h2 style="margin-bottom: 20px; margin-top: 20px;">${s.snackName}</h2>
 				<hr>
 				<h5>${s.snackContent}</h5>
 				<hr>
