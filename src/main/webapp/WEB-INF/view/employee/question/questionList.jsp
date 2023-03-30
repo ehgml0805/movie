@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>MEET PLAY SHARE, E1I6</title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
 </head>
@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	
-		<!-- Content page -->
+	<!-- Content page -->
 	<section class="bg0 p-t-70 p-b-20">
 		<div class="container">
 			<div class="row">

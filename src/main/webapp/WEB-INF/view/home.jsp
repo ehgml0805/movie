@@ -148,16 +148,11 @@
 											<div class="d-flex justify-content-between mt-3">
 												<c:if test="${wishlistCount[status.index].idCount == 0}">
 													<button class="btn wishBtn border" id="btn-${status.index}"
-														value="${m.movieKey}" type="button">
-														<span>♡</span> ${wishlistCount[status.index].allCount}
-													</button>
+														value="${m.movieKey}" type="button"><span>♡</span> ${wishlistCount[status.index].allCount}</button>
 												</c:if>
 												<c:if test="${wishlistCount[status.index].idCount == 1}">
 													<button class="btn wishBtn border" id="btn-${status.index}"
-														value="${m.movieKey}" type="button">
-														<span class="heart">♥</span>
-														${wishlistCount[status.index].allCount}
-													</button>
+														value="${m.movieKey}" type="button"><span class="heart">♥</span> ${wishlistCount[status.index].allCount}</button>
 												</c:if>
 												<a class="btn d-block" style="background-color: #503396; color: white; width: 150px" href="${pageContext.request.contextPath}/ticketing/screenList?movieKey=${m.movieKey}">예매</a>
 											</div>

@@ -1,6 +1,7 @@
 package goodee.e1i6.movie.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -29,7 +30,14 @@ public class CustomerLoginFilter implements Filter {
 			HttpSession session = ((HttpServletRequest) request).getSession();
 			
 			if(session.getAttribute("loginCustomer") == null) {
-				((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/home");
+				// 로그인 안되어 있으면 alert창 출력 후 home으로 이동
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인 후 이용 가능합니다.'); location.href='/movie/home'</script>");
+				out.flush();
+				out.close();
+				
+				//((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/home");
 				return;
 			}
 		} else {

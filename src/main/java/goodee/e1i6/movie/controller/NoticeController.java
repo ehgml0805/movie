@@ -68,7 +68,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 내용(customer)
-	@GetMapping("/customer/notice/noticeOne")
+	@GetMapping("/notice/noticeOne")
 	public String noticeOneCustomer(Model model, @RequestParam(value="noticeKey") int noticeKey) {
 		Map<String, Object> map = noticeService.getNoticeOne(noticeKey);
 		model.addAttribute("map", map);
@@ -83,7 +83,7 @@ public class NoticeController {
 	}
 	
 	// 공지사항 리스트(customer)
-	@GetMapping("/customer/notice/noticeList")
+	@GetMapping("/notice/noticeList")
 	public String noticeListCustomer(Model model
 									, @RequestParam(value="currentPage", defaultValue="1") int currentPage
 									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
