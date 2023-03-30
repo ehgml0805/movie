@@ -24,4 +24,8 @@
 			seat
 		WHERE screenroom_key = #{screenroomKey}
 	</select>
+	
+	<update id="updateSeat" parameterType="goodee.e1i6.movie.vo.Seat">
+		UPDATE seat SET useable = #{useable} WHERE seat_key = #{seatKey}
+	</update>
 </mapper>
