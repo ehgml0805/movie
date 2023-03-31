@@ -105,8 +105,8 @@
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<div class="eventOne">
 		<c:forEach var="e" items="${eventOneList}" begin="0" end="0">
-			<h2>${e.eventTitle}</h2>
-			<div>
+			<h2 style="margin-bottom:3%;">${e.eventTitle}</h2>
+			<div style="margin-bottom:2%;">
 				이벤트 기간 ${e.eventStartDate} ~ ${e.eventEndDate}
 			</div>
 		</c:forEach>
@@ -121,7 +121,7 @@
 			</div>
 		</c:forEach>
 		<br>
-		<h5 style="text-align: left; margin-left: 150px;">댓글 (${eventCommentCount})</h5>
+		<h6 style="text-align: left; margin-left: 150px; margin-bottom:1%;">댓글 (${eventCommentCount})</h6>
 		<!-- 이벤트 댓글 등록 폼 -->
 		<div id="addComment"></div>
 	</div>

@@ -127,8 +127,9 @@
 		pointer-events: none;
 	}
 	.search {
-		margin-top: 30px;
-		text-align: center;
+		margin-top: 20px;
+		margin-right: 50px;
+		text-align: right;
 	}
 	.search input[name="searchWord"],
 	.search button[type="submit"],
@@ -150,13 +151,24 @@
   		color: black;
   		text-decoration: underline;
 	}
+	.separator {
+		border: 1px solid #CCC;
+		width: 100%;
+	}	
 </style>
 </head>
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<div class="container">		
-		<h3>종료된 이벤트</h3>
+		<h3 style="margin-top: 5%;">종료된 이벤트</h3>
+		<div class="search">
+			<form method="get" action="${pageContext.request.contextPath}/event/endEventList">
+				<input type="text" name="searchWord" value="${param.searchWord}">
+				<button type="submit">이벤트 검색</button>
+			</form>
+		</div>	
+		<hr class="separator">
 		<div class="events-container">
 			<c:forEach var="e" items="${list}">
 				<div class="event-item">
@@ -169,7 +181,7 @@
 						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
 					</div>			
 					<div class="text-center">
-						${e.eventStartDate} ~ ${e.eventEndDate}
+						<span style="font-size:12px;">${e.eventStartDate} ~ ${e.eventEndDate}</span>
 					</div>
 					<button type="button" id="winnerBtn_${e.eventKey}">당첨자 조회</button>
 				</div>
@@ -188,12 +200,6 @@
 			<a href="${pageContext.request.contextPath}/event/endEventList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a>
 		</c:if>
 		<a href="${pageContext.request.contextPath}/event/endEventList?currentPage=${lastPage}&searchWord=${searchWord}">끝으로</a>	
-	</div>	
-	<div class="search">
-		<form method="get" action="${pageContext.request.contextPath}/event/endEventList">
-			<input type="text" name="searchWord" value="${param.searchWord}">
-			<button type="submit">이벤트 검색</button>
-		</form>
 	</div>	
 </body>
 </html>

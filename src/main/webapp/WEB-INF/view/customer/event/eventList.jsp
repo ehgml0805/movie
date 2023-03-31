@@ -66,8 +66,9 @@
 	}
 	
 	.search {
-		margin-top: 30px;
-		text-align: center;
+		margin-top: 20px;
+		margin-right: 50px;
+		text-align: right;
 	}
 	
 	.search input[name="searchWord"],
@@ -89,6 +90,10 @@
   		color: black;
   		text-decoration: underline;
 	}
+	.separator {
+		border: 1px solid #CCC;
+		width: 100%;
+	}	
 	
 </style>
 </head>
@@ -96,8 +101,15 @@
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
 	<div class="container">		
-		<h3>진행중인 이벤트</h3>
 		<a href="${pageContext.request.contextPath}/employee/event/addEvent">이벤트 등록</a>
+		<h3 style="margin-top: 3%;">진행중인 이벤트</h3>
+		<div class="search">
+			<form method="get" action="${pageContext.request.contextPath}/event/eventList">
+				<input type="text" name="searchWord" value="${param.searchWord}">
+				<button type="submit">이벤트 검색</button>
+			</form>
+		</div>	
+		<hr class="separator">
 		<div class="events-container">
 			<c:forEach var="e" items="${list}">
 				<div class="event-item">
@@ -128,12 +140,6 @@
 			<a href="${pageContext.request.contextPath}/event/eventList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a>
 		</c:if>
 		<a href="${pageContext.request.contextPath}/event/eventList?currentPage=${lastPage}&searchWord=${searchWord}">끝으로</a>	
-	</div>	
-	<div class="search">
-		<form method="get" action="${pageContext.request.contextPath}/event/eventList">
-			<input type="text" name="searchWord" value="${param.searchWord}">
-			<button type="submit">이벤트 검색</button>
-		</form>
 	</div>	
 </body>
 </html>

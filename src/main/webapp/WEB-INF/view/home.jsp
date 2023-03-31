@@ -284,6 +284,26 @@
 				            <img src="${pageContext.request.contextPath}/img/1대1문의.jpg">
 				        </a>    
 			        </div>
+   			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/customer/question/addQuestion">
+				            <img src="${pageContext.request.contextPath}/img/대관문의.jpg">
+				        </a>    
+			        </div>
+  			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/customer/question/addQuestion">
+				            <img src="${pageContext.request.contextPath}/img/분실물.jpg">
+				        </a>    
+			        </div>
+   			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/notice/noticeList">
+				            <img src="${pageContext.request.contextPath}/img/고객센터.jpg">
+				        </a>    
+			        </div>
+   			        <div class="col-md-2">
+		       	 		<a href="#" onclick="preparation();">
+				            <img src="${pageContext.request.contextPath}/img/부티크.jpg">
+				        </a>    
+			        </div>
 			    </div>
 			</div>
 		</div>
@@ -335,6 +355,11 @@
 					});
 				}		
 			});
+		</script>
+		<script>
+			function preparation() {
+			  alert("준비중입니다 조금만 기다려주세요");
+			}
 		</script>
 	</body>
 </html>
