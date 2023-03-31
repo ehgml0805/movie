@@ -194,6 +194,6 @@
 		INNER JOIN event_img ei ON e.event_key = ei.event_key
 		INNER JOIN event_comment ec ON ec.event_key  = e.event_key 
 		WHERE ec.customer_id = #{customer_id}
-		
+		GROUP BY e.event_key 
 	</select>
 </mapper>

@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="shortcut icon" href="../img/favicon-32x32.png">
 <title>MEET PLAY SHARE, E1I6</title>
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -13,14 +14,20 @@
 	<style type="text/css">
 	
 	button {
-	  width: 200px;
 	  text-align: left;
 	  font-weight: bold;
-	  margin-right: 60px;
 	}
 	.nav{
+	width: 200px;
+	margin-right: 60px;
 	background-color: #f2f4f5;
 	border-radius: value
+	}
+	
+	
+	.tab-content{
+	width: 840px;
+	margin-left: 60px;
 	}
 	</style>
 </head>
@@ -37,7 +44,7 @@
 			<div class="d-flex align-items-start" >
 				<div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
 					<button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
-						role="tab" aria-controls="v-pills-home" aria-selected="true" style="background-color: #666666">MY E1I6 BOX</button>
+						role="tab" aria-controls="v-pills-home" aria-selected="true" style="background-color: #666666; height: 90; ">E1I6 BOX</button>
 					
 					<button class="nav-link" id="v-pills-ticketing-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ticketing" type="button"
 						role="tab" aria-controls="v-pills-ticketing" aria-selected="true" style="background-color: #f2f4f5;">예매내역</button>
@@ -56,19 +63,30 @@
 						
 					<button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help"
 						type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">나의 문의내역</button>
+						
+						
+					<div class="alert alert-secondary text-center">
+    					<small>
+    						<strong>E1I6BOX 고객센터</strong><br>
+    						Dream center
+    						
+    					</small>
+    					<p><i class="far fa-clock"></i><small> 09:00~18:00</small></p>
+  					</div>
+  					
 				</div>
 		
 				<!-- 탭 내용 -->
-				<div class="tab-content" id="v-pills-tabContent" style="width: 840px;">
+				<div class="tab-content" id="v-pills-tabContent">
 					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 					
 						<div class="row justify-content-md-center">
 							<div class="card" style="border:  none;">
 							
-					  			<div class="card-body" style="background-image: url(../img/my_info_topbg.png); height: 220px;" >
-									<div class="row" style=" margin-top: 40px;">
+					  			<div class="card-body" style="background-image: url(../img/my_info_topbg.png); height: 220px; background-size: cover;" >
+									<div class="row" style=" margin-top: 20px; margin-left: 10px;">
 										<div class="col-2">
-											<img src="${pageContext.request.contextPath}/customer-upload/${co.get(0).fileName}" width="100px;" height="100px;">
+											<img src="${pageContext.request.contextPath}/customer-upload/${co.get(0).fileName}" width="90px;" height="90px;">
 										</div>	
 										<div class="col-4">
 											<span style="font-size: 38px; color: white;"> 안녕하세요!</span>
@@ -81,11 +99,12 @@
 											<span style="font-size: 13px; color: white;">현재등급 </span>
 											<span style="font-weight: bold; font-size: 16px; color: #1f92ff;"> ${co.get(0).get('customerGrade') } </span> 
 											<br>
-											생일 : ${co.get(0).get('customerBirthday') }	
+											<span style="font-size: 13px; color: white;">생일 : </span>
+											<span style="font-size: 13px; color: #04c9df;">${co.get(0).get('customerBirthday') }	</span>
 											<br>
-											핸드폰 : ${co.get(0).get('customerPhone') }	
+											<span style="font-size: 13px; color: white;">핸드폰 : ${co.get(0).get('customerPhone') }	</span>
 											<br>
-											이메일 : ${co.get(0).get('customerEmail') }	
+											<span style="font-size: 13px; color: white;">이메일 : ${co.get(0).get('customerEmail') }	</span>
 										</div>
 									</div>
 									
