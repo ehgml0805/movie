@@ -11,6 +11,15 @@
      .white{
        color: white;
      }
+     
+     .my_btn {
+	  background-color: #342462;
+	  color: white;
+	  border: none;
+	  
+	  width: 460px;
+	  height: 60px;
+	}
 
 </style>
 <body>
@@ -20,11 +29,13 @@
 	
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
+			
 			<div class="modal-header">
-				<h5 class="modal-title white" id="loginFormModalLabel" >....................</h5>
-				<img src="${pageContext.request.contextPath}/img/new-e1i6box-white.png"width="200" style="margin:0px auto;">
 				
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title white" id="loginFormModalLabel" >...................</h5>
+				<img src="${pageContext.request.contextPath}/img/new-e1i6box-white.png"width="200" style="margin:0px auto;">
+				<button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				
 			</div>
 				<div class="modal-body">
 					<form action="${pageContext.request.contextPath}/login/loginCustomer" method="post" id="cloginForm">
@@ -39,7 +50,7 @@
 						</div>
 						<br>
 						<div class="mb-3">
-							<button type="button" class="btn btn-primary" id="cloginBt" >로그인</button>
+							<button type="button" class="btn my_btn" id="cloginBt" >로그인</button>
 						</div>
 						<!-- 카카오로그인 -->
 						<div >
@@ -52,11 +63,10 @@
 						<br>
 						<!-- 관리자로그인 -->
 						<div >
-							<a href="${pageContext.request.contextPath}/login/loginEmployee">
-								<img src="${pageContext.request.contextPath}/img/login.png" width="460" height="60">
-							</a>
+							
 						</div>
 						<div class="modal-footer">
+							
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 							
 						</div>

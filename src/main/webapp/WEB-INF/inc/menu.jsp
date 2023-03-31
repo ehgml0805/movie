@@ -20,6 +20,8 @@
 	a{
 		text-decoration-line : none;
 	}
+
+
 	
 	#event-link:hover {
 		cursor: default;
@@ -69,8 +71,8 @@
 	}
 	
 </style>
-<header class="header-v2">
-	<div class="how-shadow1" style="background-color: #222135">
+<header class="header-v2" >
+	<div class="how-shadow1" style="background-color: #222135" >
 		<nav class="limiter-menu-desktop container">
 			
 	
@@ -130,37 +132,52 @@
 			</div>	
 	
 			<!-- icon header -->
-			<!-- 로그인 상태 -->
-			<c:if test="${not empty loginCustomer}">
-				<div class="wrap-icon-header flex-w flex-r-m">
-					<a href ="${pageContext.request.contextPath}/customer/mypage" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 ">
-						<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">
-					</a>
-					<a href="${pageContext.request.contextPath}/customer/order/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22  ">
-						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
-					</a>	
-					<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
-						<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-white-32.png">
-					</a>
-					
-				</div>
-			</c:if>
 			
-			<!-- 비 로그인 상태 -->
-			<c:if test="${empty loginCustomer}">
-				<div class="wrap-icon-header flex-w flex-r-m">
-					<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
-						<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">&nbsp;&nbsp;&nbsp;&nbsp;
-					</a>
-					
-					<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
-						<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
-					</a>
-					
-				</div>
-			</c:if>
+			<c:choose>
+				
+				<c:when test="${not empty loginCustomer}">
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<a href ="${pageContext.request.contextPath}/customer/mypage" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 ">
+							<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">
+						</a>
+						<a href="${pageContext.request.contextPath}/customer/order/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22  ">
+							<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
+						</a>	
+						<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
+							<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-white-32.png">
+						</a>
+						
+					</div>
+				</c:when>
+				
+				<c:when test="${not empty loginEmployee}">
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
+							<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-white-32.png">
+						</a>
+					</div>
+				</c:when>
+				
+				
+				<c:otherwise>
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
+							<img src="${pageContext.request.contextPath}/img/icons8-user-white-32.png">&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+						
+						<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
+							<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-white-32.png">
+						</a>
+						
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+			
+
 		</nav>
 	</div>	
+	
 </header>
 
 	<!-- Sidebar -->
@@ -176,46 +193,90 @@
 
 			<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
 				<ul class="sidebar-link w-full">
-					<li class="p-b-13">
-						<a href="index.html" class="stext-102 cl2 hov-cl1 trans-04">
-							Home
+					<c:choose>
+				
+						<c:when test="${not empty loginCustomer}">
+						
+						
+						
+						</c:when>
+						<c:when test="${not empty loginEmployee}">
+						
+						
+						</c:when>
+						<c:otherwise>
+						
+						
+						</c:otherwise>
+					</c:choose>	
+					<c:if test="${empty loginEmployee}">
+						<li class="p-b-13">
+							<a href="modal-login-form" class="stext-102 cl2 hov-cl1 trans-04"
+									data-bs-toggle="modal" data-bs-target="#modal-loginEmployee-form">
+								관리자 로그인
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${not empty loginEmployee}">
+						<li class="p-b-13">
+							관리자 모드
+						</li>
+					</c:if>
+					<!-- 영화 관리 -->
+					
+					<c:if test="$"></c:if>
+					<li class="bor18 p-b-13 p-t-10">
+						<a href="${pageContext.request.contextPath}/employee/question/questionList" class="stext-102 cl2 hov-cl1 trans-04">
+							영화 관리
 						</a>
 					</li>
+					<li class="p-b-13">
+						<a href="${pageContext.request.contextPath}/employee/screeningSchedule/screeningScheduleList" class="stext-102 cl2 hov-cl1 trans-04">
+							상영스케줄 관리
+						</a>
+					</li>
+					<li class="p-b-13">
+						<a href="${pageContext.request.contextPath}/employee/theater/theaterList" class="stext-102 cl2 hov-cl1 trans-04">
+							극장 관리
+						</a>
+					</li>
+					
+					<li class="bor18 p-b-13 p-t-10">
+						<a href="${pageContext.request.contextPath}/employee/coupon/couponList" class="stext-102 cl2 hov-cl1 trans-04">
+							쿠폰 관리
+						</a>
+					</li>
+					<li class="p-b-13">
+						<a href="${pageContext.request.contextPath}/event/eventList" class="stext-102 cl2 hov-cl1 trans-04">
+							이벤트 관리
+						</a>
+					</li>
+					
 
-					<li class="p-b-13">
-						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-							My Wishlist
+					<!-- 고객 관리 -->
+					
+					<li class="bor18 p-b-13 p-t-10">
+						<a href="${pageContext.request.contextPath}/employee/notice/addNotice" class="stext-102 cl2 hov-cl1 trans-04">
+							공지사항 관리
 						</a>
 					</li>
+					<li class="p-b-13">
+						<a href="${pageContext.request.contextPath}/employee/question/questionList" class="stext-102 cl2 hov-cl1 trans-04">
+							문의사항 관리
+						</a>
+					</li>
+					<li class="p-b-13">
+						<a href="${pageContext.request.contextPath}/faq/faqList" class="stext-102 cl2 hov-cl1 trans-04">
+							FAQ 관리
+						</a>
+					</li>
+				
 
-					<li class="p-b-13">
-						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-							My Account
-						</a>
-					</li>
-
-					<li class="p-b-13">
-						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-							Track Oder
-						</a>
-					</li>
-
-					<li class="p-b-13">
-						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-							Refunds
-						</a>
-					</li>
-
-					<li class="p-b-13">
-						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-							Help & FAQs
-						</a>
-					</li>
 				</ul>
 
 				<div class="sidebar-gallery w-full p-tb-30">
 					<span class="mtext-101 cl5">
-						@ CozaStore
+						@ E1I6BOX
 					</span>
 
 					
@@ -239,6 +300,7 @@
 <c:if test="${empty loginCustomer }">
 	<%@include file="loginFormModal.jsp"%>
 	<%@include file="addCustomerModal.jsp"%>
+	<%@include file="loginEmployeeFormModal.jsp" %>
 </c:if>
 
 <!--===============================================================================================-->	

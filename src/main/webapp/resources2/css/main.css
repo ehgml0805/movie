@@ -273,10 +273,12 @@ Input, textarea : 14px/1.6 '', S-CoreDream-3Light;
 
 .header-v2 .container-menu-desktop {
   height: 84px;
+
 }
 
 .header-v3 .container-menu-desktop {
   height: auto;
+
 }
 
 .header-v4 .container-menu-desktop {
@@ -3063,6 +3065,7 @@ input.num-product::-webkit-inner-spin-button {
   -webkit-box-shadow: 0 0px 3px 0px rgba(0,0,0,0.2);
   -o-box-shadow: 0 0px 3px 0px rgba(0,0,0,0.2);
   -ms-box-shadow: 0 0px 3px 0px rgba(0,0,0,0.2);
+  border-bottom: 0.2px solid #342462;
 }
 
 /*---------------------------------------------*/

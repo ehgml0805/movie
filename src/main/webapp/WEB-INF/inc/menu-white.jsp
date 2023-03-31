@@ -128,163 +128,97 @@
          </div>   
    
          <!-- icon header -->
-         <!-- 로그인 상태 -->
-         <c:if test="${not empty loginCustomer}">
-            <div class="wrap-icon-header flex-w flex-r-m">
-               <a href ="${pageContext.request.contextPath}/customer/mypage" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 ">
-                  <img src="${pageContext.request.contextPath}/img/icons8-customer-32.png">
-               </a>
-               <a href="${pageContext.request.contextPath}/customer/order/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22  ">
-                  <img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
-               </a>   
-               <a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
-                  <img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-30.png">
-               </a>
-               
-            </div>
-         </c:if>
-         
-         <!-- 비 로그인 상태 -->
-         <c:if test="${empty loginCustomer}">
-            <div class="wrap-icon-header flex-w flex-r-m">
-               <a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
-                  <img src="${pageContext.request.contextPath}/img/icons8-customer-32.png">
-               </a>
-               <a href="modal-login-form" class="nav-link" data-bs-toggle="modal" data-bs-target="#modal-login-form">
-                  <img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
-               </a>
-     
-               
-            </div>
-         </c:if>
+         			<c:choose>
+				
+				<c:when test="${not empty loginCustomer}">
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<a href ="${pageContext.request.contextPath}/customer/mypage" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 ">
+							<img src="${pageContext.request.contextPath}/img/icons8-customer-32.png">
+						</a>
+						<a href="${pageContext.request.contextPath}/customer/order/cartList" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22  ">
+							<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
+						</a>	
+						<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
+							<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-30.png">
+						</a>
+						
+					</div>
+				</c:when>
+				
+				<c:when test="${not empty loginEmployee}">
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<a href="${pageContext.request.contextPath}/login/logout" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 " >
+							<img src="${pageContext.request.contextPath}/img/icons8-logout-rounded-30.png">
+						</a>
+					</div>
+				</c:when>
+				
+				
+				<c:otherwise>
+					<div class="wrap-icon-header flex-w flex-r-m">
+						<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
+							<img src="${pageContext.request.contextPath}/img/icons8-customer-32.png">&nbsp;&nbsp;&nbsp;&nbsp;
+						</a>
+						
+						<a href="modal-login-form"  data-bs-toggle="modal" data-bs-target="#modal-login-form">
+							<img src="${pageContext.request.contextPath}/img/icons8-shopping-cart-32.png">
+						</a>
+						
+					</div>
+				</c:otherwise>
+			</c:choose>
       </nav>
    </div>   
 </header>
 
-   <!-- Sidebar -->
-   <aside class="wrap-sidebar js-sidebar">
-      <div class="s-full js-hide-sidebar"></div>
+	<!-- Sidebar -->
+	<aside class="wrap-sidebar js-sidebar">
+		<div class="s-full js-hide-sidebar"></div>
 
-      <div class="sidebar flex-col-l p-t-22 p-b-25">
-         <div class="flex-r w-full p-b-30 p-r-27">
-            <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-sidebar">
-               <i class="zmdi zmdi-close"></i>
-            </div>
-         </div>
+		<div class="sidebar flex-col-l p-t-22 p-b-25">
+			<div class="flex-r w-full p-b-30 p-r-27">
+				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-sidebar">
+					<i class="zmdi zmdi-close"></i>
+				</div>
+			</div>
 
-         <div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
-            <ul class="sidebar-link w-full">
-               <li class="p-b-13">
-                  <a href="index.html" class="stext-102 cl2 hov-cl1 trans-04">
-                     Home
-                  </a>
-               </li>
+			<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
+				<ul class="sidebar-link w-full">
+					<li class="p-b-13">
+						<a href="modal-login-form" class="stext-102 cl2 hov-cl1 trans-04"
+								data-bs-toggle="modal" data-bs-target="#modal-loginEmployee-form">
+							관리자 로그인
+						</a>
+					</li>
 
-               <li class="p-b-13">
-                  <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                     My Wishlist
-                  </a>
-               </li>
+					<li class="p-b-13">
+						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
+							My Wishlist
+						</a>
+					</li>
 
-               <li class="p-b-13">
-                  <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                     My Account
-                  </a>
-               </li>
+				</ul>
 
-               <li class="p-b-13">
-                  <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                     Track Oder
-                  </a>
-               </li>
+				<div class="sidebar-gallery w-full p-tb-30">
+					<span class="mtext-101 cl5">
+						@ E1I6BOX
+					</span>
 
-               <li class="p-b-13">
-                  <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                     Refunds
-                  </a>
-               </li>
+					
 
-               <li class="p-b-13">
-                  <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                     Help & FAQs
-                  </a>
-               </li>
-            </ul>
+				<div class="sidebar-gallery w-full">
+					<span class="mtext-101 cl5">
+						About Us
+					</span>
 
-            <div class="sidebar-gallery w-full p-tb-30">
-               <span class="mtext-101 cl5">
-                  @ CozaStore
-               </span>
-
-               <div class="flex-w flex-sb p-t-36 gallery-lb">
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-01.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-01.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-02.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-02.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-03.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-03.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-04.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-04.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-05.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-05.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-06.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-06.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-07.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-07.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-08.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-08.jpg');"></a>
-                  </div>
-
-                  <!-- item gallery sidebar -->
-                  <div class="wrap-item-gallery m-b-10">
-                     <a class="item-gallery bg-img1" href="images/gallery-09.jpg" data-lightbox="gallery" 
-                     style="background-image: url('images/gallery-09.jpg');"></a>
-                  </div>
-               </div>
-            </div>
-
-            <div class="sidebar-gallery w-full">
-               <span class="mtext-101 cl5">
-                  About Us
-               </span>
-
-               <p class="stext-108 cl6 p-t-27">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus vulputate hendrerit. Praesent faucibus erat vitae rutrum gravida. Vestibulum tempus mi enim, in molestie sem fermentum quis. 
-               </p>
-            </div>
-         </div>
-      </div>
-   </aside>   
+					<p class="stext-108 cl6 p-t-27">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus vulputate hendrerit. Praesent faucibus erat vitae rutrum gravida. Vestibulum tempus mi enim, in molestie sem fermentum quis. 
+					</p>
+				</div>
+			</div>
+		</div>
+	</aside>	
+   
 
 
 
@@ -292,6 +226,7 @@
 <c:if test="${empty loginCustomer }">
    <%@include file="loginFormModal.jsp"%>
    <%@include file="addCustomerModal.jsp"%>
+   <%@include file="loginEmployeeFormModal.jsp" %>
 </c:if>
 
 <!--===============================================================================================-->   
