@@ -190,6 +190,49 @@ public class EventService {
 		return lastPage;
 	}
 	
+	// modifyEvent
+	public void modifyEvent(EventForm eventForm, String path) {
+		Event event = new Event();
+		event.setEventTitle(eventForm.getEventTitle());
+		event.setEventContent(eventForm.getEventContent());
+		event.setEventStartDate(eventForm.getEventStartDate());;
+		event.setEventEndDate(eventForm.getEventEndDate());
+		event.setMovieKey(eventForm.getMovieKey());
+		
+		int row = eventMapper.updateEvent(event);
+		log.debug(TeamColor.JSM + row + " <- eventMapper.updateEvent 실행결과");
+		
+		if(eventForm.getEventImgList().get(0).getSize() > 0 && row == 1) {
+			for(MultipartFile mf : eventForm.getEventImgList()) {
+				EventImg eventImg = new EventImg();
+				
+				String originName = mf.getOriginalFilename();
+				// originName에서 마지막 .문자열 위치
+				String ext = originName.substring(originName.lastIndexOf("."));
+				
+				// 파일을 저장할때 사용할 중복되지않는 새로운 이름 필요(UUID API사용)
+				String fileName = UUID.randomUUID().toString();
+			
+				fileName = fileName + ext;
+				
+				eventImg.setEventKey(event.getEventKey());
+				eventImg.setFileName(fileName);
+				eventImg.setFileType(mf.getContentType());
+				eventImg.setFileSize(mf.getSize());
+				eventImg.setOriginName(originName);
+				eventImgMapper.updateEventImg(eventImg);
+				try {
+					mf.transferTo(new File(path+fileName));
+				} catch (Exception e) {
+					e.printStackTrace();
+					// 파일업로드에 실패하면
+					// try...catch절이 필요로 하지 않는 RuntimeException을 발생시켜서
+					// 애노테이션Transactional이 감지하여 rollback할 수 있도록 
+					throw new RuntimeException();
+				}
+			}
+		}
+	}
 	
 	// EventAdd
 	public void addEvent(EventForm eventForm, String path) {

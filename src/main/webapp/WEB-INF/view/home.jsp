@@ -381,11 +381,5 @@
   				alert("준비중입니다 조금만 기다려주세요");
 			}
 		</script>
-		<script>
-			function openLoginModal() {
-		  		var myModal = new bootstrap.Modal(document.getElementById('modal-login-form'));
-		  		myModal.show();
-			}
-		</script>
 	</body>
 </html>
