@@ -61,10 +61,8 @@
 							
 						</div>
 						<br>
-						<!-- 관리자로그인 -->
-						<div >
-							
-						</div>
+						
+						
 						<div class="modal-footer">
 							
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
