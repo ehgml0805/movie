@@ -92,18 +92,19 @@
 			.customer {
 				margin-top: 1%;
 			}
-			.separator {
-    			border: 1px solid #CCC;
-    			width: 100%; /* Adjust the width of the separator line */
-    			margin-top: 10%;
-			}
 			.icons {
 			  	position: absolute;
 	 			bottom: 0;
   				left: 50%;
   				transform: translateX(-50%);
 			}
-			
+			p.text-center {
+				margin-top: 10%;
+		 		border-top: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+  				padding: 10px 0;
+			 	width: 100%;
+			}
 		</style>
 	</head>
 	<body>
@@ -269,7 +270,21 @@
 			    </div>
 			</div>
 		</div>
-		<hr class="separator">
+		<div id="notice-container" class="container mt-5">
+			<div id="noticeCarousel" class="carousel slide" data-ride="carousel">
+   				<div class="carousel-inner">
+   					<c:forEach var="n" items="${noticeList}" varStatus="loop">
+       					<div class="carousel-item <c:if test="${loop.index == 0}">active</c:if>">
+       						<div class="row">
+	      						<div class="col-md-12">
+	        						<p class="text-center">공지사항: ${n.noticeTitle}</p>
+	      						</div>
+	   		 				</div>
+	  					</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>		
 		<!-- 고객 센터 -->
 		<div class="customer">
 			<div class="container mt-5">

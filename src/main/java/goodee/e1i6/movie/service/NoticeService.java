@@ -61,6 +61,12 @@ public class NoticeService {
 		return noticeMapper.selectNoticeListCount();
 	}
 	
+	// home 공지사항 리스트
+	public List<Notice> getHomeNoticeList() {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		return noticeMapper.selectHomeNoticeList(paramMap);
+	}
+	
 	// 공지사항 리스트
 	public List<Notice> getNoticeList(int currentPage, int rowPerPage, String searchWord) {
 		int beginRow = (currentPage -1) * rowPerPage;

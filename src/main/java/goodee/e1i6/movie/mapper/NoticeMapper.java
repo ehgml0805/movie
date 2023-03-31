@@ -20,6 +20,8 @@ public interface NoticeMapper {
 	Map<String, Object> selectNoticeOne(int noticeKey);
 	// 공지사항 리스트 마지막페이지
 	int selectNoticeListCount();
+	// 홈화면 공지사항 리스트
+	List<Notice> selectHomeNoticeList(Map<String, Object> paramMap);
 	// 공지사항 리스트
 	List<Notice> selectNoticeList(Map<String, Object> paramMap);
 	// 공지사항 이미지 등록

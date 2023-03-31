@@ -17,11 +17,13 @@ import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.EventService;
 import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.service.MovieService;
+import goodee.e1i6.movie.service.NoticeService;
 import goodee.e1i6.movie.service.PointService;
 import goodee.e1i6.movie.service.VisitorService;
 import goodee.e1i6.movie.service.WishlistService;
 import goodee.e1i6.movie.teamColor.TeamColor;
 import goodee.e1i6.movie.vo.Customer;
+import goodee.e1i6.movie.vo.Notice;
 import goodee.e1i6.movie.vo.PointAccumulate;
 import goodee.e1i6.movie.vo.PointRedeem;
 import goodee.e1i6.movie.vo.Visitor;
@@ -36,6 +38,7 @@ public class HomeController {
 	@Autowired PointService pointService;
 	@Autowired MovieService movieService;
 	@Autowired WishlistService wishlistService;
+	@Autowired NoticeService noticeService;
 	
 	@GetMapping("/home")
 	public String getHome(HttpServletRequest request, Model model
@@ -58,13 +61,16 @@ public class HomeController {
 			if (customer != null) {
 				customerId = customer.getCustomerId();				
 			}
-			
+			// 공지사항 리스트
+			List<Notice> noticeList = noticeService.getHomeNoticeList();
+			log.debug(TeamColor.JSM + "공지사항 리스트 :" + noticeList);
 			// 영화 목록
 			ArrayList<Map<String, Object>> movieList = movieService.getMovieList(startDate);
 			List<Map<String, Object>> wishlistCount = wishlistService.getWishlistById(customerId);
 			model.addAttribute("movieList", movieList);
 			model.addAttribute("wishlistCount", wishlistCount);
 			model.addAttribute("customerId", customerId);
+			model.addAttribute("noticeList", noticeList);
 			
 		return "home";
 	}
