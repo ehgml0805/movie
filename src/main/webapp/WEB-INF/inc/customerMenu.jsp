@@ -45,7 +45,7 @@
 					<div class="alert alert-secondary text-center">
     					<small>
     						<strong>E1I6BOX 고객센터</strong><br>
-    						Dream cente
+    						Dream center
     						
     					</small>
     					<p><i class="far fa-clock"></i><small> 09:00~18:00</small></p>

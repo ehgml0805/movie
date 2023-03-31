@@ -65,6 +65,11 @@
 			, qa.question_answer questionAnswer
 		FROM question q
 			LEFT OUTER JOIN question_answer qa ON q.question_key = qa.question_key
+		<where>
+			<if test="searcWord != null || searchWord != ''">
+				question_title LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -115,6 +120,9 @@
 		FROM question q
 			LEFT OUTER JOIN question_answer qa ON q.question_key = qa.question_key
 		WHERE customer_id = #{customerId}
+		<if test="searcWord != null || searchWord != ''">
+			AND question_title LIKE CONCAT('%',#{searchWord},'%')
+		</if>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

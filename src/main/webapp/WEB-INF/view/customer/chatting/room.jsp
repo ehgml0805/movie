@@ -284,6 +284,7 @@ main footer button{
 	    var minutes = String(now.getMinutes()).padStart(2,"0");
 	    var year = now.getFullYear();
 	    var month = now.getMonth();
+	    month = month + 1;
 	    var date = now.getDate();
 	    
 	    var sockJs = new SockJS("/movie/stomp/chat");

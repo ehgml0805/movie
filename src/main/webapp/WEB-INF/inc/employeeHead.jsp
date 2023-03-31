@@ -4,7 +4,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- co -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="../../resources2/images/icons/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources2/fonts/iconic/css/material-design-iconic-font.min.css">

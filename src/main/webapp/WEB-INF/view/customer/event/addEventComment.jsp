@@ -44,7 +44,6 @@
 			border: 1px solid #CCC;
 			display: block;
 			font-size: 16px;
-			margin-bottom: 20px;
 			padding: 1px;
 			width: 88%;
 			box-sizing: border-box;
@@ -72,8 +71,8 @@
 		}
 		.button-wrap {
 			border: 1px solid #CCC;
-			width: calc(88% - 2px);
-			height: 39px;
+			width: calc(88.2% - 2px);
+			height: 30px;
 			padding: 1px;
 		}
 	</style>
@@ -98,7 +97,7 @@
 				</select>
 			</div>
 			<div>
-				<textarea rows="4" cols="50" name="eventCommentContent"></textarea>
+				<textarea rows="5" cols="50" name="eventCommentContent"></textarea>
 			</div>
 		 	<div class="button-wrap">
 				<button type="submit" name="eventCommentContent">등록</button>

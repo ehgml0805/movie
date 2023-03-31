@@ -13,6 +13,11 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> <!-- 부트스트랩 JavaScript 파일 -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<style>
+			a {
+				color : #037B94;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- 네비바 -->
@@ -26,7 +31,7 @@
 			</form>
 			<a class="btn btn-light" href="${pageContext.request.contextPath}/employee/screenroom/addScreenroom?theaterKey=${theaterOne.theaterKey}">상영관 등록</a>
 			<div id="modify">
-				<table class="table">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>극장코드</th>
@@ -52,7 +57,7 @@
 			<h1 class="my-4">상영관 목록</h1>
 			<!-- 상영관 등록 모달 버튼 -->
 			<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTheaterModal">상영관 등록</button>
-			<table class="table">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>상영관코드</th>
@@ -84,7 +89,7 @@
 					<div class="modal-body">
 						<form action="${pageContext.request.contextPath}/employee/screenroom/addScreenroom" method="post">
 							<input type="hidden" name="theaterKey" value="${theaterOne.theaterKey}">
-							<table class="table">
+							<table class="table table-striped">
 								<tr>
 									<th>상영관명</th>
 									<td><input class="form-control" type="text" name="screenroomName"></td>
@@ -124,8 +129,9 @@
 				
 				$('#modifyBtn').click(function() {
 					let html = `
+						<h4 class='my-4'>1. 극장</h4>
 						<form id="modifyForm">
-							<table border="1">
+							<table class='table mt-5' border="1">
 								<thead>
 									<tr>
 										<th>극장코드</th>
@@ -135,25 +141,25 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td><input type="text" name="theaterKey" value="${theaterOne.theaterKey}" readonly="readonly"></td>
-										<td><input type="text" name="theaterName" value="${theaterOne.theaterName}"/></td>
+										<td><input type="text" class='form-control' name="theaterKey" value="${theaterOne.theaterKey}" readonly="readonly"></td>
+										<td><input type="text" class='form-control' name="theaterName" value="${theaterOne.theaterName}"/></td>
 										<td>
-											<input type="text" id="postcode" name="postcode" placeholder="우편번호">
-											<input type="button" onclick="DaumPostcode()" value="우편번호 찾기">
+											<input type="text" class='form-control' id="postcode" name="postcode" placeholder="우편번호">
+											<input type="button" class='btn d-block w-100' style='background-color:#037B94; color: white;' onclick="DaumPostcode()" value="우편번호 찾기">
 											<br>
-											<input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-											<input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소">
-											<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
-											<input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
+											<input type="text" class='form-control' id="roadAddress" name="roadAddress" placeholder="도로명주소">
+											<input type="text" class='form-control' id="jibunAddress" name="jibunAddress" placeholder="지번주소">
+											<input type="text" class='form-control' id="detailAddress" name="detailAddress" placeholder="상세주소">
+											<input type="text" class='form-control' id="extraAddress" name="extraAddress" placeholder="참고항목">
 										</td>
 									</tr>
 								</tbody>		
 							</table>
-							<div>극장정보</div>
-							<div><textarea rows="10" cols="50" name="theaterInfo">${theaterOne.theaterInfo}</textarea></div>
-							<div>예매시알림정보</div>
-							<div><textarea rows="10" cols="50" name="theaterTicketingInfo">${theaterOne.theaterTicketingInfo}</textarea></div>
-							<div><button type="button" id="modifyCkBtn">수정완료</button></div>
+							<h4 class='my-4'>2. 극장정보</h4>
+							<div><textarea class='form-control' rows="5" cols="30" name="theaterInfo">${theaterOne.theaterInfo}</textarea></div>
+							<h4 class='my-4'>3. 예매시알림정보</h4>
+							<div><textarea class='form-control' rows="5" cols="30" name="theaterTicketingInfo">${theaterOne.theaterTicketingInfo}</textarea></div>
+							<div class='mt-3'><button class='btn btn-secondary w-100' style='background-color:#037B94; color: white;' type="button" id="modifyCkBtn">수정완료</button></div>
 						</form>
 					`
 					

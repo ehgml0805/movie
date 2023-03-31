@@ -3,67 +3,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	body {
-	  font-family: Arial, sans-serif;
-	  line-height: 1.6;
-	  margin: 50px;
-	}
-	
-	h2 {
-	  font-size: 24px;
-	  margin-bottom: 20px;
-	}
-	.form-group {
-  		margin-bottom: 20px;
-	}
-
-	label {
-  		display: block;
-  		font-size: 18px;
-  		margin-bottom: 5px;
-	}
-	
-	input[type="text"],
-	textarea {
-  		width: 100%;
-  		padding: 12px;
-  		font-size: 16px;
-  		border: 1px solid #ccc;
-  		border-radius: 4px;
-  		box-sizing: border-box;
-  		resize: vertical;
-	}
-	.btn {
-  		background-color: #999;
-  		color: white;
-  		padding: 12px 20px;
-	  	border: none;
-	  	border-radius: 4px;
-	  	cursor: pointer;
-	  	font-size: 18px;
-	  	margin-top: 20px;
-	}
-
-	.btn:hover {
-  		background-color: #999;
-	}
-</style>
 <meta charset="UTF-8">
-<title>FAQ 등록</title>
+<title>MEET PLAY SHARE, E1I6</title>
+<!-- employeeHead -->
+<c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
 </head>
 <body>
-	<h2>FAQ 등록</h2>
-	<form class="faq-form" method="post" action="${pageContext.request.contextPath}/employee/faq/addFaq">
-		<div class="form-group">
-	 		<label for="faqQuestion">질문 내용:</label>
-			<input type="text" id="faqQuestion" name="faqQuestion">
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import>
+	
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="${pageContext.request.contextPath}/home" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<a href="${pageContext.request.contextPath}/employeeHome" class="stext-109 cl8 hov-cl1 trans-04">
+				Admin Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				AddFaq
+			</span>
 		</div>
-		<div class="form-group">
-			<label for="faqAnswer">답변 내용:</label> 
-			<textarea rows="5" cols="100" name="faqAnswer"></textarea>
+	</div>
+	
+	<!-- Content page -->
+	<section class="bg0 p-t-70 p-b-20">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-9 p-b-80">
+					<div class="p-r-45 p-r-0-lg text-center">
+					<!-- Main start -->
+						<h1>FAQ 등록</h1><br>
+						<form method="post" action="${pageContext.request.contextPath}/employee/faq/addFaq">
+							<table class="table">
+								<tr>
+							 		<td>질문 내용</td>
+									<td><input type="text" id="faqQuestion" name="faqQuestion" class="form-control"></td>
+								</tr>
+								<tr>
+									<td>답변 내용</td> 
+									<td><textarea rows="5"name="faqAnswer" class="form-control"></textarea></td>
+								</tr>
+							</table>
+							<button type="submit" class="form-control">FAQ 등록</button>
+						</form>
+					<!-- Main End -->
+					</div>
+				</div>
+				
+				<!-- 관리자 메뉴 -->
+				<c:import url="/WEB-INF/inc/employeeMenu.jsp"></c:import>
+				
+			</div>
 		</div>
-		<button type="submit" class="btn">FAQ 등록</button>
-	</form>
+	</section>	
+	
+	<!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+
 </body>
 </html>

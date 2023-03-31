@@ -14,13 +14,18 @@
 	        <ul>
 	         <c:forEach var="l" items="${list}">
 	         	<c:if test="${l.name eq id}">
-	            	<li><a id="check" href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></li>
+	         	<li><a id="check" href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></li>
+	         	<form id="f1" method="get" action="${pageContext.request.contextPath}/chatting/room">
+	         		<input type="text" name="roomId" value="${l.roomId}">
+	         	<button type="submit" id="btn2">rr</button>
+	         	</form>
+	            	
 	         	</c:if>
 	         </c:forEach>
 	        </ul>
 	    </div>
 	</div>
-	<form action="${pageContext.request.contextPath}/chatting/room" method="post">
+	<form id="f2" action="${pageContext.request.contextPath}/chatting/room" method="post">
 	    <input type="text" name="name" class="form-control" value="${id}" readonly="readonly">
 	    <button type="button" id="btn" class="btn btn-secondary">개설하기</button>
 	</form>
@@ -28,22 +33,28 @@
 	<script>
 	
 	$(document).ready(function(){
-	
-	    var roomName = "${roomName.name}";
-	
+		
+		var roomName = "${roomName.name}";
+		
 	    if(roomName != "")
-	        alert(roomName + "방이 개설되었습니다.");
+	    	$('#f1').submit();
+	        //alert(roomName + "방이 개설되었습니다.");
+	    
+		$("#btn").bind("click", function(e){
+			alert("시작");
 
-	    $("#btn").on("click", function (e){
-
-	        if($('#check').val() != null) // 이미 방이 만들어져 있으면
-	        	alert("채팅방이 생성되어 있습니다.")
-	        else 
-	            $("form").submit();
-	        
-	    });
-	
+		        if($('#check').val() != null) { // 이미 방이 만들어져 있으면
+		        	alert("클릭 이프");
+		        	$('#f1').submit();
+				} else {
+					alert("클릭 엘스");
+					$('#f2').submit();
+					$('#f1').submit();
+		        }
+		    });
+		$("#btn").trigger('click');
 	});
+			
 	</script>
 </body>
 </html>

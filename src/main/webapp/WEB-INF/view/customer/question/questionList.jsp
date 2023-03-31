@@ -8,6 +8,20 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+	.search {
+		margin-top: 10px;
+		text-align: center;
+	}
+	.search input[name="searchWord"],
+	.search button[type="submit"] {
+  		border: 1px solid #ccc;
+	  	border-radius: 6px;
+	  	padding: 3px 10px;
+	  	display: inline-block;
+	  	vertical-align: middle; 
+	}
+</style>
 </head>
 <body>
 	<!-- 네비바 -->
@@ -76,29 +90,43 @@
 								</tr>
 							</c:forEach>
 						</table>
+						<!-- 검색버튼 -->
+						<div class="search">
+							<form method="get" action="${pageContext.request.contextPath}/customer/question/questionList">
+								<div class="col">	
+									<input type="text" name="searchWord" value="${param.searchWord}">
+									<button type="submit"><i class="zmdi zmdi-search"></i></button>
+								</div> 
+							</form>
+						</div>
 						<!-- 페이징 -->
-						<div>
-							<!-- 처음으로 -->
-							<a href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=1">처음</a>
-							<!-- 1페이지에서 이전버튼 -->
-							<c:if test="${currentPage <= 1}">
-								<span>이전</span>
-							</c:if>
-							<!-- 이전페이지 -->
-							<c:if test="${currentPage > 1}">
-								<a href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${currentPage-1}">이전</a>
-							</c:if>
-							<span>${currentPage} / ${lastPage}</span>
-							<!-- 다음페이지 -->
-							<c:if test="${currentPage < lastPage}">
-								<a href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${currentPage+1}">다음</a>
-							</c:if>
-							<!-- 마지막페이지에서 다음버튼 -->
-							<c:if test="${currentPage >= lastPage}">
-								<span>다음</span>
-							</c:if>
-							<!-- 마지막으로 -->
-							<a href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${lastPage}">마지막</a>
+						<div class="container mt-3">
+							<ul class="pagination justify-content-center">
+								<!-- 1페이지에서 첫페이지,이전 버튼클릭 disabled -->
+								<c:if test="${currentPage <= 1}">
+									<li class="page-item disabled"><a class="page-link" href="#">처음</a></li>
+									<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+								</c:if>
+								<!-- 첫페이지가 아닐때 -->
+								<c:if test="${currentPage > 1}">
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=1&searchWord=${searchWord}">처음</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${currentPage-1}&searchWord=${searchWord}"><</a></li>
+								</c:if>
+								<!-- startPage ~ endPage -->
+								<c:forEach var="s" begin="${startPage}" end="${endPage}" step="1">
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${s}&searchWord=${searchWord}">${s}</a></li>
+								</c:forEach>
+								<!-- 마지막페이지가 아닐때 -->
+								<c:if test="${currentPage < lastPage}">
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${currentPage+1}&searchWord=${searchWord}">></a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${lastPage}&searchWord=${searchWord}">마지막</a></li>
+								</c:if>
+								<!-- 마지막페이지에서 버튼클릭 disabled -->
+								<c:if test="${currentPage >= lastPage}">
+									<li class="page-item disabled"><a class="page-link" href="#">></a></li>
+									<li class="page-item disabled"><a class="page-link" href="#">마지막</a></li>
+								</c:if>
+							</ul>
 						</div>
 						<!-- Main End -->
 					</div>
@@ -106,6 +134,9 @@
 			</div>
 		</div>
 	</section>	
-	
+	<!-- footer -->
+	<div>
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 </body>
 </html>

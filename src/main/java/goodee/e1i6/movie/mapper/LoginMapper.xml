@@ -99,7 +99,8 @@
 			, c.customer_gender customerGender
 			, c.customer_grade customerGrade
 			, c.customer_phone customerPhone	
-			, c.customer_email customerEmail	
+			, c.customer_email customerEmail
+			, c.customer_point customerPoint	
 			, c.last_login lastLogin
 			, c.createdate createdate
 			, ci.file_name fileName

@@ -32,7 +32,7 @@ public class RoomController {
         log.debug(TeamColor.YIB + "채팅방 목록--");
         ModelAndView mv = new ModelAndView();
         if(session.getAttribute("loginCustomer") == null && session.getAttribute("loginEmployee") == null) {
-        	mv.setViewName("login/loginCustomer");
+        	mv.setViewName("home");
         	return mv;
         }
         // 로그인한 세션 확인

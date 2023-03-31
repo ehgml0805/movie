@@ -86,44 +86,72 @@ public class NoticeController {
 	@GetMapping("/notice/noticeList")
 	public String noticeListCustomer(Model model
 									, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
+									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+									, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		// 마지막페이지
 		int noticeCount = noticeService.getNoticeListCount();
 		int lastPage = noticeCount / rowPerPage;
 		if(noticeCount % rowPerPage != 0) {
 			lastPage += 1;
 		}
+		// startPage
+		int startPage = ((currentPage - 1)/rowPerPage) * rowPerPage + 1;
+		// endPage
+		int endPage = startPage + rowPerPage - 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		
 		log.debug(TeamColor.YIB + noticeCount + " : noticeCount");
 		log.debug(TeamColor.YIB + lastPage + " : lastPage");
+		log.debug(TeamColor.YIB + startPage + " : startPage");
+		log.debug(TeamColor.YIB + endPage + " : endPage");
 		
 		// 리스트
-		List<Notice> list = noticeService.getNoticeList(currentPage, rowPerPage);
+		List<Notice> list = noticeService.getNoticeList(currentPage, rowPerPage, searchWord);
 		// view로 전달
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("searchWord", searchWord);
 		return "customer/notice/noticeList";
 	}
 	// 공지사항 리스트(employee)
 	@GetMapping("/employee/notice/noticeList")
 	public String noticeList(Model model
 									, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
+									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+									, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		// 마지막페이지
 		int noticeCount = noticeService.getNoticeListCount();
 		int lastPage = noticeCount / rowPerPage;
 		if(noticeCount % rowPerPage != 0) {
 			lastPage += 1;
 		}
+		// startPage
+		int startPage = ((currentPage - 1)/rowPerPage) * rowPerPage + 1;
+		// endPage
+		int endPage = startPage + rowPerPage - 1;
+		if(endPage > lastPage) {
+			endPage = lastPage;
+		}
+		
 		log.debug(TeamColor.YIB + noticeCount + " : noticeCount");
 		log.debug(TeamColor.YIB + lastPage + " : lastPage");
+		log.debug(TeamColor.YIB + startPage + " : startPage");
+		log.debug(TeamColor.YIB + endPage + " : endPage");
 		
 		// 리스트
-		List<Notice> list = noticeService.getNoticeList(currentPage, rowPerPage);
+		List<Notice> list = noticeService.getNoticeList(currentPage, rowPerPage, searchWord);
 		// view로 전달
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("searchWord", searchWord);
 		return "employee/notice/noticeList";
 	}
 	

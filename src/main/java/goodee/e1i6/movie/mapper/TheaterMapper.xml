@@ -35,16 +35,21 @@
 	 
 	<!-- 빠른 예매 - 지역에 해당하는 극장 목록 -->
 	<select id="selectTheaterNameListByRegion" parameterType="String" resultType="java.util.Map">
-		SELECT 
-			t.theater_key theaterKey
-			, theater_name theaterName
-			, start_date startDate
+		SELECT
+		   t.theater_key theaterKey
+		   , t.theater_name theaterName
+		   , max_dates.max_start_date startDate
 		FROM theater t
-			LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
-			LEFT JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key AND DATE(start_date) = #{startDate} 
-					<if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if>
-		WHERE theater_region = #{theaterRegion}
-		GROUP BY t.theater_key
+		   LEFT JOIN screenroom sr ON t.theater_key = sr.theater_key
+		   LEFT JOIN (
+		      SELECT sr.theater_key, MAX(ss.start_date) max_start_date
+		      FROM screenroom sr
+		         INNER JOIN screening_schedule ss ON sr.screenroom_key = ss.screenroom_key
+		      WHERE DATE(start_date) = #{startDate} <if test="movieKey != 0">AND ss.movie_key = #{movieKey}</if>
+		      GROUP BY sr.theater_key
+		   ) max_dates ON t.theater_key = max_dates.theater_key
+		WHERE theater_region = #{theaterRegion} 
+		GROUP BY t.theater_key, t.theater_name, max_dates.max_start_date;
 	</select>
 	
 	<!-- 빠른 예매(지역순) -->

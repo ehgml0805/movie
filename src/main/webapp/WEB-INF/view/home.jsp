@@ -92,18 +92,19 @@
 			.customer {
 				margin-top: 1%;
 			}
-			.separator {
-    			border: 1px solid #CCC;
-    			width: 100%; /* Adjust the width of the separator line */
-    			margin-top: 10%;
-			}
 			.icons {
 			  	position: absolute;
 	 			bottom: 0;
   				left: 50%;
   				transform: translateX(-50%);
 			}
-			
+			p.text-center {
+				margin-top: 10%;
+		 		border-top: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+  				padding: 10px 0;
+			 	width: 100%;
+			}
 		</style>
 	</head>
 	<body>
@@ -216,7 +217,7 @@
 						                    </a>
 	        							</div>
 		                		        <div class="carousel-item">
-          									<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=5">
+          									<a href="${pageContext.request.contextPath}/notice/noticeOne?noticeKey=5">
 	          	 								<img src="${pageContext.request.contextPath}/event-upload/u멤버십2.jpg" style="width: 580px; height: 240px;">
 	          								</a>
 	        							</div>			           
@@ -239,7 +240,7 @@
 			                <!-- Small card 2 -->
 			                <div class="col-md-6">
 			                    <div class="card" style="width: 19rem;">
-		                   	 		<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=4">
+		                   	 		<a href="${pageContext.request.contextPath}/notice/noticeOne?noticeKey=4">
 			                        	<img src="${pageContext.request.contextPath}/event-upload/메박오리지널티켓.jpg" style="width: 18rem; height: 210px;">
 			                    	</a>
 			                    </div>
@@ -269,7 +270,21 @@
 			    </div>
 			</div>
 		</div>
-		<hr class="separator">
+		<div id="notice-container" class="container mt-5">
+			<div id="noticeCarousel" class="carousel slide" data-ride="carousel">
+   				<div class="carousel-inner">
+   					<c:forEach var="n" items="${noticeList}" varStatus="loop">
+       					<div class="carousel-item <c:if test="${loop.index == 0}">active</c:if>">
+       						<div class="row">
+	      						<div class="col-md-12">
+	        						<p class="text-center"><a href="${pageContext.request.contextPath}/notice/noticeOne?noticeKey=${n.noticeKey}">[공지] ${n.noticeTitle}</a></p>
+	      						</div>
+	   		 				</div>
+	  					</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>		
 		<!-- 고객 센터 -->
 		<div class="customer">
 			<div class="container mt-5">
@@ -282,6 +297,26 @@
 			        <div class="col-md-2">
 		       	 		<a href="${pageContext.request.contextPath}/customer/question/questionList">
 				            <img src="${pageContext.request.contextPath}/img/1대1문의.jpg">
+				        </a>    
+			        </div>
+   			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/customer/question/addQuestion">
+				            <img src="${pageContext.request.contextPath}/img/대관문의.jpg">
+				        </a>    
+			        </div>
+  			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/customer/question/addQuestion">
+				            <img src="${pageContext.request.contextPath}/img/분실물.jpg">
+				        </a>    
+			        </div>
+   			        <div class="col-md-2">
+		       	 		<a href="${pageContext.request.contextPath}/notice/noticeList">
+				            <img src="${pageContext.request.contextPath}/img/고객센터.jpg">
+				        </a>    
+			        </div>
+   			        <div class="col-md-2">
+		       	 		<a href="#" onclick="preparation();">
+				            <img src="${pageContext.request.contextPath}/img/부티크.jpg">
 				        </a>    
 			        </div>
 			    </div>
@@ -335,6 +370,14 @@
 					});
 				}		
 			});
+		</script>
+		<script>
+			function preparation() {
+  				alert("준비중입니다 조금만 기다려주세요");
+				var loginModal = new bootstrap.Modal(document.getElementById('modal-login-form'));
+	    		loginModal.show();
+			}
+
 		</script>
 	</body>
 </html>
