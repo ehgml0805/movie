@@ -40,9 +40,9 @@ public class KaKaoService {
         parameters.add("total_amount", paramMap.get("kakaoPrice"));
         parameters.add("vat_amount", paramMap.get("vatAmount"));
         parameters.add("tax_free_amount", paramMap.get("taxFreeAmount"));
-        parameters.add("approval_url", "http://localhost/movie/movie/movieList"); // 성공 시 redirect url
-        parameters.add("cancel_url", "http://localhost/movie/movie/movieList"); // 취소 시 redirect url
-        parameters.add("fail_url", "http://localhost/movie/movie/movieList"); // 실패 시 redirect url
+        parameters.add("approval_url", "http://3.37.164.229/movie/ticketing/kakaopaySuccess"); // 성공 시 redirect url
+        parameters.add("cancel_url", "http://3.37.164.229/movie/ticketing/screenList"); // 취소 시 redirect url
+        parameters.add("fail_url", "http://3.37.164.229/movie/ticketing/screenList"); // 실패 시 redirect url
         */
         parameters.add("cid", "TC0ONETIME"); // 가맹점 코드, 테스트 코드
         parameters.add("partner_order_id", "KA12345678");
@@ -97,7 +97,7 @@ public class KaKaoService {
 	// header() 셋팅
 	private HttpHeaders getHeaders() {
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "KakaoAK 93fe440416fe07aecb251da20e355baf");
+		headers.set("Authorization", "KakaoAK 54ddc786385e6e9126e39a59a24e7ba8");
 		headers.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		
 		return headers;
