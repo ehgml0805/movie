@@ -223,6 +223,27 @@ public class EventController {
 		return "customer/event/eventOne";
 	}
 	
+	// 이벤트 수정
+	@GetMapping("/employee/event/modifyEvent")
+	public String modifyEvent() {
+		return "employee/event/modifyEvent";
+	}
+	@PostMapping("/employee/event/modifyEvent")
+	public String modifyEvent(HttpServletRequest request, EventForm eventForm) {
+		String path = request.getServletContext().getRealPath("/event-upload/");
+		log.debug(TeamColor.JSM + path + " <- modifyEvent path");
+		log.debug(TeamColor.JSM + eventForm + " <- eventForm :");
+		
+		List<MultipartFile> eventImgList = eventForm.getEventImgList();
+		if(eventImgList.get(0).getSize() > 0) { // 하나 이상의 파일이 업로드 될 경우
+			for(MultipartFile mf : eventImgList) {
+				log.debug(TeamColor.JSM + mf.getOriginalFilename() + " <- modifyEvent fileName");
+			}
+		}
+		
+		eventService.modifyEvent(eventForm, path);
+		return "redirect:/event/eventList";
+	}
 	
 	// 이벤트 추가
 	@GetMapping("/employee/event/addEvent")
