@@ -20,54 +20,6 @@
 	a{
 		text-decoration-line : none;
 	}
-	
-	#event-link:hover {
-		cursor: default;
-	}
-	
-	#event-tooltip {
-  		position: absolute;
-	  	left: 42%;
-	  	cursor: pointer;
-	  	display: none;
-	  	padding-right: 15px;
-	}
-	#end-event-tooltip {
- 		position: absolute;
-  		left: 52%;
-  		cursor: pointer;
-  		display: none;
-	}
-	
-	#customer-center-link:hover {
-		cursor: default;
-	}
-	
-	#notice-tooltip {
-  		position: absolute;
-	  	left: 55%;
-	  	cursor: pointer;
-	  	display: none;
-  	  	z-index: 1;
-  	  	padding-right: 15px;
-	}
-	#faq-tooltip {
- 		position: absolute;
-  		left: 61%;
-  		cursor: pointer;
-  		display: none;
-	  	z-index: 1;
-	  	padding-right: 30px;
-	}
-	#question-tooltip {
- 		position: absolute;
-  		left: 64%;
-  		cursor: pointer;
-  		display: none;
-	  	z-index: 1;
-	  	padding-right: 10px;
-	}
-	
 </style>
 <header class="header-v2">
 	<div class="how-shadow1" style="background-color: #222135">
