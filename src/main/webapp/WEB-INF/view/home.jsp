@@ -198,7 +198,7 @@
 		<!-- 이벤트 -->
 		<div class="event-bg">
 			<div class="container mt-4 event-container">
-			    <h3 style="margin-bottom: 3%;">혜택/이벤트</h3>
+			    <h3 style="margin-bottom: 3%; color: #351F66;">혜택/이벤트</h3>
 			    <div class="row">
 			        <!-- Medium card -->
 			        <div class="col-md-6">
@@ -207,7 +207,12 @@
 		           	 			<div class="carousel slide" data-bs-ride="carousel" style="width: 580px; height: 240px;">
 	      	 			      		<div class="carousel-inner">
 	        							<div class="carousel-item active">
-	          								<a href="${pageContext.request.contextPath}/customer/notice/noticeOne?noticeKey=6">
+	          								<a href="${pageContext.request.contextPath}/notice/noticeOne?noticeKey=7">
+	          	 								<img src="${pageContext.request.contextPath}/event-upload/냥사원2.png" style="width: 580px; height: 240px;">
+	          								</a>
+				                		</div>
+	        							<div class="carousel-item">
+	          								<a href="${pageContext.request.contextPath}/notice/noticeOne?noticeKey=6">
 	          	 								<img src="${pageContext.request.contextPath}/event-upload/해피투게더2.jpg" style="width: 580px; height: 240px;">
 	          								</a>
 				                		</div>
@@ -374,10 +379,13 @@
 		<script>
 			function preparation() {
   				alert("준비중입니다 조금만 기다려주세요");
-				var loginModal = new bootstrap.Modal(document.getElementById('modal-login-form'));
-	    		loginModal.show();
 			}
-
+		</script>
+		<script>
+			function openLoginModal() {
+		  		var myModal = new bootstrap.Modal(document.getElementById('modal-login-form'));
+		  		myModal.show();
+			}
 		</script>
 	</body>
 </html>

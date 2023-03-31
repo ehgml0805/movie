@@ -107,6 +107,16 @@
 		</where>
 	</select>
 	
+	<update id="updateEvent" parameterType="goodee.e1i6.movie.vo.Event">
+		UPDATE event
+		SET event_title = #{eventTitle}
+			, event_content = #{eventContent}
+			, event_start_date = #{eventStartDate}
+			, event_end_date = #{eventEndDate}
+			, movie_key = #{movieKey}
+		WHERE event_key = #{eventKey}	
+	</update>
+	
 	<insert id="insertEvent" parameterType="goodee.e1i6.movie.vo.Event">
 		<selectKey resultType="int" keyProperty="eventKey" order="AFTER">
 			select last_insert_id()

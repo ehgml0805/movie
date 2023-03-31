@@ -25,6 +25,7 @@ public interface EventMapper {
 	List<Event> eventOne (Map<String, Object>paraMap);
 	int endEventCount(String searchWord);
 	int eventCount(String searchWord);
+	int updateEvent(Event event);
 	int insertEvent(Event event);
 	List<Event> selectEndEventList(Map<String, Object>paraMap);
 	List<Event> selectEventList(Map<String, Object>paraMap);
