@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>addNotice</title>
+<title>MEET PLAY SHARE, E1I6</title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
 </head>
 <body>
 	<!-- 네비바 -->
-	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import>
 	
 	<!-- breadcrumb -->
 	<div class="container">
@@ -74,7 +74,7 @@
 	</section>	
 	
 	<!-- footer -->
-	<c:import url="/WEB-INF/inc/employeeFooter.jsp"></c:import>
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 
 </body>
 </html>

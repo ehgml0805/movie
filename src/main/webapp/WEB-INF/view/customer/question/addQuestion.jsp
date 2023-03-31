@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- 네비바 -->
-	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import>
 	
 	<!-- breadcrumb -->
 	<div class="container">
@@ -100,6 +100,11 @@
 		</div>
 	</section>	
 	
+	<!-- footer -->
+	<div>
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
+
 	<script>
 		// 지역선택시
 		$("#theaterRegion").on("change", function(){
