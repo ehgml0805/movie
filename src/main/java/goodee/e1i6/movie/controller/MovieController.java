@@ -121,7 +121,7 @@ public class MovieController {
 	
 	// 영화 상세정보 출력
 	@GetMapping("/movie/movieOne")
-	public String getMovieOne(Model model
+	public String getMovieOne(Model model, HttpSession session
 							, @RequestParam(value="movieKey", required = true) int movieKey
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
@@ -136,6 +136,14 @@ public class MovieController {
 		
 		List<Review> rlist= reviewService.selectReviewList(currentPage, rowPerPage, movieKey);
 		model.addAttribute("rlist", rlist);
+		
+		String customerId = "";
+		if(session.getAttribute("loginCustomer") != null) { // 로그인 아이디가 있으면 내가 찜한영화 확인가능
+			Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+			customerId = loginCustomer.getCustomerId();
+		}
+		List<Map<String, Object>> wishlistCount = wishlistService.getWishlistById(customerId);
+		model.addAttribute("wishlistCount", wishlistCount);
 		
 		return "/customer/movie/movieOne";
 	}
