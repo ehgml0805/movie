@@ -51,29 +51,34 @@
 	<!-- 예매 내역 출력 -->
 	<select id="selectTicketingList" parameterType="String" resultType="java.util.Map">
 		SELECT
-			t.ticketing_key
-			, t.schedule_key
-			, t.customer_id
-			, t.mycoupon_key
-			, t.total_price
-			, t.discount_price
-			, t.ticketing_status
-			, t.createdate
-			, ts.seat_key
-			, ts.price
-			, s.seat_number
-			, ss.movie_key
-			, ss.start_date
-			, ss.end_date
-			, ss.preview
-			, m.movie_title
-			, m.grade
-			, sc.file_name
-			, c.customer_name
-			, c.customer_phone
-			, c.customer_point
-			, c.customer_email
-			, c.customer_grade
+			t.ticketing_key ticketingKey
+			, t.schedule_key scheduleKey
+			, t.customer_id customerId
+			, t.mycoupon_key mycouponKey
+			, t.total_price totalPrice
+			, t.discount_price discountPrice
+			, t.ticketing_status ticketingStatus
+			, DATE_FORMAT(t.createdate, '%Y년 %m월 %d일 %H시 %i분') ticketingDate
+			, DATE_FORMAT(t.createdate, '%Y년 %m월 %d일 %H시 %i분') ticketingTime
+			, ts.seat_key seatKey
+			, s.seat_number seatNumber
+			, ss.movie_key movieKey
+			, DATE_FORMAT(ss.start_date, '%Y년 %m월 %d일 %H시 %i분') startTime
+			, DATE_FORMAT(ss.end_date, '%Y년 %m월 %d일 %H시 %i분') endTime
+			, ss.preview preview
+			, m.movie_title movieTitle
+			, m.grade grade
+			, sc.file_name fileName
+			, sc.file_size fileSize
+			, c.customer_name customerName
+			, c.customer_phone customerPhone
+			, c.customer_point customerPoint
+			, c.customer_email customerEmail
+			, c.customer_grade customerGrade
+			, mc.coupon_key couponKey
+			, co.coupon_name couponName
+			, co.coupon_sale_price couponSalePrice
+			, co.coupon_grade couponGrade
 		FROM ticketing t 
 			INNER JOIN ticketing_seat ts ON t.ticketing_key = ts.ticketing_key
 			INNER JOIN seat s ON ts.seat_key = s.seat_key
@@ -81,6 +86,8 @@
 			INNER JOIN movie m ON ss.movie_key = m.movie_key
 			INNER JOIN still_cut sc ON ss.movie_key = sc.movie_key
 			INNER JOIN customer c ON c.customer_id = t.customer_id
+			INNER JOIN mycoupon mc ON mc.mycoupon_key = t.mycoupon_key
+			INNER JOIN coupon co ON mc.coupon_key = co.coupon_key
 		WHERE sc.poster = 'Y' <if test="customerId != null">AND t.customer_id = #{customerId}</if>
 	</select>
 </mapper>
