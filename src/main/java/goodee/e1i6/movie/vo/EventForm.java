@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class EventForm {
+	private int eventKey;
 	private String eventTitle;
 	private String eventContent;
 	private String eventStartDate; 

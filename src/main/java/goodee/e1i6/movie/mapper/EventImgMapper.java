@@ -6,6 +6,6 @@ import goodee.e1i6.movie.vo.EventImg;
 
 @Mapper
 public interface EventImgMapper {
-	int updateEventImg(EventImg eventImg);
+	int deleteEventImg(int eventKey);
 	int insertEventImg(EventImg eventImg);
 }

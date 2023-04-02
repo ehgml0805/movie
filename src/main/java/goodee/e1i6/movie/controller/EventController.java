@@ -225,7 +225,18 @@ public class EventController {
 	
 	// 이벤트 수정
 	@GetMapping("/employee/event/modifyEvent")
-	public String modifyEvent() {
+	public String modifyEvent(Model model
+								, @RequestParam(value="eventKey") int eventKey
+								, @RequestParam(value="eventContent") String eventContent
+								, @RequestParam(value="eventTitle") String eventTitle) {
+		List<Movie> list = eventService.getEventMovieList();
+		log.debug(TeamColor.JSM + list + " <- movieList");
+		log.debug(TeamColor.JSM + eventKey + " <- eventKey");
+
+		model.addAttribute("list", list);
+		model.addAttribute("eventKey", eventKey);
+		model.addAttribute("eventTitle", eventTitle);
+		model.addAttribute("eventContent", eventContent);
 		return "employee/event/modifyEvent";
 	}
 	@PostMapping("/employee/event/modifyEvent")

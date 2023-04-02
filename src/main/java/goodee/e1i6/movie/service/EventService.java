@@ -193,6 +193,7 @@ public class EventService {
 	// modifyEvent
 	public void modifyEvent(EventForm eventForm, String path) {
 		Event event = new Event();
+		event.setEventKey(eventForm.getEventKey());
 		event.setEventTitle(eventForm.getEventTitle());
 		event.setEventContent(eventForm.getEventContent());
 		event.setEventStartDate(eventForm.getEventStartDate());;
@@ -203,6 +204,7 @@ public class EventService {
 		log.debug(TeamColor.JSM + row + " <- eventMapper.updateEvent 실행결과");
 		
 		if(eventForm.getEventImgList().get(0).getSize() > 0 && row == 1) {
+			eventImgMapper.deleteEventImg(eventForm.getEventKey());
 			for(MultipartFile mf : eventForm.getEventImgList()) {
 				EventImg eventImg = new EventImg();
 				
@@ -215,12 +217,12 @@ public class EventService {
 			
 				fileName = fileName + ext;
 				
-				eventImg.setEventKey(event.getEventKey());
+				eventImg.setEventKey(eventForm.getEventKey());
 				eventImg.setFileName(fileName);
 				eventImg.setFileType(mf.getContentType());
 				eventImg.setFileSize(mf.getSize());
 				eventImg.setOriginName(originName);
-				eventImgMapper.updateEventImg(eventImg);
+				eventImgMapper.insertEventImg(eventImg);
 				try {
 					mf.transferTo(new File(path+fileName));
 				} catch (Exception e) {
