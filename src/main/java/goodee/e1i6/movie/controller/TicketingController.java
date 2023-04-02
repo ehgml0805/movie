@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import goodee.e1i6.movie.service.CouponService;
 import goodee.e1i6.movie.service.KaKaoService;
@@ -114,7 +115,7 @@ public class TicketingController {
 	
 	// 결제하기
 	@GetMapping("/ticketing/ticketingPay")
-	public String ticketingPay(Model model, HttpSession session
+	public String ticketingPay(Model model, HttpSession session, RedirectAttributes ra
 									, @RequestParam(value = "scheduleKey", defaultValue = "0") int scheduleKey
 									, @RequestParam(value = "movieKey", defaultValue = "0") int movieKey
 									, @RequestParam(value = "seatKey", defaultValue = "0") int[] seatKey
@@ -152,6 +153,10 @@ public class TicketingController {
 		model.addAttribute("totalPrice", totalAmount);
 		
 		// 사용가능한 쿠폰 불러오기
+		if(session.getAttribute("loginCustomer") == null ) {
+			ra.addFlashAttribute("MSG", "ERROR_LOGIN");
+			return "redirect:/home";
+		}
 		Customer customer = (Customer)session.getAttribute("loginCustomer");
 		List<Map<String, Object>> myCouponList = couponService.selectMyCouponList(session, customer.getCustomerId());
 		model.addAttribute("myCouponList", myCouponList);

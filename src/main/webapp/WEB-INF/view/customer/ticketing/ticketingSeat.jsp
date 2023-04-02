@@ -36,8 +36,15 @@
 		    position: relative;
 		    margin-left: 10%;
 		    overflow: auto;
-		    cursor: pointer;
-		
+		    cursor: pointer;		
+		}
+		.able {
+			background-color:#3F0099; 
+			color:white;
+		}
+		.disable {
+			background-color: rgba(63,0,153,0.3); 
+			color: rgba(255,255,255,0.3);
 		}
 	</style>
 </head>
@@ -228,7 +235,7 @@
 					</table>
 				</div>
 		   	</div>
-		   	<button class="payBtn" type="submit" disabled="disabled">결제 선택</button>
+		   	<button class="payBtn disable" type="submit" disabled="disabled">결제 선택</button>
 	   	</div>
     </form>
 </body>
@@ -283,6 +290,8 @@
 			// 결제 선택 안되게 ck 값 없애주기
 			$('#ck').val(0);
 			$('.payBtn').attr("disabled", true);
+			$('.payBtn').addClass('disable');
+			$('.payBtn').removeClass('able');
 			
 			let q = parseInt(adultQuantity.textContent);
 			totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
@@ -326,6 +335,8 @@
 			// 결제 선택 안되게 ck 값 없애주기
 			$('#ck').val(0);
 			$('.payBtn').attr("disabled", true);
+			$('.payBtn').addClass('disable');
+			$('.payBtn').removeClass('able');
 			
 			let q = parseInt(teenagerQuantity.textContent);
 			totalQuantity = parseInt(adultQuantity.textContent) + parseInt(teenagerQuantity.textContent);
@@ -502,6 +513,8 @@
 								$('#ck').val(1);
 								if($('#ck').val() == 1){
 									$('.payBtn').attr("disabled", false);
+									$('.payBtn').addClass('able');
+									$('.payBtn').removeClass('disable');
 								}
 							}
 						} else if(totalNow == 1) {
@@ -535,6 +548,8 @@
 							$('#ck').val(1);
 							if($('#ck').val() == 1){
 								$('.payBtn').attr("disabled", false);
+								$('.payBtn').addClass('able');
+								$('.payBtn').removeClass('disable');
 							}													
 						}
 						
@@ -550,6 +565,8 @@
 				// 결제 선택 안되게 ck 값 없애주기
 				$('#ck').val(0);
 				$('.payBtn').attr("disabled", true);
+				$('.payBtn').addClass('disable');
+				$('.payBtn').removeClass('able');
 				
 				// 총 인원 수 값 가져오기
 				totalNow = $('#totalNow').val();

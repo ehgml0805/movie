@@ -34,6 +34,14 @@
 		.schedule-hover:hover {
 		  background-color: #eee;
 		}
+		.able {
+			background-color:#3F0099; 
+			color:white;
+		}
+		.disable {
+			background-color: rgba(63,0,153,0.3); 
+			color: rgba(255,255,255,0.3);
+		}
     </style>
 </head>
 <body>
@@ -167,7 +175,7 @@
 							</table>
 						</div>
 				   	</div>
-			   		<button class="seatBtn" type="submit" disabled="disabled" style="background-color:#3F0099; color:white;">좌석 선택</button>
+			   		<button class="seatBtn disable" type="submit" disabled="disabled">좌석 선택</button>
 			   	</div>
 		    </form>
 		</div>
@@ -272,6 +280,8 @@
 				
 				// 초기화
 				$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+				$('.seatBtn').addClass('disable');
+				$('.seatBtn').removeClass('able');
 				
 				// 결제서
 				$('#theater-name').text(""); // 결제서 극장
@@ -455,6 +465,8 @@
 				$('#screening-time').text(""); // 결제서 일시 > 시간
 				$('#screenroom-name').text(""); // 결제서 상영관
 				$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+				$('.seatBtn').addClass('disable');
+				$('.seatBtn').removeClass('able');
 				
     			//  이미지 출력
     			$.ajax({
@@ -556,7 +568,8 @@
     		/* 빠른 예매 - 영화 선택 시 해당 지역 및 상영중인 극장 수 출력 */
     		$(document).on('click', '.movie-button' ,function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
-    			
+    			$('.seatBtn').removeClass('able');
+    			$('.seatBtn').addClass('disable');
 				$.ajax({
 					url : '${pageContext.request.contextPath}/ticketing/regionList',
 					type : 'GET',
@@ -580,6 +593,8 @@
     		/*  지역 선택 시 해당 지역 극장 리스트 출력 */
     		$(document).on('click', '.region', function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			$('.seatBtn').removeClass('able');
+    			$('.seatBtn').addClass('disable');
     			let theaterRegion = $(this).val();
     			$('#region').val(theaterRegion); // 극장 지역 저장
     			
@@ -626,6 +641,8 @@
     		// 극장 선택 시 날짜 기준
     		$(document).on('click', '.theater-button', function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
+    			$('.seatBtn').removeClass('able');
+    			$('.seatBtn').addClass('disable');
     			$('#theater-name').text($(this).text()); // 상영관이름 저장
     			// 극장 선택 시 극장 키 값 저장
     			// alert('theaterOneByName 클릭')
@@ -725,7 +742,8 @@
     		// 상영 스케줄 선택 시 좌석 선택 가능
     		$(document).on('click', '.schedule-button', function() {
     			$('.seatBtn').attr("disabled", true); // 좌석선택 버튼 비활성화
-    			
+    			$('.seatBtn').removeClass('able');
+    			$('.seatBtn').addClass('disable');
     			/* let day = $('#day').val();
     			let time = day + " " + $(this).text().slice(0, 5) +":00";
     			let movieKey = $('#movieKey').val();
@@ -783,6 +801,8 @@
     			$('#theater-name').html($(this).attr('data-theatername'));
     			
    				$('.seatBtn').attr("disabled", false); // 좌석선택 버튼 활성화
+   				$('.seatBtn').removeClass('disable');
+   				$('.seatBtn').addClass('able');
     		});
     		
 		})

@@ -18,7 +18,8 @@
 		<title>MEET PLAY SHARE, E1I6</title>
 		<style>
 			.movie-list {
-				height: 600px;
+				/* height: 600px; */
+				padding: 30px;
 				/* background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,1)); */
 				background: radial-gradient(circle, #14100E, #25243D);
 				/* background-color: black; */
