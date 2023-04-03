@@ -86,7 +86,7 @@ public class NoticeController {
 	@GetMapping("/notice/noticeList")
 	public String noticeListCustomer(Model model
 									, @RequestParam(value="currentPage", defaultValue="1") int currentPage
-									, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage
+									, @RequestParam(value="rowPerPage", defaultValue="5") int rowPerPage
 									, @RequestParam(value="searchWord", defaultValue="") String searchWord) {
 		// 마지막페이지
 		int noticeCount = noticeService.getNoticeListCount();

@@ -31,7 +31,6 @@
 	</form>
 
 	<script>
-	
 	$(document).ready(function(){
 		
 		var roomName = "${roomName.name}";
@@ -41,13 +40,10 @@
 	        //alert(roomName + "방이 개설되었습니다.");
 	    
 		$("#btn").bind("click", function(e){
-			alert("시작");
 
 		        if($('#check').val() != null) { // 이미 방이 만들어져 있으면
-		        	alert("클릭 이프");
 		        	$('#f1').submit();
 				} else {
-					alert("클릭 엘스");
 					$('#f2').submit();
 					$('#f1').submit();
 		        }

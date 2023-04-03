@@ -41,6 +41,7 @@ main{
 
 aside header{
 	padding:30px 20px;
+	color:#fff;
 }
 aside input{
 	width:100%;
@@ -63,7 +64,6 @@ aside ul{
 	padding-left:0;
 	margin:0;
 	list-style-type:none;
-	overflow-y:scroll;
 	height:690px;
 }
 aside li{
@@ -117,7 +117,7 @@ aside li h3{
 }
 
 main header{
-	height:110px;
+	height:98px;
 	padding:30px 20px 30px 40px;
 }
 main header > *{
@@ -234,6 +234,17 @@ main footer button{
 	margin-top:5px;
 	display:inline-block;
 }
+a
+, a:link {
+  color: skyblue;
+}
+skyblue
+a:visited
+, a:hover {
+  color: white;
+}
+
+
 </style>
 </head>
 <body>
@@ -241,9 +252,9 @@ main footer button{
 	<aside>
 		<header>
 			<h2>문의목록</h2>
-		</header>
+		</header><hr>
 		<ul>
-			<c:if test="${empty list}"><li>채팅요청 없음.</li></c:if>
+			<c:if test="${empty list}"><li><h2 style="text-align: center;">채팅요청 없음.</h2></li></c:if>
 			<c:forEach var="l" items="${list}">
 				<li>
 					<img src="" alt="">

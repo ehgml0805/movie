@@ -15,22 +15,15 @@ body{
 	font-family:Arial;
 }
 #container{
-	width:750px;
-	height:800px;
+	width:480px;
+	height:750px;
 	background:#eff3f7;
 	margin:0 auto;
 	font-size:0;
 	border-radius:5px;
 	overflow:hidden;
 }
-aside{
-	width:260px;
-	height:800px;
-	background-color:#3b3e49;
-	display:inline-block;
-	font-size:15px;
-	vertical-align:top;
-}
+
 main{
 	width:490px;
 	height:800px;
@@ -39,64 +32,9 @@ main{
 	vertical-align:top;
 }
 
-aside header{
-	padding:30px 20px;
-}
-aside input{
-	width:100%;
-	height:50px;
-	line-height:50px;
-	padding:0 50px 0 20px;
-	background-color:#5e616a;
-	border:none;
-	border-radius:3px;
-	color:#fff;
-	background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png);
-	background-repeat:no-repeat;
-	background-position:170px;
-	background-size:40px;
-}
-aside input::placeholder{
-	color:#fff;
-}
-aside ul{
-	padding-left:0;
-	margin:0;
-	list-style-type:none;
-	overflow-y:scroll;
-	height:690px;
-}
-aside li{
-	padding:10px 0;
-}
-aside li:hover{
-	background-color:#5e616a;
-}
 h2,h3{
 	margin:0;
 }
-aside li img{
-	border-radius:50%;
-	margin-left:20px;
-	margin-right:8px;
-}
-aside li div{
-	display:inline-block;
-	vertical-align:top;
-	margin-top:12px;
-}
-aside li h2{
-	font-size:14px;
-	color:#fff;
-	font-weight:normal;
-	margin-bottom:5px;
-}
-aside li h3{
-	font-size:12px;
-	color:#7e818a;
-	font-weight:normal;
-}
-
 .status{
 	width:8px;
 	height:8px;
@@ -117,8 +55,9 @@ aside li h3{
 }
 
 main header{
-	height:110px;
+	height:100px;
 	padding:30px 20px 30px 40px;
+	background:#eff3f7;
 }
 main header > *{
 	display:inline-block;
@@ -144,13 +83,25 @@ main header h3{
 	font-weight:normal;
 	color:#7e818a;
 }
+main header button{
+	text-decoration:none;
+	text-transform:uppercase;
+	font-weight:bold;
+	border:none;
+	color:#6fbced;
+	vertical-align:top;
+	margin-left:333px;
+	margin-top:5px;
+	display:inline-block;
+	font-size:16px;
+}
 
 #chatArea{
 	padding-left:0;
 	margin:0;
 	list-style-type:none;
 	overflow-y:scroll;
-	height:535px;
+	height:500px;
 	border-top:2px solid #fff;
 	border-bottom:2px solid #fff;
 }
@@ -230,39 +181,30 @@ main footer button{
 	border:none;
 	color:#6fbced;
 	vertical-align:top;
-	margin-left:333px;
-	margin-top:5px;
+	margin-left:380px;
+	margin-top:2px;
 	display:inline-block;
+	font-size:16px;
 }
 </style>
 </head>
 <body>
 <div id="container">
-	<aside>
-		<header>
-			<h2>문의목록</h2>
-		</header>
-		<ul>
-			<li>
-				<img src="" alt="">
-				<div>
-					<h2>${room.name}</h2>
-				</div>
-			</li>
-		</ul>
-	</aside>
+
 	<main>
 		<header>
 			<img src="" alt="">
 			<div>
 				<h2>${room.name}님의 문의</h2>
 			</div>
+			<span>
+				<button id="chat_end" style="text-align:right;">나가기</button>
+			</span>
 		</header>
 		<ul id="chatArea"></ul>
 		<footer>
 			<textarea id='msg' placeholder="Type your message"></textarea>
 			<button id="button_send">Send</button>
-			<button id="chat_end">나가기</button>
 		</footer>
 	</main>
 </div>
@@ -343,13 +285,26 @@ main footer button{
 	    // 나가기버튼 클릭시
 	    $("#chat_end").on("click", function(){
 	    	var result = confirm("대화방을 나가시겠습니까?");
-	    	
 	    	if(result == true) {
-	    		stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
-	    		$(location).attr("href", "rooms")
-	    	} 
+	    		window.close();
+	    	}
 	    });
-	    
+	    // 창을닫으면(X를 눌러서,나가기클릭) 상대방에게 퇴장메세지 출력
+	    $(window).bind("beforeunload", function (e){
+	    	stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
+	    });
+		// 새로고침 막기(F5, ctrl+F5, ctrl+r)
+	    $(document).keydown(function (e) {
+            if (e.which === 116) {
+                if (typeof event == "object") {
+                    event.keyCode = 0;
+                }
+                return false;
+            } 
+            else if (e.which === 82 && e.ctrlKey) {
+                return false;
+            }
+	    });
 	});
 </script>
 </body>

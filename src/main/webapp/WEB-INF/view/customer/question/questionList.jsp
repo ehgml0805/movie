@@ -21,11 +21,14 @@
 	  	display: inline-block;
 	  	vertical-align: middle; 
 	}
+	.page-link {
+		color: black;
+	}
 </style>
 </head>
 <body>
 	<!-- 네비바 -->
-	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
+	<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import>
 	
 	<!-- breadcrumb -->
 	<div class="container">
@@ -56,7 +59,7 @@
 						<div style="text-align:right;">
 							<a href="${pageContext.request.contextPath}/customer/question/addQuestion">문의하기</a>
 						</div>
-						<table class="table text-center">
+						<table class="table table-striped text-center">
 							<tr style="border-bottom-width:2px; border-top-width:2px;">
 								<th>번호</th>
 								<th>문의제목</th>
@@ -104,13 +107,11 @@
 							<ul class="pagination justify-content-center">
 								<!-- 1페이지에서 첫페이지,이전 버튼클릭 disabled -->
 								<c:if test="${currentPage <= 1}">
-									<li class="page-item disabled"><a class="page-link" href="#">처음</a></li>
-									<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+									<li class="page-item disabled"><a class="page-link" href="#"><<</a></li>
 								</c:if>
 								<!-- 첫페이지가 아닐때 -->
 								<c:if test="${currentPage > 1}">
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=1&searchWord=${searchWord}">처음</a></li>
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${currentPage-1}&searchWord=${searchWord}"><</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=1&searchWord=${searchWord}"><<</a></li>
 								</c:if>
 								<!-- startPage ~ endPage -->
 								<c:forEach var="s" begin="${startPage}" end="${endPage}" step="1">
@@ -118,13 +119,11 @@
 								</c:forEach>
 								<!-- 마지막페이지가 아닐때 -->
 								<c:if test="${currentPage < lastPage}">
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${currentPage+1}&searchWord=${searchWord}">></a></li>
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${lastPage}&searchWord=${searchWord}">마지막</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/customer/question/questionList?currentPage=${lastPage}&searchWord=${searchWord}">>></a></li>
 								</c:if>
 								<!-- 마지막페이지에서 버튼클릭 disabled -->
 								<c:if test="${currentPage >= lastPage}">
-									<li class="page-item disabled"><a class="page-link" href="#">></a></li>
-									<li class="page-item disabled"><a class="page-link" href="#">마지막</a></li>
+									<li class="page-item disabled"><a class="page-link" href="#">>></a></li>
 								</c:if>
 							</ul>
 						</div>
@@ -134,6 +133,8 @@
 			</div>
 		</div>
 	</section>	
+	<!-- 채팅 아이콘 -->
+	<c:import url="/WEB-INF/inc/chat.jsp"></c:import>
 	<!-- footer -->
 	<div>
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 

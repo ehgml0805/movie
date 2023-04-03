@@ -41,6 +41,7 @@ main{
 
 aside header{
 	padding:30px 20px;
+	color:#fff;
 }
 aside input{
 	width:100%;
@@ -63,7 +64,6 @@ aside ul{
 	padding-left:0;
 	margin:0;
 	list-style-type:none;
-	overflow-y:scroll;
 	height:690px;
 }
 aside li{
@@ -117,7 +117,7 @@ aside li h3{
 }
 
 main header{
-	height:110px;
+	height:98px;
 	padding:30px 20px 30px 40px;
 }
 main header > *{
@@ -143,6 +143,18 @@ main header h3{
 	font-size:14px;
 	font-weight:normal;
 	color:#7e818a;
+}
+main header button{
+	text-decoration:none;
+	text-transform:uppercase;
+	font-weight:bold;
+	border:none;
+	color:#6fbced;
+	vertical-align:top;
+	margin-left:333px;
+	margin-top:5px;
+	display:inline-block;
+	font-size:16px;
 }
 
 #chatArea{
@@ -230,9 +242,10 @@ main footer button{
 	border:none;
 	color:#6fbced;
 	vertical-align:top;
-	margin-left:333px;
-	margin-top:5px;
+	margin-left:380px;
+	margin-top:2px;
 	display:inline-block;
+	font-size:16px;
 }
 </style>
 </head>
@@ -241,12 +254,12 @@ main footer button{
 	<aside>
 		<header>
 			<h2>문의목록</h2>
-		</header>
+		</header><hr>
 		<ul>
 			<li>
 				<img src="" alt="">
 				<div>
-					<h2>${room.name}</h2>
+					<h2 style="color: skyblue;">${room.name}</h2>
 				</div>
 			</li>
 		</ul>
@@ -257,12 +270,14 @@ main footer button{
 			<div>
 				<h2>${room.name}님의 문의</h2>
 			</div>
+			<span>
+				<button id="chat_end" style="text-align:right;">나가기</button>
+			</span>
 		</header>
 		<ul id="chatArea"></ul>
 		<footer>
 			<textarea id='msg' placeholder="Type your message"></textarea>
 			<button id="button_send">Send</button>
-			<button id="chat_end">나가기</button>
 		</footer>
 	</main>
 </div>
@@ -344,10 +359,29 @@ main footer button{
 	    	var result = confirm("대화방을 나가시겠습니까?");
 	    	
 	    	if(result == true) {
-	    		stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
-	    		$(location).attr("href", "rooms")
+	    		//stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
+    			// rooms로 이동
+	    		$(location).attr("href", "rooms");
+
 	    	} 
 	    });
+	    // 창을닫으면(X를 눌러서) 상대방에게 퇴장메세지 출력
+	    $(window).bind("beforeunload", function (e){
+	    	stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
+	    });
+		// 새로고침 막기(F5, ctrl+F5, ctrl+r)
+	    $(document).keydown(function (e) {
+            if (e.which === 116) {
+                if (typeof event == "object") {
+                    event.keyCode = 0;
+                }
+                return false;
+            } 
+            else if (e.which === 82 && e.ctrlKey) {
+                return false;
+            }
+
+    	});
 	    
 	});
 </script>

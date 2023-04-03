@@ -100,7 +100,7 @@
 				<c:import url="/WEB-INF/inc/customerMenu.jsp"></c:import>
 				
 				<div class="col-md-8 col-lg-9 p-b-80">
-					<div class="p-r-45 p-r-0-lg text-center">
+					<div class="p-r-45 p-r-0-lg text-center m-4">
 						<!-- Main start -->
 						<h2>자주 묻는 질문</h2><br><br>
 						
@@ -109,7 +109,7 @@
 								<a href="${pageContext.request.contextPath}/employee/faq/addFaq">FAQ 등록</a>
 							</div>
 						</c:if>
-						<table class="table">
+						<table class="table table-striped">
 							<tr style="border-bottom-width:2px; border-top-width:2px;">
 								<th>자주 묻는 질문</th>
 								<c:if test="${not empty loginEmployee}">
@@ -174,11 +174,12 @@
 			</div>
 		</div>
 	</section>
-
+	<!-- 채팅 아이콘 -->
+	<c:import url="/WEB-INF/inc/chat.jsp"></c:import>
 	<!-- footer -->
 	<div>
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 	</div>
-	
+
 </body>
 </html>

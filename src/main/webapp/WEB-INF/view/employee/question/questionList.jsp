@@ -37,7 +37,7 @@
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 
-			<a href="${pageContext.request.contextPath}/employeeHome" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="#" class="stext-109 cl8 hov-cl1 trans-04">
 				Admin Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -57,8 +57,8 @@
 						<!-- Main start -->
 						<h2>문의사항 관리</h2><br>
 
-						<table class="table">
-							<tr>
+						<table class="table table-striped">
+							<tr style="border-bottom-width:2px; border-top-width:2px;">
 								<td>번호</td>
 								<td>문의제목</td>
 								<td>답변여부</td>
@@ -130,7 +130,7 @@
 			</div>
 		</div>
 	</section>	
-	
+
 	<!-- footer -->
 	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 

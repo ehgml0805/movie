@@ -21,6 +21,9 @@
 	  	display: inline-block;
 	  	vertical-align: middle; 
 	}
+	.page-link {
+		color: black;
+	}
 </style>
 </head>
 <body class="animsition">
@@ -49,11 +52,11 @@
 				<c:import url="/WEB-INF/inc/customerMenu.jsp"></c:import>
 				
 				<div class="col-md-8 col-lg-9 p-b-80">
-					<div class="p-r-45 p-r-0-lg text-center">
+					<div class="p-r-45 p-r-0-lg text-center m-4">
 						<!-- Main start -->
 						<h2>공지사항</h2><br><br>
 
-						<table class="table">
+						<table class="table table-striped">
 							<tr style="border-bottom-width:2px; border-top-width:2px;">
 								<th>번호</th>
 								<th>제목</th>
@@ -83,13 +86,11 @@
 							<ul class="pagination justify-content-center">
 								<!-- 1페이지에서 첫페이지,이전 버튼클릭 disabled -->
 								<c:if test="${currentPage <= 1}">
-									<li class="page-item disabled"><a class="page-link" href="#">처음</a></li>
-									<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+									<li class="page-item disabled"><a class="page-link" href="#"><<</a></li>
 								</c:if>
 								<!-- 첫페이지가 아닐때 -->
 								<c:if test="${currentPage > 1}">
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/notice/noticeList?currentPage=1&searchWord=${searchWord}">처음</a></li>
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${currentPage-1}&searchWord=${searchWord}"><</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/notice/noticeList?currentPage=1&searchWord=${searchWord}"><<</a></li>
 								</c:if>
 								<!-- startPage ~ endPage -->
 								<c:forEach var="s" begin="${startPage}" end="${endPage}" step="1">
@@ -97,13 +98,11 @@
 								</c:forEach>
 								<!-- 마지막페이지가 아닐때 -->
 								<c:if test="${currentPage < lastPage}">
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${currentPage+1}&searchWord=${searchWord}">></a></li>
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${lastPage}&searchWord=${searchWord}">마지막</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${lastPage}&searchWord=${searchWord}">>></a></li>
 								</c:if>
 								<!-- 마지막페이지에서 버튼클릭 disabled -->
 								<c:if test="${currentPage >= lastPage}">
-									<li class="page-item disabled"><a class="page-link" href="#">></a></li>
-									<li class="page-item disabled"><a class="page-link" href="#">마지막</a></li>
+									<li class="page-item disabled"><a class="page-link" href="#">>></a></li>
 								</c:if>
 							</ul>
 						</div>
@@ -113,7 +112,9 @@
 			</div>
 		</div>
 	</section>	
-
+	<!-- 채팅 아이콘 -->
+	<c:import url="/WEB-INF/inc/chat.jsp"></c:import>
+	
 	<!-- footer -->
 	<div>
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
