@@ -40,18 +40,18 @@
 	<insert id="insertEventComment" parameterType="goodee.e1i6.movie.vo.EventComment">
 		INSERT INTO event_comment (
 			event_comment_content
-			, createdate
 			, customer_id
 			, schedule_key
 			, event_key
+			, createdate
 			, insult_report
 			, spoiler_report
 		) VALUES (
 			#{eventCommentContent}
-			, now()
 			, #{customerId}
 			, #{scheduleKey}
 			, #{eventKey}
+			, now()
 			, #{insultReport}
 			, #{spoilerReport}
 		)

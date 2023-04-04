@@ -100,7 +100,7 @@
 				<textarea rows="5" cols="50" name="eventCommentContent"></textarea>
 			</div>
 		 	<div class="button-wrap">
-				<button type="submit" name="eventCommentContent">등록</button>
+				<button type="submit">등록</button>
 			</div>
 		</div>
 	</form>

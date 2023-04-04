@@ -127,11 +127,13 @@ public class EventController {
 									, @RequestParam(value="customerId") String customerId
 									, @RequestParam(value="movieKey") int movieKey
 									, @RequestParam(value="eventCommentKey") int eventCommentKey
-									, @RequestParam(value="eventKey") int eventKey)  {
+									, @RequestParam(value="eventKey") int eventKey
+									, @RequestParam(value="eventCommentContent") String eventCommentContent)  {
 		model.addAttribute("customerId", customerId);
 		model.addAttribute("movieKey", movieKey);
 		model.addAttribute("eventKey", eventKey);
 		model.addAttribute("eventCommentKey", eventCommentKey);
+		model.addAttribute("eventCommentContent", eventCommentContent);
 		return "customer/event/modifyEventComment";
 	}	
 	@PostMapping("/customer/event/modifyEventComment")
@@ -164,6 +166,7 @@ public class EventController {
 	    int eventKey = eventComment.getEventKey();
 	    String customerId = eventComment.getCustomerId();
 	    // log.debug(TeamColor.JSM + "eventKey " + eventKey);
+	    // log.debug(TeamColor.JSM + "eventComment " + eventComment);
 		eventService.addEventComment(eventComment);
 		return "redirect:/event/eventOne?eventKey="+eventKey+"&movieKey="+movieKey+"&customerId="+customerId;
 	}

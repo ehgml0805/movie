@@ -32,7 +32,7 @@
 						</c:if>
 						<td><fmt:formatDate value="${ec.createdate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<c:if test="${loginCustomerId == ec.customerId}">
-							<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
+							<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}&eventCommentContent=${ec.eventCommentContent}">수정</a></td>
 							<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
 						</c:if>
 						<c:if test="${empty loginCustomerId || loginCustomerId != ec.customerId}">
