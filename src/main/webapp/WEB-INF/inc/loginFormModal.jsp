@@ -42,11 +42,11 @@
 
 						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">ID</label>
-							<input type="text" name="customerId" id="customerId" class="form-control" placeholder="아이디를 입력하세요.">
+							<input type="text" name="customerId" id="customerId" class="form-control" placeholder="아이디를 입력하세요." value="goodee">
 						</div>
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">PW</label>
-							<input type="password" name="customerPw" id="customerPw" class="form-control" placeholder="비밀번호를 입력하세요.">
+							<input type="password" name="customerPw" id="customerPw" class="form-control" placeholder="비밀번호를 입력하세요." value="1234">
 						</div>
 						<br>
 						<div class="mb-3">

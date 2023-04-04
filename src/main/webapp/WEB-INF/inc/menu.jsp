@@ -148,98 +148,131 @@
 				
 						<c:when test="${not empty loginCustomer}">
 						
+						<li class="bor18 p-b-13 p-t-10">
+							<a href="${pageContext.request.contextPath}/movie/movieList" class="stext-102 cl2 hov-cl1 trans-04">
+								현재 상영작
+							</a>
+						</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/ticketing/screenList" class="stext-102 cl2 hov-cl1 trans-04">
+								빠른 예매하기
+							</a>
+						</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/event/eventList" class="stext-102 cl2 hov-cl1 trans-04">
+								진행중인 이벤트
+							</a>
+						</li>
+						
+						<li class="bor18 p-b-13 p-t-10">
+							<a href="${pageContext.request.contextPath}/snack/snackHome" class="stext-102 cl2 hov-cl1 trans-04">
+								스낵 스토어
+							</a>
+						</li>
+						<li class="bor18 p-b-13 p-t-10">
+							<a href="${pageContext.request.contextPath}/faq/faqList" class="stext-102 cl2 hov-cl1 trans-04">
+								고객센터
+							</a>
+						</li>
 						
 						
 						</c:when>
 						<c:when test="${not empty loginEmployee}">
-						
-						
-						</c:when>
-						<c:otherwise>
-						
-						
-						</c:otherwise>
-					</c:choose>	
-					<c:if test="${empty loginEmployee}">
+							
+							<c:if test="${empty loginEmployee}">
 						<li class="p-b-13">
 							<a href="modal-login-form" class="stext-102 cl2 hov-cl1 trans-04"
 									data-bs-toggle="modal" data-bs-target="#modal-loginEmployee-form">
 								관리자 로그인
 							</a>
 						</li>
-					</c:if>
-					<c:if test="${not empty loginEmployee}">
-						<li class="p-b-13">
-							관리자 모드
+						</c:if>
+						<c:if test="${not empty loginEmployee}">
+							<li class="p-b-13">
+								관리자 모드
+							</li>
+						</c:if>
+						<!-- 영화 관리 -->
+						
+						<c:if test="$"></c:if>
+						<li class="bor18 p-b-13 p-t-10">
+							<a href="${pageContext.request.contextPath}/employee/question/questionList" class="stext-102 cl2 hov-cl1 trans-04">
+								영화 관리
+							</a>
 						</li>
-					</c:if>
-					<!-- 영화 관리 -->
-					
-					<c:if test="$"></c:if>
-					<li class="bor18 p-b-13 p-t-10">
-						<a href="${pageContext.request.contextPath}/employee/question/questionList" class="stext-102 cl2 hov-cl1 trans-04">
-							영화 관리
-						</a>
-					</li>
-					<li class="p-b-13">
-						<a href="${pageContext.request.contextPath}/employee/screeningSchedule/screeningScheduleList" class="stext-102 cl2 hov-cl1 trans-04">
-							상영스케줄 관리
-						</a>
-					</li>
-					<li class="p-b-13">
-						<a href="${pageContext.request.contextPath}/employee/theater/theaterList" class="stext-102 cl2 hov-cl1 trans-04">
-							극장 관리
-						</a>
-					</li>
-					
-					<li class="bor18 p-b-13 p-t-10">
-						<a href="${pageContext.request.contextPath}/employee/coupon/couponList" class="stext-102 cl2 hov-cl1 trans-04">
-							쿠폰 관리
-						</a>
-					</li>
-					<li class="p-b-13">
-						<a href="${pageContext.request.contextPath}/event/eventList" class="stext-102 cl2 hov-cl1 trans-04">
-							이벤트 관리
-						</a>
-					</li>
-					
-
-					<!-- 고객 관리 -->
-					
-					<li class="bor18 p-b-13 p-t-10">
-						<a href="${pageContext.request.contextPath}/employee/notice/addNotice" class="stext-102 cl2 hov-cl1 trans-04">
-							공지사항 관리
-						</a>
-					</li>
-					<li class="p-b-13">
-						<a href="${pageContext.request.contextPath}/employee/question/questionList" class="stext-102 cl2 hov-cl1 trans-04">
-							문의사항 관리
-						</a>
-					</li>
-					<li class="p-b-13">
-						<a href="${pageContext.request.contextPath}/faq/faqList" class="stext-102 cl2 hov-cl1 trans-04">
-							FAQ 관리
-						</a>
-					</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/employee/screeningSchedule/screeningScheduleList" class="stext-102 cl2 hov-cl1 trans-04">
+								상영스케줄 관리
+							</a>
+						</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/employee/theater/theaterList" class="stext-102 cl2 hov-cl1 trans-04">
+								극장 관리
+							</a>
+						</li>
+						
+						<li class="bor18 p-b-13 p-t-10">
+							<a href="${pageContext.request.contextPath}/employee/coupon/couponList" class="stext-102 cl2 hov-cl1 trans-04">
+								쿠폰 관리
+							</a>
+						</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/event/eventList" class="stext-102 cl2 hov-cl1 trans-04">
+								이벤트 관리
+							</a>
+						</li>
+						
+	
+						<!-- 고객 관리 -->
+						
+						<li class="bor18 p-b-13 p-t-10">
+							<a href="${pageContext.request.contextPath}/employee/notice/addNotice" class="stext-102 cl2 hov-cl1 trans-04">
+								공지사항 관리
+							</a>
+						</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/employee/question/questionList" class="stext-102 cl2 hov-cl1 trans-04">
+								문의사항 관리
+							</a>
+						</li>
+						<li class="p-b-13">
+							<a href="${pageContext.request.contextPath}/faq/faqList" class="stext-102 cl2 hov-cl1 trans-04">
+								FAQ 관리
+							</a>
+						</li>
+							
+							</c:when>
+							<c:otherwise>
+								<a href="modal-login-form" class="stext-102 cl2 hov-cl1 trans-04"
+										data-bs-toggle="modal" data-bs-target="#modal-loginEmployee-form">
+									관리자 로그인
+								</a>
+							
+							</c:otherwise>
+						</c:choose>	
+						
 				
 
 				</ul>
 
 				<div class="sidebar-gallery w-full p-tb-30">
+					<img src="${pageContext.request.contextPath}/img/github-logo.png" width="100">
 					<span class="mtext-101 cl5">
-						@ E1I6BOX
+						E1I6BOX
+					</span>
+					<span class="mtext-101 cl5">
+						About Us
 					</span>
 
 					
 
 				<div class="sidebar-gallery w-full">
-					<span class="mtext-101 cl5">
-						About Us
-					</span>
+					
 
 					<p class="stext-108 cl6 p-t-27">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus vulputate hendrerit. Praesent faucibus erat vitae rutrum gravida. Vestibulum tempus mi enim, in molestie sem fermentum quis. 
 					</p>
+					
 				</div>
 			</div>
 		</div>
