@@ -131,5 +131,9 @@
 	<!-- 이벤트 댓글 리스트 -->
 	<div id="eventCommentList"></div>
 	<button id="more-btn">더보기</button>
+	<!-- footer -->
+	<div>
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 </body>
 </html>
