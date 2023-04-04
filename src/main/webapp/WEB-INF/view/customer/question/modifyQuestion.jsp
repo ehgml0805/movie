@@ -39,7 +39,7 @@
 						<!-- Main start -->
 						<h2>나의 문의내역</h2><br><hr><br>
 
-						<form method="post" action="${pageContext.request.contextPath}/customer/question/modifyQuestion">
+						<form method="post" id="form" action="${pageContext.request.contextPath}/customer/question/modifyQuestion">
 							<input type="hidden" name="questionKey" value="${questionKey}">
 							<table class="table text-center">
 								<tr>
@@ -59,7 +59,7 @@
 									<td><textarea rows="5" name="questionContent" id="questionContent" class="text-center form-control">${questionContent}</textarea></td>
 								</tr>
 							</table>
-							<button type="submit" class="form-control">수정</button>
+							<button type="button" id="btn" class="form-control">수정</button>
 						</form>
 						<!-- Main End -->
 					</div>
@@ -73,5 +73,23 @@
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 	</div>
 	
+	<script>
+	// 입력확인 검사
+	$("#btn").on("click", function(){
+		// 제목입력 확인
+		if($('#questionTitle').val() == "") {
+			alert("제목을 입력해주세요.");
+			$("#questionTitle").focus();
+			return false;
+		}
+		// 내용입력 확인
+		if($('#questionContent').val() == "") {
+			alert("내용을 입력해주세요.");
+			$("#questionContent").focus();
+			return false;
+		}
+		$('#form').submit();
+	});
+	</script>
 </body>
 </html>

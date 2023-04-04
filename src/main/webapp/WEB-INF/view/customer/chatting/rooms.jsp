@@ -17,7 +17,7 @@
 	         	<li><a id="check" href="${pageContext.request.contextPath}/chatting/room?roomId=${l.roomId}">${l.name}</a></li>
 	         	<form id="f1" method="get" action="${pageContext.request.contextPath}/chatting/room">
 	         		<input type="text" name="roomId" value="${l.roomId}">
-	         	<button type="submit" id="btn2">rr</button>
+	         	<button type="submit" id="btn2">입장</button>
 	         	</form>
 	            	
 	         	</c:if>

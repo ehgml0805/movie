@@ -39,12 +39,12 @@ public class RoomController {
         if(session.getAttribute("loginCustomer") != null) {
         	Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
         	mv.addObject("list", repository.findAllRooms());
-        	mv.addObject("id", loginCustomer.getCustomerId());
+        	mv.addObject("id", loginCustomer.getCustomerName());
         	mv.setViewName("customer/chatting/rooms");
         } else if(session.getAttribute("loginEmployee") != null) {
         	Employee loginEmployee = (Employee)session.getAttribute("loginEmployee");
         	mv.addObject("list", repository.findAllRooms());
-            mv.addObject("id", loginEmployee.getEmployeeId());
+            mv.addObject("id", loginEmployee.getEmployeeName());
             mv.setViewName("employee/chatting/rooms");
         }
         return mv;

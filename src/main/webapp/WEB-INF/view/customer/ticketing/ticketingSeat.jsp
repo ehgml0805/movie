@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>Insert title here</title>
+	<title>MEET PLAY SHARE, E1I6</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -238,6 +238,9 @@
 		   	<button class="payBtn disable" type="submit" disabled="disabled">결제 선택</button>
 	   	</div>
     </form>
+    
+    <!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 </body>
 <script>
 	$(function(){

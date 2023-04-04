@@ -143,5 +143,9 @@
 		</c:if>
 		<a href="${pageContext.request.contextPath}/event/eventList?currentPage=${lastPage}&searchWord=${searchWord}">끝으로</a>	
 	</div>	
+	<!-- footer -->
+	<div>
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 </body>
 </html>

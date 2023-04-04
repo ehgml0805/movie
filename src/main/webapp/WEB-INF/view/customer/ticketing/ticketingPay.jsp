@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>MEET PLAY SHARE, E1I6</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -184,6 +184,9 @@
 	   	<input type="hidden" id="movieTitle" name="movieTitle" value="${scheduleOne.movieTitle}">
 	   	<button id="kakaopay" class="payBtn" type="button" style="background-color:#3F0099; color:white; width:200px; height:200px;">결제하기</button>
    	</div>
+   	
+   	<!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 </body>
 <script>
 	$(function(){

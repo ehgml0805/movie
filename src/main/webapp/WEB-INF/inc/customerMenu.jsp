@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script></head>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 <div class="col-md-4 col-lg-3 p-b-80">
 	<div class="side-menu">
@@ -56,3 +57,5 @@
 		</div>
 	</div>
 </div>
+<!-- 채팅 아이콘 -->
+<c:import url="/WEB-INF/inc/chat.jsp"></c:import>
