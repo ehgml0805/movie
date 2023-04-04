@@ -5,23 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결제</title>
+<title>MEET PLAY SHARE, E1I6</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<!--제이쿼리  -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
-    
-    <!-- Style -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
-
-		<style type="text/css">
+	<style type="text/css">
 	html, body {
 	    height: 100%
 	}
@@ -32,10 +23,6 @@
 	    padding-bottom: 60px;
 	}
 	
-	footer {
-	    bottom: 0;
-	}
-	<!--하단 footer 고정-->
 	</style>
  
 </head>
@@ -79,7 +66,7 @@
 					<tr><td colspan=3><hr></td></tr>
 					<tr>
 						<c:forEach var="c" items="${clist}">
-							<c:if test="${ nowTime1 <=c.useByDate}">
+							<c:if test="${ nowTime1 <=c.useByDate && c.state == N}">
 								<td>
 									<input type="checkbox" id="mycouponKey" name="mycouponKey" onclick='getCheckboxValue(event)' readonly="readonly"
 											value="${c.mycouponKey}" data-price="${c.couponSalePrice}"/> ${c.couponName}
@@ -118,7 +105,7 @@
 		</form>
 	</div>
 
-	<script type="text/javascript">
+	<script>
 		$(document).on('click', "input[type='checkbox']", function(){
 		    if(this.checked) {
 		        const checkboxes = $("input[type='checkbox']");
@@ -132,6 +119,7 @@
 		});
 	
 		var result = parseInt($('#besum').val(),10);
+		
 		$(document).ready(function() {
 	        $('#sum').val(result);
 	    });
@@ -152,15 +140,19 @@
 		    result = event.target.value;
 		    
 		  }else {
-				var bcsum= parseInt($('#besum').val(),10);
-				$(document).ready(function() {
-			        $('#sum').val(bcsum);
-			    });
+			  
+			var bcsum= parseInt($('#besum').val(),10);
+			$(document).ready(function() {ß
+		        $('#sum').val(bcsum);
+		    });
 		  }
 		}
 		
 		
 	</script>
-	
+	<div>
+		<!-- footer -->
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 </body>
 </html>

@@ -343,13 +343,27 @@
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
+						
+							<c:forEach var="c" items="${list}">
+							
 							<table class="table-shopping-cart">
 								<tr class="table_head">
-									<th class="column-1">Product</th>
-									<th class="column-2"></th>
-									<th class="column-3">Price</th>
-									<th class="column-4">Quantity</th>
-									<th class="column-5">Total</th>
+								
+									<c:if test="${c.soldOut=='N'}">
+										<form action="${pageContext.request.contextPath}/customer/order/selectCart" method="post" id="checkForm${c.snackKey}">
+											<input type="hidden" name="snackKey" value="${c.snackKey}">
+									 		<td width='5%' style="text-align: center;">
+									 			<input type="checkBox" name="selected" id="selected${c.snackKey}" value= 1 <c:if test="${c.selected==1}">checked</c:if>>
+									 		</td>
+								 		</form>
+									</c:if>
+									
+									<c:if test="${c.soldOut=='Y'}">
+										<td width="5%" style="text-align: center;">품절</td>
+									</c:if>
+									<td width="15%">
+										<img src="${pageContext.request.contextPath}/snackImg/${c.fileName}.${c.fileType}" width= "200px" height="200px">
+									</td>
 								</tr>
 
 								<tr class="table_row">

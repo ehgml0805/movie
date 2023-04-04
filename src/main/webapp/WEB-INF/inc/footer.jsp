@@ -23,20 +23,20 @@
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
+							<a href="https://github.com/spongestyle" class="stext-107 cl7 hov-cl1 trans-04">
+								김소현
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
+							<a href="https://github.com/dlsqja3561" class="stext-107 cl7 hov-cl1 trans-04">
+								양인범
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
+							<a href="https://github.com/rungmin2" class="stext-107 cl7 hov-cl1 trans-04">
+								정성민
 							</a>
 						</li>
 					</ul>
@@ -44,31 +44,31 @@
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-20">
-						Help
+						
 					</h4>
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Track Order
+							<a href="https://github.com/YoungwooJ" class="stext-107 cl7 hov-cl1 trans-04">
+								조영우
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+							<a href="https://github.com/Cduboo" class="stext-107 cl7 hov-cl1 trans-04">
+								최정헌 
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
+							<a href="https://github.com/hitchcoke" class="stext-107 cl7 hov-cl1 trans-04">
+								이지원
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								FAQs
+							<a href="https://github.com/ehgml0805/movie" class="stext-107 cl7 hov-cl1 trans-04">
+								Movie
 							</a>
 						</li>
 					</ul>

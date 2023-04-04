@@ -5,21 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/owl.carousel.min.css">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/bootstrap.min.css">
-    
-    <!-- Style -->
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/nav/css/style.css">
-<title>결제</title>
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<!--제이쿼리  -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>MEET PLAY SHARE, E1I6</title>
 </head>
 
 <body>
@@ -163,7 +153,7 @@
 				</h4>
 				
 			</fieldset>
-		
+		<br>
 		<div style="text-align: center;">
 			<button type="button" class="btn btn-outline-dark btn-lg" onclick="location.href='${pageContext.request.contextPath}/customer/order/paymentCart'">결제하기</button></div>
 		</c:if>
@@ -207,6 +197,9 @@
 			})
 		</script>
 	</c:forEach>
-
+	<div>
+		<!-- footer -->
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 </body>
 </html>

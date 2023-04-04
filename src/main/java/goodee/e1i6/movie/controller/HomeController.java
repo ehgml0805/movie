@@ -19,6 +19,7 @@ import goodee.e1i6.movie.service.LoginService;
 import goodee.e1i6.movie.service.MovieService;
 import goodee.e1i6.movie.service.NoticeService;
 import goodee.e1i6.movie.service.PointService;
+import goodee.e1i6.movie.service.QuestionService;
 import goodee.e1i6.movie.service.VisitorService;
 import goodee.e1i6.movie.service.WishlistService;
 import goodee.e1i6.movie.teamColor.TeamColor;
@@ -39,6 +40,7 @@ public class HomeController {
 	@Autowired MovieService movieService;
 	@Autowired WishlistService wishlistService;
 	@Autowired NoticeService noticeService;
+	@Autowired QuestionService questionService;
 	
 	@GetMapping("/home")
 	public String getHome(HttpServletRequest request, Model model
@@ -78,7 +80,8 @@ public class HomeController {
 	//마이페이지 
 	@GetMapping("/customer/mypage")
 	public String myPage(HttpSession session,Model model
-							,	@RequestParam(value="currentPage", defaultValue = "1") int currentPage
+							, @RequestParam(value="searchWord", defaultValue="") String searchWord
+							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue="10") int rowPerPage) {
 		Customer c = (Customer)session.getAttribute("loginCustomer");
 		String customerId= c.getCustomerId();
@@ -94,6 +97,7 @@ public class HomeController {
 		//내 쿠폰 목록 
 		List<Map<String, Object>> clist = couponService.selectMyCouponList(session, customerId);
 		model.addAttribute("clist", clist);
+		
 		//내가 참여한 이벤트 목록 
 		List<Map<String, Object>> elist = eventService.selectEventListById(customerId);
 		model.addAttribute("elist", elist);
@@ -115,13 +119,17 @@ public class HomeController {
 		if(endPage>lastPage) {
 			endPage=lastPage;
 		} 
-		
 		model.addAttribute("PA", pointAccumulateList);
 		model.addAttribute("PR", pointRedeemList);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("endPage", endPage);
+		
+		// 문의사항 목록 
+		List<Map<String, Object>> questionList=questionService.getQuestionList(customerId, currentPage, rowPerPage, searchWord);
+		model.addAttribute("qlist", questionList);
+		
 		return "customer/mypage";
 	}
 }

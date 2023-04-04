@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="shortcut icon" href="../img/favicon-32x32.png">
 <title>MEET PLAY SHARE, E1I6</title>
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -125,8 +124,9 @@
 					
 					<div class="tab-pane fade" id="v-pills-coupon" role="tabpanel" aria-labelledby="v-pills-coupon-tab">
 						<h2>쿠폰내역</h2>
+						<br>
 						<table class="table table-striped table-hover">
-							<thead>
+							<thead class="table-secondary" >
 								<tr>
 									<th scope="col">쿠폰명</th>
 									<th scope="col">쿠폰상태</th>
@@ -153,8 +153,10 @@
 					</div>
 					
 					<div class="tab-pane fade" id="v-pills-point" role="tabpanel" aria-labelledby="v-pills-point-tab">
+						<h2>포인트 이용 내역</h2>
+						<br>
 						 <table class="table ">
-							<thead>
+							<thead class="table-secondary" >
 								<tr>
 									<th scope="col">카테고리</th>
 									<th scope="col" style="color: blue;">포인트</th>
@@ -183,12 +185,13 @@
 					
 					<div class="tab-pane fade" id="v-pills-event" role="tabpanel" aria-labelledby="v-pills-event-tab">
 						<h4>참여한 이벤트 내역 </h4>
+						<br>
 						<table class="table " >
-							<thead>
+							<thead class="table-secondary" >
 								<tr>
-									<th scope="col">이벤트</td>
-									<th scope="col">시작일</td>
-									<th scope="col">종료일</td>
+									<th scope="col">이벤트</th>
+									<th scope="col">시작일</th>
+									<th scope="col">종료일</th>
 								</tr>
 							</thead>
 							<c:forEach var="e" items="${elist }">
@@ -207,6 +210,8 @@
 					</div>
 					
 					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+						<h4>회원정보 수정</h4>
+						<br>
 						<form method ="post" action ="${pageContext.request.contextPath}/login/modifyCustomer" >
 								<table class="table" >  
 									<tr>
@@ -294,13 +299,44 @@
 						</div>
 						
 						<div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-help-tab">
-						 나의 문의 내역 뽑기 
+							<h4>나의 문의내역</h4>
+							<br>
+							<table class="table " >
+							<thead class="table-secondary" >
+								<tr>
+									<th scope="col">번호</th>
+									<th scope="col">제목</th>
+									<th scope="col">답변상태</th>
+									<th scope="col">등록일</th>
+								</tr>
+							</thead>
+							<c:forEach var="q" items="${qlist }">
+								<tbody>
+									<tr>
+										<td>${q.num }</td>
+										<td>${q.questionTitle }</td>
+										<td>
+											<c:if test="${q.questionAnswer eq null }">
+												<span style="color: red;">답변중</span>
+											</c:if>
+											<c:if test="${q.questionAnswer ne null }">
+												<span>답변완료</span>
+											</c:if>
+										</td>
+										<td>${q.createdate }</td>
+									</tr>
+								</tbody>
+							</c:forEach>
+						</table>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	
+	<div>
+		<!-- footer -->
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
