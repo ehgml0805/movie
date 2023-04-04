@@ -78,7 +78,7 @@
 			, file_type fileType
 			, file_size fileSize
 		FROM still_cut
-		WHERE still_cut_key = ${stillCutKey}
+		WHERE movie_key = ${movieKey} AND poster = 'Y'
 	</select>
 	
 	<!-- 영화에 맞는 영화 이미지 목록 키 번호 출력 -->

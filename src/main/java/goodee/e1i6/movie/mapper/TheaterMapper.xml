@@ -117,7 +117,6 @@
 		UPDATE theater 
 		SET 
 			theater_name = #{theaterName}
-			, theater_region = #{theaterRegion}
 			, theater_info = #{theaterInfo}
 			, theater_address = #{theaterAddress}
 			, theater_ticketing_info = #{theaterTicketingInfo}

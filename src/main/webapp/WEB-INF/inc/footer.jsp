@@ -23,19 +23,19 @@
 						</li>
 
 						<li class="p-b-10">
-							<a href="https://github.com/spongestyle" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/spongestyle" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								김소현
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="https://github.com/dlsqja3561" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/dlsqja3561" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								양인범
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="https://github.com/rungmin2" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/rungmin2" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								정성민
 							</a>
 						</li>
@@ -49,25 +49,25 @@
 
 					<ul>
 						<li class="p-b-10">
-							<a href="https://github.com/YoungwooJ" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/YoungwooJ" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								조영우
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="https://github.com/Cduboo" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/Cduboo" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								최정헌 
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="https://github.com/hitchcoke" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/hitchcoke" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								이지원
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="https://github.com/ehgml0805/movie" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="https://github.com/ehgml0805/movie" target='_blank' class="stext-107 cl7 hov-cl1 trans-04">
 								Movie
 							</a>
 						</li>

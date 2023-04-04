@@ -56,7 +56,6 @@
 			<br/>
 			<h1 class="my-4">상영관 목록</h1>
 			<!-- 상영관 등록 모달 버튼 -->
-			<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTheaterModal">상영관 등록</button>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -135,13 +134,15 @@
 								<thead>
 									<tr>
 										<th>극장코드</th>
+										<th>극장지역</th>
 										<th>극장명</th>
 										<th>극장주소</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<td><input type="text" class='form-control' name="theaterKey" value="${theaterOne.theaterKey}" readonly="readonly"></td>
+										<td><input type="text" class='form-control' name="theaterKey" value="${theaterOne.theaterKey}" readonly="readonly"></td>										
+										<td><input type="text" class='form-control' value="${theaterOne.theaterRegion}" readonly="readonly"/></td>
 										<td><input type="text" class='form-control' name="theaterName" value="${theaterOne.theaterName}"/></td>
 										<td>
 											<input type="text" class='form-control' id="postcode" name="postcode" placeholder="우편번호">
