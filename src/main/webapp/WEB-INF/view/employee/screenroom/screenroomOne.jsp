@@ -110,7 +110,13 @@
 										</div>
 											<div class="seatRow-${row}" style="margin-left:50px;">
 											<button style="background-color:white; font-size:12px; font-weight:bold; width:20px; height:18px; padding:0; margin:0; display:inline-block;">${row}</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<c:if test="${s.active eq 'Y'}">
+											<c:if test="${s.useable eq 'Y'}">
+												<button data-useable="Y" data-choice="N" class="choice-seat" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
+											</c:if>
+											<c:if test="${s.useable eq 'N'}">
+												<button class="border useableN" value="${s.seatKey}" data-useable="N" data-choice="N" style="font-size:12px; background-color:#eee; color:white;  width:20px; height:18px;  padding:0; margin:0; display:inline-block;"></button>
+											</c:if>
+											<%-- <c:if test="${s.active eq 'Y'}">
 												<c:if test="${s.useable eq 'Y'}">
 													<button data-useable="Y" data-choice="N" class="choice-seat" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" value="${s.seatKey}" data-active="${s.active}" data-seat="${s.seatNumber}">${seatNumber}</button>
 												</c:if>
@@ -125,10 +131,16 @@
 												<c:if test="${s.useable eq 'N'}">
 													<button class="border useableN" value="${s.seatKey}" data-useable="N" data-choice="N" style="font-size:12px; background-color:#eee; color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;"></button>
 												</c:if>
-											</c:if>
+											</c:if> --%>
 										</c:when>
 										<c:otherwise>
-											<c:if test="${s.active eq 'Y'}">
+											<c:if test="${s.useable eq 'Y'}">
+												<button data-useable="Y" data-choice="N" class="choice-seat" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
+											</c:if>
+											<c:if test="${s.useable eq 'N'}">
+												<button class="border useableN" value="${s.seatKey}" data-useable="N" data-choice="N" style="font-size:12px; background-color:#eee; color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;"></button>
+											</c:if>
+											<%-- <c:if test="${s.active eq 'Y'}">
 												<c:if test="${s.useable eq 'Y'}">
 													<button data-useable="Y" data-choice="N" class="choice-seat" id="seat${s.seatKey}" style="background-color:#5D5D5D; font-size:12px;  color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;" data-active="${s.active}"  data-seat="${s.seatNumber}" value="${s.seatKey}">${seatNumber}</button>
 												</c:if>
@@ -143,7 +155,7 @@
 												<c:if test="${s.useable eq 'N'}">
 													<button class="border useableN" value="${s.seatKey}" data-useable="N" data-choice="N" style="font-size:12px; background-color:#eee; color:white;  width:20px; height:18px; padding:0; margin:0; display:inline-block;"></button>
 												</c:if>
-											</c:if>				
+											</c:if> --%>				
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -199,7 +211,7 @@
 				$('#modifyBtn').click(function() {
 					let html = `
 						<form id="modifyForm">
-							<table border="1">
+							<table class='table'>
 								<thead>
 									<tr>
 										<th>상영관코드</th>
@@ -209,13 +221,13 @@
 								</thead>
 								<tbody>
 									<tr>
-										<td><input type="text" name="screenroomKey" value="${screenroomOne.screenroomKey}" readonly="readonly"></td>
-										<td><input type="text" name="screenroomName" value="${screenroomOne.screenroomName}"/></td>
-										<td><input type="text" value="${screenroomOne.seatCount}" readonly="readonly"></td>
+										<td><input class='form-control' type="text" name="screenroomKey" value="${screenroomOne.screenroomKey}" readonly="readonly"></td>
+										<td><input class='form-control' type="text" name="screenroomName" value="${screenroomOne.screenroomName}"/></td>
+										<td><input class='form-control' type="text" value="${screenroomOne.seatCount}" readonly="readonly"></td>
 									</tr>
 								</tbody>		
 							</table>
-							<div><button type="button" id="modifyCkBtn">수정완료</button></div>
+							<div><button class='btn btn-secondary' type="button" id="modifyCkBtn">수정완료</button></div>
 						</form>
 					`
 					
