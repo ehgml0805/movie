@@ -30,13 +30,17 @@
 						<c:if test="${ec.insultReport<5 }">
 							<td>${ec.eventCommentContent}</td>
 						</c:if>
-						<td>${ec.createdate}</td>
-						<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
-						<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
-						<td>
-							<a href="${pageContext.request.contextPath}/customer/event/insultReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">욕설/비방 신고</a>
-							<a href="${pageContext.request.contextPath}/customer/event/spoilerReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">스포일러 신고</a>
-						</td>
+						<td><fmt:formatDate value="${ec.createdate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<c:if test="${loginCustomerId == ec.customerId}">
+							<td><a href="${pageContext.request.contextPath}/customer/event/modifyEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">수정</a></td>
+							<td><a href="${pageContext.request.contextPath}/customer/event/removeEventComment?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">삭제</a></td>
+						</c:if>
+						<c:if test="${empty loginCustomerId || loginCustomerId != ec.customerId}">
+							<td>
+								<a href="${pageContext.request.contextPath}/customer/event/insultReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">욕설/비방 신고</a>
+								<a href="${pageContext.request.contextPath}/customer/event/spoilerReport?customerId=${ec.customerId}&eventKey=${ec.eventKey}&eventCommentKey=${ec.eventCommentKey}&movieKey=${movieKey}">스포일러 신고</a>
+							</td>
+						</c:if>
 					</tr>
 				</c:if>	
 			</c:forEach>

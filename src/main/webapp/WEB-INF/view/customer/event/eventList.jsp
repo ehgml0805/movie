@@ -100,8 +100,10 @@
 <body>
 	<!-- 네비바 -->
 	<c:import url="/WEB-INF/inc/menu.jsp"></c:import>
-	<div class="container">		
-		<a href="${pageContext.request.contextPath}/employee/event/addEvent">이벤트 등록</a>
+	<div class="container">	
+		<c:if test="${not empty loginEmployee}">	
+			<a href="${pageContext.request.contextPath}/employee/event/addEvent">이벤트 등록</a>
+		</c:if>
 		<h3 style="margin-top: 3%;">진행중인 이벤트</h3>
 		<div class="search">
 			<form method="get" action="${pageContext.request.contextPath}/event/eventList">
@@ -119,7 +121,7 @@
 						</a>
 					</div>
 					<div class="text-center">
-						<ahref="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
+						<a href="${pageContext.request.contextPath}/event/eventOne?eventKey=${e.eventKey}&movieKey=${e.movieKey}" class="title">${e.eventTitle}</a>
 					</div>
 					<div class="text-center">
 						<span style="font-size:12px;">${e.eventStartDate} ~ ${e.eventEndDate}</span>

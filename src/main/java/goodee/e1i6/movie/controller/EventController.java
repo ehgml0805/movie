@@ -173,7 +173,8 @@ public class EventController {
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
 			, @RequestParam(value = "eventKey") int eventKey
-			, @RequestParam(value = "movieKey") int movieKey){ 
+			, @RequestParam(value = "movieKey") int movieKey
+			, HttpSession session){ 
 		
 		log.debug(TeamColor.JSM + "ec.eventKey :" + eventKey);
 		log.debug(TeamColor.JSM + "ec.movieKey :" + movieKey);
@@ -181,11 +182,17 @@ public class EventController {
 		List<EventComment> EventCommentList = eventService.getEventCommentList(currentPage, rowPerPage, eventKey);
 		log.debug(TeamColor.JSM + EventCommentList +" <- EventCommentList");
 
+		if(session.getAttribute("loginCustomer") != null) {
+			Customer loginCustomer = (Customer)session.getAttribute("loginCustomer");
+			String loginCustomerId = loginCustomer.getCustomerId();
+			model.addAttribute("loginCustomerId", loginCustomerId);
+		}
+
+		
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("EventCommentList", EventCommentList);
 		model.addAttribute("eventKey", eventKey);
 		model.addAttribute("movieKey", movieKey);
-
 		
 		return "customer/event/eventCommentList";
 	}
@@ -205,6 +212,10 @@ public class EventController {
 			 customerId = "";
 		} else {
 			 customerId = loginCustomer.getCustomerId();
+		}
+		
+		if(session.getAttribute("loginEmployee") != null) {
+			model.addAttribute("loginEmployee", session.getAttribute("loginEmployee"));
 		}
 		
 		log.debug(TeamColor.JSM + customerId +" <- eventOneCustomerId");
@@ -315,7 +326,8 @@ public class EventController {
 	public String eventList (Model model 
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
-		    , @RequestParam(value="searchWord", defaultValue = "") String searchWord) { 
+		    , @RequestParam(value="searchWord", defaultValue = "") String searchWord
+		    , HttpSession session) { 
 	
 		List<Event> list = eventService.getEventList(currentPage, rowPerPage, searchWord);
 		log.debug(TeamColor.JSM + list +" <- eventList");
@@ -327,6 +339,10 @@ public class EventController {
 
 		if (endPage > lastPage) {
 		    endPage = lastPage;
+		}
+		
+		if(session.getAttribute("loginEmployee") != null) {
+			model.addAttribute("loginEmployee", session.getAttribute("loginEmployee"));
 		}
 		
 		model.addAttribute("list", list);

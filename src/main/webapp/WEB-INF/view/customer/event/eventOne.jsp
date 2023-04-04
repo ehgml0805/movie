@@ -108,7 +108,9 @@
 			<h2 style="margin-bottom:3%;">${e.eventTitle}</h2>
 			<div style="margin-bottom:2%;">
 				이벤트 기간 ${e.eventStartDate} ~ ${e.eventEndDate}
-				<a href="${pageContext.request.contextPath}/employee/event/modifyEvent?eventKey=${e.eventKey}&eventTitle=${e.eventTitle}&eventContent=${e.eventContent}">수정</a>
+				<c:if test="${not empty loginEmployee}">
+					<a href="${pageContext.request.contextPath}/employee/event/modifyEvent?eventKey=${e.eventKey}&eventTitle=${e.eventTitle}&eventContent=${e.eventContent}">수정</a>
+				</c:if>
 			</div>
 		</c:forEach>
 		<c:forEach var="e" items="${eventOneList}">
