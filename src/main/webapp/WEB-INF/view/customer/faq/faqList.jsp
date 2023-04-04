@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- favicon -->
+<link rel="shortcut icon" href="../img/favicon-32x32.png"> 
 <title>MEET PLAY SHARE, E1I6</title>
 <style>  
 	.table-container {
@@ -127,7 +129,7 @@
 									</td>
 									<c:if test="${not empty loginEmployee}">
 										<td><a href="${pageContext.request.contextPath}/employee/faq/modifyFaq?faqKey=${f.faqKey}&faqQuestion=${f.faqQuestion}&faqAnswer=${f.faqAnswer}">수정</a></td>
-										<td><a href="${pageContext.request.contextPath}/employee/faq/removeFaq?faqKey=${f.faqKey}">삭제</a></td>
+										<td><a href="${pageContext.request.contextPath}/employee/faq/removeFaq?faqKey=${f.faqKey}" class="dle">삭제</a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -180,5 +182,14 @@
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 	</div>
 
+	<script>
+		// 삭제버튼 클릭시
+	    $(".dle").on("click", function(){
+	    	var result = confirm("삭제 하시겠습니까?");
+	    	if (result == false) {
+	    		return false;
+	    	}
+	    });
+	</script>
 </body>
 </html>

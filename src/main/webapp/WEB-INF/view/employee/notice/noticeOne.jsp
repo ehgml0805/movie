@@ -7,6 +7,8 @@
 <title>noticeOne</title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+<!-- favicon -->
+<link rel="shortcut icon" href="../../img/favicon-32x32.png"> 
 </head>
 <body>
 	<!-- 네비바 -->
@@ -43,7 +45,7 @@
 						<div style="text-align:right;">
 							<small>등록일 ${map.createdate}</small>
 							<a href="${pageContext.request.contextPath}/employee/notice/modifyNotice?noticeKey=${map.noticeKey}&noticeTitle=${map.noticeTitle}&noticeContent=${map.noticeContent}">수정</a>
-							<a href="${pageContext.request.contextPath}/employee/notice/removeNotice?noticeKey=${map.noticeKey}&fileName=${map.fileName}">삭제</a>
+							<a href="${pageContext.request.contextPath}/employee/notice/removeNotice?noticeKey=${map.noticeKey}&fileName=${map.fileName}" id="dle">삭제</a>
 						</div>
 						<hr>
 						<c:if test="${map.fileName ne null}">
@@ -63,6 +65,14 @@
 	
 	<!-- footer -->
 	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
-
+	<script>
+		// 삭제버튼 클릭시
+	    $("#dle").on("click", function(){
+	    	var result = confirm("삭제 하시겠습니까?");
+	    	if (result == false) {
+	    		return false;
+	    	}
+	    });
+	</script>
 </body>
 </html>

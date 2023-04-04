@@ -7,6 +7,8 @@
 <title>noticeList</title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+<!-- favicon -->
+<link rel="shortcut icon" href="../../img/favicon-32x32.png"> 
 <style>
 	.search {
 		margin-top: 10px;

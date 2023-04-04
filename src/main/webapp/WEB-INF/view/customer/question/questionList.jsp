@@ -8,6 +8,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- favicon -->
+<link rel="shortcut icon" href="../../img/favicon-32x32.png"> 
 <style>
 	.search {
 		margin-top: 10px;
@@ -84,7 +86,7 @@
 									<td>${l.createdate}</td>
 									<!-- 답변없으면 -->
 									<c:if test="${l.questionAnswer eq null}">
-										<td><a href="${pageContext.request.contextPath}/customer/question/removeQuestion?questionKey=${l.questionKey}">삭제</a></td>
+										<td><a href="${pageContext.request.contextPath}/customer/question/removeQuestion?questionKey=${l.questionKey}" class="dle">삭제</a></td>
 									</c:if>
 									<!-- 답변있으면 -->
 									<c:if test="${l.questionAnswer ne null}">
@@ -138,5 +140,14 @@
 	<div>
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 	</div>
+	<script>
+		// 삭제버튼 클릭시
+	    $(".dle").on("click", function(){
+	    	var result = confirm("삭제 하시겠습니까?");
+	    	if (result == false) {
+	    		return false;
+	    	}
+	    });
+	</script>
 </body>
 </html>

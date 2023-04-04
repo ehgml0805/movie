@@ -67,17 +67,5 @@
 	<!-- footer -->
 	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 
-	
-	<h2>FAQ 수정</h2>
-	<form method="post" action="${pageContext.request.contextPath}/employee/faq/modifyFaq">
-		<input type="hidden" name="faqKey" value="${faqKey}">
-		<div>
-			질문 내용 : <input type="text" name="faqQuestion" value="${faqQuestion }">
-		</div>
-		<div>
-			답변 내용 : <textarea rows="5" cols="100" name="faqAnswer">${faqAnswer}</textarea>
-		</div>
-		<button type="submit">FAQ 수정</button>
-	</form>
 </body>
 </html>

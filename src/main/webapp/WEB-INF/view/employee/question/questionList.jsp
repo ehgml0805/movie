@@ -7,6 +7,8 @@
 <title>MEET PLAY SHARE, E1I6</title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+<!-- favicon -->
+<link rel="shortcut icon" href="../../img/favicon-32x32.png"> 
 <style>
 	.search {
 		margin-top: 10px;
@@ -37,7 +39,7 @@
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 
-			<a href="#" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="${pageContext.request.contextPath}/employeeHome" class="stext-109 cl8 hov-cl1 trans-04">
 				Admin Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>

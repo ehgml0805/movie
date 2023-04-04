@@ -5,7 +5,7 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title></title>
+<title>MEET PLAY SHARE, E1I6</title>
 <style>
 *{
 	box-sizing:border-box;
@@ -277,7 +277,9 @@ main footer button{
 	
 	    $("#button_send").on("click", function(e){
 	        var msg = document.getElementById("msg");
-	
+			if(msg.value == '') {
+				return false;
+			}
 	        console.log(username + ":" + msg.value);
 	        stomp.send('/pub/chat/message', {}, JSON.stringify({roomId: roomId, message: msg.value, writer: username}));
 	        msg.value = '';

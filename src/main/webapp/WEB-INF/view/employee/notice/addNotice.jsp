@@ -7,6 +7,8 @@
 <title>MEET PLAY SHARE, E1I6</title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+<!-- favicon -->
+<link rel="shortcut icon" href="../../img/favicon-32x32.png"> 
 </head>
 <body>
 	<!-- 네비바 -->
@@ -39,18 +41,18 @@
 					<div class="p-r-45 p-r-0-lg text-center">
 					<!-- Main start -->
 						<h1>공지사항 등록</h1><br>
-						<form method="post" action="${pageContext.request.contextPath}/employee/notice/addNotice" enctype="multipart/form-data">
+						<form method="post" id="form" action="${pageContext.request.contextPath}/employee/notice/addNotice" enctype="multipart/form-data">
 							<table class="table">
 								<tr>
 									<td>제목</td>
 									<td>
-										<input type="text" name="noticeTitle" class="form-control">
+										<input type="text" name="noticeTitle" id="noticeTitle" class="form-control">
 									</td>
 								</tr>
 								<tr>
 									<td>내용</td>
 									<td>
-										<textarea rows="5" name="noticeContent" class="form-control"></textarea>
+										<textarea rows="5" name="noticeContent" id="noticeContent" class="form-control"></textarea>
 									</td>
 								</tr>
 								<tr>
@@ -60,7 +62,7 @@
 									</td>
 								</tr>
 							</table>
-							<button type="submit" class="form-control">등록</button>
+							<button type="button" id="btn" class="form-control">등록</button>
 						</form>
 					<!-- Main End -->
 					</div>
@@ -75,6 +77,24 @@
 	
 	<!-- footer -->
 	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
-
+	
+	<script>
+		// 입력확인 검사
+		$("#btn").on("click", function(){
+			// 제목입력 확인
+			if($('#noticeTitle').val() == "") {
+				alert("제목을 입력해주세요.");
+				$("#noticeTitle").focus();
+				return false;
+			}
+			// 내용입력 확인
+			if($('#noticeContent').val() == "") {
+				alert("내용을 입력해주세요.");
+				$("#noticeContent").focus();
+				return false;
+			}
+			$('#form').submit();
+		});
+	</script>
 </body>
 </html>

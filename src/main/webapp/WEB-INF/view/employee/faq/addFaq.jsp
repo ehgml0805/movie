@@ -39,7 +39,7 @@
 					<div class="p-r-45 p-r-0-lg text-center">
 					<!-- Main start -->
 						<h1>FAQ 등록</h1><br>
-						<form method="post" action="${pageContext.request.contextPath}/employee/faq/addFaq">
+						<form method="post" id="form" action="${pageContext.request.contextPath}/employee/faq/addFaq">
 							<table class="table">
 								<tr>
 							 		<td>질문 내용</td>
@@ -47,10 +47,10 @@
 								</tr>
 								<tr>
 									<td>답변 내용</td> 
-									<td><textarea rows="5"name="faqAnswer" class="form-control"></textarea></td>
+									<td><textarea rows="5" name="faqAnswer" id="faqAnswer" class="form-control"></textarea></td>
 								</tr>
 							</table>
-							<button type="submit" class="form-control">FAQ 등록</button>
+							<button type="button" id="btn" class="form-control">FAQ 등록</button>
 						</form>
 					<!-- Main End -->
 					</div>
@@ -66,5 +66,23 @@
 	<!-- footer -->
 	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 
+	<script>
+		// 입력확인 검사
+		$("#btn").on("click", function(){
+			// 질문내용입력 확인
+			if($('#faqQuestion').val() == "") {
+				alert("질문내용을 입력해주세요.");
+				$("#faqQuestion").focus();
+				return false;
+			}
+			// 답변내용입력 확인
+			if($('#faqAnswer').val() == "") {
+				alert("답변내용을 입력해주세요.");
+				$("#faqAnswer").focus();
+				return false;
+			}
+			$('#form').submit();
+		});
+	</script>
 </body>
 </html>

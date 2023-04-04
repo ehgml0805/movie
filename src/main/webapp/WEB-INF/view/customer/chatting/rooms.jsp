@@ -5,7 +5,7 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title></title>
+<title>MEET PLAY SHARE, E1I6</title>
 </head>
 <body>
 

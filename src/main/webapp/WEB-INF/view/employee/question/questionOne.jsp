@@ -7,6 +7,8 @@
 <title></title>
 <!-- employeeHead -->
 <c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+<!-- favicon -->
+<link rel="shortcut icon" href="../../img/favicon-32x32.png"> 
 </head>
 <body>
 	<!-- 네비바 -->
@@ -65,7 +67,7 @@
 								<tr>
 									<td colspan="2">
 										답변내용 ${map.createdate}
-										<a href="${pageContext.request.contextPath}/employee/question/removeQuestionAnswer?questionKey=${map.questionKey}">삭제</a>
+										<a href="${pageContext.request.contextPath}/employee/question/removeQuestionAnswer?questionKey=${map.questionKey}" id="dle">삭제</a>
 									</td>
 								</tr>
 								<tr>
@@ -103,6 +105,15 @@
 	
 	<!-- footer -->
 	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
-
+	
+	<script>
+		// 삭제버튼 클릭시
+	    $("#dle").on("click", function(){
+	    	var result = confirm("삭제 하시겠습니까?");
+	    	if (result == false) {
+	    		return false;
+	    	}
+	    });
+	</script>
 </body>
 </html>
