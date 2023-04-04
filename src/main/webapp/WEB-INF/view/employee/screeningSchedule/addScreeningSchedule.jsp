@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>상영 스케줄 등록</title>
+	<title>MEET PLAY SHARE, E1I6</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,6 +14,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<!-- 네비바 -->
+	<c:import url="/WEB-INF/inc/menu-white.jsp"></c:import>
+
 	<h2>상영 스케줄 등록</h2>
 	<form method="post" action="${pageContext.request.contextPath}/employee/screeningSchedule/addScreeningSchedule">
 		<table>
@@ -75,6 +78,9 @@
 		<input type="hidden" name="theaterKey" id="theaterKey" value="0">
 		<button type="submit">등록</button>
 	</form>
+	
+	<!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 </body>
 <script>
 	$(function(){

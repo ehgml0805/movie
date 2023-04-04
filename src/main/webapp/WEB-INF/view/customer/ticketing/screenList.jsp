@@ -181,6 +181,9 @@
 		</div>
     </div>
     
+    <!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+    
     <script>
 		$(function() {
 			// $('#calendar > span:first-child > button').addClass('date-active');

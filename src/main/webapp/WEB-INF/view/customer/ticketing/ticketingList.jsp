@@ -107,5 +107,8 @@
 		</c:forEach>
 		</table>
 	</div>
+	
+	<!-- footer -->
+	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 </body>
 </html>
