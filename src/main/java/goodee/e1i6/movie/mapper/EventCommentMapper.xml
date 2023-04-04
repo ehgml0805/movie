@@ -86,6 +86,7 @@
 			, ec.insult_report insultReport
 			, ec.spoiler_report spoilerReport
 			, c.customer_id customerId
+			, c.customer_name customerName
 			, ci.file_name fileName
 		FROM event_comment ec INNER JOIN customer c
 		ON ec.customer_id = c.customer_id

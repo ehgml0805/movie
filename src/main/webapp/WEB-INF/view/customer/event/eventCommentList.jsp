@@ -26,7 +26,7 @@
 				<c:if test="${ec.eventKey == eventKey}">
 					<tr>
 						<td><img src="${pageContext.request.contextPath}/customer-upload/${ec.fileName}" width="50" height="50"></td>
-						<td class="comment">${ec.customerId}</td>
+						<td class="comment">${ec.customerName}</td>
 						<c:if test="${ec.insultReport<5 }">
 							<td>${ec.eventCommentContent}</td>
 						</c:if>
