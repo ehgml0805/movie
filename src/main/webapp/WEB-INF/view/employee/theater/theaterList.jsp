@@ -7,6 +7,8 @@
 		<title>theaterList</title>
 		<!-- employeeHead -->
 		<c:import url="/WEB-INF/inc/employeeHead.jsp"></c:import>
+	 	<link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
+   		<link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
 		<style>
 			a {
 				color : #037B94;
@@ -77,10 +79,10 @@
 				</div>
 			</div>
 		</section>	
-	
 		<!-- footer -->
-		<c:import url="/WEB-INF/inc/employeeFooter.jsp"></c:import>
-	
+		<div>
+			<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+		</div>
 		<script>
 			$(function(){
 				let msg = '${msg}';

@@ -7,6 +7,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<title>MEET PLAY SHARE, E1I6</title>
+  	<link rel="shortcut icon" href="../img/favicon-32x32.png"> 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,6 +15,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
+   	<link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
 	<style>
 		.screen-seat{
 		    border-left: 1px solid rgb(180, 179, 179);
@@ -238,9 +241,10 @@
 		   	<button class="payBtn disable" type="submit" disabled="disabled">결제 선택</button>
 	   	</div>
     </form>
-    
     <!-- footer -->
-	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	<div>
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div> 
 </body>
 <script>
 	$(function(){

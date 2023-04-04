@@ -13,6 +13,8 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> <!-- 부트스트랩 JavaScript 파일 -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	 	<link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
+   		<link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
 		<style>
 			a {
 				color : #037B94;
@@ -100,7 +102,10 @@
 				</div>
 			</div>
 		</div>
-	
+		<!-- footer -->
+		<div>
+			<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+		</div>
 		<script>
 			$(function() {
 				let msg = '${msg}';

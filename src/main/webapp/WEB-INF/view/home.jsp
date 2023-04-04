@@ -6,6 +6,8 @@
 	<head>
 	  	<meta charset="utf-8">
  		<meta name="viewport" content="width=device-width, initial-scale=1">
+	 	<link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
+	   	<link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
  		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 	  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -111,8 +113,6 @@
 	<body>
 		<!-- 네비바 -->
 		<c:import url="/WEB-INF/inc/menu.jsp"></c:import> 
-		
-		
 		
 		<%-- <div>오늘 총 방문자 수: ${todayCount}</div> --%>
 		<!-- 영화 목록 -->
@@ -328,8 +328,8 @@
 			    </div>
 			</div>
 		</div>
-		<div>
 		<!-- footer -->
+		<div>
 			<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
 		</div>
 		<script>

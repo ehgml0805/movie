@@ -11,7 +11,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/navbar.css" />
-  	<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" type="image/x-icon">
+ 	<link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
+	<link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.request.contextPath}/img/favicon-32x32.png">
 </head>
 <body>
 	<!-- Header-->
@@ -107,8 +108,9 @@
 		</c:forEach>
 		</table>
 	</div>
-	
 	<!-- footer -->
-	<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	<div>
+		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 
+	</div>
 </body>
 </html>
