@@ -108,10 +108,10 @@
 					swal("로그인이 필요한 항목입니다.","회원 가입 또는 로그인을 해주세요", "error"); 
 				// customer 로그인시
 				} else if(loginCheck == 'customer') {
-					window.open("http://localhost/movie/chatting/rooms", "_blank", "width=510, height=750");
+					window.open("${pageContext.request.contextPath}/chatting/rooms", "_blank", "width=510, height=750");
 				// employee 로그인시
 				} else if(loginCheck == 'employee') {
-					window.open("http://localhost/movie/chatting/rooms", "_blank", "width=765, height=800");
+					window.open("${pageContext.request.contextPath}/chatting/rooms", "_blank", "width=765, height=800");
 				}
 			}
 		});

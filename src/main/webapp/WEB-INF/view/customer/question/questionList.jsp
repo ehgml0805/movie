@@ -133,8 +133,7 @@
 			</div>
 		</div>
 	</section>	
-	<!-- 채팅 아이콘 -->
-	<c:import url="/WEB-INF/inc/chat.jsp"></c:import>
+
 	<!-- footer -->
 	<div>
 		<c:import url="/WEB-INF/inc/footer.jsp"></c:import> 

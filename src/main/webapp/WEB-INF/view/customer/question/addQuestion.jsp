@@ -50,13 +50,13 @@
 							</li>
 						</ul><br>
 						<div>
-							<form method="post" action="${pageContext.request.contextPath}/customer/question/addQuestion">
+							<form method="post" id="form" action="${pageContext.request.contextPath}/customer/question/addQuestion">
 								<table class="table text-center">
 									<tr>
 										<td>극장선택</td>
 										<td>
 											<select name="theaterRegion" id="theaterRegion" class="form-control">
-												<option value="1">지역선택</option>
+												<option value="0">지역선택</option>
 												<option value="서울">서울</option>
 												<option value="경기">경기</option>
 												<option value="인천">인천</option>
@@ -66,15 +66,15 @@
 												<option value="강원">강원</option>
 											</select>
 											<select name="theaterName" id="theaterName" class="form-control">
-												<option value="1">극장선택</option>
+												<option value="0">극장선택</option>
 											</select>
 										</td>
 									</tr>
 									<tr>
 										<td>문의유형</td>
 										<td>
-											<select name="questionCategoryKey" class="form-control">
-												<option>문의유형 선택</option>
+											<select name="questionCategoryKey" id="questionCategoryKey" class="form-control">
+												<option value="0">문의유형 선택</option>
 												<c:forEach var="c" items="${categoryList}">
 													<option value="${c.questionCategoryKey}">${c.questionCategory}</option>
 												</c:forEach>
@@ -90,7 +90,7 @@
 										<td><textarea rows="5" cols="20" name="questionContent" id="questionContent" class="form-control"></textarea></td>
 									</tr>
 								</table>
-								<button type="submit" class="form-control">등록</button>
+								<button type="button" id="btn" class="form-control">등록</button>
 							</form>
 						</div>
 						<!-- Main End -->
@@ -99,9 +99,6 @@
 			</div>
 		</div>
 	</section>	
-	
-	<!-- 채팅 아이콘 -->
-	<c:import url="/WEB-INF/inc/chat.jsp"></c:import>
 	
 	<!-- footer -->
 	<div>
@@ -139,6 +136,43 @@
 					}
 				});
 			}
+		});
+		
+		// 입력확인 검사
+		$("#btn").on("click", function(){
+			// 지역선택
+			if($("#theaterRegion option:selected").val() == '0') {
+				alert("지역을 선택해 주세요.");
+				$("#theaterRegion").focus();
+				return false;
+			}
+			// 극장선택
+			let theaterName = $("#theaterName option:selected").val();
+			if(theaterName == '0') {
+				alert("극장을 선택해 주세요.");
+				$("#theaterName").focus();
+				return false;
+			}
+			// 문의유형선택
+			let questionCategoryKey = $("#questionCategoryKey option:selected").val();
+			if(questionCategoryKey == '0') {
+				alert("문의유형을 선택해 주세요.");
+				$("#questionCategoryKey").focus();
+				return false;
+			}
+			// 제목입력 확인
+			if($('#questionTitle').val() == "") {
+				alert("제목을 입력해주세요.");
+				$("#questionTitle").focus();
+				return false;
+			}
+			// 내용입력 확인
+			if($('#questionContent').val() == "") {
+				alert("내용을 입력해주세요.");
+				$("#questionContent").focus();
+				return false;
+			}
+			$('#form').submit();
 		});
 	</script>
 </body>

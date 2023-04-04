@@ -24,12 +24,14 @@ public class StompChatController {
         }
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
-
+    
+    // 메세지 보내기
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDTO message) {
         template.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
     
+    // 퇴장시
     @MessageMapping(value = "/chat/end")
     public void end(ChatMessageDTO message) {
         message.setMessage(message.getWriter() + "님이 퇴장하셨습니다.");

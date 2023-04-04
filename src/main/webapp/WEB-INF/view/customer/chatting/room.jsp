@@ -245,7 +245,7 @@ main footer button{
 	           var str = '';
 	
 	           if(writer === username) { // 로그인한 아이디와 같으면(내채팅)
-	        	   console.log("내채팅")
+	        	   console.log("내채팅");
 	        	   str = "<li class='me'>";
 	               str += "<div class='entete'>";
 	               str += "<span class='status blue'></span>";
@@ -257,7 +257,7 @@ main footer button{
 	               $("#chatArea").stop().animate({ scrollTop: $("#chatArea")[0].scrollHeight}, 1000);   
 	           }
 	           else {
-	        	   console.log("상대채팅")
+	        	   console.log("상대채팅");
 	        	   str = "<li class='you'>";
 	               str += "<div class='entete'>";
 	               str += "<span class='status green'></span>";
@@ -272,7 +272,7 @@ main footer button{
 	       });
 	
 	       //3. send(path, header, message)로 메세지를 보낼 수 있음
-	       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}))
+	       stomp.send('/pub/chat/enter', {}, JSON.stringify({roomId: roomId, writer: username}));
 	    });
 	
 	    $("#button_send").on("click", function(e){
@@ -286,12 +286,12 @@ main footer button{
 	    $("#chat_end").on("click", function(){
 	    	var result = confirm("대화방을 나가시겠습니까?");
 	    	if(result == true) {
-	    		window.close();
+	    		window.close(); // 채팅창 닫기
 	    	}
 	    });
 	    // 창을닫으면(X를 눌러서,나가기클릭) 상대방에게 퇴장메세지 출력
 	    $(window).bind("beforeunload", function (e){
-	    	stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}))
+	    	stomp.send('/pub/chat/end', {}, JSON.stringify({roomId: roomId, writer: username}));
 	    });
 		// 새로고침 막기(F5, ctrl+F5, ctrl+r)
 	    $(document).keydown(function (e) {
