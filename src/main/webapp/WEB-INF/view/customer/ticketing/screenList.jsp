@@ -243,31 +243,47 @@
 			
 			// 초기 출력
 			renderCalendar(startDate, endDate);
-
+			
 			// 이전 버튼 클릭 시
 			$(document).on('click', 'button.prevBtn', function() {
-			  const newStartDate = new Date(startDate);
-			  newStartDate.setDate(startDate.getDate() - 14);
-			  const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
-			  year = newStartDate.getFullYear();
-			  month = newStartDate.getMonth();
-			  $('span.date').text(year+"년 "+(Number(month)+1)+"월");
-			  startDate.setTime(newStartDate.getTime());
-			  endDate.setTime(newEndDate.getTime());
-			  renderCalendar(startDate, endDate);
+				const date = new Date();
+				const date_year = date.getFullYear();
+				const date_month = String(date.getMonth() + 1).padStart(2, '0');
+				const date_day = String(date.getDate()).padStart(2, '0');
+				const formattedDate = date_year + "-" + date_month + "-" + date_day
+				
+				if(formattedDate < $('#calendar span button:first-child').val()) {
+					const newStartDate = new Date(startDate);
+					newStartDate.setDate(startDate.getDate() - 14);
+					const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+					year = newStartDate.getFullYear();
+					month = newStartDate.getMonth();
+					$('span.date').text(year+"년 "+(Number(month)+1)+"월");
+					startDate.setTime(newStartDate.getTime());
+					endDate.setTime(newEndDate.getTime());
+					renderCalendar(startDate, endDate);					
+				}
+				
+				$('.date-button').removeClass('date-active');	
+				const dayValue = $('#day').val();
+				$('.date-button[value="' + dayValue + '"]').addClass('date-active');	
 			});
 
 			// 다음 버튼 클릭 시
 			$(document).on('click', 'button.nextBtn', function() {
-			  const newStartDate = new Date(startDate);
-			  newStartDate.setDate(startDate.getDate() - 12);
-			  const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
-			  year = newStartDate.getFullYear();
-			  month = newStartDate.getMonth();
-			  $('span.date').text(year+"년 "+(Number(month)+1)+"월");
-			  startDate.setTime(newStartDate.getTime());
-			  endDate.setTime(newEndDate.getTime());
-			  renderCalendar(startDate, endDate);
+				const newStartDate = new Date(startDate);
+				newStartDate.setDate(startDate.getDate() - 12);
+				const newEndDate = new Date(newStartDate.getFullYear(), newStartDate.getMonth(), newStartDate.getDate() + 13);
+				year = newStartDate.getFullYear();
+				month = newStartDate.getMonth();
+				$('span.date').text(year+"년 "+(Number(month)+1)+"월");
+				startDate.setTime(newStartDate.getTime());
+				endDate.setTime(newEndDate.getTime());
+				renderCalendar(startDate, endDate);
+			  
+				$('.date-button').removeClass('date-active');	
+				const dayValue = $('#day').val();
+				$('.date-button[value="' + dayValue + '"]').addClass('date-active');
 			});
 			
 			// 날짜 버튼 클릭 시
